@@ -49,9 +49,7 @@ export default function Navbar() {
         >
           {/* Logo */}
           <div className="flex items-center gap-4">
-            <a href="#" className="text-lg font-serif font-black tracking-tighter text-primary">
-              PS<span className="text-accent">.</span>
-            </a>
+            <img src="/favicon.png" alt="Logo" className="w-10 h-10 md:w-20 md:h-12" />
             
             <div className="relative hidden sm:block">
               <button
