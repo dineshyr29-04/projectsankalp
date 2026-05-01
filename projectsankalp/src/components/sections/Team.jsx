@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import Section from "../core/Section";
 import Container from "../core/Container";
-import { Linkedin, Twitter, Mail } from "lucide-react";
 
 export default function Team() {
   const team = [
@@ -32,7 +31,9 @@ export default function Team() {
   ];
 
   return (
-    <Section id="team" className="bg-transparent py-24 md:py-32 overflow-hidden border-t border-border">
+    <Section id="team" className="relative bg-gradient-to-tr from-white via-slate-50 to-white py-24 md:py-32 overflow-hidden border-t border-border">
+      {/* Unique Atmospheric Element */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] -mr-48 -mt-48" />
       <Container>
         <div className="text-left mb-20 md:mb-24 max-w-3xl">
           <motion.div
@@ -64,18 +65,16 @@ export default function Team() {
               transition={{ delay: index * 0.1, duration: 0.6 }}
               className={`group relative p-8 md:p-10 transition-all duration-500 bg-white hover:bg-surface/50`}
             >
-              {/* Profile Meta */}
               <div className="space-y-4 mb-12">
                 <span className="text-[9px] font-black tracking-[0.2em] text-accent uppercase">
                   {member.tag}
                 </span>
-                <h3 className="text-2xl font-serif font-black text-primary leading-tight group-hover:translate-x-1 transition-transform">
+                <h3 className="text-2xl font-serif font-black text-primary leading-tight">
                   {member.name}
                 </h3>
                 <div className="w-8 h-[1px] bg-border group-hover:w-16 group-hover:bg-accent transition-all duration-700" />
               </div>
 
-              {/* Bio */}
               <div className="space-y-6">
                 <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary block">
                   {member.role}
@@ -85,7 +84,6 @@ export default function Team() {
                 </p>
               </div>
 
-              {/* Footer - Minimal Info */}
               <div className="mt-12 flex items-center gap-4">
                 <div className="text-[8px] font-black text-primary/20 uppercase tracking-[0.4em] select-none">
                   SANKALP_TEAM_{index + 1}

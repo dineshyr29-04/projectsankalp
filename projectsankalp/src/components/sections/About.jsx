@@ -33,7 +33,9 @@ export default function About() {
   ];
 
   return (
-    <Section id="about" className="bg-transparent py-32 overflow-hidden" ref={containerRef}>
+    <Section id="about" className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-white" ref={containerRef}>
+      {/* Unique Atmospheric Element */}
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-blue-400/10 rounded-full blur-[120px] -ml-48" />
       <Container className="relative">
         <div className="grid lg:grid-cols-2 gap-24 items-center">
           <motion.div

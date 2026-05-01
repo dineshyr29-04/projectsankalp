@@ -16,10 +16,10 @@ export default function Prizes() {
   const icons = [Trophy, Award, Medal];
 
   return (
-    <Section id="prizes" className="bg-transparent py-32 relative overflow-hidden" ref={containerRef}>
+    <Section id="prizes" className="relative bg-gradient-to-br from-white via-green-50/30 to-white py-32 overflow-hidden" ref={containerRef}>
       <motion.div 
         style={{ y: bgY }}
-        className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px] -mr-48 -mt-48" 
+        className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[120px] -mr-48 -mt-48" 
       />
       
       <Container>
