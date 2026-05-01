@@ -1,86 +1,121 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import Section from "../core/Section";
 import Container from "../core/Container";
 import { siteConfig } from "../../config/site";
-import { Users, Heart, Sprout, Globe, Shield, Zap } from "lucide-react";
+import { Users, Heart, Sprout, Globe, CheckCircle2 } from "lucide-react";
 
 const icons = {
   Users,
   Heart,
-  Sprout,
-  Globe,
-  Shield,
-  Zap
+  Sprout
 };
 
 export default function Tracks() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <Section id="tracks" className="bg-transparent py-32 relative overflow-hidden" ref={containerRef}>
-      <Container>
-        <div className="text-center mb-24">
-          <motion.span 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
+    <Section id="tracks" className="bg-white py-32 relative overflow-hidden">
+      {/* Blueprint Grid Background */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
+           style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+      
+      <Container className="relative z-10">
+        <div className="text-left mb-24 max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-accent font-bold uppercase tracking-[0.3em] text-[10px] mb-6 block"
+            className="flex items-center gap-3 mb-6"
           >
-            Mission Domains
-          </motion.span>
-          <h2 className="text-5xl md:text-6xl font-serif font-black mb-8 text-primary">
-            Explore the <br /> 
-            <span className="text-accent">Problem Tracks.</span>
+            <div className="w-10 h-[1px] bg-accent" />
+            <span className="text-accent font-bold uppercase tracking-[0.3em] text-[10px]">The Challenge</span>
+          </motion.div>
+          
+          <h2 className="text-5xl md:text-6xl font-serif font-black mb-8 text-primary tracking-tight">
+            Problem <br /> 
+            <span className="text-accent italic">Tracks.</span>
           </h2>
-          <p className="text-text-secondary max-w-2xl mx-auto text-lg">
-            Choose a challenge that resonates with your passion. We are building for real impact across three critical pillars.
+          <p className="text-text-secondary text-lg font-medium border-l-2 border-border pl-6">
+            Choose a mission that matters. Each track is designed for high impact and real-world scalability.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        {/* 3-Column Structured Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-0 md:gap-0 relative">
+          
+          {/* Background Connector Line (Desktop) */}
+          <div className="hidden md:block absolute bottom-[10%] left-0 w-full h-[1px] bg-border/50 -z-10" />
+
           {siteConfig.tracks.map((track, index) => {
             const Icon = icons[track.icon] || Globe;
+            const isCenter = index === 1;
+            const isRight = index === 2;
+            const isLeft = index === 0;
+
             return (
               <motion.div 
                 key={index}
+                onHoverStart={() => setHoveredIndex(index)}
+                onHoverEnd={() => setHoveredIndex(null)}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.2, duration: 0.8 }}
-                className="group relative"
+                transition={{ delay: index * 0.15, duration: 0.8 }}
+                animate={{ 
+                  opacity: hoveredIndex !== null && hoveredIndex !== index ? 0.6 : 1,
+                  scale: isCenter ? 1.05 : 1,
+                  zIndex: isCenter ? 20 : 10
+                }}
+                className={`relative flex flex-col ${isCenter ? 'md:-mx-4' : ''} group`}
               >
-                {/* Decorative Background Blob */}
-                <div className={`absolute inset-0 bg-accent/5 rounded-[50px] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10`} />
-                
-                <div className="h-full p-1 rounded-[55px] bg-white border border-border/50 hover:border-accent/30 hover:shadow-2xl hover:shadow-black/5 transition-all duration-500 flex flex-col">
-                  <div className="p-8 md:p-12 flex flex-col items-center text-center h-full bg-surface/30 rounded-[50px] group-hover:bg-white transition-colors duration-500">
-                    {/* Icon Badge */}
-                    
-
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">
-                      {track.subtitle}
+                <motion.div
+                  whileHover={{ y: -6 }}
+                  className={`h-full p-8 md:p-10 bg-white border border-border transition-all duration-500 rounded-lg shadow-sm ${
+                    isCenter ? 'bg-accent/[0.02] border-accent/20 shadow-xl shadow-black/5' : ''
+                  } ${
+                    isRight ? 'border-r-accent/30' : ''
+                  } group-hover:border-accent group-hover:shadow-xl group-hover:shadow-accent/5`}
+                >
+                  {/* Track Meta */}
+                  <div className="flex justify-between items-start mb-10">
+                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-text-secondary/50 group-hover:text-accent transition-colors">
+                      {track.id}
                     </span>
-                    
-                    <h3 className="text-2xl md:text-3xl font-serif font-black mb-6 text-primary leading-tight">
+                  </div>
+
+                  {/* Track Content */}
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-serif font-black text-primary leading-tight">
                       {track.title}
                     </h3>
                     
-                    <p className="text-sm md:text-base text-text-secondary leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity">
+                    <p className="text-sm text-text-secondary leading-relaxed font-medium min-h-[48px]">
                       {track.description}
                     </p>
-                    
-                    <div className="mt-auto pt-10">
-                      <div className="w-12 h-px bg-border group-hover:w-24 group-hover:bg-accent transition-all duration-700" />
+
+                    <div className="w-full h-[1px] bg-border group-hover:bg-accent/30 transition-colors" />
+
+                    {/* Focus List */}
+                    <div className="space-y-3">
+                      <span className="text-[9px] font-black uppercase tracking-widest text-text-secondary">Core Focus</span>
+                      <ul className="space-y-2">
+                        {track.focus.map((item, i) => (
+                          <li key={i} className="flex items-center gap-2 text-[11px] font-bold text-primary/70">
+                            <CheckCircle2 size={12} className="text-accent" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
-                </div>
+
+                  {/* Bottom Dot Alignment Indicator */}
+                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="w-[1px] h-4 bg-accent" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
+                  </div>
+                </motion.div>
               </motion.div>
             );
           })}

@@ -31,32 +31,34 @@ export default function Hero() {
           style={{ y: yText, opacity }}
           className="flex flex-col items-center w-full"
         >
-          {/* Logo Header - Restored User Manual Changes */}
+          {/* Logo Header - Mobile Responsive Row */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="flex flex-col md:flex-row items-center gap-6 md:gap-8 mb-8 bg-white/60 backdrop-blur-xl px-6 py-3 rounded-[30px] border border-white/70 shadow-xl shadow-black/5 w-fit"
+            className="flex flex-row items-center gap-4 md:gap-8 mb-8 bg-white/60 backdrop-blur-xl px-4 md:px-6 py-2 md:py-3 rounded-[20px] md:rounded-[30px] border border-white/70 shadow-xl shadow-black/5 w-fit max-w-[95vw]"
           >
-            <div className="flex flex-col items-center gap-1.5">
-              <div className="w-30 h-26 rounded-[20px] flex items-center justify-center">
-                <img src="/nsslogo.png" alt="NSS Logo" className="w-full h-full object-contain transition-transform duration-500 hover:scale-105 hover:rotate-180" />
+            <div className="flex flex-col items-center gap-1">
+              <div className="w-16 h-14 md:w-30 md:h-26 flex items-center justify-center">
+                <img src="/nsslogo.png" alt="NSS Logo" className="w-full h-full object-contain transition-transform duration-500 hover:scale-105 md:hover:rotate-180" />
               </div>
-              <span className="text-[9px] font-black uppercase tracking-widest text-primary whitespace-nowrap">NSS Unit</span>
+              <span className="text-[7px] md:text-[9px] font-black uppercase tracking-widest text-primary whitespace-nowrap">NSS Unit</span>
             </div>
             
-            <div className="hidden md:flex flex-col items-center gap-2">
-              <div className="w-px h-10 bg-primary/20" />
-              <span className="text-[8px] font-black uppercase tracking-[0.3em] text-text-secondary opacity-60 whitespace-nowrap">Presented By</span>
-              <div className="w-px h-10 bg-primary/20" />
+            <div className="flex flex-col items-center gap-1 md:gap-2">
+              <div className="w-px h-6 md:h-10 bg-primary/20" />
+              <span className="text-[6px] md:text-[8px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-text-secondary opacity-60 whitespace-nowrap">Presented By</span>
+              <div className="w-px h-6 md:h-10 bg-primary/20" />
             </div>
 
             <div className="flex flex-col items-center gap-1">
-              <div className="w-32 h-32 rounded-[20px] flex items-center justify-center">
+              <div className="w-18 h-18 md:w-32 md:h-32 flex items-center justify-center">
                 <img src="/ysetlogo.png" alt="YSET Logo" className="w-full h-full object-contain transition-transform duration-500 hover:scale-115" />
               </div>
-              <span className="text-[8px] font-black uppercase tracking-widest text-primary whitespace-nowrap">Yenepoya </span>
-              <span className="text-[9px] font-black uppercase tracking-widest text-primary whitespace-nowrap">Deemed To Be University</span>
+              <div className="flex flex-col items-center">
+                <span className="text-[6px] md:text-[8px] font-black uppercase tracking-widest text-primary whitespace-nowrap leading-none">Yenepoya </span>
+                <span className="text-[7px] md:text-[9px] font-black uppercase tracking-widest text-primary whitespace-nowrap leading-none mt-0.5">University</span>
+              </div>
             </div>
           </motion.div>
 
