@@ -17,22 +17,28 @@ export const siteConfig = {
   ],
   tracks: [
     {
+      id: "TRACK 01",
       title: "Women’s Entrepreneurship",
       subtitle: "Economic Empowerment",
-      description: "Championing gender equality by building tools that support women-led businesses, financial independence, and scalable economic opportunities.",
-      icon: "Users"
+      description: "Championing gender equality by building tools for financial independence.",
+      icon: "Users",
+      focus: ["Financial Independence", "Leadership Tools", "Micro-Business Scaling"]
     },
     {
+      id: "TRACK 02",
       title: "Health & Sanitation",
       subtitle: "Community Wellbeing",
-      description: "Developing innovative systems for preventive healthcare, clean water accessibility, and technology-driven community wellness programs.",
-      icon: "Heart"
+      description: "Developing innovative systems for preventive healthcare and clean water.",
+      icon: "Heart",
+      focus: ["Preventive Care", "Clean Water Tech", "Wellness Monitoring"]
     },
     {
+      id: "TRACK 03",
       title: "Climate Action",
       subtitle: "Environmental Sustainability",
-      description: "Harnessing technology to combat climate change, promote renewable energy, and create circular economies for a greener planet.",
-      icon: "Sprout"
+      description: "Harnessing technology to combat climate change and promote green energy.",
+      icon: "Sprout",
+      focus: ["Renewable Energy", "Circular Economy", "Waste Optimization"]
     }
   ],
   prizes: [
