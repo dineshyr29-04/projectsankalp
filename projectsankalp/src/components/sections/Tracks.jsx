@@ -22,7 +22,7 @@ export default function Tracks() {
   const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
-    <Section id="tracks" className="bg-surface py-32 relative overflow-hidden" ref={containerRef}>
+    <Section id="tracks" className="bg-transparent py-32 relative overflow-hidden" ref={containerRef}>
       <Container>
         <div className="text-center mb-24">
           <span className="text-accent font-bold uppercase tracking-[0.3em] text-[10px] mb-6 block">Explore Opportunities</span>

@@ -3,7 +3,9 @@
 
 @layer base {
   body {
-    @apply bg-white text-primary font-sans antialiased selection:bg-accent/20 selection:text-primary;
+    @apply text-primary font-sans antialiased selection:bg-accent/20 selection:text-primary;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F0F9FF 50%, #F5F3FF 100%);
+    background-attachment: fixed;
     scroll-behavior: smooth;
   }
 

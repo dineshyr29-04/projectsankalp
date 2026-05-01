@@ -33,7 +33,7 @@ export default function About() {
   ];
 
   return (
-    <Section id="about" className="bg-white py-32 overflow-hidden" ref={containerRef}>
+    <Section id="about" className="bg-transparent py-32 overflow-hidden" ref={containerRef}>
       <Container className="relative">
         <div className="grid lg:grid-cols-2 gap-24 items-center">
           <motion.div
