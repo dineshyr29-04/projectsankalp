@@ -16,18 +16,18 @@ export default function Prizes() {
   const icons = [Trophy, Award, Medal];
 
   return (
-    <Section id="prizes" className="bg-white relative overflow-hidden" ref={containerRef}>
+    <Section id="prizes" className="bg-white py-32 relative overflow-hidden" ref={containerRef}>
       <motion.div 
         style={{ y: bgY }}
-        className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] -mr-48 -mt-48" 
+        className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px] -mr-48 -mt-48" 
       />
       
       <Container>
-        <div className="text-center mb-16">
-          <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Rewards</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-black mb-4 text-primary uppercase">Prizes & Rewards</h2>
+        <div className="text-center mb-24">
+          <span className="text-accent font-bold uppercase tracking-[0.3em] text-[10px] mb-6 block">Grand Rewards</span>
+          <h2 className="text-5xl md:text-6xl font-serif font-black mb-6 text-primary">Recognition & Prizes</h2>
           <p className="text-text-secondary max-w-2xl mx-auto font-medium">
-            Your hard work deserves global recognition and significant rewards.
+            Excellence deserves extraordinary rewards.
           </p>
         </div>
 
