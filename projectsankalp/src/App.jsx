@@ -5,6 +5,7 @@ import Footer from "./components/layout/Footer";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Process from "./components/sections/Process";
+import EventDetails from "./components/sections/EventDetails";
 import Tracks from "./components/sections/Tracks";
 import Timeline from "./components/sections/Timeline";
 import Prizes from "./components/sections/Prizes";
@@ -45,6 +46,7 @@ function App() {
         <Hero />
         <About />
         <Process />
+        <EventDetails />
         <Tracks />
         <Prizes />
         <Timeline />
