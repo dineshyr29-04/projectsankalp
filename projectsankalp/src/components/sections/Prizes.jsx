@@ -1,19 +1,31 @@
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import Section from "../core/Section";
 import Container from "../core/Container";
 import { siteConfig } from "../../config/site";
 import { Trophy, Award, Medal } from "lucide-react";
 
 export default function Prizes() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], [-100, 100]);
   const icons = [Trophy, Award, Medal];
 
   return (
-    <Section id="prizes" className="bg-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[120px] -mr-48 -mt-48" />
+    <Section id="prizes" className="bg-white relative overflow-hidden" ref={containerRef}>
+      <motion.div 
+        style={{ y: bgY }}
+        className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] -mr-48 -mt-48" 
+      />
       
       <Container>
         <div className="text-center mb-16">
           <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Rewards</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-black mb-4 text-primary">Prizes & Rewards</h2>
+          <h2 className="text-4xl md:text-5xl font-serif font-black mb-4 text-primary uppercase">Prizes & Rewards</h2>
           <p className="text-text-secondary max-w-2xl mx-auto font-medium">
             Your hard work deserves global recognition and significant rewards.
           </p>
@@ -23,8 +35,12 @@ export default function Prizes() {
           {siteConfig.prizes.map((prize, index) => {
             const Icon = icons[index];
             return (
-              <div 
+              <motion.div 
                 key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2, duration: 0.8 }}
                 className={`p-8 rounded-3xl bg-white border border-border flex flex-col items-center text-center transition-all duration-300 hover:shadow-2xl ${
                   index === 0 ? "border-primary scale-105 shadow-xl" : ""
                 }`}
@@ -34,21 +50,26 @@ export default function Prizes() {
                 }`}>
                   <Icon size={32} />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-primary">{prize.rank}</h3>
+                <h3 className="text-xl font-bold mb-2 text-primary uppercase">{prize.rank}</h3>
                 <span className="text-3xl font-black text-accent mb-4 block">{prize.amount}</span>
                 <p className="text-sm text-text-secondary leading-relaxed">
                   {prize.description}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
-        <div className="mt-16 p-8 rounded-2xl bg-surface/50 border border-border text-center">
-          <p className="text-text-secondary italic">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="mt-16 p-8 rounded-3xl bg-surface border border-border text-center"
+        >
+          <p className="text-text-secondary italic font-medium">
             + Exclusive swag kits, API credits, and certificates for all successful finishers.
           </p>
-        </div>
+        </motion.div>
       </Container>
     </Section>
   );
