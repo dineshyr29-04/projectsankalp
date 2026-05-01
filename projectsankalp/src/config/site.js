@@ -44,17 +44,17 @@ export const siteConfig = {
   prizes: [
     {
       rank: "1st Place",
-      amount: "$5,000",
+      amount: "₹50,000",
       description: "Cash prize + Incubation support + Pro membership."
     },
     {
       rank: "2nd Place",
-      amount: "$3,000",
+      amount: "₹30,000",
       description: "Cash prize + Cloud credits + Mentorship."
     },
     {
       rank: "3rd Place",
-      amount: "$1,500",
+      amount: "₹20,000",
       description: "Cash prize + Tech gadgets + Swag kits."
     }
   ],
