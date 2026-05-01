@@ -60,7 +60,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2, duration: 0.8 }}
-                className="p-8 rounded-[40px] bg-surface border border-border/50 flex gap-8 items-start hover:shadow-2xl hover:shadow-black/5 transition-all group"
+                className="p-6 md:p-8 rounded-[30px] md:rounded-[40px] bg-surface border border-border/50 flex flex-col sm:flex-row gap-6 md:gap-8 items-start hover:shadow-2xl hover:shadow-black/5 transition-all group"
               >
                 <div className="p-4 rounded-[20px] bg-white border border-border group-hover:border-accent transition-colors shadow-sm">
                   <feature.icon size={24} className="text-primary" />

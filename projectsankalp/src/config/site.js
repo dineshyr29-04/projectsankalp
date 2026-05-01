@@ -4,7 +4,7 @@ export const siteConfig = {
   description: "Project Sankalp is a premier 24-hour hackathon designed to empower developers, designers, and innovators to build technology that solves real-world challenges. Whether you are a beginner or a pro, join us to collaborate, innovate, and create a lasting impact.",
   duration: "24 Hours",
   date: "May 24-25, 2026",
-  location: "Silicon Valley / Global Hybrid",
+  location: "Global Hybrid",
   links: {
     register: "#register",
     learnMore: "#about",
@@ -17,24 +17,22 @@ export const siteConfig = {
   ],
   tracks: [
     {
-      title: "FinTech & Open Banking",
-      description: "Build the next generation of financial tools. Focus on accessibility, security, and decentralized finance.",
-      icon: "Wallet"
+      title: "Women’s Entrepreneurship",
+      subtitle: "Economic Empowerment",
+      description: "Championing gender equality by building tools that support women-led businesses, financial independence, and scalable economic opportunities.",
+      icon: "Users"
     },
     {
-      title: "Health & Well-being",
-      description: "Create solutions for mental health, remote patient monitoring, or AI-driven diagnostics.",
-      icon: "HeartPulse"
+      title: "Health & Sanitation",
+      subtitle: "Community Wellbeing",
+      description: "Developing innovative systems for preventive healthcare, clean water accessibility, and technology-driven community wellness programs.",
+      icon: "Heart"
     },
     {
-      title: "Education for All",
-      description: "Design tools that make education more accessible, interactive, and personalized for students worldwide.",
-      icon: "GraduationCap"
-    },
-    {
-      title: "Sustainable Future",
-      description: "Solve climate issues, energy efficiency, or waste management problems using IoT and Smart Systems.",
-      icon: "Leaf"
+      title: "Climate Action",
+      subtitle: "Environmental Sustainability",
+      description: "Harnessing technology to combat climate change, promote renewable energy, and create circular economies for a greener planet.",
+      icon: "Sprout"
     }
   ],
   prizes: [
