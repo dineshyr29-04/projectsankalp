@@ -3,12 +3,12 @@ import { siteConfig } from "../../config/site";
 
 export default function Footer() {
   return (
-    <footer className="py-12 border-t border-border bg-surface/30">
+    <footer className="py-12 border-t border-border bg-surface">
       <Container>
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex flex-col items-center md:items-start gap-2">
-            <h3 className="text-xl font-bold tracking-tighter">
-              PROJECT <span className="text-primary">SANKALP</span>
+            <h3 className="text-xl font-serif font-black tracking-tighter text-primary">
+              PROJECT <span className="text-accent">SANKALP</span>
             </h3>
             <p className="text-sm text-text-secondary">
               {siteConfig.subtitle}

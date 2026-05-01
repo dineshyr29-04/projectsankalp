@@ -9,9 +9,9 @@ export default function Button({
   ...props 
 }) {
   const variants = {
-    primary: "bg-primary-gradient text-white border-transparent",
-    secondary: "bg-surface border-border text-text-primary hover:bg-border/50",
-    outline: "bg-transparent border-primary/50 text-primary hover:bg-primary/10",
+    primary: "bg-primary text-white border-primary hover:bg-primary/90",
+    secondary: "bg-white border-border text-primary hover:bg-surface",
+    outline: "bg-transparent border-primary text-primary hover:bg-primary/5",
   };
 
   return (

@@ -9,24 +9,25 @@ export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
 
   return (
-    <Section id="faq" className="bg-surface/30">
+    <Section id="faq" className="bg-white">
       <Container>
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Common Questions</h2>
-          <p className="text-text-secondary">Everything you need to know before you start.</p>
+          <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Help</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-black mb-4 text-primary">Common Questions</h2>
+          <p className="text-text-secondary font-medium">Everything you need to know before you start.</p>
         </div>
 
         <div className="max-w-3xl mx-auto grid gap-4">
           {siteConfig.faq.map((item, index) => (
             <div 
               key={index} 
-              className="rounded-2xl glass-effect overflow-hidden"
+              className="rounded-3xl border border-border bg-white overflow-hidden transition-all duration-300 hover:border-accent"
             >
               <button
-                className="w-full p-6 text-left flex justify-between items-center hover:bg-white/5 transition-colors"
+                className="w-full p-6 text-left flex justify-between items-center hover:bg-surface transition-colors"
                 onClick={() => setActiveIndex(activeIndex === index ? null : index)}
               >
-                <span className="font-bold">{item.question}</span>
+                <span className="font-bold text-primary">{item.question}</span>
                 <motion.div
                   animate={{ rotate: activeIndex === index ? 45 : 0 }}
                   transition={{ duration: 0.3 }}

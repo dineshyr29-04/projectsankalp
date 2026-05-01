@@ -10,18 +10,19 @@ export default function Sponsors() {
   ];
 
   return (
-    <Section id="sponsors">
+    <Section id="sponsors" className="bg-white">
       <Container>
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Supported By</h2>
-          <p className="text-text-secondary">Partners in driving innovation.</p>
+          <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Partners</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-black mb-4 text-primary">Supported By</h2>
+          <p className="text-text-secondary font-medium">Industry leaders driving innovation in energy.</p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {sponsors.map((sponsor, index) => (
             <div 
               key={index}
-              className="p-8 rounded-2xl glass-effect flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 opacity-60 hover:opacity-100"
+              className="p-8 rounded-3xl bg-surface border border-border flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 hover:border-primary"
             >
               <img 
                 src={sponsor.logo} 
