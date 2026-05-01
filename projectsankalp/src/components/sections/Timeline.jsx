@@ -4,11 +4,12 @@ import { siteConfig } from "../../config/site";
 
 export default function Timeline() {
   return (
-    <Section id="timeline">
+    <Section id="timeline" className="bg-surface">
       <Container>
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Event Timeline</h2>
-          <p className="text-text-secondary">A 24-hour journey from idea to impact.</p>
+          <span className="text-primary font-bold uppercase tracking-widest text-sm mb-4 block">Schedule</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-black mb-4 text-primary">Event Timeline</h2>
+          <p className="text-text-secondary font-medium">A 24-hour journey from idea to impact.</p>
         </div>
 
         <div className="max-w-4xl mx-auto">

@@ -26,16 +26,17 @@ export default function About() {
   ];
 
   return (
-    <Section id="about">
+    <Section id="about" className="bg-white">
       <Container>
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">
+            <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Mission</span>
+            <h2 className="text-4xl md:text-5xl font-serif font-black mb-8 tracking-tight text-primary">
               Fueling Innovation <br /> 
-              <span className="text-primary-gradient bg-clip-text text-transparent">For a Better Future</span>
+              <span className="text-green">For a Sustainable Future</span>
             </h2>
-            <p className="text-lg text-text-secondary leading-relaxed mb-8 max-w-xl">
-              {siteConfig.description} We bring together the brightest minds to tackle the world's most pressing challenges through code and creativity.
+            <p className="text-lg text-text-secondary leading-relaxed mb-8 max-w-xl font-medium">
+              We bring together the brightest minds to tackle the world's most pressing energy and climate challenges through collaboration and engineering.
             </p>
           </div>
 
@@ -43,13 +44,13 @@ export default function About() {
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="p-8 rounded-2xl glass-effect flex gap-6 items-start hover:border-primary/30 transition-colors group"
+                className="p-8 rounded-3xl bg-surface border border-border flex gap-6 items-start hover:border-accent transition-all group"
               >
-                <div className={`p-3 rounded-xl bg-surface border border-border group-hover:border-primary/50 transition-colors ${feature.color}`}>
-                  <feature.icon size={24} />
+                <div className="p-3 rounded-2xl bg-white border border-border group-hover:border-accent transition-colors">
+                  <feature.icon size={24} className="text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                  <h3 className="text-xl font-bold mb-2 text-primary">{feature.title}</h3>
                   <p className="text-sm text-text-secondary leading-relaxed">
                     {feature.description}
                   </p>

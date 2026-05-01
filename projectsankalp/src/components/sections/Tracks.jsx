@@ -12,12 +12,13 @@ const icons = {
 
 export default function Tracks() {
   return (
-    <Section id="tracks" className="bg-surface/30">
+    <Section id="tracks" className="bg-surface">
       <Container>
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Innovation Tracks</h2>
-          <p className="text-text-secondary max-w-2xl mx-auto">
-            Choose a theme that resonates with your vision and build a solution that makes a difference.
+          <span className="text-green font-bold uppercase tracking-widest text-sm mb-4 block">Event Categories</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-black mb-4 text-primary">Innovation Tracks</h2>
+          <p className="text-text-secondary max-w-2xl mx-auto font-medium">
+            Select your domain and engineer the future of energy.
           </p>
         </div>
 
@@ -27,12 +28,12 @@ export default function Tracks() {
             return (
               <div 
                 key={index}
-                className="p-8 rounded-2xl glass-effect flex flex-col items-center text-center hover:scale-[1.02] transition-all duration-300 group"
+                className="p-8 rounded-3xl bg-white border border-border flex flex-col items-center text-center hover:shadow-xl transition-all duration-500 group"
               >
-                <div className="mb-6 p-4 rounded-2xl bg-primary/5 border border-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-xl shadow-primary/5">
+                <div className="mb-6 p-4 rounded-full bg-surface border border-border text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
                   <Icon size={32} />
                 </div>
-                <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{track.title}</h3>
+                <h3 className="text-xl font-bold mb-3 text-primary">{track.title}</h3>
                 <p className="text-sm text-text-secondary leading-relaxed">
                   {track.description}
                 </p>
