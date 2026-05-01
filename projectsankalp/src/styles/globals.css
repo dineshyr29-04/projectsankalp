@@ -12,6 +12,10 @@
   h1, h2, h3, h4, h5, h6 {
     @apply tracking-tight font-serif;
   }
+
+  section {
+    @apply scroll-mt-24 md:scroll-mt-32;
+  }
 }
 
 @layer components {
