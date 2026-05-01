@@ -32,8 +32,19 @@ export default function Team() {
 
   return (
     <Section id="team" className="relative bg-gradient-to-tr from-white via-slate-50 to-white py-24 md:py-32 overflow-hidden border-t border-border">
-      {/* Unique Atmospheric Element */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] -mr-48 -mt-48" />
+      {/* Space Filling - Personnel Layers */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        {/* Massive Background Label */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-serif font-black text-slate-200/40 tracking-tighter opacity-50">
+          CORE_TEAM
+        </div>
+        
+        {/* Personnel Metadata */}
+        <div className="absolute top-20 right-10 flex flex-col gap-1 items-end opacity-20">
+          <div className="text-[8px] font-black text-primary tracking-widest">REG_ID_SANKALP_CORE</div>
+          <div className="w-12 h-0.5 bg-accent" />
+        </div>
+      </div>
       <Container>
         <div className="text-left mb-20 md:mb-24 max-w-3xl">
           <motion.div

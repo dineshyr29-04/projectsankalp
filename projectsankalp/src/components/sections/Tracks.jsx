@@ -16,12 +16,20 @@ export default function Tracks() {
 
   return (
     <Section id="tracks" className="relative bg-gradient-to-br from-white via-blue-50/40 to-white py-32 overflow-hidden">
-      {/* Blueprint Grid Background - Enhanced */}
-      <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" 
-           style={{ backgroundImage: "radial-gradient(#2563eb 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-      
-      {/* Unique Atmospheric Element */}
-      <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_20%,rgba(37,99,235,0.05)_0%,transparent_50%)]" />
+      {/* Space Filling - Mission Layers */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
+        {/* Blueprint Grid - More Pronounced */}
+        <div className="absolute inset-0 opacity-[0.06]" 
+             style={{ backgroundImage: "radial-gradient(#2563eb 1.5px, transparent 1.5px)", backgroundSize: "60px 60px" }} />
+        
+        {/* Mission Coordinates Metadata */}
+        <div className="absolute top-12 left-12 text-[8px] font-black text-blue-500/10 tracking-[0.5em] uppercase vertical-text">
+          SANKALP_MISSION_COORD_47.8N_12.2E
+        </div>
+        <div className="absolute bottom-12 right-12 text-[8px] font-black text-blue-500/10 tracking-[0.5em] uppercase">
+          DATA_STREAM_ACTIVE_V8.0
+        </div>
+      </div>
       
       <Container className="relative z-10">
         <div className="text-left mb-24 max-w-2xl">
