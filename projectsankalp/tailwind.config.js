@@ -9,19 +9,18 @@ export default {
       colors: {
         background: "#FFFFFF",
         surface: "#F8FAFC",
-        primary: "#000000",
-        accent: "#3B82F6",
-        green: "#22C55E",
-        "text-primary": "#0F172A",
+        primary: "#0A0A0A",
+        accent: "#22C55E",
+        "text-primary": "#0A0A0A",
         "text-secondary": "#64748B",
         border: "#E2E8F0",
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
-        serif: ["Playfair Display", "serif"],
+        serif: ["Fraunces", "serif"],
       },
       backgroundImage: {
-        "primary-gradient": "linear-gradient(to right, #000000, #334155)",
+        "primary-gradient": "linear-gradient(to right, #0A0A0A, #262626)",
       },
       spacing: {
         '18': '4.5rem',
