@@ -51,6 +51,20 @@ html.lenis, html.lenis body {
   .spark-icon {
     @apply absolute w-1 h-1 bg-accent rounded-full animate-pulse;
   }
+
+  .animate-spin-slow {
+    animation: spin-slow 40s linear infinite;
+  }
+
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Custom scrollbar */

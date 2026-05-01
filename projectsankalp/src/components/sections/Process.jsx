@@ -32,9 +32,18 @@ export default function Process() {
   ];
 
   return (
-    <Section id="process" className="relative bg-gradient-to-tr from-white via-green-50/20 to-white min-h-screen flex items-center py-24 md:py-32 overflow-hidden">
-      {/* Unique Atmospheric Element */}
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[150px] -mr-48 -mb-48 animate-pulse" />
+    <Section id="process" className="relative bg-gradient-to-tr from-white via-green-50/30 to-white min-h-screen flex items-center py-24 md:py-32 overflow-hidden">
+      {/* Space Filling - Workflow Layers */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Large Scale Radial Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.05)_0%,transparent_70%)]" />
+        
+        {/* Technical Horizontal Guide */}
+        <div className="absolute top-[20%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
+        
+        {/* Floating Green Shard */}
+        <div className="absolute top-[10%] right-[10%] w-64 h-64 border-2 border-accent/5 rounded-[40px] rotate-45" />
+      </div>
       <Container>
         {/* Header - Engineered Look */}
         <div className="text-left mb-20 md:mb-24 max-w-3xl">

@@ -33,10 +33,22 @@ export default function About() {
   ];
 
   return (
-    <Section id="about" className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-white" ref={containerRef}>
-      {/* Unique Atmospheric Element */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-blue-400/10 rounded-full blur-[120px] -ml-48" />
-      <Container className="relative">
+    <Section id="about" className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-white via-blue-50/40 to-white" ref={containerRef}>
+      {/* Space Filling - Technical Layers */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Subtle Tech Grid */}
+        <div className="absolute inset-0 opacity-[0.03]" 
+             style={{ backgroundImage: "linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)", backgroundSize: "100px 100px" }} />
+        
+        {/* Floating Circular Accents */}
+        <div className="absolute top-1/4 -right-24 w-96 h-96 border border-blue-500/10 rounded-full animate-spin-slow" />
+        <div className="absolute bottom-0 -left-24 w-[500px] h-[500px] bg-blue-400/5 rounded-full blur-[100px]" />
+        
+        {/* Vertical Alignment Line */}
+        <div className="absolute left-[10%] top-0 w-px h-full bg-gradient-to-b from-transparent via-blue-500/10 to-transparent" />
+      </div>
+
+      <Container className="relative z-10">
         <div className="grid lg:grid-cols-2 gap-24 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}

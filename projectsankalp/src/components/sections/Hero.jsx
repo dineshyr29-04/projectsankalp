@@ -19,11 +19,25 @@ export default function Hero() {
       ref={containerRef}
       className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-transparent pt-16 md:pt-24 pb-8"
     >
-      {/* Dynamic Background Gradient - Enhanced & Darker */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-accent/30 rounded-full blur-[180px] -mr-96 -mt-96 animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-blue-600/30 rounded-full blur-[180px] -ml-96 -mb-96" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-green-200/50 via-white to-blue-200/50 opacity-90" />
+      {/* Continuous Environmental Flow - Layered Atmosphere */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none">
+        {/* Layer 1: Base Tonal Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-green-50/30 via-white to-blue-50/30 opacity-60" />
+        
+        {/* Layer 2: Deep Atmospheric Blobs */}
+        <div className="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] bg-accent/20 rounded-full blur-[150px] animate-pulse duration-[10s]" />
+        <div className="absolute bottom-[-10%] left-[-5%] w-[800px] h-[800px] bg-blue-600/15 rounded-full blur-[150px]" />
+        
+        {/* Layer 3: Floating Engineered Shards */}
+        <div className="absolute top-1/4 left-10 w-64 h-64 border border-accent/10 rounded-full flex items-center justify-center opacity-20 rotate-12">
+          <div className="w-48 h-48 border border-accent/5 rounded-full" />
+        </div>
+        <div className="absolute bottom-1/4 right-10 w-96 h-96 border border-blue-500/10 rounded-full flex items-center justify-center opacity-20 -rotate-12">
+          <div className="w-72 h-72 border border-blue-500/5 rounded-full" />
+        </div>
+        
+        {/* Layer 4: Viewport Center Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_70%)] opacity-80" />
       </div>
 
       <Container className="relative z-10 text-center flex flex-col items-center h-full justify-center">
