@@ -32,7 +32,7 @@ export default function Hero() {
           className="flex flex-col items-center"
         >
           {/* Main Hero Typography */}
-          <div className="relative flex flex-col items-center mb-16">
+          <div className="relative flex flex-col items-center mb-24">
             <motion.h1 
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -42,18 +42,18 @@ export default function Hero() {
               PROJECT
             </motion.h1>
             
-            {/* Styled Space with Code for Change */}
+            {/* Styled Space with Code for Change - Increased spacing */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, duration: 1 }}
-              className="my-4 md:my-0 flex items-center gap-4 group"
+              className="my-12 md:my-16 flex items-center gap-4 group"
             >
-              <div className="h-px w-12 md:w-24 bg-primary/20 group-hover:w-32 transition-all duration-700" />
-              <span className="text-[10px] md:text-sm font-black uppercase tracking-[0.6em] text-accent py-2 px-6 rounded-full border border-accent/30 bg-accent/5 backdrop-blur-sm shadow-xl shadow-accent/5">
+              <div className="h-px w-16 md:w-32 bg-primary/20 group-hover:w-40 transition-all duration-700" />
+              <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.6em] text-accent py-2.5 px-8 rounded-full border border-accent/30 bg-accent/5 backdrop-blur-sm shadow-xl shadow-accent/5">
                 Code for Change
               </span>
-              <div className="h-px w-12 md:w-24 bg-primary/20 group-hover:w-32 transition-all duration-700" />
+              <div className="h-px w-16 md:w-32 bg-primary/20 group-hover:w-40 transition-all duration-700" />
             </motion.div>
 
             <motion.h1 
@@ -66,39 +66,39 @@ export default function Hero() {
             </motion.h1>
           </div>
 
-          {/* Action & Details Box */}
+          {/* Action & Details Box - Smaller & more rounded */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 1 }}
-            className="w-full max-w-4xl p-2 rounded-[40px] bg-white border border-border shadow-2xl shadow-black/5"
+            className="w-full max-w-3xl p-1.5 rounded-[50px] bg-white border border-border shadow-2xl shadow-black/5"
           >
-            <div className="flex flex-col md:flex-row items-center gap-2">
+            <div className="flex flex-col md:flex-row items-center gap-1.5">
               {/* Register Button Part */}
-              <div className="w-full md:w-auto flex-1 p-6 md:p-8 flex flex-col items-center md:items-start text-center md:text-left gap-4 bg-surface rounded-[32px]">
-                <span className="text-[10px] font-black uppercase tracking-widest text-accent flex items-center gap-2">
-                  <Zap size={14} className="fill-accent" /> Registration Open
+              <div className="w-full md:w-auto flex-1 p-5 md:p-7 flex flex-col items-center md:items-start text-center md:text-left gap-3 bg-surface rounded-[40px]">
+                <span className="text-[9px] font-black uppercase tracking-widest text-accent flex items-center gap-2">
+                  <Zap size={12} className="fill-accent" /> Registration Open
                 </span>
-                <h3 className="text-2xl font-serif font-black text-primary">Join the Revolution.</h3>
-                <button className="w-full md:w-auto bg-primary text-white px-10 py-4 rounded-2xl text-xs font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-primary/20">
+                <h3 className="text-xl font-serif font-black text-primary">Join the Revolution.</h3>
+                <button className="w-full md:w-auto bg-primary text-white px-8 py-3.5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-primary/20">
                   Register Now
                 </button>
               </div>
 
               {/* Info Details Part */}
-              <div className="w-full md:w-auto flex-1 p-6 md:p-10 grid grid-cols-2 gap-8">
+              <div className="w-full md:w-auto flex-1 p-5 md:p-8 grid grid-cols-2 gap-4 md:gap-8">
                 <div>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary block mb-2">Hackathon Dates</span>
-                  <div className="flex items-center gap-3">
-                    <Calendar size={18} className="text-primary" />
-                    <span className="text-sm font-bold text-primary">May 24-25, 2026</span>
+                  <span className="text-[9px] font-black uppercase tracking-widest text-text-secondary block mb-1">Hackathon Dates</span>
+                  <div className="flex items-center gap-2">
+                    <Calendar size={16} className="text-primary" />
+                    <span className="text-xs font-bold text-primary">May 24-25, 2026</span>
                   </div>
                 </div>
                 <div>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary block mb-2">Total Rounds</span>
-                  <div className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-md border-2 border-primary flex items-center justify-center text-[10px] font-black">3</div>
-                    <span className="text-sm font-bold text-primary">Qualifiers + Grand Finale</span>
+                  <span className="text-[9px] font-black uppercase tracking-widest text-text-secondary block mb-1">Total Rounds</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 rounded-md border-2 border-primary flex items-center justify-center text-[9px] font-black">3</div>
+                    <span className="text-xs font-bold text-primary">Qualifiers + Grand Finale</span>
                   </div>
                 </div>
               </div>
