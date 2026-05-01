@@ -42,7 +42,7 @@ export default function Prizes() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2, duration: 0.8 }}
                 className={`p-8 rounded-3xl bg-white border border-border flex flex-col items-center text-center transition-all duration-300 hover:shadow-2xl ${
-                  index === 0 ? "border-primary scale-105 shadow-xl" : ""
+                  index === 0 ? "border-primary md:scale-105 shadow-xl" : ""
                 }`}
               >
                 <div className={`mb-6 p-4 rounded-full ${
