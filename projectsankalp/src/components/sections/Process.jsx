@@ -32,7 +32,9 @@ export default function Process() {
   ];
 
   return (
-    <Section id="process" className="bg-transparent min-h-screen flex items-center py-24 md:py-32 overflow-hidden">
+    <Section id="process" className="relative bg-gradient-to-tr from-white via-green-50/20 to-white min-h-screen flex items-center py-24 md:py-32 overflow-hidden">
+      {/* Unique Atmospheric Element */}
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[150px] -mr-48 -mb-48 animate-pulse" />
       <Container>
         {/* Header - Engineered Look */}
         <div className="text-left mb-20 md:mb-24 max-w-3xl">

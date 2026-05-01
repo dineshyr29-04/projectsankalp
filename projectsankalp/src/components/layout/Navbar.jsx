@@ -49,7 +49,9 @@ export default function Navbar() {
         >
           {/* Logo */}
           <div className="flex items-center gap-4">
-            <img src="/favicon.png" alt="Logo" className="w-10 h-10 md:w-20 md:h-12" />
+            <a href="#" className="block hover:opacity-80 transition-opacity">
+              <img src="/favicon.png" alt="Logo" className="w-10 h-10 md:w-20 md:h-12 object-contain" />
+            </a>
             
             <div className="relative hidden sm:block">
               <button
@@ -102,11 +104,12 @@ export default function Navbar() {
               <a
                 key={item.name}
                 href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={cn(
                   "font-black uppercase tracking-widest transition-all rounded-full",
                   isScrolled 
-                    ? "px-3 py-1 text-[8px] text-text-secondary hover:text-text-primary hover:bg-white" 
-                    : "px-5 py-1.5 text-[10px] text-text-secondary hover:text-text-primary hover:bg-white"
+                    ? "px-3 py-1 text-[10px] text-text-secondary bg-gradient-to-r from-green-50/30 via-white/40 to-blue-50/30 hover:text-text-primary hover:from-green-100/50 hover:via-blue-50/50 hover:to-blue-100/50 backdrop-blur-sm transition-all duration-300" 
+                    : "px-3 py-1 text-[10px] text-white bg-gradient-to-r from-emerald-600 via-slate-200 to-blue-700 hover:from-emerald-700 hover:via-slate-300 hover:to-blue-800 shadow-md hover:shadow-lg rounded-md transition-all duration-200"
                 )}
               >
                 {item.name}

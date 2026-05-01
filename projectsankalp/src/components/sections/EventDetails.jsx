@@ -4,7 +4,10 @@ import Container from "../core/Container";
 
 export default function EventDetails() {
   return (
-    <Section id="event-details" className="bg-white py-24 md:py-32 overflow-hidden border-t border-border">
+    <Section id="event-details" className="relative bg-gradient-to-b from-white via-blue-50/20 to-green-50/20 py-24 md:py-32 overflow-hidden border-t border-border">
+      {/* Unique Atmospheric Elements */}
+      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-400/10 rounded-full blur-[100px] -mr-40" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/10 rounded-full blur-[100px] -ml-40" />
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
           

@@ -9,7 +9,9 @@ export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
 
   return (
-    <Section id="faq" className="bg-transparent">
+    <Section id="faq" className="relative bg-gradient-to-b from-white via-green-50/10 to-blue-50/20 py-24 md:py-32 overflow-hidden border-t border-border">
+      {/* Unique Atmospheric Element */}
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-accent/5 rounded-full blur-[120px] -mr-40 animate-pulse" />
       <Container>
         <div className="text-center mb-16">
           <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Help</span>

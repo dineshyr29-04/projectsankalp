@@ -10,7 +10,9 @@ export default function Sponsors() {
   ];
 
   return (
-    <Section id="sponsors" className="bg-transparent">
+    <Section id="sponsors" className="relative bg-gradient-to-tr from-white via-blue-50/20 to-white py-24 md:py-32">
+      {/* Unique Atmospheric Element */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(37,99,235,0.03)_0%,transparent_50%)]" />
       <Container>
         <div className="text-center mb-16">
           <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Partners</span>

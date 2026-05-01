@@ -15,10 +15,13 @@ export default function Tracks() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <Section id="tracks" className="bg-white py-32 relative overflow-hidden">
-      {/* Blueprint Grid Background */}
-      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+    <Section id="tracks" className="relative bg-gradient-to-br from-white via-blue-50/40 to-white py-32 overflow-hidden">
+      {/* Blueprint Grid Background - Enhanced */}
+      <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" 
+           style={{ backgroundImage: "radial-gradient(#2563eb 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+      
+      {/* Unique Atmospheric Element */}
+      <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_20%,rgba(37,99,235,0.05)_0%,transparent_50%)]" />
       
       <Container className="relative z-10">
         <div className="text-left mb-24 max-w-2xl">

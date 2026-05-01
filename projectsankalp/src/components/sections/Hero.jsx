@@ -19,11 +19,11 @@ export default function Hero() {
       ref={containerRef}
       className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-transparent pt-16 md:pt-24 pb-8"
     >
-      {/* Dynamic Background Gradient */}
+      {/* Dynamic Background Gradient - Enhanced & Darker */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-accent/20 rounded-full blur-[180px] -mr-96 -mt-96 animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-blue-500/20 rounded-full blur-[180px] -ml-96 -mb-96" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-green-100/40 via-white to-blue-100/40 opacity-80" />
+        <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-accent/30 rounded-full blur-[180px] -mr-96 -mt-96 animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-blue-600/30 rounded-full blur-[180px] -ml-96 -mb-96" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-green-200/50 via-white to-blue-200/50 opacity-90" />
       </div>
 
       <Container className="relative z-10 text-center flex flex-col items-center h-full justify-center">
