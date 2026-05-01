@@ -75,9 +75,7 @@ export default function Process() {
                 <div className={`p-8 md:p-12 rounded-[40px] ${step.bg} transition-colors duration-500 h-full flex flex-col items-center text-center`}>
                   
                   {/* Icon Badge */}
-                  <div className={`w-16 h-16 rounded-[24px] ${step.color} text-white flex items-center justify-center mb-8 shadow-xl shadow-black/10 group-hover:scale-110 transition-transform duration-500`}>
-                    <step.icon size={28} />
-                  </div>
+                  
 
                   <span className={`text-[10px] font-black uppercase tracking-[0.3em] ${step.accent} mb-4`}>
                     {step.subtitle}

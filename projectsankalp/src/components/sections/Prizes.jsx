@@ -45,11 +45,6 @@ export default function Prizes() {
                   index === 0 ? "border-primary md:scale-105 shadow-xl" : ""
                 }`}
               >
-                <div className={`mb-6 p-4 rounded-full ${
-                  index === 0 ? "bg-primary text-white" : "bg-surface border border-border text-primary"
-                }`}>
-                  <Icon size={32} />
-                </div>
                 <h3 className="text-xl font-bold mb-2 text-primary uppercase">{prize.rank}</h3>
                 <span className="text-3xl font-black text-accent mb-4 block">{prize.amount}</span>
                 <p className="text-sm text-text-secondary leading-relaxed">

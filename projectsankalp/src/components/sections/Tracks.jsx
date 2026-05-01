@@ -62,9 +62,7 @@ export default function Tracks() {
                 <div className="h-full p-1 rounded-[55px] bg-white border border-border/50 hover:border-accent/30 hover:shadow-2xl hover:shadow-black/5 transition-all duration-500 flex flex-col">
                   <div className="p-8 md:p-12 flex flex-col items-center text-center h-full bg-surface/30 rounded-[50px] group-hover:bg-white transition-colors duration-500">
                     {/* Icon Badge */}
-                    <div className="mb-10 p-5 rounded-[24px] bg-white border border-border text-primary group-hover:bg-primary group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-sm">
-                      <Icon size={36} />
-                    </div>
+                    
 
                     <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">
                       {track.subtitle}
