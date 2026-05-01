@@ -74,19 +74,15 @@ export const siteConfig = {
   faq: [
     {
       question: "What is the team size?",
-      answer: "Teams can consist of 2 to 4 members. You can also participate as a solo hacker if you're confident!"
+      answer: "Teams can consist of 2 to 5 members."
     },
     {
       question: "Will there be food?",
-      answer: "Yes, for in-person participants, we provide all meals, snacks, and plenty of caffeine."
-    },
-    {
-      question: "Do I need to be a pro?",
-      answer: "Not at all! We have workshops and mentors to help beginners get started."
+      answer: "Yes, for in-person participants, we provide all meals and snacks during the offline event."
     },
     {
       question: "Is there a registration fee?",
-      answer: "No, Project Sankalp is completely free for all accepted participants."
+      answer: "Yes, Project Sankalp has a nominal registration fee, which applies only to teams selected for the second round of the offline hackathon. The fee will be of Rs.800 per team only."
     }
   ]
 };
