@@ -15,13 +15,13 @@ export default function Timeline() {
           {siteConfig.timeline.map((item, index) => (
             <div key={index} className="flex gap-8 group">
               <div className="flex flex-col items-center">
-                <div className="w-4 h-4 rounded-full bg-primary border-4 border-background z-10" />
+                <div className="w-6 h-6 rounded-full bg-surface border-4 border-primary z-10 group-hover:bg-primary transition-all duration-300" />
                 {index !== siteConfig.timeline.length - 1 && (
-                  <div className="w-[2px] h-full bg-border group-hover:bg-primary/30 transition-colors" />
+                  <div className="w-[3px] h-full bg-border group-hover:bg-primary/50 transition-colors" />
                 )}
               </div>
-              <div className="pb-12 pt-0.5">
-                <span className="text-sm font-bold text-accent mb-2 block tracking-wider">
+              <div className="pb-12 pt-1">
+                <span className="text-sm font-bold text-primary mb-2 block tracking-wider bg-primary/10 w-fit px-3 py-1 rounded-full">
                   {item.time}
                 </span>
                 <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">

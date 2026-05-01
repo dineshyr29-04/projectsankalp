@@ -11,13 +11,13 @@ export default function Navbar() {
 
   return (
     <nav className={cn(
-      "fixed top-6 left-0 right-0 z-50 flex justify-center px-6 transition-all duration-500",
-      !isVisible && "-top-24"
+      "fixed top-4 left-0 right-0 z-50 flex justify-center px-4 transition-all duration-500",
+      !isVisible && "-top-32"
     )}>
       <div className={cn(
-        "flex items-center gap-8 px-6 py-3 rounded-full transition-all duration-300",
-        "glass-effect shadow-lg",
-        isScrolled ? "scale-95" : "scale-100"
+        "flex items-center gap-6 md:gap-8 px-5 py-3 rounded-full transition-all duration-300",
+        "glass-effect shadow-2xl border-white/10",
+        isScrolled ? "scale-95 bg-surface/90" : "scale-100"
       )}>
         <a href="#" className="text-lg font-bold text-primary tracking-tighter">
           PS<span className="text-accent">.</span>

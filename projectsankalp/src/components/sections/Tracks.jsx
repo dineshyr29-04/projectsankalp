@@ -29,10 +29,10 @@ export default function Tracks() {
                 key={index}
                 className="p-8 rounded-2xl glass-effect flex flex-col items-center text-center hover:scale-[1.02] transition-all duration-300 group"
               >
-                <div className="mb-6 p-4 rounded-2xl bg-primary/10 border border-primary/20 text-primary group-hover:bg-primary-gradient group-hover:text-white transition-all duration-500">
+                <div className="mb-6 p-4 rounded-2xl bg-primary/5 border border-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-xl shadow-primary/5">
                   <Icon size={32} />
                 </div>
-                <h3 className="text-xl font-bold mb-3">{track.title}</h3>
+                <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{track.title}</h3>
                 <p className="text-sm text-text-secondary leading-relaxed">
                   {track.description}
                 </p>
