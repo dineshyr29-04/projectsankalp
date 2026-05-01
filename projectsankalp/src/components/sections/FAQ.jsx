@@ -9,7 +9,7 @@ export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
 
   return (
-    <Section id="faq" className="bg-white">
+    <Section id="faq" className="bg-transparent">
       <Container>
         <div className="text-center mb-16">
           <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Help</span>

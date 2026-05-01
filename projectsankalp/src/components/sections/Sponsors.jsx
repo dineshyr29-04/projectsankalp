@@ -10,7 +10,7 @@ export default function Sponsors() {
   ];
 
   return (
-    <Section id="sponsors" className="bg-white">
+    <Section id="sponsors" className="bg-transparent">
       <Container>
         <div className="text-center mb-16">
           <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Partners</span>

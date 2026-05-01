@@ -20,7 +20,7 @@ export default function Hero() {
   return (
     <section 
       ref={containerRef}
-      className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-white"
+      className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-transparent"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none">

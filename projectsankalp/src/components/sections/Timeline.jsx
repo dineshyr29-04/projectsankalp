@@ -4,7 +4,7 @@ import { siteConfig } from "../../config/site";
 
 export default function Timeline() {
   return (
-    <Section id="timeline" className="bg-surface">
+    <Section id="timeline" className="bg-transparent">
       <Container>
         <div className="text-center mb-16">
           <span className="text-primary font-bold uppercase tracking-widest text-sm mb-4 block">Schedule</span>
