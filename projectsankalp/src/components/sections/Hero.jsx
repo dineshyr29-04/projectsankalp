@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Container from "../core/Container";
 import { siteConfig } from "../../config/site";
-import { Calendar, ChevronRight, Zap } from "lucide-react";
+import { Calendar, ChevronRight, Zap, Award, Shield } from "lucide-react";
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <section 
       ref={containerRef}
-      className="relative min-h-screen flex flex-col items-center justify-between overflow-hidden bg-transparent pt-32 pb-12"
+      className="relative h-screen flex flex-col items-center justify-between overflow-hidden bg-transparent pt-32 pb-12"
     >
       {/* Dynamic Background Gradient */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -26,14 +26,38 @@ export default function Hero() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-green-100/40 via-white to-blue-100/40 opacity-80" />
       </div>
 
-      <div /> {/* Spacer to help center the middle content */}
+      <div /> {/* Spacer */}
 
       <Container className="relative z-10 text-center">
         <motion.div
           style={{ y: yText, opacity }}
           className="flex flex-col items-center"
         >
-          {/* Main Hero Typography - ABSOLUTE CENTER STAGED */}
+          {/* Option 1: Presented By Header */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="flex items-center gap-6 mb-12 bg-white/40 backdrop-blur-md px-8 py-3 rounded-full border border-white/50 shadow-sm"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-black text-[10px] shadow-lg shadow-primary/20">NSS</div>
+              <span className="text-[10px] font-black uppercase tracking-widest text-primary">NSS Unit</span>
+            </div>
+            
+            <div className="w-px h-4 bg-primary/20" />
+            
+            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-text-secondary opacity-60">Presented By</span>
+            
+            <div className="w-px h-4 bg-primary/20" />
+
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] font-black uppercase tracking-widest text-primary">YSET</span>
+              <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center text-white font-black text-[10px] shadow-lg shadow-accent/20">YSET</div>
+            </div>
+          </motion.div>
+
+          {/* Main Hero Typography */}
           <div className="relative flex flex-col items-center">
             <motion.h1 
               initial={{ opacity: 0, x: -50 }}
@@ -52,7 +76,7 @@ export default function Hero() {
             >
               <div className="h-px w-12 md:w-24 bg-primary/20 group-hover:w-32 transition-all duration-700" />
               <span className="text-[10px] md:text-[14px] font-black uppercase tracking-[0.5em] text-accent py-2 px-6 rounded-full border border-accent/30 bg-accent/5 backdrop-blur-sm shadow-xl shadow-accent/5">
-                Code for Change
+                Code 4 Change
               </span>
               <div className="h-px w-12 md:w-24 bg-primary/20 group-hover:w-32 transition-all duration-700" />
             </motion.div>
@@ -69,7 +93,7 @@ export default function Hero() {
         </motion.div>
       </Container>
 
-      {/* Action & Details Box - Positioned at the bottom of hero section, compact again */}
+      {/* Action & Details Box */}
       <Container className="relative z-10 w-full flex justify-center">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -83,7 +107,6 @@ export default function Hero() {
           className="w-full max-w-3xl p-1.5 rounded-[50px] bg-white border border-border/50 shadow-2xl shadow-black/5 transition-colors duration-500 mb-8"
         >
           <div className="flex flex-col md:flex-row items-center gap-1.5">
-            {/* Register Button Part */}
             <div className="w-full md:w-auto flex-1 p-5 md:p-7 flex flex-col items-center md:items-start text-center md:text-left gap-3 bg-surface rounded-[40px]">
               <span className="text-[9px] font-black uppercase tracking-widest text-accent flex items-center gap-2">
                 <Zap size={12} className="fill-accent" /> Registration Open
@@ -94,7 +117,6 @@ export default function Hero() {
               </button>
             </div>
 
-            {/* Info Details Part */}
             <div className="w-full md:w-auto flex-1 p-5 md:p-8 grid grid-cols-2 gap-8">
               <div>
                 <span className="text-[9px] font-black uppercase tracking-widest text-text-secondary block mb-1">Hackathon Dates</span>
