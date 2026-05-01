@@ -118,12 +118,7 @@ export default function Navbar() {
 
           {/* Right Action */}
           <div className="flex items-center gap-4">
-            <a href="#login" className={cn(
-              "hidden md:block font-black uppercase tracking-[0.2em] text-text-secondary hover:text-text-primary transition-colors",
-              isScrolled ? "text-[9px]" : "text-[11px]"
-            )}>
-              Log In
-            </a>
+            
             <a
               href="#register"
               className={cn(
