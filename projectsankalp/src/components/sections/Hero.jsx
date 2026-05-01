@@ -22,12 +22,12 @@ export default function Hero() {
           {/* Main Title Layout from Image */}
           <div className="relative mb-8">
             <h1 className="text-[80px] md:text-[150px] lg:text-[200px] leading-[0.8] font-serif font-black text-[#2D3436] tracking-tighter uppercase">
-              ENERGY
+              Project
             </h1>
             
             <div className="flex items-center justify-center gap-4 md:gap-12">
               <h1 className="text-[80px] md:text-[150px] lg:text-[200px] leading-[0.8] font-serif font-black text-[#2D3436] tracking-tighter uppercase">
-                O
+                Sankalp
               </h1>
               
               {/* Logo Circle in middle */}
