@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Container from "../core/Container";
 import { siteConfig } from "../../config/site";
-import { ChevronDown } from "lucide-react";
+import { Calendar, ChevronRight, Zap } from "lucide-react";
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -11,130 +11,101 @@ export default function Hero() {
     offset: ["start start", "end start"]
   });
 
-  const yText = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const yText = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
-
-  const sparks = Array(6).fill(null);
 
   return (
     <section 
       ref={containerRef}
-      className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-transparent pt-32 md:pt-40"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-transparent pt-32 pb-20"
     >
-      {/* Background Elements */}
+      {/* Dynamic Background Gradient */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Soft Green Gradient Blobs */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px] -mr-48 -mt-48" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] -ml-48 -mb-48" />
-        
-        {/* Subtle Radial Glow behind title */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px]" />
-
-        {/* Bottom Grid Pattern */}
-        <div className="absolute bottom-0 left-0 right-0 h-[30vh] grid-pattern opacity-[0.03]" />
-
-        {/* Spark Icons */}
-        {sparks.map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1.5 h-1.5 bg-accent rounded-full opacity-30"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.1, 0.4, 0.1],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent/10 rounded-full blur-[150px] -mr-96 -mt-96 animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[150px] -ml-96 -mb-96" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-green-50/30 via-white to-blue-50/30 opacity-60" />
       </div>
 
       <Container className="relative z-10 text-center">
         <motion.div
-          style={{ y: yText, opacity, scale }}
+          style={{ y: yText, opacity }}
           className="flex flex-col items-center"
         >
-          {/* Badge */}
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="px-5 py-2 rounded-full bg-accent/10 text-accent text-[11px] font-black uppercase tracking-[0.4em] mb-12 border border-accent/20"
-          >
-            2026 Hackathon Edition
-          </motion.span>
-
-          {/* Headline - Redesigned with layered modern style */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 1 }}
-            className="mb-10"
-          >
-            <h1 className="text-7xl md:text-[140px] lg:text-[180px] leading-[0.8] font-serif font-black text-primary tracking-tighter uppercase">
+          {/* Main Hero Typography */}
+          <div className="relative flex flex-col items-center mb-16">
+            <motion.h1 
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-8xl md:text-[160px] lg:text-[220px] font-serif font-black text-primary leading-[0.75] tracking-tighter uppercase"
+            >
               PROJECT
-            </h1>
-            <h1 className="text-7xl md:text-[140px] lg:text-[180px] leading-[0.8] font-serif font-black tracking-tighter uppercase text-stroke mt-2">
+            </motion.h1>
+            
+            {/* Styled Space with Code for Change */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4, duration: 1 }}
+              className="my-4 md:my-0 flex items-center gap-4 group"
+            >
+              <div className="h-px w-12 md:w-24 bg-primary/20 group-hover:w-32 transition-all duration-700" />
+              <span className="text-[10px] md:text-sm font-black uppercase tracking-[0.6em] text-accent py-2 px-6 rounded-full border border-accent/30 bg-accent/5 backdrop-blur-sm shadow-xl shadow-accent/5">
+                Code for Change
+              </span>
+              <div className="h-px w-12 md:w-24 bg-primary/20 group-hover:w-32 transition-all duration-700" />
+            </motion.div>
+
+            <motion.h1 
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-8xl md:text-[160px] lg:text-[220px] font-serif font-black tracking-tighter uppercase text-stroke leading-[0.75]"
+            >
               SANKALP
-            </h1>
-          </motion.div>
+            </motion.h1>
+          </div>
 
-          {/* Subtitle */}
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="text-[11px] md:text-[13px] text-text-secondary uppercase tracking-[0.8em] font-black mb-12 opacity-80"
-          >
-            CODE FOR CHANGE
-          </motion.p>
-
-          {/* Supporting Line */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 1 }}
-            className="text-sm md:text-lg text-text-secondary max-w-2xl mx-auto mb-16 leading-relaxed font-medium"
-          >
-            Building the next generation of solutions for a sustainable world.
-          </motion.p>
-
-          {/* Primary CTA */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+          {/* Action & Details Box */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 1 }}
-            className="relative group"
+            transition={{ delay: 0.6, duration: 1 }}
+            className="w-full max-w-4xl p-2 rounded-[40px] bg-white border border-border shadow-2xl shadow-black/5"
           >
-            <div className="absolute inset-0 bg-accent/30 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <button className="relative bg-primary text-white px-14 py-6 rounded-full text-[13px] font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-black/30">
-              Register Now
-            </button>
+            <div className="flex flex-col md:flex-row items-center gap-2">
+              {/* Register Button Part */}
+              <div className="w-full md:w-auto flex-1 p-6 md:p-8 flex flex-col items-center md:items-start text-center md:text-left gap-4 bg-surface rounded-[32px]">
+                <span className="text-[10px] font-black uppercase tracking-widest text-accent flex items-center gap-2">
+                  <Zap size={14} className="fill-accent" /> Registration Open
+                </span>
+                <h3 className="text-2xl font-serif font-black text-primary">Join the Revolution.</h3>
+                <button className="w-full md:w-auto bg-primary text-white px-10 py-4 rounded-2xl text-xs font-black uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-primary/20">
+                  Register Now
+                </button>
+              </div>
+
+              {/* Info Details Part */}
+              <div className="w-full md:w-auto flex-1 p-6 md:p-10 grid grid-cols-2 gap-8">
+                <div>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary block mb-2">Hackathon Dates</span>
+                  <div className="flex items-center gap-3">
+                    <Calendar size={18} className="text-primary" />
+                    <span className="text-sm font-bold text-primary">May 24-25, 2026</span>
+                  </div>
+                </div>
+                <div>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary block mb-2">Total Rounds</span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-md border-2 border-primary flex items-center justify-center text-[10px] font-black">3</div>
+                    <span className="text-sm font-bold text-primary">Qualifiers + Grand Finale</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       </Container>
-      
-      {/* Scroll indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.5 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
-      >
-        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-text-secondary">Scroll Down</span>
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-px h-12 bg-gradient-to-b from-primary to-transparent"
-        />
-      </motion.div>
     </section>
   );
 }
