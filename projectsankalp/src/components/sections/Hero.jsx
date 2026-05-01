@@ -66,27 +66,32 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="px-4 py-1.5 rounded-full bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-8"
+            className="px-5 py-2 rounded-full bg-accent/10 text-accent text-[11px] font-black uppercase tracking-[0.4em] mb-12 border border-accent/20"
           >
-            24-Hour Hackathon
+            2026 Hackathon Edition
           </motion.span>
 
-          {/* Headline */}
-          <motion.h1 
+          {/* Headline - Redesigned with layered modern style */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 1 }}
-            className="text-7xl md:text-[140px] lg:text-[180px] leading-[0.85] font-serif font-black text-primary tracking-tighter uppercase mb-6"
+            className="mb-10"
           >
-            PROJECT <br className="md:hidden" /> SANKALP
-          </motion.h1>
+            <h1 className="text-7xl md:text-[140px] lg:text-[180px] leading-[0.8] font-serif font-black text-primary tracking-tighter uppercase">
+              PROJECT
+            </h1>
+            <h1 className="text-7xl md:text-[140px] lg:text-[180px] leading-[0.8] font-serif font-black tracking-tighter uppercase text-stroke mt-2">
+              SANKALP
+            </h1>
+          </motion.div>
 
           {/* Subtitle */}
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="text-xs md:text-sm text-text-secondary uppercase tracking-[0.6em] font-bold mb-8"
+            className="text-[11px] md:text-[13px] text-text-secondary uppercase tracking-[0.8em] font-black mb-12 opacity-80"
           >
             CODE FOR CHANGE
           </motion.p>
@@ -96,9 +101,9 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 1 }}
-            className="text-sm md:text-base text-text-secondary max-w-xl mx-auto mb-16 leading-relaxed"
+            className="text-sm md:text-lg text-text-secondary max-w-2xl mx-auto mb-16 leading-relaxed font-medium"
           >
-            A 24-hour hackathon to build innovative solutions that create real-world impact.
+            Building the next generation of solutions for a sustainable world.
           </motion.p>
 
           {/* Primary CTA */}
@@ -108,11 +113,9 @@ export default function Hero() {
             transition={{ delay: 0.9, duration: 1 }}
             className="relative group"
           >
-            {/* Glow Effect */}
-            <div className="absolute inset-0 bg-accent/40 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <button className="relative bg-primary text-white px-12 py-5 rounded-full text-xs font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-black/20">
-              Apply Now
+            <div className="absolute inset-0 bg-accent/30 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <button className="relative bg-primary text-white px-14 py-6 rounded-full text-[13px] font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-black/30">
+              Register Now
             </button>
           </motion.div>
         </motion.div>
@@ -123,15 +126,14 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.5 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
       >
-        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Explore</span>
+        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-text-secondary">Scroll Down</span>
         <motion.div 
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <ChevronDown size={20} className="text-text-secondary" />
-        </motion.div>
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="w-px h-12 bg-gradient-to-b from-primary to-transparent"
+        />
       </motion.div>
     </section>
   );
