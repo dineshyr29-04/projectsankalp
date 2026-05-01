@@ -43,7 +43,7 @@ export default function Navbar() {
           className={cn(
             "flex items-center justify-between transition-all duration-500",
             isScrolled 
-              ? "max-w-4xl w-full px-5 py-1.5 rounded-full glass-effect shadow-2xl shadow-black/10 border-white/20" 
+              ? "max-w-4xl w-full px-5 py-3.5 rounded-full glass-effect shadow-2xl shadow-black/10 border-white/20" 
               : "w-full max-w-full px-4 md:px-8 py-3 bg-white/80 backdrop-blur-md border-b border-border/50"
           )}
         >
@@ -58,10 +58,10 @@ export default function Navbar() {
                 onClick={() => setIsLangOpen(!isLangOpen)}
                 className={cn(
                   "flex items-center gap-2 rounded-full border border-border text-[9px] font-black uppercase tracking-widest hover:bg-surface transition-all group",
-                  isScrolled ? "px-2.5 py-1" : "px-3 py-1.5"
+                  isScrolled ? "px-3 py-1.5" : "px-3 py-1.5"
                 )}
               >
-                <Globe size={isScrolled ? 10 : 12} className="text-primary group-hover:rotate-12 transition-transform" />
+                <Globe size={isScrolled ? 11 : 12} className="text-primary group-hover:rotate-12 transition-transform" />
                 {lang}
                 <ChevronRight size={10} className={cn("transition-transform duration-300", isLangOpen ? "-rotate-90" : "rotate-90")} />
               </button>
@@ -122,10 +122,10 @@ export default function Navbar() {
               href="#register"
               className={cn(
                 "bg-primary text-white rounded-full font-black uppercase tracking-[0.2em] flex items-center gap-2 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/10",
-                isScrolled ? "px-5 py-2 text-[8px]" : "px-6 py-3 text-[10px]"
+                isScrolled ? "px-6 py-2.5 text-[9px]" : "px-6 py-3 text-[10px]"
               )}
             >
-              Apply Now <ChevronRight size={isScrolled ? 10 : 12} className="-rotate-45" />
+              Apply Now <ChevronRight size={isScrolled ? 11 : 12} className="-rotate-45" />
             </a>
 
             <button
