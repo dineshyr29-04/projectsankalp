@@ -42,7 +42,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 1 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           >
             <Button variant="primary" className="w-full sm:w-auto">
               Register Now
@@ -50,6 +50,20 @@ export default function Hero() {
             <Button variant="secondary" className="w-full sm:w-auto">
               Learn More
             </Button>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 1 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto p-8 rounded-3xl glass-effect border-white/5"
+          >
+            {siteConfig.stats.map((stat, index) => (
+              <div key={index} className="flex flex-col items-center">
+                <span className="text-2xl md:text-3xl font-black text-primary">{stat.value}</span>
+                <span className="text-xs md:text-sm text-text-secondary uppercase tracking-widest">{stat.label}</span>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </Container>

@@ -7,19 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "#05070F",
-        surface: "#0B0F1A",
-        primary: "#7C5CFF",
-        accent: "#00E0FF",
-        "text-primary": "#E6E9F2",
-        "text-secondary": "#9AA4B2",
-        border: "#1A2233",
+        background: "#020617",
+        surface: "#0F172A",
+        primary: "#22C55E",
+        accent: "#3B82F6",
+        "text-primary": "#F8FAFC",
+        "text-secondary": "#94A3B8",
+        border: "#1E293B",
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
       },
       backgroundImage: {
-        "primary-gradient": "linear-gradient(to right, #7C5CFF, #00E0FF)",
+        "primary-gradient": "linear-gradient(to right, #22C55E, #3B82F6)",
       },
       spacing: {
         '18': '4.5rem',
