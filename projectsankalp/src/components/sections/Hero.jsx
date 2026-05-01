@@ -40,7 +40,7 @@ export default function Hero() {
           >
             <div className="flex flex-col items-center gap-0.5">
               <div className="w-14 h-12 md:w-28 md:h-24 flex items-center justify-center">
-                <img src="/nsslogo.png" alt="NSS Logo" className="w-full h-full object-contain transition-transform duration-500 hover:scale-105 hover:rotate-180" />
+                <img src="/nsslogo.png" alt="NSS Logo" className="w-full h-full object-contain transition-transform duration-500 hover:scale-105 hover:[transform:rotateY(180deg)]" />
               </div>
               <span className="text-[6px] md:text-[8px] font-black uppercase tracking-widest text-primary whitespace-nowrap">NSS Unit</span>
             </div>
