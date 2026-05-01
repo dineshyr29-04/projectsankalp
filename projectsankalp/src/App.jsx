@@ -4,6 +4,7 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
+import Process from "./components/sections/Process";
 import Tracks from "./components/sections/Tracks";
 import Timeline from "./components/sections/Timeline";
 import Prizes from "./components/sections/Prizes";
@@ -43,6 +44,7 @@ function App() {
       <main>
         <Hero />
         <About />
+        <Process />
         <Tracks />
         <Prizes />
         <Timeline />
