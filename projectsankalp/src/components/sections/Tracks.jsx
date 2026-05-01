@@ -22,13 +22,13 @@ export default function Tracks() {
   const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
-    <Section id="tracks" className="bg-surface relative overflow-hidden" ref={containerRef}>
+    <Section id="tracks" className="bg-surface py-32 relative overflow-hidden" ref={containerRef}>
       <Container>
         <div className="text-center mb-24">
-          <span className="text-green font-bold uppercase tracking-widest text-sm mb-4 block">Event Categories</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-black mb-4 text-primary uppercase">Innovation Tracks</h2>
-          <p className="text-text-secondary max-w-2xl mx-auto font-medium">
-            Select your domain and engineer the future of energy.
+          <span className="text-accent font-bold uppercase tracking-[0.3em] text-[10px] mb-6 block">Explore Opportunities</span>
+          <h2 className="text-5xl md:text-6xl font-serif font-black mb-6 text-primary">Hackathon Tracks</h2>
+          <p className="text-text-secondary max-w-2xl mx-auto">
+            Choose your domain and build solutions that redefine the industry.
           </p>
         </div>
 
