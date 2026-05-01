@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Container from "../core/Container";
 import { siteConfig } from "../../config/site";
+import { ChevronDown } from "lucide-react";
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -10,70 +11,128 @@ export default function Hero() {
     offset: ["start start", "end start"]
   });
 
-  const yText = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const yStats = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const yText = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
+
+  const sparks = Array(6).fill(null);
 
   return (
     <section 
       ref={containerRef}
-      className="relative min-h-[90vh] flex flex-col items-center justify-center pt-24 pb-12 overflow-hidden bg-white"
+      className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-white"
     >
-      {/* Background Parallax Gradients */}
-      <motion.div 
-        style={{ y: bgY }}
-        className="absolute inset-0 z-0 opacity-5 pointer-events-none"
-      >
-        <div className="absolute top-0 left-0 w-full h-1/3 bg-orange-500 blur-[120px]" />
-        <div className="absolute top-1/3 left-0 w-full h-1/3 bg-white blur-[120px]" />
-        <div className="absolute top-2/3 left-0 w-full h-1/3 bg-green-600 blur-[120px]" />
-      </motion.div>
+      {/* Background Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Soft Green Gradient Blobs */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px] -mr-48 -mt-48" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] -ml-48 -mb-48" />
+        
+        {/* Subtle Radial Glow behind title */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px]" />
+
+        {/* Bottom Grid Pattern */}
+        <div className="absolute bottom-0 left-0 right-0 h-[30vh] grid-pattern opacity-[0.03]" />
+
+        {/* Spark Icons */}
+        {sparks.map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1.5 h-1.5 bg-accent rounded-full opacity-30"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.1, 0.4, 0.1],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
 
       <Container className="relative z-10 text-center">
         <motion.div
           style={{ y: yText, opacity, scale }}
           className="flex flex-col items-center"
         >
-          {/* Main Title Layout */}
-          <div className="relative mb-12">
-            <h1 className="text-[70px] md:text-[140px] lg:text-[180px] leading-[0.85] font-serif font-black text-primary tracking-tighter uppercase">
-              PROJECT
-            </h1>
-            <h1 className="text-[70px] md:text-[140px] lg:text-[180px] leading-[0.85] font-serif font-black text-primary tracking-tighter uppercase">
-              SANKALP
-            </h1>
-          </div>
+          {/* Badge */}
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="px-4 py-1.5 rounded-full bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-8"
+          >
+            24-Hour Hackathon
+          </motion.span>
 
-          <motion.div>
-            <h2 className="text-sm md:text-xl font-bold text-text-secondary tracking-[0.4em] uppercase mb-16">
-              CODE FOR CHANGE
-            </h2>
+          {/* Headline */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
+            className="text-7xl md:text-[140px] lg:text-[180px] leading-[0.85] font-serif font-black text-primary tracking-tighter uppercase mb-6"
+          >
+            PROJECT <br className="md:hidden" /> SANKALP
+          </motion.h1>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
-              <button className="bg-primary text-white px-10 py-4 rounded-full font-black uppercase tracking-widest text-sm hover:bg-primary/90 transition-all shadow-xl shadow-primary/20">
-                Apply Now
-              </button>
-              <button className="bg-white text-primary border-2 border-border px-10 py-4 rounded-full font-black uppercase tracking-widest text-sm hover:bg-surface transition-all flex items-center gap-3">
-                <span className="bg-[#3B82F6] p-1 rounded-full text-white text-[10px]">✈️</span> Join Telegram
-              </button>
-            </div>
+          {/* Subtitle */}
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="text-xs md:text-sm text-text-secondary uppercase tracking-[0.6em] font-bold mb-8"
+          >
+            CODE FOR CHANGE
+          </motion.p>
+
+          {/* Supporting Line */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7, duration: 1 }}
+            className="text-sm md:text-base text-text-secondary max-w-xl mx-auto mb-16 leading-relaxed"
+          >
+            A 24-hour hackathon to build innovative solutions that create real-world impact.
+          </motion.p>
+
+          {/* Primary CTA */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 1 }}
+            className="relative group"
+          >
+            {/* Glow Effect */}
+            <div className="absolute inset-0 bg-accent/40 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            <button className="relative bg-primary text-white px-12 py-5 rounded-full text-xs font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-black/20">
+              Apply Now
+            </button>
           </motion.div>
         </motion.div>
-
-        <motion.div
-          style={{ y: yStats, opacity }}
-          className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 max-w-4xl mx-auto py-8 border-y border-border bg-white/50 backdrop-blur-sm"
-        >
-          {siteConfig.stats.map((stat, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <span className="text-2xl md:text-3xl font-black text-primary">{stat.value}</span>
-              <span className="text-[10px] md:text-xs text-text-secondary uppercase tracking-[0.2em] font-bold">{stat.label}</span>
-            </div>
-          ))}
-        </motion.div>
       </Container>
+      
+      {/* Scroll indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary">Explore</span>
+        <motion.div 
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <ChevronDown size={20} className="text-text-secondary" />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

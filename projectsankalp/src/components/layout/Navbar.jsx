@@ -34,7 +34,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
           {/* Language Toggle */}
           <div className="relative">
-            <button 
+            <button
               onClick={() => setIsLangOpen(!isLangOpen)}
               className="flex items-center gap-2 px-4 py-2 rounded-full border border-border text-[11px] font-black uppercase tracking-widest hover:bg-surface transition-all group"
             >
@@ -42,10 +42,10 @@ export default function Navbar() {
               {lang}
               <ChevronRight size={12} className={cn("transition-transform duration-300", isLangOpen ? "-rotate-90" : "rotate-90")} />
             </button>
-            
+
             <AnimatePresence>
               {isLangOpen && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
@@ -89,15 +89,15 @@ export default function Navbar() {
             <a href="#login" className="hidden md:block text-[11px] font-black uppercase tracking-[0.2em] text-text-secondary hover:text-text-primary transition-colors">
               Log In
             </a>
-            <a 
-              href="#register" 
+            <a
+              href="#register"
               className="bg-primary text-white px-7 py-3 rounded-full text-[11px] font-black uppercase tracking-[0.2em] flex items-center gap-2 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/10"
             >
               Apply Now <ChevronRight size={14} className="-rotate-45" />
             </a>
 
             {/* Mobile Toggle */}
-            <button 
+            <button
               className="lg:hidden text-text-primary p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
