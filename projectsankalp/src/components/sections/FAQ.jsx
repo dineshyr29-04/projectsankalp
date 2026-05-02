@@ -9,21 +9,21 @@ export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
 
   return (
-    <Section id="faq" className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-50">
+    <Section id="faq" className="relative bg-emerald-50/10 py-24 md:py-32 overflow-hidden border-t border-slate-50">
       {/* Premium Atmospheric Accents */}
-      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-slate-50 rounded-full blur-[150px] -mr-400" />
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-slate-50 rounded-full blur-[120px] -ml-300" />
+      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-white rounded-full blur-[150px] -mr-400" />
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-white rounded-full blur-[120px] -ml-300" />
       
-      <Container className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto">
         <div className="text-center mb-16 md:mb-20">
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="w-12 h-[1px] bg-slate-100" />
-            <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Help Center</span>
+            <span className="text-[#16A34A] font-black uppercase tracking-[0.4em] text-[10px]">Help Center</span>
             <div className="w-12 h-[1px] bg-slate-100" />
           </div>
           <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
             Common <br />
-            <span className="text-slate-400 italic">Questions.</span>
+            <span className="text-[#16A34A] font-bold italic">Questions.</span>
           </h2>
           <p className="text-slate-600 font-medium border-t border-slate-50 pt-8 max-w-lg mx-auto leading-relaxed">Everything you need to know before you start your mission.</p>
         </div>
