@@ -45,7 +45,8 @@ export default function EventDetails() {
               transition={{ duration: 1, delay: 0.2 }}
               className="text-lg text-text-secondary leading-relaxed font-medium max-w-xl"
             >
-              The final phase of Project Sankalp is a high-stakes, 24-hour sprint where the most promising social-impact solutions are brought to life. Hosted at the state-of-the-art facilities of Yenepoya University, the top teams will build the future of social entrepreneurship.
+              The final phase of Project Sankalp is a high-stakes, 24-hour sprint where the most promising social-impact solutions are brought to life. Hosted at the state-of-the-art facilities of Yenepoya University, the top teams will build the future of social entrepreneurship. <br />
+              <span className="text-accent font-black text-xs uppercase tracking-widest mt-4 block">Click the venue image below for exact location on Google Maps.</span>
             </motion.p>
           </div>
 
@@ -55,7 +56,8 @@ export default function EventDetails() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative group"
+            className="relative group cursor-pointer"
+            onClick={() => window.open("https://www.google.com/maps/search/RV5H%2B8M9,+Deralakatte,+Ullal,+Karnataka+575018", "_blank")}
           >
             <div className="absolute -inset-4 bg-accent/5 rounded-[40px] blur-3xl group-hover:bg-accent/10 transition-colors duration-700" />
             <div className="relative aspect-[21/9] md:aspect-[21/8] overflow-hidden rounded-[30px] md:rounded-[40px] border border-border shadow-2xl">
@@ -76,6 +78,9 @@ export default function EventDetails() {
                   </div>
                   <h4 className="text-xl md:text-3xl font-serif font-black text-white max-w-2xl">
                     Yendurance Zone | Yenepoya (Deemed to be University), Deralakatte
+                  </h4>
+                  <h4 className="text-xl md:text-2xl font-serif font-black text-white max-w-2xl">
+                    Mangalore, Karnataka, India 
                   </h4>
                 </div>
                 
