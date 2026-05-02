@@ -120,7 +120,7 @@ export default function Hero() {
                   whileHover={{ scale: 1.05 }}
                   className="flex flex-col items-center gap-3 transition-all duration-500 cursor-pointer"
                 >
-                  <div className="h-[40px] sm:h-[50px] md:h-[80px]">
+                  <div className="h-[40px] sm:h-[80px] md:h-[80px]">
                     <img 
                       src={sponsor.logo} 
                       alt={sponsor.name} 

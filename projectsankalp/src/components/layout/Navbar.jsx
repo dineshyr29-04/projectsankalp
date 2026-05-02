@@ -36,36 +36,30 @@ export default function Navbar({ onNavigate }) {
   useEffect(() => {
     const sections = navigation.map(item => item.href.replace("#", ""));
     
-    const observerOptions = {
-      root: null,
-      rootMargin: "-10% 0px -80% 0px",
-      threshold: 0
-    };
-
-    const observerCallback = (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-    sections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    // Fallback for top of page
     const handleScroll = () => {
-      if (window.scrollY < 100) {
-        setActiveSection("hero");
+      // Find the current section based on scroll position
+      const scrollPosition = window.scrollY + window.innerHeight / 3; // Trigger at 1/3 of the screen
+      
+      let currentSection = sections[0]; // Default to first section (Home)
+      
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const { offsetTop } = el;
+          if (scrollPosition >= offsetTop) {
+            currentSection = id;
+          }
+        }
       }
+      
+      setActiveSection(currentSection);
     };
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Initial check
+    handleScroll();
 
     return () => {
-      observer.disconnect();
       window.removeEventListener("scroll", handleScroll);
     };
   }, [onNavigate]);
