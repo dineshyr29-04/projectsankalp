@@ -10,24 +10,21 @@ export default function Process() {
       title: "Online Submission",
       description: "Submit a high-impact video pitch and project core idea via our portal. Should be no longer than 3 minutes.",
       icon: Video,
-      status: "Online",
-      tag: "Submission"
+      status: "Online"
     },
     {
       round: "ROUND 2",
       title: "Evaluation Round",
       description: "Expert screening phase where feasibility and innovation are rigorously evaluated.",
       icon: ClipboardCheck,
-      status: "Internal",
-      tag: "Evaluation"
+      status: "Internal"
     },
     {
       round: "ROUND 3",
       title: "The Grand Finale",
       description: "Top 30 teams compete in a 24-hour offline sprint at the physical venue.",
       icon: MapPin,
-      status: "Offline",
-      tag: "Compete"
+      status: "Offline"
     }
   ];
 
@@ -80,12 +77,6 @@ export default function Process() {
                   <span className="text-[10px] font-black tracking-[0.2em] text-slate-500">
                     {step.round}
                   </span>
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/30 group-hover:bg-emerald-500 transition-colors" />
-                    <span className="text-[9px] font-bold uppercase tracking-widest text-slate-900">
-                      {step.tag}
-                    </span>
-                  </div>
                 </div>
                 
                 <div className="text-slate-200 group-hover:text-emerald-500 transition-colors duration-500">
@@ -98,7 +89,7 @@ export default function Process() {
                 <h3 className="text-2xl font-serif font-black text-slate-900 leading-tight">
                   {step.title}
                 </h3>
-                
+
                 <div className="w-8 h-[1px] bg-slate-100 group-hover:w-16 group-hover:bg-emerald-500 transition-all duration-700" />
                 
                 <p className="text-sm text-slate-500 leading-relaxed font-medium">
