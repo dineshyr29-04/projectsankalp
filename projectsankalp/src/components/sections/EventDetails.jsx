@@ -28,8 +28,8 @@ export default function EventDetails() {
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-[1px] bg-slate-200" />
-                <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Grand Finale Stage</span>
+                <div className="w-12 h-[1px] bg-slate-800" />
+                <span className="text-slate-800 font-black uppercase tracking-[0.4em] text-[10px]">Grand Finale Stage</span>
               </div>
 
               <h2 className="text-5xl md:text-7xl font-serif font-black text-slate-900 leading-[0.9] tracking-tight">

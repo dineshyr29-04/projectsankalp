@@ -17,7 +17,7 @@ export default function FAQ() {
       <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto">
         <div className="text-center mb-16 md:mb-20">
           <div className="flex items-center justify-center gap-4 mb-8">
-            <div className="w-12 h-[1px] bg-slate-100" />
+            <div className="w-12 h-[1px] bg-slate-500" />
             <span className="text-[#16A34A] font-black uppercase tracking-[0.4em] text-[10px]">Help Center</span>
             <div className="w-12 h-[1px] bg-slate-100" />
           </div>
