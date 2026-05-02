@@ -3,7 +3,7 @@ import { navigation } from "../../config/navigation";
 import { useNavbar } from "../../hooks/useNavbar";
 import { cn } from "../../utils/helpers";
 import { Menu, X, ChevronRight, Globe } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Navbar({ onNavigate }) {
   const { isScrolled } = useNavbar();
