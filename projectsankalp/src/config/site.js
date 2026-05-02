@@ -74,7 +74,7 @@ export const siteConfig = {
   faq: [
     {
       question: "What is the team size?",
-      answer: "Teams can consist of 2 to 5 members."
+      answer: "Teams can consist of 3 to 5 members."
     },
     {
       question: "Will there be food?",

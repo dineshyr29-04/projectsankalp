@@ -62,7 +62,7 @@ export default function Tracks({ onKnowMore }) {
         </div>
 
         {/* 3-Column Structured Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-0 md:gap-0 relative">
+        <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-10 md:gap-0 relative">
           
           {/* Background Connector Line (Desktop) */}
           <div className="hidden md:block absolute bottom-[10%] left-0 w-full h-[1px] bg-border/50 -z-10" />
@@ -87,7 +87,7 @@ export default function Tracks({ onKnowMore }) {
                   scale: isCenter ? 1.05 : 1,
                   zIndex: isCenter ? 20 : 10
                 }}
-                className={`relative flex flex-col ${isCenter ? 'md:-mx-4' : ''} group`}
+                className={`relative flex flex-col ${isCenter ? 'md:-mx-4' : ''} group px-4 md:px-0`}
               >
                 <motion.div
                   whileHover={{ y: -6 }}

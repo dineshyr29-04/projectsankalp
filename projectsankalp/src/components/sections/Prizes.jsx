@@ -62,17 +62,6 @@ export default function Prizes() {
             );
           })}
         </div>
-
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="mt-16 p-8 rounded-3xl bg-surface border border-border text-center"
-        >
-          <p className="text-text-secondary italic font-medium">
-            + Exclusive swag kits, API credits, and certificates for all successful finishers.
-          </p>
-        </motion.div>
       </Container>
     </Section>
   );

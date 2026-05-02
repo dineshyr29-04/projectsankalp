@@ -60,39 +60,41 @@ export default function EventDetails() {
             onClick={() => window.open("https://maps.app.goo.gl/MvM7bL1oeYJvH4Qx7", "_blank")}
           >
             <div className="absolute -inset-4 bg-accent/5 rounded-[40px] blur-3xl group-hover:bg-accent/10 transition-colors duration-700" />
-            <div className="relative aspect-[21/9] md:aspect-[21/8] overflow-hidden rounded-[30px] md:rounded-[40px] border border-border shadow-2xl">
+            <div className="relative aspect-[4/5] sm:aspect-video md:aspect-[21/8] overflow-hidden rounded-[30px] md:rounded-[40px] border border-border shadow-2xl">
               <img 
                 src="/event.png" 
                 alt="Yendurance Zone Venue" 
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent" />
               
-              <div className="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div className="flex flex-col gap-2">
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 md:p-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
+                <div className="flex flex-col gap-3 md:gap-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-accent/20 backdrop-blur-md rounded-lg border border-accent/30">
-                      <MapPin size={18} className="text-accent fill-accent/20" />
+                    <div className="p-2 bg-blue-500/20 backdrop-blur-md rounded-lg border border-white/20">
+                      <MapPin size={18} className="text-white" />
                     </div>
-                    <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.4em] text-white">Event Venue</span>
+                    <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.4em] text-white/80">Event Venue</span>
                   </div>
-                  <h4 className="text-xl md:text-3xl font-serif font-black text-white max-w-2xl">
-                    Yendurance Zone | Yenepoya (Deemed to be University), Deralakatte
-                  </h4>
-                  <h4 className="text-xl md:text-2xl font-serif font-black text-white max-w-2xl">
-                    Mangalore, Karnataka, India 
-                  </h4>
+                  <div className="space-y-1">
+                    <h4 className="text-xl sm:text-2xl md:text-4xl font-serif font-black text-white leading-tight">
+                      Yendurance Zone
+                    </h4>
+                    <p className="text-xs sm:text-sm md:text-base font-bold text-white/70 max-w-lg">
+                      Yenepoya University, Deralakatte, Ullal, Karnataka 575018
+                    </p>
+                  </div>
                 </div>
                 
-                <div className="flex items-center gap-6 text-white/80">
+                <div className="flex items-center gap-6 text-white/90 bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10 w-fit">
                   <div className="text-center">
-                    <span className="text-[9px] font-black uppercase tracking-widest block mb-1">Capacity</span>
-                    <span className="text-xl font-serif font-bold">30 Teams</span>
+                    <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest block mb-1 opacity-60">Capacity</span>
+                    <span className="text-lg md:text-2xl font-serif font-bold">30 Teams</span>
                   </div>
                   <div className="w-px h-8 bg-white/20" />
                   <div className="text-center">
-                    <span className="text-[9px] font-black uppercase tracking-widest block mb-1">Duration</span>
-                    <span className="text-xl font-serif font-bold">24 Hours</span>
+                    <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest block mb-1 opacity-60">Duration</span>
+                    <span className="text-lg md:text-2xl font-serif font-bold">24 Hours</span>
                   </div>
                 </div>
               </div>
