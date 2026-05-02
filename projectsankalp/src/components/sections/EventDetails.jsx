@@ -57,7 +57,7 @@ export default function EventDetails() {
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative group cursor-pointer"
-            onClick={() => window.open("https://www.google.com/maps/search/RV5H%2B8M9,+Deralakatte,+Ullal,+Karnataka+575018", "_blank")}
+            onClick={() => window.open("https://maps.app.goo.gl/MvM7bL1oeYJvH4Qx7", "_blank")}
           >
             <div className="absolute -inset-4 bg-accent/5 rounded-[40px] blur-3xl group-hover:bg-accent/10 transition-colors duration-700" />
             <div className="relative aspect-[21/9] md:aspect-[21/8] overflow-hidden rounded-[30px] md:rounded-[40px] border border-border shadow-2xl">
