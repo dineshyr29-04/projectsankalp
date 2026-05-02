@@ -117,7 +117,7 @@ export default function Hero() {
           >
             <span className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-800">Presented By</span>
 
-            <div className="flex items-center gap-14 md:gap-24 px-10 md:px-20 py-6 md:py-10 bg-white/40 backdrop-blur-md border border-slate-100 rounded-full shadow-lg shadow-slate-900/[0.02]">
+            <div className="flex items-center gap-14 md:gap-24 px-8 md:px-16 py-5 md:py-8 bg-white/40 backdrop-blur-md border border-slate-100 rounded-full shadow-lg shadow-slate-900/[0.02]">
               {sponsors.map((sponsor) => (
                 <motion.div
                   key={sponsor.name}
