@@ -3,7 +3,7 @@ import { useState } from "react";
 import Section from "../core/Section";
 import Container from "../core/Container";
 import { siteConfig } from "../../config/site";
-import { Users, Heart, Sprout, Globe, CheckCircle2 } from "lucide-react";
+import { Users, Heart, Sprout, Globe, CheckCircle2, ChevronRight } from "lucide-react";
 
 const icons = {
   Users,
@@ -11,7 +11,7 @@ const icons = {
   Sprout
 };
 
-export default function Tracks() {
+export default function Tracks({ onKnowMore }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
@@ -43,13 +43,21 @@ export default function Tracks() {
             <span className="text-accent font-bold uppercase tracking-[0.3em] text-[10px]">The Challenge</span>
           </motion.div>
           
-          <h2 className="text-5xl md:text-6xl font-serif font-black mb-8 text-primary tracking-tight">
+          <h2 className="text-5xl md:text-6xl font-serif font-black mb-8 text-primary tracking-tight leading-[0.9]">
             Problem <br /> 
             <span className="text-accent italic">Tracks.</span>
           </h2>
-          <p className="text-text-secondary text-lg font-medium border-l-2 border-border pl-6">
-            Choose a mission that matters. Each track is designed for high impact and real-world scalability.
-          </p>
+          <div className="flex flex-col md:flex-row md:items-center gap-8 border-l-2 border-border pl-6">
+            <p className="text-text-secondary text-lg font-medium max-w-sm">
+              Choose a mission that matters. Each track is designed for high impact and real-world scalability.
+            </p>
+            <button 
+              onClick={() => onKnowMore?.()}
+              className="group/btn flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-full text-[11px] font-black uppercase tracking-[0.3em] hover:bg-primary/95 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20"
+            >
+              Know More <ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+            </button>
+          </div>
         </div>
 
         {/* 3-Column Structured Layout */}
