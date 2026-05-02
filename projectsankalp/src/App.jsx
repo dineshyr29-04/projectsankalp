@@ -65,7 +65,7 @@ function App() {
               <Process />
               <EventDetails />
               <Tracks onKnowMore={() => setCurrentView("tracks-page")} />
-              <Team />
+              
               <Prizes />
               <FAQ />
               <Footer />
