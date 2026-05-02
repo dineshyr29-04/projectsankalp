@@ -12,7 +12,6 @@ import Team from "./components/sections/Team";
 import Prizes from "./components/sections/Prizes";
 import FAQ from "./components/sections/FAQ";
 import Sponsors from "./components/sections/Sponsors";
-import StagesPage from "./components/pages/StagesPage";
 import TracksPage from "./components/pages/TracksPage";
 
 function App() {
@@ -71,18 +70,6 @@ function App() {
               <Sponsors />
               <FAQ />
               <Footer />
-            </motion.div>
-          )}
-
-          {currentView === "stages" && (
-            <motion.div
-              key="stages"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <StagesPage onBack={() => setCurrentView("landing")} />
             </motion.div>
           )}
 
