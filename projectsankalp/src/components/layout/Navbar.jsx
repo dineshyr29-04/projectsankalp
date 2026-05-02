@@ -131,6 +131,51 @@ export default function Navbar({ onNavigate }) {
           </div>
         </motion.div>
       </nav>
+
+      {/* Mobile Menu Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="w-[90%] mt-4 bg-white/90 backdrop-blur-2xl border border-white/50 rounded-[32px] overflow-hidden lg:hidden pointer-events-auto shadow-2xl"
+          >
+            <div className="p-8 flex flex-col gap-6">
+              {navigation.map((item, index) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={(e) => {
+                    setIsMobileMenuOpen(false);
+                    if (item.href === "#stages") {
+                      e.preventDefault();
+                      onNavigate?.("stages");
+                    } else if (item.href.startsWith("#")) {
+                      onNavigate?.("landing");
+                    }
+                  }}
+                  className="text-xl font-black uppercase tracking-widest text-primary/60 hover:text-primary transition-colors flex items-center justify-between group"
+                >
+                  {item.name}
+                  <ChevronRight size={18} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                </motion.a>
+              ))}
+              <div className="h-px bg-primary/10 my-2" />
+              <a
+                href="https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755"
+                target="_blank"
+                className="bg-primary text-white text-center py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl shadow-primary/20"
+              >
+                Apply Now
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
