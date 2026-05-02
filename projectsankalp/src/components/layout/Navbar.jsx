@@ -15,11 +15,12 @@ export default function Navbar({ onNavigate, currentView }) {
   // Direct scroll without spring for snappy response
   const { scrollY } = useScroll();
   
-  // Snappy spring physics: high stiffness, low damping for responsive feel
+  // Ultra-snappy spring physics: even higher stiffness for instant response
   const smoothScrollY = useSpring(scrollY, {
-    stiffness: 200,
-    damping: 15,
-    restDelta: 0.001
+    stiffness: 300,
+    damping: 20,
+    restDelta: 0.001,
+    mass: 0.5
   });
 
   // Progressive Transforms based on scroll (0-80px for faster response)
@@ -105,7 +106,7 @@ export default function Navbar({ onNavigate, currentView }) {
             borderColor: navBorderColor,
             backdropFilter: "blur(30px)",
           }}
-          className="flex items-center justify-between border border-solid pointer-events-auto relative z-50 overflow-hidden group/nav "
+          className="flex items-center justify-between border border-solid pointer-events-auto relative z-50 overflow-visible group/nav "
         >
           {/* Left: Logo */}
           <div className="flex items-center">
@@ -153,28 +154,33 @@ export default function Navbar({ onNavigate, currentView }) {
                 );
               })
             ) : (
-              <button
+              <motion.button
                 onClick={() => onNavigate?.("landing")}
-                className="flex items-center gap-2 px-6 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary hover:bg-primary hover:text-white transition-all rounded-full"
+                whileHover={{ backgroundColor: "var(--color-primary)", color: "white" }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="flex items-center gap-2 px-6 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary bg-transparent rounded-full"
               >
                 <ArrowLeft size={14} className="mr-1" />
                 Back to Website
-              </button>
+              </motion.button>
             )}
           </div>
 
           {/* Right: Actions */}
           <div className="flex items-center gap-3 md:gap-4">
-            <a
+            <motion.a
               href="https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755"
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              whileTap={{ scale: 0.95 }}
               className={cn(
-                "bg-primary text-white rounded-full font-black uppercase tracking-[0.2em] flex items-center gap-2 hover:bg-primary/95 hover:scale-[1.03] active:scale-95 transition-all shadow-xl shadow-primary/20 px-6 py-2.5 text-[8px] md:px-8 md:py-3.5 md:text-[10px]",
+                "bg-primary text-white rounded-full font-black uppercase tracking-[0.2em] flex items-center gap-2 hover:bg-primary/95 active:scale-95 shadow-xl shadow-primary/20 px-6 py-2.5 text-[8px] md:px-8 md:py-3.5 md:text-[10px]",
                 isScrolled && "px-4 py-2 text-[8px] md:px-6 md:py-3 md:text-[9px]"
               )}
               target="_blank"
             >
               Apply Now <ChevronRight size={12} className="-rotate-45 group-hover/nav:translate-x-0.5 group-hover/nav:-translate-y-0.5 transition-transform" />
-            </a>
+            </motion.a>
 
             <button
               className="lg:hidden text-primary p-2.5 hover:bg-white rounded-full transition-colors shadow-sm bg-white/50"
