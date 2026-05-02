@@ -27,12 +27,12 @@ export default function Prizes() {
         <div className="text-center mb-20 md:mb-24">
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="w-12 h-[1px] bg-slate-100" />
-            <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Grand Rewards</span>
+            <span className="text-[#2563EB] font-black uppercase tracking-[0.4em] text-[10px]">Grand Rewards</span>
             <div className="w-12 h-[1px] bg-slate-100" />
           </div>
           <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
             Recognition & <br />
-            <span className="text-slate-400 italic">Prizes.</span>
+            <span className="text-[#2563EB] font-bold italic">Prizes.</span>
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto font-medium border-t border-slate-50 pt-8 leading-relaxed">
             Excellence deserves extraordinary rewards. We've curated a prize pool that fuels your next big step.
