@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 export default function Navbar({ onNavigate }) {
   const { isScrolled } = useNavbar();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLangOpen, setIsLangOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
   const { scrollY } = useScroll();
