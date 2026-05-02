@@ -34,11 +34,11 @@ export default function Navbar({ onNavigate }) {
   const logoWidth = useTransform(smoothScrollY, [0, 100], [120, 90]);
 
   useEffect(() => {
-    const sections = navigation.map(item => item.href.replace("#", "")).filter(id => id !== "stages");
+    const sections = navigation.map(item => item.href.replace("#", ""));
     
     const observerOptions = {
       root: null,
-      rootMargin: "-20% 0px -70% 0px",
+      rootMargin: "-10% 0px -80% 0px",
       threshold: 0
     };
 
@@ -56,7 +56,18 @@ export default function Navbar({ onNavigate }) {
       if (el) observer.observe(el);
     });
 
-    return () => observer.disconnect();
+    // Fallback for top of page
+    const handleScroll = () => {
+      if (window.scrollY < 100) {
+        setActiveSection("hero");
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [onNavigate]);
 
   return (
