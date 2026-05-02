@@ -38,7 +38,8 @@ function App() {
 
     requestAnimationFrame(raf);
 
-    // Scroll to top when view changes
+    // Force scroll to top on view change
+    lenis.scrollTo(0, { immediate: true });
     window.scrollTo(0, 0);
 
     return () => {

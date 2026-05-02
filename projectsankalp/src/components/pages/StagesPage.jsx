@@ -1,8 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowLeft, Rocket, Zap, Award, CheckCircle, Target, Users } from "lucide-react";
 import Container from "../core/Container";
+import { useEffect } from "react";
 
 export default function StagesPage({ onBack }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const stages = [
     {
       id: "01",
