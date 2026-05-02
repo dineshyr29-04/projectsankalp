@@ -74,7 +74,7 @@ export default function Tracks({ onKnowMore }) {
             >
               {/* Glow Border */}
               <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500 
-                bg-gradient-to-r from-emerald-400/20 via-transparent to-blue-400/20 blur-xl " />
+                bg-gradient-to-r from-emerald-400/20 via-transparent to-blue-400/20 blur-xl" />
 
               {/* Card */}
               <div className="relative h-full p-10 rounded-3xl bg-white/80 backdrop-blur-md border border-white/60 
