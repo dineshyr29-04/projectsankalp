@@ -106,11 +106,13 @@ export default function Process() {
                   </span>
                 </div>
                 
-                <motion.div 
-                  className="opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                  <ArrowRight size={16} className="text-emerald-500" />
-                </motion.div>
+                {index !== 2 && (
+                  <motion.div 
+                    className="opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <ArrowRight size={16} className="text-emerald-500" />
+                  </motion.div>
+                )}
               </div>
               </motion.div>
             </div>
