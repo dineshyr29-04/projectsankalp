@@ -70,11 +70,12 @@ export default function Hero() {
               </h1>
               
               {/* Pill Badge - Centered between heading words */}
-              <div className="my-4 md:my-6 inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-emerald-100/70 via-white to-blue-100/70 backdrop-blur-md border border-white/60 shadow-[0_2px_10px_rgba(0,0,0,0.05)]">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span className="text-[10px] md:text-[12px] font-bold uppercase tracking-[0.35em] text-slate-600">
+              <div className="flex items-center justify-center gap-4 my-4 md:my-6">
+                <span className="h-px w-10 bg-gradient-to-r from-transparent via-slate-400 to-transparent"></span>
+                <span className="text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.35em] text-slate-500">
                   Code 4 Change
                 </span>
+                <span className="h-px w-10 bg-gradient-to-r from-transparent via-slate-400 to-transparent"></span>
               </div>
               <h1 className="text-5xl sm:text-6xl md:text-[90px] lg:text-[110px] font-serif font-black text-slate-900 leading-[0.8] tracking-[0.15em] uppercase italic">
                 SANKALP
