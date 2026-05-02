@@ -85,7 +85,7 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Sponsors - Mobile Horizontal Scroll */}
+        {/* Sponsors - Centered Row */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -94,22 +94,20 @@ export default function Hero() {
         >
           <span className="text-[9px] font-black uppercase tracking-[0.4em] text-primary/30">Presented By</span>
           
-          <div className="w-full overflow-x-auto no-scrollbar scroll-smooth">
-            <div className="flex items-center gap-10 px-8 py-5 bg-white/40 backdrop-blur-md border border-white/50 rounded-full min-w-max md:min-w-0 md:justify-center mx-auto">
-              {sponsors.map((sponsor) => (
-                <motion.div
-                  key={sponsor.name}
-                  whileHover={{ scale: 1.5 }}
-                  className="h-[60px] md:h-[70px] transition-all duration-500 cursor-pointer"
-                >
-                  <img 
-                    src={sponsor.logo} 
-                    alt={sponsor.name} 
-                    className="h-full w-auto object-contain"
-                  />
-                </motion.div>
-              ))}
-            </div>
+          <div className="flex items-center gap-12 md:gap-24 px-10 md:px-16 py-6 md:py-8 bg-white/40 backdrop-blur-md border border-white/50 rounded-full shadow-lg shadow-black/[0.02]">
+            {sponsors.map((sponsor) => (
+              <motion.div
+                key={sponsor.name}
+                whileHover={{ scale: 1.2 }}
+                className="h-[50px] sm:h-[60px] md:h-[80px] transition-all duration-500 cursor-pointer"
+              >
+                <img 
+                  src={sponsor.logo} 
+                  alt={sponsor.name} 
+                  className="h-full w-auto object-contain"
+                />
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </Container>
