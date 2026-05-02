@@ -52,21 +52,11 @@ export default function Hero() {
             className="flex flex-col items-center space-y-6 md:space-y-8 w-full text-center"
           >
             {/* AUDIT FIX: Clear primary date & prize pool info */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="flex items-center gap-3 bg-emerald-50 border border-emerald-100 rounded-full px-5 py-2 mb-2 shadow-sm"
-            >
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-              <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-emerald-700">
-                May 25th, 2026 • ₹1,00,000+ Prize Pool
-              </span>
-            </motion.div>
+           
 
             {/* Heading - Wide & Impactful */}
             <div className="flex flex-col items-center w-full">
-              <h1 className="text-5xl sm:text-6xl md:text-[90px] lg:text-[110px] font-serif font-black text-slate-900 leading-[0.8] tracking-[0.1em] uppercase">
+              <h1 className="text-5xl sm:text-8xl md:text-[90px] lg:text-[130px] sm:mt-[100px] font-serif font-black text-slate-900 leading-[0.8] tracking-[0.1em] uppercase">
                 PROJECT
               </h1>
               
@@ -78,13 +68,13 @@ export default function Hero() {
                 </span>
                 <span className="h-px w-10 bg-gradient-to-r from-transparent via-slate-400 to-transparent"></span>
               </div>
-              <h1 className="text-5xl sm:text-6xl md:text-[90px] lg:text-[110px] font-serif font-black text-slate-900 leading-[0.8] tracking-[0.15em] uppercase italic">
+              <h1 className="text-5xl sm:text-6xl md:text-[90px] lg:text-[130px] font-serif font-black text-slate-900 leading-[0.8] tracking-[0.15em] uppercase italic">
                 SANKALP
               </h1>
             </div>
 
             {/* CTA Group */}
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full md:w-auto px-6 md:px-0">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full md:w-auto px-6 md:px-0 mt-3 sm:mt-[120px]">
               <motion.button 
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
