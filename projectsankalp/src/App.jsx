@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Lenis from "lenis";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
@@ -11,8 +11,11 @@ import Team from "./components/sections/Team";
 import Prizes from "./components/sections/Prizes";
 import FAQ from "./components/sections/FAQ";
 import Sponsors from "./components/sections/Sponsors";
+import StagesPage from "./components/pages/StagesPage";
 
 function App() {
+  const [currentView, setCurrentView] = useState("landing"); // 'landing' or 'stages'
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -33,28 +36,36 @@ function App() {
 
     requestAnimationFrame(raf);
 
+    // Scroll to top when view changes
+    window.scrollTo(0, 0);
+
     return () => {
       lenis.destroy();
     };
-  }, []);
+  }, [currentView]);
 
   return (
     <div className="relative min-h-screen">
-      <Navbar />
+      <Navbar onNavigate={(view) => setCurrentView(view)} />
       
       <main>
-        <Hero />
-        <About />
-        <Process />
-        <EventDetails />
-        <Tracks />
-        <Team />
-        <Prizes />
-        <Sponsors />
-        <FAQ />
+        {currentView === "landing" ? (
+          <>
+            <Hero />
+            <About />
+            <Process />
+            <EventDetails />
+            <Tracks onKnowMore={() => setCurrentView("stages")} />
+            <Team />
+            <Prizes />
+            <Sponsors />
+            <FAQ />
+            <Footer />
+          </>
+        ) : (
+          <StagesPage onBack={() => setCurrentView("landing")} />
+        )}
       </main>
-
-      <Footer />
     </div>
   );
 }
