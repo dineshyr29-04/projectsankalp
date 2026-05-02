@@ -67,7 +67,6 @@ function App() {
               <Tracks onKnowMore={() => setCurrentView("tracks-page")} />
               <Team />
               <Prizes />
-              <Sponsors />
               <FAQ />
               <Footer />
             </motion.div>
