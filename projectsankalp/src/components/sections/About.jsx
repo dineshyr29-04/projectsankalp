@@ -33,19 +33,19 @@ export default function About() {
   ];
 
   return (
-    <Section id="about" className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-white via-blue-50/40 to-white" ref={containerRef}>
+    <Section id="about" className="relative py-24 md:py-32 overflow-hidden bg-white" ref={containerRef}>
       {/* Space Filling - Technical Layers */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Subtle Tech Grid */}
         <div className="absolute inset-0 opacity-[0.03]" 
              style={{ backgroundImage: "linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)", backgroundSize: "100px 100px" }} />
         
-        {/* Floating Circular Accents */}
-        <div className="absolute top-1/4 -right-24 w-96 h-96 border border-blue-500/10 rounded-full animate-spin-slow" />
-        <div className="absolute bottom-0 -left-24 w-[500px] h-[500px] bg-blue-400/5 rounded-full blur-[100px]" />
+        {/* Layered Atmospheric Blobs */}
+        <div className="absolute top-1/4 -right-24 w-[600px] h-[600px] bg-blue-400/10 rounded-full blur-[120px] animate-pulse duration-[8s]" />
+        <div className="absolute bottom-0 -left-24 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[100px]" />
         
         {/* Vertical Alignment Line */}
-        <div className="absolute left-[10%] top-0 w-px h-full bg-gradient-to-b from-transparent via-blue-500/10 to-transparent" />
+        <div className="absolute left-[8%] top-0 w-px h-full bg-gradient-to-b from-transparent via-blue-500/10 to-transparent" />
       </div>
 
       <Container className="relative z-10">
@@ -56,12 +56,16 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-accent font-bold uppercase tracking-[0.3em] text-[10px] mb-6 block">Our Mission</span>
-            <h2 className="text-5xl md:text-6xl font-serif font-black mb-8 leading-[1.1] text-primary">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-[1px] bg-blue-600" />
+              <span className="text-blue-600 font-bold uppercase tracking-[0.3em] text-[10px]">Our Mission</span>
+            </div>
+            
+            <h2 className="text-5xl md:text-7xl font-serif font-black mb-8 leading-[0.9] tracking-tight text-primary">
               Build the Future <br /> 
-              <span className="text-accent">With Purpose.</span>
+              <span className="text-blue-600 italic">With Purpose.</span>
             </h2>
-            <p className="text-lg text-text-secondary leading-relaxed mb-12 max-w-xl">
+            <p className="text-lg text-text-secondary leading-relaxed mb-12 max-w-xl font-medium border-l-2 border-blue-500/10 pl-6">
               Project Sankalp is a premier 24-hour hackathon designed to empower the next generation of innovators to solve critical real-world problems.
             </p>
           </motion.div>

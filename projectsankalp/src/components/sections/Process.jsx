@@ -32,17 +32,19 @@ export default function Process() {
   ];
 
   return (
-    <Section id="process" className="relative bg-gradient-to-tr from-white via-green-50/30 to-white min-h-screen flex items-center py-24 md:py-32 overflow-hidden">
+    <Section id="process" className="relative bg-white min-h-screen flex items-center py-24 md:py-32 overflow-hidden">
       {/* Space Filling - Workflow Layers */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Large Scale Radial Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.05)_0%,transparent_70%)]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.08)_0%,transparent_70%)]" />
         
         {/* Technical Horizontal Guide */}
-        <div className="absolute top-[20%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
+        <div className="absolute top-[15%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
+        <div className="absolute bottom-[15%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/10 to-transparent" />
         
-        {/* Floating Green Shard */}
-        <div className="absolute top-[10%] right-[10%] w-64 h-64 border-2 border-accent/5 rounded-[40px] rotate-45" />
+        {/* Floating Emerald Accents */}
+        <div className="absolute top-[10%] right-[10%] w-72 h-72 border-2 border-emerald-500/5 rounded-[40px] rotate-45 animate-pulse" />
+        <div className="absolute bottom-[10%] left-[5%] w-96 h-96 bg-emerald-400/5 rounded-full blur-[120px]" />
       </div>
       <Container>
         {/* Header - Engineered Look */}
@@ -53,16 +55,16 @@ export default function Process() {
             viewport={{ once: true }}
             className="flex items-center gap-3 mb-6"
           >
-            <div className="w-10 h-[1px] bg-accent" />
-            <span className="text-accent font-bold uppercase tracking-[0.3em] text-[10px]">The Workflow</span>
+            <div className="w-10 h-[1px] bg-emerald-500" />
+            <span className="text-emerald-500 font-bold uppercase tracking-[0.3em] text-[10px]">The Workflow</span>
           </motion.div>
           
-          <h2 className="text-5xl md:text-7xl font-serif font-black mb-8 text-primary tracking-tight leading-none">
+          <h2 className="text-5xl md:text-8xl font-serif font-black mb-8 text-primary tracking-tight leading-[0.85]">
             How Project Sankalp <br /> 
-            <span className="text-accent italic">Moves.</span>
+            <span className="text-emerald-500 italic">Moves.</span>
           </h2>
           
-          <p className="text-text-secondary text-lg font-medium border-l-2 border-border pl-6 max-w-2xl">
+          <p className="text-text-secondary text-lg font-medium border-l-2 border-emerald-500/20 pl-6 max-w-2xl">
             A structured three-phase journey from thousands of global ideas to the final top 30 champions.
           </p>
         </div>
