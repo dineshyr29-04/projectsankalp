@@ -20,7 +20,7 @@ export default function Hero() {
   ];
 
   return (
-    <section 
+    <section
       id="hero"
       ref={containerRef}
       className="relative min-h-screen flex flex-col bg-white overflow-hidden pt-5"
@@ -31,15 +31,15 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.05)_0%,rgba(255,255,255,1)_70%,rgba(37,99,235,0.03)_100%)]" />
 
         {/* Layer 1: Shifting Light Beams */}
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             rotate: [0, 5, 0],
             scale: [1, 1.1, 1]
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-[20%] -left-[10%] w-[120%] h-[120%] opacity-[0.03] pointer-events-none"
+          className="absolute -top-[20%] -left-[10%] w-[120%] h-[120%] opacity-[0.08] pointer-events-none"
           style={{
-            background: "repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(16,185,129,0.5) 100px, rgba(16,185,129,0.5) 200px)"
+            background: "repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(175, 235, 215, 0.5) 100px, rgba(16,185,129,0.5) 200px)"
           }}
         />
 
@@ -48,19 +48,19 @@ export default function Hero() {
           {[...Array(6)].map((_, i) => (
             <motion.div
               key={i}
-              initial={{ 
-                x: Math.random() * 100 + "%", 
+              initial={{
+                x: Math.random() * 100 + "%",
                 y: Math.random() * 100 + "%",
                 opacity: Math.random() * 0.2 + 0.1,
                 scale: Math.random() * 0.5 + 0.5
               }}
-              animate={{ 
+              animate={{
                 y: ["-10%", "110%"],
                 x: [Math.random() * 100 + "%", (Math.random() * 100 - 10) + "%"],
               }}
-              transition={{ 
-                duration: Math.random() * 20 + 20, 
-                repeat: Infinity, 
+              transition={{
+                duration: Math.random() * 20 + 20,
+                repeat: Infinity,
                 ease: "linear",
                 delay: Math.random() * -20
               }}
@@ -101,14 +101,14 @@ export default function Hero() {
             className="flex flex-col items-center space-y-6 md:space-y-8 w-full text-center"
           >
             {/* AUDIT FIX: Clear primary date & prize pool info */}
-           
+
 
             {/* Heading - Wide & Impactful */}
             <div className="flex flex-col items-center w-full">
               <h1 className="text-5xl sm:text-8xl md:text-[90px] lg:text-[130px] sm:mt-[100px] font-serif font-black text-slate-900 leading-[0.8] tracking-[0.1em] uppercase">
                 PROJECT
               </h1>
-              
+
               {/* Pill Badge - Centered between heading words */}
               <div className="flex items-center justify-center gap-4 my-4 md:my-6">
                 <span className="h-px w-10 bg-gradient-to-r from-transparent via-slate-400 to-transparent"></span>
@@ -124,7 +124,7 @@ export default function Hero() {
 
             {/* CTA Group */}
             <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full md:w-auto px-6 md:px-0 mt-3 sm:mt-[120px]">
-              <motion.button 
+              <motion.button
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
@@ -132,7 +132,7 @@ export default function Hero() {
               >
                 Register Now
               </motion.button>
-              <motion.button 
+              <motion.button
                 whileHover={{ scale: 1.02, y: -2, backgroundColor: "rgba(15, 23, 42, 0.03)" }}
                 whileTap={{ scale: 0.98 }}
                 className="w-full md:w-auto border border-slate-200 text-slate-900 px-14 py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.4em] transition-all duration-300 focus-visible:ring-4 focus-visible:ring-slate-900/10"
@@ -151,7 +151,7 @@ export default function Hero() {
             className="w-full flex flex-col items-center gap-6"
           >
             <span className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-300">Presented By</span>
-            
+
             <div className="flex items-center gap-14 md:gap-24 px-10 md:px-20 py-6 md:py-10 bg-white/40 backdrop-blur-md border border-slate-100 rounded-full shadow-lg shadow-slate-900/[0.02]">
               {sponsors.map((sponsor) => (
                 <motion.div
@@ -160,9 +160,9 @@ export default function Hero() {
                   className="flex flex-col items-center gap-3 transition-all duration-500 cursor-pointer"
                 >
                   <div className="h-[40px] sm:h-[80px] md:h-[80px]">
-                    <img 
-                      src={sponsor.logo} 
-                      alt={sponsor.name} 
+                    <img
+                      src={sponsor.logo}
+                      alt={sponsor.name}
                       className="h-full w-auto object-contain transition-opacity"
                     />
                   </div>
