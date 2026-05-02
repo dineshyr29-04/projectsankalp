@@ -78,7 +78,7 @@ function App() {
   return (
     <div className="relative min-h-screen bg-white">
 
-      <Navbar onNavigate={(view) => setCurrentView(view)} />
+      <Navbar currentView={currentView} onNavigate={(view) => setCurrentView(view)} />
       <BackToTop />
       
       <main>
