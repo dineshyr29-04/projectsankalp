@@ -57,27 +57,27 @@ export default function Hero() {
           </div>
 
           {/* Heading - Split Two Lines */}
-          <div className="space-y-1 md:space-y-4">
-            <h1 className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-serif font-black text-primary leading-[0.8] tracking-wider uppercase">
+          <div className="space-y-0 md:space-y-4">
+            <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-serif font-black text-primary leading-[0.8] tracking-wider uppercase">
               PROJECT
             </h1>
-            <h1 className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-serif font-black text-primary leading-[0.8] tracking-wider uppercase italic">
+            <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-serif font-black text-primary leading-[0.8] tracking-wider uppercase italic">
               SANKALP
             </h1>
           </div>
 
           {/* CTA Group */}
-          <div className="flex flex-col md:flex-row items-center gap-5 w-full md:w-auto px-4 md:px-0">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-5 w-full md:w-auto px-6 md:px-0">
             <motion.button 
               whileHover={{ scale: 1.05 }}
               onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
-              className="w-full md:w-auto bg-black text-white px-12 py-4 rounded-full text-[12px] font-black uppercase tracking-[0.4em] shadow-2xl shadow-black/10 transition-all"
+              className="w-full md:w-auto bg-black text-white px-8 md:px-12 py-3 md:py-4 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.4em] shadow-2xl shadow-black/10 transition-all"
             >
               Register Now
             </motion.button>
             <motion.button 
               whileHover={{ scale: 1.05 }}
-              className="w-full md:w-auto border border-primary/20 text-primary px-12 py-4 rounded-full text-[12px] font-black uppercase tracking-[0.4em] transition-all"
+              className="w-full md:w-auto border border-primary/20 text-primary px-8 md:px-12 py-3 md:py-4 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.4em] transition-all"
               onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Learn More
