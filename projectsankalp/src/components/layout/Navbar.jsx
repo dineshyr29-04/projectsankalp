@@ -5,7 +5,7 @@ import { cn } from "../../utils/helpers";
 import { Menu, X, ChevronRight, Globe } from "lucide-react";
 import { useState } from "react";
 
-export default function Navbar() {
+export default function Navbar({ onNavigate, currentView = "landing" }) {
   const { isScrolled } = useNavbar();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
@@ -20,7 +20,7 @@ export default function Navbar() {
 
   const languages = ["EN", "HI", "RU"];
 
-  // Progressive Transforms based on scroll (0-150px for more headroom)
+  // Progressive Transforms based on scroll
   const navWidth = useTransform(smoothScrollY, [0, 100], ["96%", "90%"]);
   const navMaxWidth = useTransform(smoothScrollY, [0, 100], ["2200px", "1000px"]);
   const navMarginTop = useTransform(smoothScrollY, [0, 100], [10, 20]);
@@ -35,6 +35,24 @@ export default function Navbar() {
   ]);
   const logoScale = useTransform(smoothScrollY, [0, 100], [1, 0.85]);
   const logoWidth = useTransform(smoothScrollY, [0, 100], [120, 90]);
+
+  const handleLinkClick = (e, href) => {
+    if (href === "#stages") {
+      e.preventDefault();
+      onNavigate?.("stages");
+      setIsMobileMenuOpen(false);
+    } else if (href.startsWith("#")) {
+      if (currentView !== "landing") {
+        onNavigate?.("landing");
+        // Delay scroll slightly to allow landing page to mount
+        setTimeout(() => {
+          const element = document.querySelector(href);
+          element?.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   return (
     <div className="fixed left-0 right-0 top-0 z-50 flex flex-col items-center pointer-events-none">
@@ -66,32 +84,47 @@ export default function Navbar() {
             borderColor: navBorderColor,
             backdropFilter: "blur(30px)",
           }}
-          className="flex items-center justify-between border border-solid pointer-events-auto relative z-50 overflow-hidden group/nav "
+          className="flex items-center justify-between border border-solid pointer-events-auto relative z-50 overflow-hidden group/nav"
         >
           {/* Left: Logo */}
           <div className="flex items-center">
-            <a href="#" className="block hover:opacity-80 transition-opacity">
+            <button 
+              onClick={() => onNavigate?.("landing")}
+              className="block hover:opacity-80 transition-opacity"
+            >
               <motion.img 
                 src="/nsslogo.png" 
                 alt="Logo" 
                 style={{ scale: logoScale, width: logoWidth }}
                 className="h-10 md:h-12 object-contain origin-left transition-all duration-300 drop-shadow-sm" 
               />
-            </a>
+            </button>
           </div>
 
-          {/* Center: Nav Links */}
-          <div className="hidden lg:flex items-center gap-2 bg-white/40 backdrop-blur-md border border-white/50 p-1 rounded-full shadow-[inset_0_4px_6px_rgba(0,0,0,0.12),inset_0_-1px_3px_rgba(255,255,255,0.6),0_4px_12px_rgba(0,0,0,0.08)] ">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="font-black uppercase tracking-widest transition-all rounded-full relative group/link overflow-hidden px-5 py-2 text-[10px] text-primary/80 hover:text-primary"
-              >
-                <span className="relative z-10">{item.name}</span>
-                <span className="absolute inset-0 bg-primary/10 scale-x-0 group-hover/link:scale-x-100 transition-transform origin-left duration-500 ease-out" />
-              </a>
-            ))}
+          {/* Center: Nav Links (Desktop) */}
+          <div className="hidden lg:flex items-center gap-1 bg-white/40 backdrop-blur-md border border-white/50 p-1 rounded-full shadow-[inset_0_4px_6px_rgba(0,0,0,0.12),inset_0_-1px_3px_rgba(255,255,255,0.6),0_4px_12px_rgba(0,0,0,0.08)] ">
+            {navigation.map((item) => {
+              const isActive = (item.href === "#stages" && currentView === "stages") || 
+                              (item.href !== "#stages" && currentView === "landing");
+              
+              return (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  onClick={(e) => handleLinkClick(e, item.href)}
+                  className={cn(
+                    "font-black uppercase tracking-widest transition-all rounded-full relative group/link overflow-hidden px-5 py-2 text-[10px]",
+                    isActive ? "text-primary" : "text-primary/60 hover:text-primary"
+                  )}
+                >
+                  <span className="relative z-10">{item.name}</span>
+                  <span className={cn(
+                    "absolute inset-0 bg-primary/10 transition-transform origin-left duration-500 ease-out",
+                    isActive ? "scale-x-100" : "scale-x-0 group-hover/link:scale-x-100"
+                  )} />
+                </a>
+              );
+            })}
           </div>
 
           {/* Right: Actions */}
@@ -146,7 +179,7 @@ export default function Navbar() {
             </a>
 
             <button
-              className="lg:hidden text-primary p-2.5 hover:bg-white rounded-full transition-colors shadow-sm bg-white/50"
+              className="lg:hidden text-primary p-2.5 hover:bg-white rounded-full transition-colors shadow-sm bg-white/50 relative z-[70]"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -154,6 +187,55 @@ export default function Navbar() {
           </div>
         </motion.div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-40 bg-white/90 backdrop-blur-2xl flex flex-col pt-40 px-8 pointer-events-auto"
+          >
+            <div className="flex flex-col gap-6">
+              {navigation.map((item, index) => (
+                <motion.a
+                  key={item.name}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  href={item.href}
+                  onClick={(e) => handleLinkClick(e, item.href)}
+                  className="text-4xl font-serif font-black text-primary uppercase tracking-tighter hover:text-accent transition-colors"
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+            </div>
+            
+            <div className="mt-auto pb-12 flex flex-col gap-8">
+              <div className="h-px w-full bg-primary/10" />
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary">Language</span>
+                <div className="flex gap-4">
+                  {languages.map(l => (
+                    <button 
+                      key={l}
+                      onClick={() => setLang(l)}
+                      className={cn("text-[10px] font-black uppercase tracking-widest", lang === l ? "text-primary" : "text-text-secondary opacity-40")}
+                    >
+                      {l}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <button className="w-full bg-primary text-white py-6 rounded-[30px] font-black uppercase tracking-[0.4em] text-[12px] shadow-2xl shadow-primary/20">
+                Register Now
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
