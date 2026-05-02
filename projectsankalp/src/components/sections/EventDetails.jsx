@@ -11,10 +11,10 @@ export default function EventDetails() {
   ];
 
   return (
-    <Section id="event-details" className="relative bg-gradient-to-b from-white via-blue-50/20 to-green-50/20 py-24 md:py-32 overflow-hidden border-t border-border">
+    <Section id="event-details" className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-border">
       {/* Unique Atmospheric Elements */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-400/10 rounded-full blur-[100px] -mr-40" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/10 rounded-full blur-[100px] -ml-40" />
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[150px] -mr-400" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-400/5 rounded-full blur-[120px] -ml-300" />
       
       <Container>
         <div className="flex flex-col gap-16 md:gap-24">
@@ -28,13 +28,13 @@ export default function EventDetails() {
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-[1px] bg-accent" />
-                <span className="text-accent font-bold uppercase tracking-[0.3em] text-[10px]">Grand Finale Stage</span>
+                <div className="w-10 h-[1px] bg-blue-600" />
+                <span className="text-blue-600 font-bold uppercase tracking-[0.3em] text-[10px]">Grand Finale Stage</span>
               </div>
 
-              <h2 className="text-4xl md:text-6xl font-serif font-black text-primary leading-tight">
+              <h2 className="text-4xl md:text-7xl font-serif font-black text-primary leading-[0.9] tracking-tight">
                 Where Innovation <br />
-                <span className="text-accent italic">Takes Center Stage.</span>
+                <span className="text-blue-600 italic">Takes Center Stage.</span>
               </h2>
             </motion.div>
 
@@ -43,10 +43,10 @@ export default function EventDetails() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="text-lg text-text-secondary leading-relaxed font-medium max-w-xl"
+              className="text-lg text-text-secondary leading-relaxed font-medium max-w-xl border-l-2 border-blue-500/10 pl-6"
             >
               The final phase of Project Sankalp is a high-stakes, 24-hour sprint where the most promising social-impact solutions are brought to life. Hosted at the state-of-the-art facilities of Yenepoya University, the top teams will build the future of social entrepreneurship. <br />
-              <span className="text-accent font-black text-xs uppercase tracking-widest mt-4 block">Click the venue image below for exact location on Google Maps.</span>
+              <span className="text-blue-600 font-black text-[10px] uppercase tracking-[0.3em] mt-6 block bg-blue-500/5 py-2 px-4 rounded-full border border-blue-500/10 w-fit">Click the venue image below for exact location on Google Maps.</span>
             </motion.p>
           </div>
 
