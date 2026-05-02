@@ -111,51 +111,13 @@ export default function Navbar({ onNavigate }) {
 
           {/* Right: Actions */}
           <div className="flex items-center gap-3 md:gap-4">
-            {/* Language Switcher */}
-            <div className="relative hidden sm:block">
-              <button
-                onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-2 rounded-full border border-primary/10 bg-white/40 text-[9px] font-black uppercase tracking-widest hover:bg-white hover:border-primary/30 transition-all px-4 py-2 group/lang"
-              >
-                <Globe size={14} className="text-primary group-hover/lang:rotate-12 transition-transform" />
-                {lang}
-                <ChevronRight size={10} className={cn("transition-transform duration-300", isLangOpen ? "-rotate-90" : "rotate-90")} />
-              </button>
-
-              <AnimatePresence>
-                {isLangOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    className="absolute top-full right-0 mt-3 bg-white/95 backdrop-blur-2xl border border-white/50 rounded-[24px] p-2 shadow-2xl min-w-[140px] z-[60]"
-                  >
-                    {languages.map((l) => (
-                      <button
-                        key={l}
-                        onClick={() => {
-                          setLang(l);
-                          setIsLangOpen(false);
-                        }}
-                        className={cn(
-                          "w-full text-left px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all",
-                          lang === l ? "bg-primary text-white shadow-lg shadow-primary/20" : "hover:bg-primary/5 text-text-secondary"
-                        )}
-                      >
-                        {l}
-                      </button>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
             <a
-              href="#register"
+              href="https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755"
               className={cn(
                 "bg-primary text-white rounded-full font-black uppercase tracking-[0.2em] flex items-center gap-2 hover:bg-primary/95 hover:scale-[1.03] active:scale-95 transition-all shadow-xl shadow-primary/20 px-8 py-3.5 text-[10px]",
                 isScrolled && "px-6 py-3 text-[9px]"
               )}
+              target="_blank"
             >
               Apply Now <ChevronRight size={12} className="-rotate-45 group-hover/nav:translate-x-0.5 group-hover/nav:-translate-y-0.5 transition-transform" />
             </a>
