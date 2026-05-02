@@ -22,7 +22,7 @@ export default function Navbar() {
 
   // Progressive Transforms based on scroll (0-150px for more headroom)
   const navWidth = useTransform(smoothScrollY, [0, 100], ["96%", "90%"]);
-  const navMaxWidth = useTransform(smoothScrollY, [0, 100], ["1400px", "1100px"]);
+  const navMaxWidth = useTransform(smoothScrollY, [0, 100], ["2200px", "1000px"]);
   const navMarginTop = useTransform(smoothScrollY, [0, 100], [10, 20]);
   const navBorderRadius = useTransform(smoothScrollY, [0, 100], [24, 80]);
   const navPaddingX = useTransform(smoothScrollY, [0, 100], [32, 24]);
@@ -45,7 +45,7 @@ export default function Navbar() {
             initial={{ height: 0, opacity: 0, y: -20 }}
             animate={{ height: "auto", opacity: 1, y: 0 }}
             exit={{ height: 0, opacity: 0, y: -20 }}
-            className="w-full bg-primary text-white text-[9px] md:text-[10px] py-2 px-4 flex justify-center items-center gap-4 overflow-hidden whitespace-nowrap uppercase tracking-[0.3em] font-black pointer-events-auto"
+            className="fixded left-0 right-0 top-0 w-full bg-primary text-white text-[9px] md:text-[10px] py-2 px-4 flex justify-center items-center gap-4 overflow-hidden whitespace-nowrap uppercase tracking-[0.3em] font-black pointer-events-auto"
           >
             <span className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.5)]" />
@@ -88,7 +88,7 @@ export default function Navbar() {
           </div>
 
           {/* Center: Nav Links */}
-          <div className="hidden lg:flex items-center gap-2 bg-white/40 backdrop-blur-md border border-white/50 p-1 rounded-full shadow-inner">
+          <div className="hidden lg:flex items-center gap-2 bg-white/40 backdrop-blur-md border border-white/50 p-1 rounded-full shadow-[inset_0_4px_6px_rgba(0,0,0,0.12),inset_0_-1px_3px_rgba(255,255,255,0.6),0_4px_12px_rgba(0,0,0,0.08)] ">
             {navigation.map((item) => (
               <a
                 key={item.name}
