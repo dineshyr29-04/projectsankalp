@@ -16,18 +16,26 @@ export default function Prizes() {
   const icons = [Trophy, Award, Medal];
 
   return (
-    <Section id="prizes" className="relative bg-gradient-to-br from-white via-green-50/30 to-white py-32 overflow-hidden" ref={containerRef}>
+    <Section id="prizes" className="relative bg-white py-32 overflow-hidden" ref={containerRef}>
       <motion.div 
         style={{ y: bgY }}
-        className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[120px] -mr-48 -mt-48" 
+        className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[150px] -mr-400 -mt-400" 
       />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-400/5 rounded-full blur-[120px] -ml-300 -mb-300" />
       
       <Container>
         <div className="text-center mb-24">
-          <span className="text-accent font-bold uppercase tracking-[0.3em] text-[10px] mb-6 block">Grand Rewards</span>
-          <h2 className="text-5xl md:text-6xl font-serif font-black mb-6 text-primary">Recognition & Prizes</h2>
-          <p className="text-text-secondary max-w-2xl mx-auto font-medium">
-            Excellence deserves extraordinary rewards.
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-8 h-[1px] bg-blue-600" />
+            <span className="text-blue-600 font-bold uppercase tracking-[0.3em] text-[10px]">Grand Rewards</span>
+            <div className="w-8 h-[1px] bg-blue-600" />
+          </div>
+          <h2 className="text-5xl md:text-8xl font-serif font-black mb-8 text-primary tracking-tight leading-[0.85]">
+            Recognition & <br />
+            <span className="text-blue-600 italic">Prizes.</span>
+          </h2>
+          <p className="text-text-secondary max-w-2xl mx-auto font-medium border-t border-blue-500/10 pt-6">
+            Excellence deserves extraordinary rewards. We've curated a prize pool that fuels your next big step.
           </p>
         </div>
 

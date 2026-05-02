@@ -15,19 +15,20 @@ export default function Tracks({ onKnowMore }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <Section id="tracks" className="relative bg-gradient-to-br from-white via-blue-50/40 to-white py-32 overflow-hidden">
+    <Section id="tracks" className="relative bg-white py-32 overflow-hidden">
       {/* Space Filling - Mission Layers */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
         {/* Blueprint Grid - More Pronounced */}
-        <div className="absolute inset-0 opacity-[0.06]" 
-             style={{ backgroundImage: "radial-gradient(#2563eb 1.5px, transparent 1.5px)", backgroundSize: "60px 60px" }} />
+        <div className="absolute inset-0 opacity-[0.04]" 
+             style={{ backgroundImage: "radial-gradient(#10b981 1.5px, transparent 1.5px)", backgroundSize: "60px 60px" }} />
         
+        {/* Atmospheric Mission Layers */}
+        <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[150px] -ml-400 -mt-400" />
+        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-emerald-400/5 rounded-full blur-[120px] -mr-300 -mb-300" />
+
         {/* Mission Coordinates Metadata */}
-        <div className="absolute top-12 left-12 text-[8px] font-black text-blue-500/10 tracking-[0.5em] uppercase vertical-text">
+        <div className="absolute top-12 left-12 text-[8px] font-black text-emerald-500/10 tracking-[0.5em] uppercase vertical-text">
           SANKALP_MISSION_COORD_47.8N_12.2E
-        </div>
-        <div className="absolute bottom-12 right-12 text-[8px] font-black text-blue-500/10 tracking-[0.5em] uppercase">
-          DATA_STREAM_ACTIVE_V8.0
         </div>
       </div>
       
@@ -39,21 +40,21 @@ export default function Tracks({ onKnowMore }) {
             viewport={{ once: true }}
             className="flex items-center gap-3 mb-6"
           >
-            <div className="w-10 h-[1px] bg-accent" />
-            <span className="text-accent font-bold uppercase tracking-[0.3em] text-[10px]">The Challenge</span>
+            <div className="w-10 h-[1px] bg-emerald-500" />
+            <span className="text-emerald-500 font-bold uppercase tracking-[0.3em] text-[10px]">The Challenge</span>
           </motion.div>
           
-          <h2 className="text-5xl md:text-6xl font-serif font-black mb-8 text-primary tracking-tight leading-[0.9]">
+          <h2 className="text-5xl md:text-8xl font-serif font-black mb-8 text-primary tracking-tight leading-[0.85]">
             Problem <br /> 
-            <span className="text-accent italic">Tracks.</span>
+            <span className="text-emerald-500 italic">Tracks.</span>
           </h2>
-          <div className="flex flex-col md:flex-row md:items-center gap-8 border-l-2 border-border pl-6">
+          <div className="flex flex-col md:flex-row md:items-center gap-8 border-l-2 border-emerald-500/20 pl-6">
             <p className="text-text-secondary text-lg font-medium max-w-sm">
               Choose a mission that matters. Each track is designed for high impact and real-world scalability.
             </p>
             <button 
               onClick={() => onKnowMore?.()}
-              className="group/btn flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-full text-[11px] font-black uppercase tracking-[0.3em] hover:bg-primary/95 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20"
+              className="group/btn flex items-center gap-3 bg-emerald-500 text-white px-8 py-4 rounded-full text-[11px] font-black uppercase tracking-[0.3em] hover:bg-emerald-600 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-emerald-500/20"
             >
               Know More <ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
             </button>
