@@ -13,7 +13,7 @@ export default function Footer() {
         </h2>
       </div>
 
-      <Container className="relative z-10 px-4 sm:px-6">
+      <Container className="relative z-10 w-full px-4 sm:px-10 lg:px-20 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 border-b border-white/5 pb-16">
           
           {/* Column 1: Info */}

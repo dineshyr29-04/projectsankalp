@@ -40,7 +40,7 @@ export default function Team() {
         </div>
       </div>
 
-      <Container className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto">
         <div className="text-left mb-20 md:mb-24 max-w-3xl">
           <motion.div
             initial={{ opacity: 0, x: -20 }}

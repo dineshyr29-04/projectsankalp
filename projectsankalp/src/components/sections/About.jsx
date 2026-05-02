@@ -41,7 +41,7 @@ export default function About() {
         <div className="absolute bottom-0 -left-24 w-[500px] h-[500px] bg-white rounded-full blur-[120px]" />
       </div>
 
-      <Container className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+      <Container className="relative z-10 w-full px-4 sm:px-10 lg:px-20 mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 md:gap-24 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -51,14 +51,14 @@ export default function About() {
           >
             <div className="flex items-center gap-4 mb-8">
               <div className="w-12 h-[1px] bg-slate-200" />
-              <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Our Mission</span>
+              <span className="text-[#484848] font-black uppercase tracking-[0.4em] text-[10px]">Our Mission</span>
             </div>
             
             <h2 className="text-5xl md:text-8xl font-serif font-black mb-8 leading-[0.9] tracking-tight text-slate-900">
               Build the Future <br /> 
-              <span className="text-slate-400 italic">With Purpose.</span>
+              <span className="text-[#22C55E] italic">With Purpose.</span>
             </h2>
-            <p className="text-lg text-slate-600 leading-relaxed mb-12 max-w-xl font-medium border-l border-slate-100 pl-8">
+            <p className="text-lg text-[#484848] leading-relaxed mb-12 max-w-xl font-medium border-l border-slate-100 pl-8">
               Project Sankalp is a premier 24-hour hackathon designed to empower the next generation of innovators to solve critical real-world problems.
             </p>
           </motion.div>
