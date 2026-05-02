@@ -51,11 +51,11 @@ export default function TracksPage({ onBack }) {
   const registerUrl = "https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-emerald-50/50 selection:bg-blue-200/30 pb-24">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-emerald-50/30 selection:bg-blue-200/30 pb-24">
       {/* Decorative Background Elements */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-400/5 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-emerald-400/5 rounded-full blur-[150px]" />
+        <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-blue-500/5 rounded-full blur-[180px] -mr-500 -mt-500" />
+        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[150px] -ml-400 -mb-400" />
       </div>
 
       <Container className="relative z-10 pt-32 md:pt-40">
@@ -64,12 +64,12 @@ export default function TracksPage({ onBack }) {
           onClick={onBack}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="flex items-center gap-3 text-primary/40 hover:text-primary transition-colors mb-12 group"
+          className="flex items-center gap-3 text-primary/40 hover:text-primary transition-colors mb-16 group"
         >
-          <div className="w-10 h-10 rounded-full border border-primary/10 flex items-center justify-center group-hover:border-primary/20 transition-all bg-white/50">
-            <ArrowLeft size={18} />
+          <div className="w-12 h-12 rounded-full border border-primary/10 flex items-center justify-center group-hover:border-primary/20 transition-all bg-white/80 shadow-sm backdrop-blur-md">
+            <ArrowLeft size={20} />
           </div>
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">Return Home</span>
+          <span className="text-[11px] font-black uppercase tracking-[0.4em]">Back to Mission Hub</span>
         </motion.button>
 
         {/* Header */}
