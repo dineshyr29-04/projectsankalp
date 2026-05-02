@@ -25,21 +25,65 @@ export default function Hero() {
       ref={containerRef}
       className="relative min-h-screen flex flex-col bg-white overflow-hidden pt-5"
     >
-      {/* Premium Background System */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/5 via-white to-blue-50/5" />
-        
-        {/* Soft Animated Glow Blobs */}
-        <motion.div 
-          animate={{ scale: [1, 1.05, 1], opacity: [0.15, 0.2, 0.15] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[10%] left-[-10%] w-[600px] h-[600px] bg-emerald-200/10 rounded-full blur-[140px]" 
+      {/* ── Rich Background System ── */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* Base gradient: light green → white → light blue */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_160%_100%_at_50%_-20%,rgba(16,185,129,0.08)_0%,rgba(255,255,255,1)_60%,rgba(37,99,235,0.05)_100%)]" />
+
+        {/* Subtle grid / mesh lines */}
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(16,185,129,1) 1px,transparent 1px),linear-gradient(90deg,rgba(16,185,129,1) 1px,transparent 1px)",
+            backgroundSize: "80px 80px",
+          }}
         />
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[10%] right-[-10%] w-[700px] h-[700px] bg-blue-200/10 rounded-full blur-[160px]" 
+
+        {/* Large emerald orb — top-left */}
+        <motion.div
+          animate={{ scale: [1, 1.08, 1], opacity: [0.18, 0.26, 0.18] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-[20%] -left-[15%] w-[700px] h-[700px] rounded-full bg-emerald-400/20 blur-[130px]"
         />
+
+        {/* Large blue orb — bottom-right */}
+        <motion.div
+          animate={{ scale: [1, 1.12, 1], opacity: [0.12, 0.22, 0.12] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+          className="absolute -bottom-[20%] -right-[15%] w-[750px] h-[750px] rounded-full bg-blue-400/15 blur-[150px]"
+        />
+
+        {/* Small accent orb — center-right */}
+        <motion.div
+          animate={{ y: [-20, 20, -20], opacity: [0.12, 0.2, 0.12] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute top-[40%] right-[8%] w-[280px] h-[280px] rounded-full bg-emerald-300/20 blur-[80px]"
+        />
+
+        {/* Diagonal gradient streak — premium editorial touch */}
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(16,185,129,0.04)_0%,transparent_40%,rgba(37,99,235,0.04)_100%)]" />
+
+        {/* Decorative corner arc — top right */}
+        <svg
+          className="absolute top-0 right-0 w-[420px] h-[420px] opacity-[0.06] text-emerald-600"
+          viewBox="0 0 420 420"
+          fill="none"
+        >
+          <circle cx="420" cy="0" r="200" stroke="currentColor" strokeWidth="1" />
+          <circle cx="420" cy="0" r="300" stroke="currentColor" strokeWidth="0.5" />
+          <circle cx="420" cy="0" r="380" stroke="currentColor" strokeWidth="0.3" />
+        </svg>
+
+        {/* Decorative corner arc — bottom left */}
+        <svg
+          className="absolute bottom-0 left-0 w-[320px] h-[320px] opacity-[0.05] text-blue-600"
+          viewBox="0 0 320 320"
+          fill="none"
+        >
+          <circle cx="0" cy="320" r="160" stroke="currentColor" strokeWidth="1" />
+          <circle cx="0" cy="320" r="260" stroke="currentColor" strokeWidth="0.5" />
+        </svg>
       </div>
       {/* Main Content - Centered with Navbar Offset */}
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 pt-28 pb-12">
