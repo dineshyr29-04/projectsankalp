@@ -40,7 +40,7 @@ export default function Navbar() {
     <div className="fixed left-0 right-0 top-0 z-50 flex flex-col items-center pointer-events-none">
       {/* Announcement Bar - Always Fixed */}
       <div 
-        className="w-full bg-primary text-white text-[9px] md:text-[10px] py-2 px-4 flex justify-center items-center gap-4 overflow-hidden whitespace-nowrap uppercase tracking-[0.3em] font-black pointer-events-auto shadow-md"
+        className="w-full bg-primary text-white text-[9px] md:text-[10px] py-2 px-4 flex justify-center items-center gap-4 overflow-hidden whitespace-nowrap uppercase tracking-[0.3em] font-black pointer-events-auto shadow-[inset_0_4px_6px_rgba(0,0,0,0.12),inset_0_-1px_3px_rgba(255,255,255,0.6),0_4px_12px_rgba(0,0,0,0.08)]"
       >
         <span className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.5)]" />
@@ -66,7 +66,7 @@ export default function Navbar() {
             borderColor: navBorderColor,
             backdropFilter: "blur(30px)",
           }}
-          className="flex items-center justify-between border border-solid pointer-events-auto relative z-50 overflow-hidden group/nav"
+          className="flex items-center justify-between border border-solid pointer-events-auto relative z-50 overflow-hidden group/nav "
         >
           {/* Left: Logo */}
           <div className="flex items-center">
