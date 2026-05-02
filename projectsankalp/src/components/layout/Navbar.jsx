@@ -15,29 +15,28 @@ export default function Navbar({ onNavigate, currentView }) {
   // Direct scroll without spring for snappy response
   const { scrollY } = useScroll();
   
-  // Ultra-snappy spring physics: even higher stiffness for instant response
+  // Smooth, gentle spring physics: balanced for responsive yet smooth transitions
   const smoothScrollY = useSpring(scrollY, {
-    stiffness: 300,
-    damping: 20,
-    restDelta: 0.001,
-    mass: 0.5
+    stiffness: 180,
+    damping: 35,
+    restDelta: 0.001
   });
 
-  // Progressive Transforms based on scroll (0-80px for faster response)
-  const navWidth = useTransform(smoothScrollY, [0, 80], ["96%", "90%"]);
-  const navMaxWidth = useTransform(smoothScrollY, [0, 80], ["2200px", "1000px"]);
-  const navMarginTop = useTransform(smoothScrollY, [0, 80], [10, 20]);
-  const navBorderRadius = useTransform(smoothScrollY, [0, 80], [24, 80]);
-  const navPaddingX = useTransform(smoothScrollY, [0, 80], [32, 24]);
-  const navPaddingY = useTransform(smoothScrollY, [0, 80], [14, 10]);
-  const navBg = useTransform(smoothScrollY, [0, 80], ["rgba(255, 255, 255, 0.8)", "rgba(255, 255, 255, 0.5)"]);
-  const navBorderColor = useTransform(smoothScrollY, [0, 80], ["rgba(255, 255, 255, 0.6)", "rgba(255, 255, 255, 0.4)"]);
-  const navShadow = useTransform(smoothScrollY, [0, 80], [
+  // Progressive Transforms based on scroll (0-150px for gradual, smooth expansion)
+  const navWidth = useTransform(smoothScrollY, [0, 150], ["96%", "90%"]);
+  const navMaxWidth = useTransform(smoothScrollY, [0, 150], ["2200px", "1000px"]);
+  const navMarginTop = useTransform(smoothScrollY, [0, 150], [10, 20]);
+  const navBorderRadius = useTransform(smoothScrollY, [0, 150], [24, 80]);
+  const navPaddingX = useTransform(smoothScrollY, [0, 150], [32, 24]);
+  const navPaddingY = useTransform(smoothScrollY, [0, 150], [14, 10]);
+  const navBg = useTransform(smoothScrollY, [0, 150], ["rgba(255, 255, 255, 0.8)", "rgba(255, 255, 255, 0.5)"]);
+  const navBorderColor = useTransform(smoothScrollY, [0, 150], ["rgba(255, 255, 255, 0.6)", "rgba(255, 255, 255, 0.4)"]);
+  const navShadow = useTransform(smoothScrollY, [0, 150], [
     "0 10px 30px -10px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
     "0 25px 50px -15px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.6)"
   ]);
-  const logoScale = useTransform(smoothScrollY, [0, 80], [1, 0.85]);
-  const logoWidth = useTransform(smoothScrollY, [0, 80], [120, 90]);
+  const logoScale = useTransform(smoothScrollY, [0, 150], [1, 0.85]);
+  const logoWidth = useTransform(smoothScrollY, [0, 150], [120, 90]);
 
   useEffect(() => {
     const sections = navigation.map(item => item.href.replace("#", ""));
