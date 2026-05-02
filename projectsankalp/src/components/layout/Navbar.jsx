@@ -12,55 +12,62 @@ export default function Navbar({ onNavigate, currentView }) {
 
   const isLanding = currentView === "landing";
 
-  // ... (keeping existing transform hooks)
+  // Direct scroll without spring for snappy response
   const { scrollY } = useScroll();
-  // ... (rest of the setup)
+  
+  // Snappy spring physics: high stiffness, low damping for responsive feel
   const smoothScrollY = useSpring(scrollY, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 200,
+    damping: 15,
     restDelta: 0.001
   });
 
-  // Progressive Transforms based on scroll (0-150px for more headroom)
-  const navWidth = useTransform(smoothScrollY, [0, 100], ["96%", "90%"]);
-  const navMaxWidth = useTransform(smoothScrollY, [0, 100], ["2200px", "1000px"]);
-  const navMarginTop = useTransform(smoothScrollY, [0, 100], [10, 20]);
-  const navBorderRadius = useTransform(smoothScrollY, [0, 100], [24, 80]);
-  const navPaddingX = useTransform(smoothScrollY, [0, 100], [32, 24]);
-  const navPaddingY = useTransform(smoothScrollY, [0, 100], [14, 10]);
-  const navBg = useTransform(smoothScrollY, [0, 100], ["rgba(255, 255, 255, 0.8)", "rgba(255, 255, 255, 0.5)"]);
-  const navBorderColor = useTransform(smoothScrollY, [0, 100], ["rgba(255, 255, 255, 0.6)", "rgba(255, 255, 255, 0.4)"]);
-  const navShadow = useTransform(smoothScrollY, [0, 100], [
+  // Progressive Transforms based on scroll (0-80px for faster response)
+  const navWidth = useTransform(smoothScrollY, [0, 80], ["96%", "90%"]);
+  const navMaxWidth = useTransform(smoothScrollY, [0, 80], ["2200px", "1000px"]);
+  const navMarginTop = useTransform(smoothScrollY, [0, 80], [10, 20]);
+  const navBorderRadius = useTransform(smoothScrollY, [0, 80], [24, 80]);
+  const navPaddingX = useTransform(smoothScrollY, [0, 80], [32, 24]);
+  const navPaddingY = useTransform(smoothScrollY, [0, 80], [14, 10]);
+  const navBg = useTransform(smoothScrollY, [0, 80], ["rgba(255, 255, 255, 0.8)", "rgba(255, 255, 255, 0.5)"]);
+  const navBorderColor = useTransform(smoothScrollY, [0, 80], ["rgba(255, 255, 255, 0.6)", "rgba(255, 255, 255, 0.4)"]);
+  const navShadow = useTransform(smoothScrollY, [0, 80], [
     "0 10px 30px -10px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
     "0 25px 50px -15px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.6)"
   ]);
-  const logoScale = useTransform(smoothScrollY, [0, 100], [1, 0.85]);
-  const logoWidth = useTransform(smoothScrollY, [0, 100], [120, 90]);
+  const logoScale = useTransform(smoothScrollY, [0, 80], [1, 0.85]);
+  const logoWidth = useTransform(smoothScrollY, [0, 80], [120, 90]);
 
   useEffect(() => {
     const sections = navigation.map(item => item.href.replace("#", ""));
+    let ticking = false;
     
     const handleScroll = () => {
-      // Find the current section based on scroll position
-      const scrollPosition = window.scrollY + window.innerHeight / 3; // Trigger at 1/3 of the screen
+      if (ticking) return;
+      ticking = true;
       
-      let currentSection = sections[0]; // Default to first section (Home)
-      
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el) {
-          const { offsetTop } = el;
-          if (scrollPosition >= offsetTop) {
-            currentSection = id;
+      requestAnimationFrame(() => {
+        // Find the current section based on scroll position
+        const scrollPosition = window.scrollY + window.innerHeight / 3;
+        
+        let currentSection = sections[0];
+        
+        for (const id of sections) {
+          const el = document.getElementById(id);
+          if (el) {
+            const { offsetTop } = el;
+            if (scrollPosition >= offsetTop) {
+              currentSection = id;
+            }
           }
         }
-      }
-      
-      setActiveSection(currentSection);
+        
+        setActiveSection(currentSection);
+        ticking = false;
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Initial check
     handleScroll();
 
     return () => {
