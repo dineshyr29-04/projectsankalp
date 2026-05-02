@@ -122,14 +122,14 @@ export default function Hero() {
               boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)"
             }}
             transition={{ delay: 0.1, duration: 1 }}
-            className="mt-6 md:mt-10 w-[92vw] md:w-[70vw] lg:w-[60vw] p-1.5 rounded-[35px] bg-white/70 backdrop-blur-3xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative overflow-hidden group"
+            className="mt-6 md:mt-10 w-[92vw] md:w-[70vw] lg:w-[60vw] p-3 md:p-[10px] rounded-[35px] bg-white/70 backdrop-blur-3xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative overflow-hidden group"
           >
             {/* Subtle Inner Glow */}
             <div className="absolute inset-0 bg-gradient-to-tr from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
             <div className="flex flex-col md:flex-row items-stretch md:items-center gap-1 relative z-10">
               {/* Left Side: Registration CTA */}
-              <div className="flex-1 p-5 md:p-8 flex flex-col items-center text-center gap-3 md:gap-4 bg-surface/80 rounded-[30px] border border-white/50">
+              <div className="flex-1 p-5 md:p-4 flex flex-col items-center text-center gap-3 md:gap-4 bg-surface/80 rounded-[30px] border border-white/50">
                 <motion.span 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
