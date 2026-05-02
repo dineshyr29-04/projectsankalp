@@ -25,65 +25,70 @@ export default function Hero() {
       ref={containerRef}
       className="relative min-h-screen flex flex-col bg-white overflow-hidden pt-5"
     >
-      {/* ── Rich Background System ── */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        {/* Base gradient: light green → white → light blue */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_160%_100%_at_50%_-20%,rgba(16,185,129,0.08)_0%,rgba(255,255,255,1)_60%,rgba(37,99,235,0.05)_100%)]" />
+      {/* ── Cinematic Introduction Background ── */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-white">
+        {/* Base Layer: Soft Fluid Gradient */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.05)_0%,rgba(255,255,255,1)_70%,rgba(37,99,235,0.03)_100%)]" />
 
-        {/* Subtle grid / mesh lines */}
-        <div
-          className="absolute inset-0 opacity-[0.035]"
+        {/* Layer 1: Shifting Light Beams */}
+        <motion.div 
+          animate={{ 
+            rotate: [0, 5, 0],
+            scale: [1, 1.1, 1]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-[20%] -left-[10%] w-[120%] h-[120%] opacity-[0.03] pointer-events-none"
           style={{
-            backgroundImage:
-              "linear-gradient(rgba(16,185,129,1) 1px,transparent 1px),linear-gradient(90deg,rgba(16,185,129,1) 1px,transparent 1px)",
-            backgroundSize: "80px 80px",
+            background: "repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(16,185,129,0.5) 100px, rgba(16,185,129,0.5) 200px)"
           }}
         />
 
-        {/* Large emerald orb — top-left */}
+        {/* Layer 2: Floating Bokeh Particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ 
+                x: Math.random() * 100 + "%", 
+                y: Math.random() * 100 + "%",
+                opacity: Math.random() * 0.2 + 0.1,
+                scale: Math.random() * 0.5 + 0.5
+              }}
+              animate={{ 
+                y: ["-10%", "110%"],
+                x: [Math.random() * 100 + "%", (Math.random() * 100 - 10) + "%"],
+              }}
+              transition={{ 
+                duration: Math.random() * 20 + 20, 
+                repeat: Infinity, 
+                ease: "linear",
+                delay: Math.random() * -20
+              }}
+              className="absolute w-24 h-24 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-[40px]"
+            />
+          ))}
+        </div>
+
+        {/* Layer 3: Main Atmospheric Orbs */}
         <motion.div
-          animate={{ scale: [1, 1.08, 1], opacity: [0.18, 0.26, 0.18] }}
-          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-[20%] -left-[15%] w-[700px] h-[700px] rounded-full bg-emerald-400/20 blur-[130px]"
+          animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.25, 0.15] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-[10%] -left-[10%] w-[800px] h-[800px] rounded-full bg-emerald-400/10 blur-[150px]"
+        />
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.2, 0.1] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute -bottom-[10%] -right-[10%] w-[900px] h-[900px] rounded-full bg-blue-400/10 blur-[180px]"
         />
 
-        {/* Large blue orb — bottom-right */}
-        <motion.div
-          animate={{ scale: [1, 1.12, 1], opacity: [0.12, 0.22, 0.12] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          className="absolute -bottom-[20%] -right-[15%] w-[750px] h-[750px] rounded-full bg-blue-400/15 blur-[150px]"
-        />
+        {/* Layer 4: Grain / Noise Overlay (The "Film" Feel) */}
+        <div className="absolute inset-0 opacity-[0.015] pointer-events-none mix-blend-multiply" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
 
-        {/* Small accent orb — center-right */}
-        <motion.div
-          animate={{ y: [-20, 20, -20], opacity: [0.12, 0.2, 0.12] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute top-[40%] right-[8%] w-[280px] h-[280px] rounded-full bg-emerald-300/20 blur-[80px]"
-        />
+        {/* Layer 5: Vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(255,255,255,0.4)_100%)] pointer-events-none" />
 
-        {/* Diagonal gradient streak — premium editorial touch */}
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(16,185,129,0.04)_0%,transparent_40%,rgba(37,99,235,0.04)_100%)]" />
-
-        {/* Decorative corner arc — top right */}
-        <svg
-          className="absolute top-0 right-0 w-[420px] h-[420px] opacity-[0.06] text-emerald-600"
-          viewBox="0 0 420 420"
-          fill="none"
-        >
-          <circle cx="420" cy="0" r="200" stroke="currentColor" strokeWidth="1" />
-          <circle cx="420" cy="0" r="300" stroke="currentColor" strokeWidth="0.5" />
-          <circle cx="420" cy="0" r="380" stroke="currentColor" strokeWidth="0.3" />
-        </svg>
-
-        {/* Decorative corner arc — bottom left */}
-        <svg
-          className="absolute bottom-0 left-0 w-[320px] h-[320px] opacity-[0.05] text-blue-600"
-          viewBox="0 0 320 320"
-          fill="none"
-        >
-          <circle cx="0" cy="320" r="160" stroke="currentColor" strokeWidth="1" />
-          <circle cx="0" cy="320" r="260" stroke="currentColor" strokeWidth="0.5" />
-        </svg>
+        {/* Corner Accents */}
+        <div className="absolute top-0 left-0 w-full h-full border-[1px] border-slate-900/[0.02] pointer-events-none m-8 rounded-[40px]" />
       </div>
       {/* Main Content - Centered with Navbar Offset */}
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 pt-28 pb-12">

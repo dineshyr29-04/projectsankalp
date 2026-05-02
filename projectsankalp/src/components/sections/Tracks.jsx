@@ -37,7 +37,7 @@ export default function Tracks({ onKnowMore }) {
           
           <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
             Problem <br /> 
-            <span className="text-slate-400 italic">Tracks.</span>
+            <span className="text-emerald-600 italic">Tracks.</span>
           </h2>
           <div className="flex flex-col md:flex-row md:items-center gap-10 border-l border-slate-100 pl-8">
             <p className="text-slate-600 text-lg font-medium max-w-sm leading-relaxed">

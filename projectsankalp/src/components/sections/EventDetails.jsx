@@ -32,7 +32,7 @@ export default function EventDetails() {
                 <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Grand Finale Stage</span>
               </div>
 
-              <h2 className="text-5xl md:text-8xl font-serif font-black text-slate-900 leading-[0.9] tracking-tight">
+              <h2 className="text-5xl md:text-7xl font-serif font-black text-slate-900 leading-[0.9] tracking-tight">
                 Where Innovation <br />
                 <span className="text-[#16A34A] font-bold italic">Takes Center Stage.</span>
               </h2>
