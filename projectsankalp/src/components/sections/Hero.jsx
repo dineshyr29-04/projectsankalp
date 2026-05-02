@@ -53,10 +53,14 @@ export default function Hero() {
             className="flex flex-row items-center gap-3 md:gap-8 mb-4 md:mb-6 bg-white/60 backdrop-blur-xl px-4 py-1.5 md:py-2.5 rounded-[15px] md:rounded-[25px] border border-white/70 shadow-xl shadow-black/5 w-fit max-w-[95vw]"
           >
             <div className="flex flex-col items-center gap-0.5">
-              <div className="w-14 h-12 md:w-28 md:h-24 flex items-center justify-center">
-                <img src="/nsslogo.png" alt="NSS Logo" className="w-full h-full object-contain transition-transform duration-500 hover:scale-105 hover:[transform:rotateY(180deg)]" />
+              <div className="w-16 h-16 md:w-30 md:h-30 flex items-center justify-center">
+                <img src="/ysetlogo.png" alt="YSET Logo" className="w-full h-full object-contain transition-transform duration-500 hover:scale-115" />
               </div>
-              <span className="text-[6px] md:text-[8px] font-black uppercase tracking-widest text-primary whitespace-nowrap">NSS Unit</span>
+              <div className="flex flex-col items-center">
+                <span className="text-[6px] md:text-[8px] font-black uppercase tracking-widest text-primary whitespace-nowrap leading-none">Yenepoya </span>
+                <span className="text-[6px] md:text-[8px] font-black uppercase tracking-widest text-primary whitespace-nowrap leading-none mt-0.5">University</span>
+              </div>
+
             </div>
             
             <div className="flex flex-col items-center gap-1 md:gap-2">
@@ -66,12 +70,11 @@ export default function Hero() {
             </div>
 
             <div className="flex flex-col items-center gap-0.5">
-              <div className="w-16 h-16 md:w-30 md:h-30 flex items-center justify-center">
-                <img src="/ysetlogo.png" alt="YSET Logo" className="w-full h-full object-contain transition-transform duration-500 hover:scale-115" />
+              <div className="w-14 h-12 md:w-28 md:h-24 flex items-center justify-center">
+                <img src="/nsslogo.png" alt="NSS Logo" className="w-full h-full object-contain transition-transform duration-500 hover:scale-105 hover:[transform:rotateY(180deg)]" />
               </div>
               <div className="flex flex-col items-center">
-                <span className="text-[5px] md:text-[7px] font-black uppercase tracking-widest text-primary whitespace-nowrap leading-none">Yenepoya </span>
-                <span className="text-[6px] md:text-[8px] font-black uppercase tracking-widest text-primary whitespace-nowrap leading-none mt-0.5">University</span>
+                <span className="text-[5px] md:text-[9px] font-black uppercase tracking-widest text-primary whitespace-nowrap leading-none md:mt-3">NSS Unit</span>
               </div>
             </div>
           </motion.div>
