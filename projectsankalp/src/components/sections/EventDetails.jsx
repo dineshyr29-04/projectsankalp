@@ -11,7 +11,7 @@ export default function EventDetails() {
   ];
 
   return (
-    <Section id="event-details" className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-50">
+    <Section id="venue" className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-50">
       {/* Premium Atmospheric Accents */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-slate-50 rounded-full blur-[140px] -mr-400" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-slate-50 rounded-full blur-[120px] -ml-300" />
