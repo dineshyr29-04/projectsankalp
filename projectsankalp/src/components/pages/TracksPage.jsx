@@ -87,10 +87,10 @@ export default function TracksPage({ onBack }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-6xl md:text-9xl font-serif font-black mb-10 leading-[0.85] tracking-tight text-white md:mr-32"
+            className="text-6xl md:text-7xl font-serif font-black mb-10 leading-[0.85] tracking-tight text-white"
           >
             Track <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3B82F6] via-[#14B8A6] to-[#10B981] italic">Explanation.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3B82F6] via-[#14B8A6] to-[#10B981] italic">Explanation </span>
           </motion.h1>
           
           <motion.p
