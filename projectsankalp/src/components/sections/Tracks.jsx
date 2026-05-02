@@ -78,13 +78,13 @@ export default function Tracks({ onKnowMore }) {
 
               {/* Card */}
               <div className="relative h-full p-10 rounded-3xl bg-white/80 backdrop-blur-md border border-white/60 
-                shadow-[0_10px_30px_rgba(0,0,0,0.05)] 
+                  shadow-[inset_0_4px_6px_rgba(0,0,0,0.12),inset_0_-1px_3px_rgba(255,255,255,0.6),0_4px_12px_rgba(0,0,0,0.08)]
                 group-hover:shadow-[0_20px_60px_rgba(16,185,129,0.12)] 
                 transition-all duration-500">
 
                 {/* Top Meta */}
                 <div className="flex justify-between items-center mb-10">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-700">
                     {track.id}
                   </span>
 
