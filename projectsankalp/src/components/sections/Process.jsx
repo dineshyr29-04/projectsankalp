@@ -32,15 +32,15 @@ export default function Process() {
   ];
 
   return (
-    <Section id="process" className="relative bg-white flex items-center py-24 md:py-32 overflow-hidden">
+    <Section id="process" className="relative bg-emerald-50/20 flex items-center py-24 md:py-32 overflow-hidden">
       {/* Premium Atmospheric Accents */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Soft Tonal Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.04)_0%,transparent_70%)]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,1)_0%,transparent_70%)]" />
         
         {/* Subtle Horizontal Guides */}
-        <div className="absolute top-[10%] left-0 w-full h-[1px] bg-slate-100 opacity-50" />
-        <div className="absolute bottom-[10%] left-0 w-full h-[1px] bg-slate-100 opacity-50" />
+        <div className="absolute top-[10%] left-0 w-full h-[1px] bg-emerald-100/50" />
+        <div className="absolute bottom-[10%] left-0 w-full h-[1px] bg-emerald-100/50" />
       </div>
 
       <Container className="max-w-6xl mx-auto px-4 sm:px-6">
