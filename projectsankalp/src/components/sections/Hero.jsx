@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Container from "../core/Container";
+import Grainient from "../Grainient";
 import { siteConfig } from "../../config/site";
 import { Calendar, ChevronRight, Zap, Award, Shield } from "lucide-react";
 
@@ -25,70 +26,32 @@ export default function Hero() {
       ref={containerRef}
       className="relative min-h-screen flex flex-col bg-white overflow-hidden pt-5"
     >
-      {/* ── Cinematic Introduction Background ── */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-white">
-        {/* Base Layer: Soft Fluid Gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.05)_0%,rgba(255,255,255,1)_70%,rgba(37,99,235,0.03)_100%)]" />
-
-        {/* Layer 1: Shifting Light Beams */}
-        <motion.div
-          animate={{
-            rotate: [0, 5, 0],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-[20%] -left-[10%] w-[120%] h-[120%] opacity-[0.08] pointer-events-none"
-          style={{
-            background: "repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(175, 235, 215, 0.5) 100px, rgba(16,185,129,0.5) 200px)"
-          }}
+      {/* ── Grainient Animated Background ── */}
+      <div className="absolute inset-0 z-0">
+        <Grainient
+          color1="#84CC16"
+          color2="#ffffff"
+          color3="#3B82F6"
+          timeSpeed={1.35}
+          colorBalance={-0.41}
+          warpStrength={1.0}
+          warpFrequency={5.0}
+          warpSpeed={2.0}
+          warpAmplitude={50.0}
+          blendAngle={-115}
+          blendSoftness={0.38}
+          rotationAmount={0}
+          noiseScale={2.0}
+          grainAmount={0}
+          grainScale={0.2}
+          grainAnimated={false}
+          contrast={1.5}
+          gamma={1.05}
+          saturation={1.0}
+          centerX={-0.14}
+          centerY={0.0}
+          zoom={0.65}
         />
-
-        {/* Layer 2: Floating Bokeh Particles */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              initial={{
-                x: Math.random() * 100 + "%",
-                y: Math.random() * 100 + "%",
-                opacity: Math.random() * 0.2 + 0.1,
-                scale: Math.random() * 0.5 + 0.5
-              }}
-              animate={{
-                y: ["-10%", "110%"],
-                x: [Math.random() * 100 + "%", (Math.random() * 100 - 10) + "%"],
-              }}
-              transition={{
-                duration: Math.random() * 20 + 20,
-                repeat: Infinity,
-                ease: "linear",
-                delay: Math.random() * -20
-              }}
-              className="absolute w-24 h-24 bg-gradient-to-br from-emerald-200/20 to-blue-200/20 rounded-full blur-[40px]"
-            />
-          ))}
-        </div>
-
-        {/* Layer 3: Main Atmospheric Orbs */}
-        <motion.div
-          animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.25, 0.15] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-[10%] -left-[10%] w-[800px] h-[800px] rounded-full bg-emerald-400/10 blur-[150px]"
-        />
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.2, 0.1] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute -bottom-[10%] -right-[10%] w-[900px] h-[900px] rounded-full bg-blue-400/10 blur-[180px]"
-        />
-
-        {/* Layer 4: Grain / Noise Overlay (The "Film" Feel) */}
-        <div className="absolute inset-0 opacity-[0.015] pointer-events-none mix-blend-multiply" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
-
-        {/* Layer 5: Vignette */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(255,255,255,0.4)_100%)] pointer-events-none" />
-
-        {/* Corner Accents */}
-        <div className="absolute top-0 left-0 w-full h-full border-[1px] border-slate-900/[0.02] pointer-events-none m-8 rounded-[40px]" />
       </div>
       {/* Main Content - Centered with Navbar Offset */}
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 pt-28 pb-12">
