@@ -2,15 +2,19 @@ import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "fra
 import { navigation } from "../../config/navigation";
 import { useNavbar } from "../../hooks/useNavbar";
 import { cn } from "../../utils/helpers";
-import { Menu, X, ChevronRight, Globe } from "lucide-react";
+import { Menu, X, ChevronRight, Globe, ArrowLeft } from "lucide-react";
 import { useState, useEffect } from "react";
 
-export default function Navbar({ onNavigate }) {
+export default function Navbar({ onNavigate, currentView }) {
   const { isScrolled } = useNavbar();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
+  const isLanding = currentView === "landing";
+
+  // ... (keeping existing transform hooks)
   const { scrollY } = useScroll();
+  // ... (rest of the setup)
   const smoothScrollY = useSpring(scrollY, {
     stiffness: 100,
     damping: 30,
@@ -113,33 +117,43 @@ export default function Navbar({ onNavigate }) {
 
           {/* Center: Nav Links */}
           <div className="hidden lg:flex items-center gap-2 bg-white/40 backdrop-blur-md border border-white/50 p-1 rounded-full shadow-[inset_0_4px_6px_rgba(0,0,0,0.12),inset_0_-1px_3px_rgba(255,255,255,0.6),0_4px_12px_rgba(0,0,0,0.08)] ">
-            {navigation.map((item) => {
-              const isActive = activeSection === item.href.replace("#", "");
-              return (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  onClick={(e) => {
-                    if (item.href === "#stages") {
-                      e.preventDefault();
-                      onNavigate?.("stages");
-                    } else if (item.href.startsWith("#")) {
-                      onNavigate?.("landing");
-                    }
-                  }}
-                  className={cn(
-                    "font-black uppercase tracking-widest transition-all rounded-full relative group/link overflow-hidden px-5 py-2 text-[10px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
-                    isActive ? "text-white" : "text-primary/80 hover:text-primary"
-                  )}
-                >
-                  <span className="relative z-10">{item.name}</span>
-                  <span className={cn(
-                    "absolute inset-0 transition-transform origin-left duration-500 ease-out",
-                    isActive ? "bg-primary scale-x-100" : "bg-primary/10 scale-x-0 group-hover/link:scale-x-100"
-                  )} />
-                </a>
-              );
-            })}
+            {isLanding ? (
+              navigation.map((item) => {
+                const isActive = activeSection === item.href.replace("#", "");
+                return (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    onClick={(e) => {
+                      if (item.href === "#stages") {
+                        e.preventDefault();
+                        onNavigate?.("stages");
+                      } else if (item.href.startsWith("#")) {
+                        onNavigate?.("landing");
+                      }
+                    }}
+                    className={cn(
+                      "font-black uppercase tracking-widest transition-all rounded-full relative group/link overflow-hidden px-5 py-2 text-[10px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                      isActive ? "text-white" : "text-primary/80 hover:text-primary"
+                    )}
+                  >
+                    <span className="relative z-10">{item.name}</span>
+                    <span className={cn(
+                      "absolute inset-0 transition-transform origin-left duration-500 ease-out",
+                      isActive ? "bg-primary scale-x-100" : "bg-primary/10 scale-x-0 group-hover/link:scale-x-100"
+                    )} />
+                  </a>
+                );
+              })
+            ) : (
+              <button
+                onClick={() => onNavigate?.("landing")}
+                className="flex items-center gap-2 px-6 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary hover:bg-primary hover:text-white transition-all rounded-full"
+              >
+                <ArrowLeft size={14} className="mr-1" />
+                Back to Website
+              </button>
+            )}
           </div>
 
           {/* Right: Actions */}
