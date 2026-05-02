@@ -50,7 +50,7 @@ export default function About() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-[1px] bg-slate-200" />
+              <div className="w-12 h-[1px] bg-slate-800" />
               <span className="text-[#484848] font-black uppercase tracking-[0.4em] text-[10px]">Our Mission</span>
             </div>
             

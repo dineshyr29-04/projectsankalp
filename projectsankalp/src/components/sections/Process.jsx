@@ -46,8 +46,8 @@ export default function Process() {
             viewport={{ once: true }}
             className="flex items-center gap-4 mb-8"
           >
-            <div className="w-12 h-[1px] bg-slate-200" />
-            <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">The Workflow</span>
+            <div className="w-12 h-[1px] bg-slate-800" />
+            <span className="text-slate-800 font-black uppercase tracking-[0.4em] text-[10px]">The Workflow</span>
           </motion.div>
           
           <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
