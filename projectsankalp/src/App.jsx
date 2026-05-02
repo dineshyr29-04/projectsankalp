@@ -12,10 +12,44 @@ import Team from "./components/sections/Team";
 import Prizes from "./components/sections/Prizes";
 import FAQ from "./components/sections/FAQ";
 import Sponsors from "./components/sections/Sponsors";
+import { ArrowUp } from "lucide-react";
 import TracksPage from "./components/pages/TracksPage";
 
+// AUDIT FIX: Simple, premium Back to Top button
+const BackToTop = () => {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => setShow(window.scrollY > 800);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-10 right-10 z-[100] p-4 bg-slate-900 text-white rounded-full shadow-2xl hover:bg-emerald-600 transition-all active:scale-95 group"
+          aria-label="Back to top"
+        >
+          <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+};
+
 function App() {
-  const [currentView, setCurrentView] = useState("landing"); // 'landing', 'stages', or 'tracks-page'
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate initial load
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const lenis = new Lenis({

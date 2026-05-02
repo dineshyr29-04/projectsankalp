@@ -16,6 +16,16 @@
   section {
     @apply scroll-mt-24 md:scroll-mt-32;
   }
+
+  /* AUDIT FIX: Improved keyboard accessibility with high-contrast focus rings */
+  :focus-visible {
+    outline: 2px solid #10b981;
+    outline-offset: 4px;
+  }
+
+  .focus-ring {
+    @apply focus-visible:ring-4 focus-visible:ring-emerald-500/50 focus-visible:outline-none;
+  }
 }
 
 html.lenis, html.lenis body {

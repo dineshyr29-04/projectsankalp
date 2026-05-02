@@ -9,7 +9,7 @@ export default function Navbar({ onNavigate }) {
   const { isScrolled } = useNavbar();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const [lang, setLang] = useState("EN");
+  const [activeSection, setActiveSection] = useState("");
 
   const { scrollY } = useScroll();
   const smoothScrollY = useSpring(scrollY, {
@@ -17,8 +17,6 @@ export default function Navbar({ onNavigate }) {
     damping: 30,
     restDelta: 0.001
   });
-
-  const languages = ["EN", "HI", "RU"];
 
   // Progressive Transforms based on scroll (0-150px for more headroom)
   const navWidth = useTransform(smoothScrollY, [0, 100], ["96%", "90%"]);
@@ -35,6 +33,32 @@ export default function Navbar({ onNavigate }) {
   ]);
   const logoScale = useTransform(smoothScrollY, [0, 100], [1, 0.85]);
   const logoWidth = useTransform(smoothScrollY, [0, 100], [120, 90]);
+
+  useEffect(() => {
+    const sections = navigation.map(item => item.href.replace("#", "")).filter(id => id !== "stages");
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -70% 0px",
+      threshold: 0
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [onNavigate]);
 
   return (
     <div className="fixed left-0 right-0 top-0 z-50 flex flex-col items-center pointer-events-none">
@@ -72,7 +96,7 @@ export default function Navbar({ onNavigate }) {
           <div className="flex items-center">
             <button 
               onClick={() => onNavigate?.("landing")}
-              className="block hover:opacity-80 transition-opacity"
+              className="block hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
             >
               <motion.img 
                 src="/nsslogo.png" 
@@ -85,28 +109,33 @@ export default function Navbar({ onNavigate }) {
 
           {/* Center: Nav Links */}
           <div className="hidden lg:flex items-center gap-2 bg-white/40 backdrop-blur-md border border-white/50 p-1 rounded-full shadow-[inset_0_4px_6px_rgba(0,0,0,0.12),inset_0_-1px_3px_rgba(255,255,255,0.6),0_4px_12px_rgba(0,0,0,0.08)] ">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={(e) => {
-                  if (item.href === "#stages") {
-                    e.preventDefault();
-                    onNavigate?.("stages");
-                  } else if (item.href.startsWith("#")) {
-                    // Switch to landing if we are on stages
-                    onNavigate?.("landing");
-                    // The browser will naturally try to scroll to the hash, 
-                    // but since we are switching views, we might need to let the mount happen.
-                    // For standard scrolling on the same page, e.preventDefault() is NOT called.
-                  }
-                }}
-                className="font-black uppercase tracking-widest transition-all rounded-full relative group/link overflow-hidden px-5 py-2 text-[10px] text-primary/80 hover:text-primary"
-              >
-                <span className="relative z-10">{item.name}</span>
-                <span className="absolute inset-0 bg-primary/10 scale-x-0 group-hover/link:scale-x-100 transition-transform origin-left duration-500 ease-out" />
-              </a>
-            ))}
+            {navigation.map((item) => {
+              const isActive = activeSection === item.href.replace("#", "");
+              return (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  onClick={(e) => {
+                    if (item.href === "#stages") {
+                      e.preventDefault();
+                      onNavigate?.("stages");
+                    } else if (item.href.startsWith("#")) {
+                      onNavigate?.("landing");
+                    }
+                  }}
+                  className={cn(
+                    "font-black uppercase tracking-widest transition-all rounded-full relative group/link overflow-hidden px-5 py-2 text-[10px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                    isActive ? "text-white" : "text-primary/80 hover:text-primary"
+                  )}
+                >
+                  <span className="relative z-10">{item.name}</span>
+                  <span className={cn(
+                    "absolute inset-0 transition-transform origin-left duration-500 ease-out",
+                    isActive ? "bg-primary scale-x-100" : "bg-primary/10 scale-x-0 group-hover/link:scale-x-100"
+                  )} />
+                </a>
+              );
+            })}
           </div>
 
           {/* Right: Actions */}
