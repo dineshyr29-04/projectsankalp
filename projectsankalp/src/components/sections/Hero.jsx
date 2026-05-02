@@ -115,7 +115,7 @@ export default function Hero() {
             transition={{ delay: 0.6, duration: 1 }}
             className="w-full flex flex-col items-center gap-6"
           >
-            <span className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-300">Presented By</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-800">Presented By</span>
 
             <div className="flex items-center gap-14 md:gap-24 px-10 md:px-20 py-6 md:py-10 bg-white/40 backdrop-blur-md border border-slate-100 rounded-full shadow-lg shadow-slate-900/[0.02]">
               {sponsors.map((sponsor) => (
@@ -137,6 +137,9 @@ export default function Hero() {
           </motion.div>
         </Container>
       </div>
+
+      {/* ── Smooth Color Transition to Next Section ── */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-slate-50/50 z-5" />
     </section>
   );
 }
