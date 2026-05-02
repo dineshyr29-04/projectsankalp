@@ -58,68 +58,76 @@ export default function Tracks({ onKnowMore }) {
             const isCenter = index === 1;
 
             return (
-              <motion.div 
-                key={index}
-                onHoverStart={() => setHoveredIndex(index)}
-                onHoverEnd={() => setHoveredIndex(null)}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                animate={{ 
-                  opacity: hoveredIndex !== null && hoveredIndex !== index ? 0.6 : 1,
-                  y: hoveredIndex === index ? -8 : 0,
-                }}
-                className="relative group"
-              >
-                <div className={`h-full p-10 rounded-2xl bg-white border transition-all duration-500 ${
-                  isCenter ? 'border-emerald-500/10 shadow-2xl shadow-emerald-900/[0.03]' : 'border-slate-100 shadow-sm shadow-slate-900/[0.01]'
-                } group-hover:border-emerald-500/20 group-hover:shadow-2xl group-hover:shadow-emerald-900/[0.05]`}>
-                  
-                  {/* Track Meta */}
-                  <div className="flex justify-between items-start mb-12">
-                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-300 group-hover:text-emerald-500 transition-colors">
-                      {track.id}
-                    </span>
-                  </div>
+              <motion.div
+              key={index}
+              onHoverStart={() => setHoveredIndex(index)}
+              onHoverEnd={() => setHoveredIndex(null)}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.8 }}
+              animate={{
+                opacity: hoveredIndex !== null && hoveredIndex !== index ? 0.5 : 1,
+                y: hoveredIndex === index ? -6 : 0,
+              }}
+              className="relative group"
+            >
+              {/* Glow Border */}
+              <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500 
+                bg-gradient-to-r from-emerald-400/20 via-transparent to-blue-400/20 blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.05)]" />
 
-                  {/* Track Content */}
-                  <div className="space-y-8">
-                    <h3 className="text-2xl font-serif font-black text-slate-900 leading-tight tracking-tight">
-                      {track.title}
-                    </h3>
-                    
-                    <p className="text-sm text-slate-500 leading-relaxed font-medium min-h-[48px]">
-                      {track.description}
-                    </p>
+              {/* Card */}
+              <div className="relative h-full p-10 rounded-3xl bg-white/80 backdrop-blur-md border border-white/60 
+                shadow-[0_10px_30px_rgba(0,0,0,0.05)] 
+                group-hover:shadow-[0_20px_60px_rgba(16,185,129,0.12)] 
+                transition-all duration-500">
 
-                    <div className="w-full h-[1px] bg-slate-50 group-hover:bg-emerald-500/10 transition-colors" />
+                {/* Top Meta */}
+                <div className="flex justify-between items-center mb-10">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">
+                    {track.id}
+                  </span>
 
-                    {/* Focus List */}
-                    <div className="space-y-4">
-                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">Core Focus</span>
-                      <ul className="space-y-3">
-                        {track.focus.map((item, i) => (
-                          <li key={i} className="flex items-center gap-3 text-[11px] font-bold text-slate-600">
-                            <CheckCircle2 size={12} className="text-emerald-500" />
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Alignment Indicator */}
-                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                    <div className="w-[1px] h-6 bg-emerald-500/20" />
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                  </div>
+                  <span className="text-[10px] text-emerald-500 font-semibold opacity-0 group-hover:opacity-100 transition">
+                    Explore →
+                  </span>
                 </div>
+
+                {/* Title */}
+                <h3 className="text-2xl font-serif font-black text-slate-900 leading-tight mb-4">
+                  {track.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm text-slate-500 leading-relaxed font-medium mb-8">
+                  {track.description}
+                </p>
+
+                {/* Divider */}
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-6" />
+
+                {/* Focus */}
+                <div className="space-y-3">
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-slate-300">
+                    Core Focus
+                  </span>
+
+                  <ul className="space-y-2">
+                    {track.focus.map((item, i) => (
+                      <li key={i} className="flex items-center gap-2 text-[12px] text-slate-600 font-medium">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+              </div> 
               </motion.div>
             );
           })}
         </div>
       </Container>
     </Section>
-  );
+  );  
 }
