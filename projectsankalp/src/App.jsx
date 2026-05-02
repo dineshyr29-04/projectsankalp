@@ -43,11 +43,11 @@ const BackToTop = () => {
 };
 
 function App() {
+  const [currentView, setCurrentView] = useState("landing");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate initial load
-    const timer = setTimeout(() => setIsLoading(false), 1500);
+    const timer = setTimeout(() => setIsLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -82,7 +82,24 @@ function App() {
 
   return (
     <div className="relative min-h-screen bg-white">
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            key="loader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[1000] bg-slate-900 flex items-center justify-center"
+          >
+            <div className="flex flex-col items-center gap-6">
+              <div className="w-16 h-16 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
+              <span className="text-white font-black uppercase tracking-[0.5em] text-[10px]">Project Sankalp</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <Navbar onNavigate={(view) => setCurrentView(view)} />
+      <BackToTop />
       
       <main>
         <AnimatePresence mode="wait">
