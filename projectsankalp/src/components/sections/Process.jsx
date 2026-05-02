@@ -32,98 +32,88 @@ export default function Process() {
   ];
 
   return (
-    <Section id="process" className="relative bg-white min-h-screen flex items-center py-24 md:py-32 overflow-hidden">
-      {/* Space Filling - Workflow Layers */}
+    <Section id="process" className="relative bg-white flex items-center py-24 md:py-32 overflow-hidden">
+      {/* Premium Atmospheric Accents */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Large Scale Radial Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.08)_0%,transparent_70%)]" />
+        {/* Soft Tonal Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.04)_0%,transparent_70%)]" />
         
-        {/* Technical Horizontal Guide */}
-        <div className="absolute top-[15%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
-        <div className="absolute bottom-[15%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/10 to-transparent" />
-        
-        {/* Floating Emerald Accents */}
-        <div className="absolute top-[10%] right-[10%] w-72 h-72 border-2 border-emerald-500/5 rounded-[40px] rotate-45 animate-pulse" />
-        <div className="absolute bottom-[10%] left-[5%] w-96 h-96 bg-emerald-400/5 rounded-full blur-[120px]" />
+        {/* Subtle Horizontal Guides */}
+        <div className="absolute top-[10%] left-0 w-full h-[1px] bg-slate-100 opacity-50" />
+        <div className="absolute bottom-[10%] left-0 w-full h-[1px] bg-slate-100 opacity-50" />
       </div>
-      <Container>
-        {/* Header - Engineered Look */}
+
+      <Container className="max-w-6xl mx-auto px-4 sm:px-6">
+        {/* Header - Refined Slate-900 */}
         <div className="text-left mb-20 md:mb-24 max-w-3xl">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex items-center gap-3 mb-6"
+            className="flex items-center gap-4 mb-8"
           >
-            <div className="w-10 h-[1px] bg-emerald-500" />
-            <span className="text-emerald-500 font-bold uppercase tracking-[0.3em] text-[10px]">The Workflow</span>
+            <div className="w-12 h-[1px] bg-slate-200" />
+            <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">The Workflow</span>
           </motion.div>
           
-          <h2 className="text-5xl md:text-8xl font-serif font-black mb-8 text-primary tracking-tight leading-[0.85]">
+          <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
             How Project Sankalp <br /> 
-            <span className="text-emerald-500 italic">Moves.</span>
+            <span className="text-slate-400 italic">Moves.</span>
           </h2>
           
-          <p className="text-text-secondary text-lg font-medium border-l-2 border-emerald-500/20 pl-6 max-w-2xl">
+          <p className="text-slate-600 text-lg font-medium border-l border-slate-100 pl-8 max-w-2xl">
             A structured three-phase journey from thousands of global ideas to the final top 30 champions.
           </p>
         </div>
 
-        {/* Process Grid - Strict & Structured */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-border bg-border">
+        {/* Process Grid - Normalized Geometry */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 relative">
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.15, duration: 0.6 }}
-              className={`group relative p-8 md:p-12 transition-all duration-500 bg-white ${
-                index === 1 ? "md:bg-surface/50" : ""
-              } ${
-                index === 2 ? "md:border-t-4 md:border-t-accent" : ""
-              }`}
+              transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="group relative p-10 rounded-2xl bg-white border border-slate-100 transition-all duration-500 hover:shadow-2xl hover:shadow-slate-900/[0.03] hover:-translate-y-1"
             >
-              {/* Internal Hover Frame */}
-              <div className="absolute inset-0 border-2 border-transparent group-hover:border-accent/10 transition-colors pointer-events-none" />
-
               {/* Card Header */}
               <div className="flex justify-between items-start mb-12">
-                <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-black tracking-[0.2em] text-text-secondary">
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[10px] font-black tracking-[0.2em] text-slate-300">
                     {step.round}
                   </span>
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-accent/20 group-hover:bg-accent transition-colors" />
-                    <span className="text-[9px] font-bold uppercase tracking-widest text-primary">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/30 group-hover:bg-emerald-500 transition-colors" />
+                    <span className="text-[9px] font-bold uppercase tracking-widest text-slate-900">
                       {step.tag}
                     </span>
                   </div>
                 </div>
                 
-                <div className="text-primary/20 group-hover:text-accent transition-colors duration-500">
-                  <step.icon size={24} strokeWidth={1.5} />
+                <div className="text-slate-200 group-hover:text-emerald-500 transition-colors duration-500">
+                  <step.icon size={22} strokeWidth={1.5} />
                 </div>
               </div>
 
-              {/* Card Body - Left Aligned & Bold */}
+              {/* Card Body */}
               <div className="space-y-6">
-                <h3 className="text-2xl md:text-3xl font-serif font-black text-primary leading-tight group-hover:translate-x-1 transition-transform">
+                <h3 className="text-2xl font-serif font-black text-slate-900 leading-tight">
                   {step.title}
                 </h3>
                 
-                <div className="w-8 h-[2px] bg-border group-hover:w-16 group-hover:bg-accent transition-all duration-700" />
+                <div className="w-8 h-[1px] bg-slate-100 group-hover:w-16 group-hover:bg-emerald-500 transition-all duration-700" />
                 
-                <p className="text-sm md:text-base text-text-secondary leading-relaxed font-medium">
+                <p className="text-sm text-slate-500 leading-relaxed font-medium">
                   {step.description}
                 </p>
               </div>
 
-              {/* Card Footer - Status Badge */}
+              {/* Card Footer */}
               <div className="mt-12 flex items-center justify-between">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-surface border border-border">
-                  <div className={`w-1.5 h-1.5 rounded-full ${index === 2 ? 'bg-primary' : 'bg-accent'} animate-pulse`} />
-                  <span className="text-[9px] font-black uppercase tracking-widest text-primary">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-100">
+                  <div className={`w-1.5 h-1.5 rounded-full ${index === 2 ? 'bg-slate-900' : 'bg-emerald-500'} animate-pulse`} />
+                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-900">
                     {step.status}
                   </span>
                 </div>
@@ -132,16 +122,9 @@ export default function Process() {
                   className="opacity-0 group-hover:opacity-100 transition-opacity"
                   whileHover={{ x: 5 }}
                 >
-                  <ArrowRight size={16} className="text-accent" />
+                  <ArrowRight size={16} className="text-emerald-500" />
                 </motion.div>
               </div>
-              
-              {/* Intentional asymmetrical detail */}
-              {index === 0 && (
-                <div className="absolute bottom-4 right-4 text-[8px] font-black text-primary/5 uppercase tracking-[0.5em] select-none">
-                  PHASE_01
-                </div>
-              )}
             </motion.div>
           ))}
         </div>

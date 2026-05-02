@@ -11,13 +11,13 @@ export default function EventDetails() {
   ];
 
   return (
-    <Section id="event-details" className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-border">
-      {/* Unique Atmospheric Elements */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[150px] -mr-400" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-400/5 rounded-full blur-[120px] -ml-300" />
+    <Section id="event-details" className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-50">
+      {/* Premium Atmospheric Accents */}
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-slate-50 rounded-full blur-[140px] -mr-400" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-slate-50 rounded-full blur-[120px] -ml-300" />
       
-      <Container>
-        <div className="flex flex-col gap-16 md:gap-24">
+      <Container className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col gap-20 md:gap-24">
           
           {/* Top: Header & Description */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
@@ -27,14 +27,14 @@ export default function EventDetails() {
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-[1px] bg-blue-600" />
-                <span className="text-blue-600 font-bold uppercase tracking-[0.3em] text-[10px]">Grand Finale Stage</span>
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-[1px] bg-slate-200" />
+                <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Grand Finale Stage</span>
               </div>
 
-              <h2 className="text-4xl md:text-7xl font-serif font-black text-primary leading-[0.9] tracking-tight">
+              <h2 className="text-5xl md:text-8xl font-serif font-black text-slate-900 leading-[0.9] tracking-tight">
                 Where Innovation <br />
-                <span className="text-blue-600 italic">Takes Center Stage.</span>
+                <span className="text-slate-400 italic">Takes Center Stage.</span>
               </h2>
             </motion.div>
 
@@ -43,58 +43,58 @@ export default function EventDetails() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="text-lg text-text-secondary leading-relaxed font-medium max-w-xl border-l-2 border-blue-500/10 pl-6"
+              className="text-lg text-slate-600 leading-relaxed font-medium max-w-xl border-l border-slate-100 pl-8"
             >
               The final phase of Project Sankalp is a high-stakes, 24-hour sprint where the most promising social-impact solutions are brought to life. Hosted at the state-of-the-art facilities of Yenepoya University, the top teams will build the future of social entrepreneurship. <br />
-              <span className="text-blue-600 font-black text-[10px] uppercase tracking-[0.3em] mt-6 block bg-blue-500/5 py-2 px-4 rounded-full border border-blue-500/10 w-fit">Click the venue image below for exact location on Google Maps.</span>
+              <span className="text-emerald-600 font-black text-[10px] uppercase tracking-[0.4em] mt-8 block bg-emerald-500/5 py-2 px-4 rounded-full border border-emerald-500/10 w-fit">Click the venue image below for exact location on Google Maps.</span>
             </motion.p>
           </div>
 
           {/* Center: Large Landscape Photo */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative group cursor-pointer"
             onClick={() => window.open("https://maps.app.goo.gl/MvM7bL1oeYJvH4Qx7", "_blank")}
           >
-            <div className="absolute -inset-4 bg-accent/5 rounded-[40px] blur-3xl group-hover:bg-accent/10 transition-colors duration-700" />
-            <div className="relative aspect-[4/5] sm:aspect-video md:aspect-[21/8] overflow-hidden rounded-[30px] md:rounded-[40px] border border-border shadow-2xl">
+            <div className="absolute -inset-4 bg-slate-100/50 rounded-[40px] blur-3xl group-hover:bg-slate-200/50 transition-colors duration-700" />
+            <div className="relative aspect-[4/5] sm:aspect-video md:aspect-[21/8] overflow-hidden rounded-2xl md:rounded-3xl border border-slate-200 shadow-2xl shadow-slate-900/5">
               <img 
                 src="/event.png" 
                 alt="Yendurance Zone Venue" 
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/40 to-transparent" />
               
-              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 md:p-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
-                <div className="flex flex-col gap-3 md:gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-blue-500/20 backdrop-blur-md rounded-lg border border-white/20">
+              <div className="absolute inset-x-0 bottom-0 p-8 sm:p-10 md:p-16 flex flex-col md:flex-row md:items-end justify-between gap-10">
+                <div className="flex flex-col gap-4 md:gap-6">
+                  <div className="flex items-center gap-4">
+                    <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
                       <MapPin size={18} className="text-white" />
                     </div>
-                    <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.4em] text-white/80">Event Venue</span>
+                    <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.5em] text-white/70">Event Venue</span>
                   </div>
-                  <div className="space-y-1">
-                    <h4 className="text-xl sm:text-2xl md:text-4xl font-serif font-black text-white leading-tight">
+                  <div className="space-y-2">
+                    <h4 className="text-2xl sm:text-3xl md:text-5xl font-serif font-black text-white leading-tight tracking-tight">
                       Yendurance Zone
                     </h4>
-                    <p className="text-xs sm:text-sm md:text-base font-bold text-white/70 max-w-lg">
-                      Yenepoya University, Deralakatte, Ullal, Karnataka 575018
+                    <p className="text-sm sm:text-base font-bold text-white/50 max-w-lg uppercase tracking-widest">
+                      Yenepoya University, Mangalore, India
                     </p>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-6 text-white/90 bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10 w-fit">
+                <div className="flex items-center gap-8 text-white/90 bg-white/5 backdrop-blur-lg p-6 rounded-2xl border border-white/10 w-fit">
                   <div className="text-center">
-                    <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest block mb-1 opacity-60">Capacity</span>
-                    <span className="text-lg md:text-2xl font-serif font-bold">30 Teams</span>
+                    <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] block mb-2 opacity-50">Capacity</span>
+                    <span className="text-xl md:text-3xl font-serif font-bold">30 Teams</span>
                   </div>
-                  <div className="w-px h-8 bg-white/20" />
+                  <div className="w-px h-10 bg-white/10" />
                   <div className="text-center">
-                    <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest block mb-1 opacity-60">Duration</span>
-                    <span className="text-lg md:text-2xl font-serif font-bold">24 Hours</span>
+                    <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] block mb-2 opacity-50">Duration</span>
+                    <span className="text-xl md:text-3xl font-serif font-bold">24 Hours</span>
                   </div>
                 </div>
               </div>
@@ -102,22 +102,22 @@ export default function EventDetails() {
           </motion.div>
 
           {/* Bottom: Logistics / Bring With You */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {essentials.map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="flex items-center gap-4 p-6 rounded-[24px] bg-white border border-border shadow-sm hover:shadow-md transition-all hover:-translate-y-1 group"
+                transition={{ duration: 1, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-6 p-8 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-900/[0.03] hover:-translate-y-1 transition-all duration-500 group"
               >
-                <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-surface text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                <div className="w-14 h-14 flex items-center justify-center rounded-xl bg-slate-50 text-slate-900 group-hover:bg-slate-900 group-hover:text-white transition-all duration-500 shadow-sm">
                   {item.icon}
                 </div>
                 <div>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-text-secondary block mb-1">Bring With You</span>
-                  <p className="text-[13px] font-bold text-primary">{item.text}</p>
+                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 block mb-2">Bring With You</span>
+                  <p className="text-sm font-bold text-slate-900 tracking-tight">{item.text}</p>
                 </div>
               </motion.div>
             ))}

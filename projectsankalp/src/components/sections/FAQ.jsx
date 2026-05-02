@@ -9,41 +9,42 @@ export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
 
   return (
-    <Section id="faq" className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-border">
-      {/* Unique Atmospheric Element */}
-      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[150px] -mr-400 animate-pulse" />
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-emerald-400/5 rounded-full blur-[120px] -ml-300" />
+    <Section id="faq" className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-50">
+      {/* Premium Atmospheric Accents */}
+      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-slate-50 rounded-full blur-[150px] -mr-400" />
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-slate-50 rounded-full blur-[120px] -ml-300" />
       
-      <Container>
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-[1px] bg-emerald-500" />
-            <span className="text-emerald-500 font-bold uppercase tracking-[0.3em] text-[10px]">Help Center</span>
-            <div className="w-8 h-[1px] bg-emerald-500" />
+      <Container className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-16 md:mb-20">
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <div className="w-12 h-[1px] bg-slate-100" />
+            <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Help Center</span>
+            <div className="w-12 h-[1px] bg-slate-100" />
           </div>
-          <h2 className="text-5xl md:text-8xl font-serif font-black mb-8 text-primary tracking-tight leading-[0.85]">
+          <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
             Common <br />
-            <span className="text-emerald-500 italic">Questions.</span>
+            <span className="text-slate-400 italic">Questions.</span>
           </h2>
-          <p className="text-text-secondary font-medium border-t border-emerald-500/10 pt-6 max-w-lg mx-auto">Everything you need to know before you start your mission.</p>
+          <p className="text-slate-600 font-medium border-t border-slate-50 pt-8 max-w-lg mx-auto leading-relaxed">Everything you need to know before you start your mission.</p>
         </div>
 
         <div className="max-w-3xl mx-auto grid gap-4">
           {siteConfig.faq.map((item, index) => (
             <div 
               key={index} 
-              className="rounded-3xl border border-border bg-white overflow-hidden transition-all duration-300 hover:border-accent"
+              className="rounded-2xl border border-slate-100 bg-white overflow-hidden transition-all duration-300 hover:border-emerald-500/20 hover:shadow-xl hover:shadow-slate-900/[0.02]"
             >
               <button
-                className="w-full p-6 text-left flex justify-between items-center hover:bg-surface transition-colors"
+                className="w-full p-8 text-left flex justify-between items-center hover:bg-slate-50/50 transition-colors"
                 onClick={() => setActiveIndex(activeIndex === index ? null : index)}
               >
-                <span className="font-bold text-primary">{item.question}</span>
+                <span className="font-bold text-slate-900 tracking-tight">{item.question}</span>
                 <motion.div
                   animate={{ rotate: activeIndex === index ? 45 : 0 }}
                   transition={{ duration: 0.3 }}
+                  className="p-1 rounded-full bg-slate-50 border border-slate-100"
                 >
-                  <Plus size={20} className="text-primary" />
+                  <Plus size={18} className="text-slate-900" />
                 </motion.div>
               </button>
               
@@ -53,9 +54,9 @@ export default function FAQ() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <div className="p-6 pt-0 text-text-secondary text-sm leading-relaxed border-t border-border/50">
+                    <div className="p-8 pt-0 text-slate-500 text-sm leading-relaxed font-medium border-t border-slate-50/50">
                       {item.answer}
                     </div>
                   </motion.div>

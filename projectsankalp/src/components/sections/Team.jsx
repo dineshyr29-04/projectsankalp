@@ -31,73 +31,68 @@ export default function Team() {
   ];
 
   return (
-    <Section id="team" className="relative bg-gradient-to-tr from-white via-slate-50 to-white py-24 md:py-32 overflow-hidden border-t border-border">
-      {/* Space Filling - Personnel Layers */}
+    <Section id="team" className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-50">
+      {/* Premium Atmospheric Accents */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
-        {/* Massive Background Label */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-serif font-black text-slate-200/40 tracking-tighter opacity-50">
+        {/* Massive Background Label - Subtler */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-serif font-black text-slate-50 tracking-tighter opacity-30">
           CORE_TEAM
         </div>
-        
-        {/* Personnel Metadata */}
-        <div className="absolute top-20 right-10 flex flex-col gap-1 items-end opacity-20">
-          <div className="text-[8px] font-black text-primary tracking-widest">REG_ID_SANKALP_CORE</div>
-          <div className="w-12 h-0.5 bg-accent" />
-        </div>
       </div>
-      <Container>
+
+      <Container className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-left mb-20 md:mb-24 max-w-3xl">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex items-center gap-3 mb-6"
+            className="flex items-center gap-4 mb-8"
           >
-            <div className="w-10 h-[1px] bg-accent" />
-            <span className="text-accent font-bold uppercase tracking-[0.3em] text-[10px]">The Minds Behind</span>
+            <div className="w-12 h-[1px] bg-slate-200" />
+            <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">The Minds Behind</span>
           </motion.div>
           
-          <h2 className="text-5xl md:text-6xl font-serif font-black mb-8 text-primary tracking-tight">
+          <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
             Meet the <br /> 
-            <span className="text-accent italic">Core Team.</span>
+            <span className="text-slate-400 italic">Core Team.</span>
           </h2>
-          <p className="text-text-secondary text-lg font-medium border-l-2 border-border pl-6 max-w-2xl">
+          <p className="text-slate-600 text-lg font-medium border-l border-slate-100 pl-8 max-w-2xl">
             A diverse group of educators, developers, and designers working to make Project Sankalp a reality.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 border border-border bg-border">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {team.map((member, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-              className={`group relative p-8 md:p-10 transition-all duration-500 bg-white hover:bg-surface/50`}
+              transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="group relative p-10 rounded-2xl bg-white border border-slate-100 transition-all duration-500 hover:shadow-2xl hover:shadow-slate-900/[0.03] hover:-translate-y-1"
             >
               <div className="space-y-4 mb-12">
-                <span className="text-[9px] font-black tracking-[0.2em] text-accent uppercase">
+                <span className="text-[10px] font-black tracking-[0.3em] text-emerald-500 uppercase">
                   {member.tag}
                 </span>
-                <h3 className="text-2xl font-serif font-black text-primary leading-tight">
+                <h3 className="text-2xl font-serif font-black text-slate-900 leading-tight tracking-tight">
                   {member.name}
                 </h3>
-                <div className="w-8 h-[1px] bg-border group-hover:w-16 group-hover:bg-accent transition-all duration-700" />
+                <div className="w-8 h-[1px] bg-slate-100 group-hover:w-16 group-hover:bg-emerald-500 transition-all duration-700" />
               </div>
 
               <div className="space-y-6">
-                <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary block">
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block">
                   {member.role}
                 </span>
-                <p className="text-sm text-text-secondary leading-relaxed font-medium">
+                <p className="text-sm text-slate-500 leading-relaxed font-medium">
                   {member.bio}
                 </p>
               </div>
 
-              <div className="mt-12 flex items-center gap-4">
-                <div className="text-[8px] font-black text-primary/20 uppercase tracking-[0.4em] select-none">
-                  SANKALP_TEAM_{index + 1}
+              <div className="mt-12 pt-6 border-t border-slate-50">
+                <div className="text-[8px] font-black text-slate-200 uppercase tracking-[0.4em] select-none">
+                  SANKALP_CORE_{index + 1}
                 </div>
               </div>
             </motion.div>
