@@ -16,12 +16,12 @@ export default function Prizes() {
   const icons = [Trophy, Award, Medal];
 
   return (
-    <Section id="prizes" className="relative bg-white py-24 md:py-32 overflow-hidden" ref={containerRef}>
+    <Section id="prizes" className="relative bg-slate-50/50 py-24 md:py-32 overflow-hidden" ref={containerRef}>
       <motion.div 
         style={{ y: bgY }}
-        className="absolute top-0 right-0 w-[800px] h-[800px] bg-slate-50 rounded-full blur-[150px] -mr-400 -mt-400" 
+        className="absolute top-0 right-0 w-[800px] h-[800px] bg-white rounded-full blur-[150px] -mr-400 -mt-400 opacity-50" 
       />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-slate-50 rounded-full blur-[120px] -ml-300 -mb-300" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white rounded-full blur-[120px] -ml-300 -mb-300 opacity-50" />
       
       <Container className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-20 md:mb-24">

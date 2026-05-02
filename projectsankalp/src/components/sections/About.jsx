@@ -33,16 +33,12 @@ export default function About() {
   ];
 
   return (
-    <Section id="about" className="relative py-24 md:py-32 overflow-hidden bg-white" ref={containerRef}>
+    <Section id="about" className="relative py-24 md:py-32 overflow-hidden bg-slate-50/50" ref={containerRef}>
       {/* Premium Background Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Subtler Tech Grid */}
-        <div className="absolute inset-0 opacity-[0.02]" 
-             style={{ backgroundImage: "linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)", backgroundSize: "120px 120px" }} />
-        
         {/* Soft Tonal Blobs */}
-        <div className="absolute top-1/4 -right-24 w-[600px] h-[600px] bg-slate-100/50 rounded-full blur-[140px]" />
-        <div className="absolute bottom-0 -left-24 w-[500px] h-[500px] bg-slate-100/30 rounded-full blur-[120px]" />
+        <div className="absolute top-1/4 -right-24 w-[600px] h-[600px] bg-white rounded-full blur-[140px]" />
+        <div className="absolute bottom-0 -left-24 w-[500px] h-[500px] bg-white rounded-full blur-[120px]" />
       </div>
 
       <Container className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">

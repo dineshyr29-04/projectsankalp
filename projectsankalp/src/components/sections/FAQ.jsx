@@ -9,10 +9,10 @@ export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
 
   return (
-    <Section id="faq" className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-50">
+    <Section id="faq" className="relative bg-emerald-50/10 py-24 md:py-32 overflow-hidden border-t border-slate-50">
       {/* Premium Atmospheric Accents */}
-      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-slate-50 rounded-full blur-[150px] -mr-400" />
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-slate-50 rounded-full blur-[120px] -ml-300" />
+      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-white rounded-full blur-[150px] -mr-400" />
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-white rounded-full blur-[120px] -ml-300" />
       
       <Container className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16 md:mb-20">
