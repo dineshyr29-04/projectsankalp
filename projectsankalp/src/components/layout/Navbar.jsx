@@ -50,7 +50,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center gap-4">
             <a href="#" className="block hover:opacity-80 transition-opacity">
-              <img src="/favicon.png" alt="Logo" className="w-10 h-10 md:w-20 md:h-12 object-contain" />
+              <img src="/nsslogo.png" alt="Logo" className="w-10 h-10 md:w-20 md:h-12 object-contain" />
             </a>
             
             <div className="relative hidden sm:block">
