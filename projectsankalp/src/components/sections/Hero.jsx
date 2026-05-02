@@ -57,7 +57,7 @@ export default function Hero() {
               </h1>
               
               {/* Pill Badge - Centered between heading words */}
-              <div className="my-6 md:my-10 bg-white/60 backdrop-blur-md border border-slate-200/50 rounded-full px-10 py-3.5 shadow-sm inline-block">
+              <div className="my-4 md:my-6 bg-white/60 backdrop-blur-md border border-slate-200/50 rounded-full px-10 py-3.5 shadow-sm inline-block">
                 <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.6em] text-slate-500">
                   Code 4 Change
                 </span>
@@ -98,7 +98,7 @@ export default function Hero() {
           >
             <span className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-300">Presented By</span>
             
-            <div className="flex items-center gap-14 md:gap-24 px-10 md:px-20 py-6 md:py-10 bg-white/40 backdrop-blur-md border border-slate-100 rounded-full shadow-lg shadow-slate-900/[0.02]">
+            <div className="flex items-center gap-14 md:gap-24 px-10 md:px-20 py-6 md:py-10 bg-white/40 backdrop-blur-xs border border-slate-100 rounded-full shadow-lg shadow-slate-900/[0.02]">
               {sponsors.map((sponsor) => (
                 <motion.div
                   key={sponsor.name}
@@ -110,6 +110,7 @@ export default function Hero() {
                     alt={sponsor.name} 
                     className="h-full w-auto object-contain opacity-70 transition-opacity"
                   />
+                  <p className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-300 max-w-[200px]">{sponsor.name}</p>
                 </motion.div>
               ))}
             </div>

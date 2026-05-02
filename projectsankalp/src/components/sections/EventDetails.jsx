@@ -5,7 +5,7 @@ import { MapPin, Laptop, ShieldCheck, Briefcase, ChevronRight } from "lucide-rea
 
 export default function EventDetails() {
   const essentials = [
-    { icon: <Laptop size={16} />, text: "Laptop, charger, extension cord" },
+    { icon: <Laptop size={16} />, text: "Laptop and charger" },
     { icon: <ShieldCheck size={16} />, text: "Government ID & College ID" },
     { icon: <Briefcase size={16} />, text: "Personal essentials" },
   ];
