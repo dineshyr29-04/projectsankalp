@@ -8,7 +8,7 @@ export default function Process() {
     {
       round: "ROUND 1",
       title: "Online Submission",
-      description: "Submit a high-impact video pitch and project core idea via our portal.",
+      description: "Submit a high-impact video pitch and project core idea via our portal. Should be no longer than 3 minutes.",
       icon: Video,
       status: "Online",
       tag: "Submission"
