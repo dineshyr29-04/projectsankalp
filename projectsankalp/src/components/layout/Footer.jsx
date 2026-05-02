@@ -81,14 +81,15 @@ export default function Footer() {
                 Need help with registration or have questions about the hackathon?
               </p>
               
-              <button className="w-full bg-white text-slate-900 py-4 rounded-xl font-black uppercase tracking-widest text-[11px] flex items-center justify-center gap-2 hover:bg-slate-50 transition-all active:scale-95 shadow-xl shadow-black/20">
+              <a className="w-full bg-white text-slate-900 py-4 rounded-xl font-black uppercase tracking-widest text-[11px] flex items-center justify-center gap-2 hover:bg-slate-50 transition-all active:scale-95 shadow-xl shadow-black/20"
+              href="mailto:[projectsankalp@yenepoya.edu.in] ">
                 Contact Us <Mail size={14} />
-              </button>
+              </a>
 
               <div className="space-y-4 pt-2">
                 <a href="tel:+919876543210" className="flex items-center gap-4 text-xs text-white/60 hover:text-white transition-colors font-bold">
                   <Phone size={14} className="text-emerald-500" />
-                  +91 98765 43210
+                  +91 89513 49166
                 </a>
                 
               </div>
