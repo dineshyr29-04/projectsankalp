@@ -109,7 +109,7 @@ export default function Navbar() {
                   "font-black uppercase tracking-widest transition-all rounded-full",
                   isScrolled 
                     ? "px-3 py-1 text-[10px] text-text-secondary bg-gradient-to-r from-green-50/30 via-white/40 to-blue-50/30 hover:text-text-primary hover:from-green-100/50 hover:via-blue-50/50 hover:to-blue-100/50 backdrop-blur-sm transition-all duration-300" 
-                    : "px-3 py-1 text-[10px] text-white bg-gradient-to-r from-emerald-600 via-slate-200 to-blue-700 hover:from-emerald-700 hover:via-slate-300 hover:to-blue-800 shadow-md hover:shadow-lg rounded-md transition-all duration-200"
+                    : "px-3 py-1 text-[10px] text-black bg-gradient-to-r from-emerald-200 via-slate-200 to-blue-100 rounded-full hover:from-emerald-700 hover:via-slate-300 hover:to-blue-800 shadow-md hover:shadow-lg rounded-md transition-all duration-200"
                 )}
               >
                 {item.name}

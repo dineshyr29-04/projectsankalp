@@ -19,7 +19,7 @@ export default function Process() {
       description: "Expert screening phase where feasibility and innovation are rigorously evaluated.",
       icon: ClipboardCheck,
       status: "Internal",
-      tag: "Screening"
+      tag: "Evaluation"
     },
     {
       round: "ROUND 3",
