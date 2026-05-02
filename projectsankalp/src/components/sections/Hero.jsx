@@ -70,7 +70,7 @@ export default function Hero() {
               </h1>
               
               {/* Pill Badge - Centered between heading words */}
-              <div className="my-4 md:my-6 bg-white/60 backdrop-blur-md border border-slate-200/50 rounded-full px-10 py-3.5 shadow-sm inline-block">
+              <div className="my-4 md:my-6 bg-white/60 backdrop-blur-md rounded-full px-10 py-3.5 inline-block">
                 <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.6em] text-slate-500">
                   Code 4 Change
                 </span>
