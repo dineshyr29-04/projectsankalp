@@ -13,9 +13,10 @@ import Prizes from "./components/sections/Prizes";
 import FAQ from "./components/sections/FAQ";
 import Sponsors from "./components/sections/Sponsors";
 import StagesPage from "./components/pages/StagesPage";
+import TracksPage from "./components/pages/TracksPage";
 
 function App() {
-  const [currentView, setCurrentView] = useState("landing"); // 'landing' or 'stages'
+  const [currentView, setCurrentView] = useState("landing"); // 'landing', 'stages', or 'tracks-page'
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -51,7 +52,7 @@ function App() {
       
       <main>
         <AnimatePresence mode="wait">
-          {currentView === "landing" ? (
+          {currentView === "landing" && (
             <motion.div
               key="landing"
               initial={{ opacity: 0 }}
@@ -63,14 +64,16 @@ function App() {
               <About />
               <Process />
               <EventDetails />
-              <Tracks onKnowMore={() => setCurrentView("stages")} />
+              <Tracks onKnowMore={() => setCurrentView("tracks-page")} />
               <Team />
               <Prizes />
               <Sponsors />
               <FAQ />
               <Footer />
             </motion.div>
-          ) : (
+          )}
+
+          {currentView === "stages" && (
             <motion.div
               key="stages"
               initial={{ opacity: 0, y: 20 }}
@@ -79,6 +82,18 @@ function App() {
               transition={{ duration: 0.5 }}
             >
               <StagesPage onBack={() => setCurrentView("landing")} />
+            </motion.div>
+          )}
+
+          {currentView === "tracks-page" && (
+            <motion.div
+              key="tracks-page"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <TracksPage onBack={() => setCurrentView("landing")} />
             </motion.div>
           )}
         </AnimatePresence>

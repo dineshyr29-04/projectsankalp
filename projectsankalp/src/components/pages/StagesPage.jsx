@@ -58,8 +58,8 @@ export default function StagesPage({ onBack }) {
       </div>
 
       <Container className="relative z-10 pt-32 md:pt-40">
-        {/* Back Button */}
-        <motion.button
+        {/* Back a */}
+        <motion.a
           onClick={onBack}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -69,7 +69,7 @@ export default function StagesPage({ onBack }) {
             <ArrowLeft size={18} />
           </div>
           <span className="text-[10px] font-black uppercase tracking-[0.3em]">Back to Hub</span>
-        </motion.button>
+        </motion.a>
 
         {/* Header */}
         <div className="max-w-3xl mb-24 md:mb-32">
@@ -195,9 +195,11 @@ export default function StagesPage({ onBack }) {
             <p className="text-white/60 font-medium text-lg">
               Registration closes soon. Secure your team's spot in the most impactful hackathon of the year.
             </p>
-            <button className="bg-white text-slate-950 px-12 py-4 rounded-full text-[12px] font-black uppercase tracking-[0.4em] hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-white/10">
+            <a className="bg-white text-slate-950 px-12 py-4 rounded-full text-[12px] font-black uppercase tracking-[0.4em] hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-white/10 cursor-pointer" 
+            onClick={()=>window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
+            >
               Register Now
-            </button>
+            </a>
           </div>
         </motion.div>
       </Container>

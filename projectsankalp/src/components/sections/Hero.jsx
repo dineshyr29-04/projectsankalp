@@ -138,7 +138,8 @@ export default function Hero() {
                   <Zap size={12} className="fill-accent animate-pulse" /> Registration Open
                 </motion.span>
                 <h3 className="text-sm md:text-xl font-serif font-black text-primary leading-tight">Join the Revolution.</h3>
-                <button className="bg-primary text-white px-8 py-2.5 md:py-3 rounded-2xl text-[10px] md:text-[12px] font-black uppercase tracking-[0.3em] hover:bg-primary/95 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-300">
+                <button className="bg-primary text-white px-8 py-2.5 md:py-3 rounded-2xl text-[10px] md:text-[12px] font-black uppercase tracking-[0.3em] hover:bg-primary/95 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-300"
+                onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}>
                   Register Now
                 </button>
               </div>
