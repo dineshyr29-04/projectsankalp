@@ -108,7 +108,6 @@ export default function Process() {
                 
                 <motion.div 
                   className="opacity-0 group-hover:opacity-100 transition-opacity"
-                  whileHover={{ x: 5 }}
                 >
                   <ArrowRight size={16} className="text-emerald-500" />
                 </motion.div>
