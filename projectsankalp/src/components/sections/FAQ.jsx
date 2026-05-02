@@ -18,12 +18,12 @@ export default function FAQ() {
         <div className="text-center mb-16 md:mb-20">
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="w-12 h-[1px] bg-slate-100" />
-            <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">Help Center</span>
+            <span className="text-[#16A34A] font-black uppercase tracking-[0.4em] text-[10px]">Help Center</span>
             <div className="w-12 h-[1px] bg-slate-100" />
           </div>
           <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
             Common <br />
-            <span className="text-slate-400 italic">Questions.</span>
+            <span className="text-[#16A34A] font-bold italic">Questions.</span>
           </h2>
           <p className="text-slate-600 font-medium border-t border-slate-50 pt-8 max-w-lg mx-auto leading-relaxed">Everything you need to know before you start your mission.</p>
         </div>
