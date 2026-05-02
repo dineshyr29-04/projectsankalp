@@ -32,18 +32,15 @@ export default function Process() {
   ];
 
   return (
-    <Section id="process" className="relative bg-white flex items-center py-24 md:py-32 overflow-hidden">
+    <Section id="process" className="relative bg-emerald-50/20 flex items-center py-24 md:py-32 overflow-hidden">
       {/* Premium Atmospheric Accents */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Soft Tonal Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.04)_0%,transparent_70%)]" />
-        
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">        
         {/* Subtle Horizontal Guides */}
-        <div className="absolute top-[10%] left-0 w-full h-[1px] bg-slate-100 opacity-50" />
-        <div className="absolute bottom-[10%] left-0 w-full h-[1px] bg-slate-100 opacity-50" />
+        <div className="absolute top-[10%] left-0 w-full h-[1px] bg-emerald-100/50" />
+        <div className="absolute bottom-[10%] left-0 w-full h-[1px] bg-emerald-100/50" />
       </div>
 
-      <Container className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto">
         {/* Header - Refined Slate-900 */}
         <div className="text-left mb-20 md:mb-24 max-w-3xl">
           <motion.div
@@ -58,7 +55,7 @@ export default function Process() {
           
           <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
             How Project Sankalp <br /> 
-            <span className="text-slate-400 italic">Moves.</span>
+            <span className="text-[#8B5CF6] italic">Moves.</span>
           </h2>
           
           <p className="text-slate-600 text-lg font-medium border-l border-slate-100 pl-8 max-w-2xl">

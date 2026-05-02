@@ -12,10 +12,44 @@ import Team from "./components/sections/Team";
 import Prizes from "./components/sections/Prizes";
 import FAQ from "./components/sections/FAQ";
 import Sponsors from "./components/sections/Sponsors";
+import { ArrowUp } from "lucide-react";
 import TracksPage from "./components/pages/TracksPage";
 
+// AUDIT FIX: Simple, premium Back to Top button
+const BackToTop = () => {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => setShow(window.scrollY > 800);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-10 right-10 z-[100] p-4 bg-slate-900 text-white rounded-full shadow-2xl hover:bg-emerald-600 transition-all active:scale-95 group"
+          aria-label="Back to top"
+        >
+          <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+};
+
 function App() {
-  const [currentView, setCurrentView] = useState("landing"); // 'landing', 'stages', or 'tracks-page'
+  const [currentView, setCurrentView] = useState("landing");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -48,7 +82,24 @@ function App() {
 
   return (
     <div className="relative min-h-screen bg-white">
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            key="loader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[1000] bg-slate-900 flex items-center justify-center"
+          >
+            <div className="flex flex-col items-center gap-6">
+              <div className="w-16 h-16 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
+              <span className="text-white font-black uppercase tracking-[0.5em] text-[10px]">Project Sankalp</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <Navbar onNavigate={(view) => setCurrentView(view)} />
+      <BackToTop />
       
       <main>
         <AnimatePresence mode="wait">
@@ -65,7 +116,6 @@ function App() {
               <Process />
               <EventDetails />
               <Tracks onKnowMore={() => setCurrentView("tracks-page")} />
-              
               <Prizes />
               <FAQ />
               <Footer />

@@ -5,7 +5,7 @@ import { MapPin, Laptop, ShieldCheck, Briefcase, ChevronRight } from "lucide-rea
 
 export default function EventDetails() {
   const essentials = [
-    { icon: <Laptop size={16} />, text: "Laptop, charger, extension cord" },
+    { icon: <Laptop size={16} />, text: "Laptop and charger" },
     { icon: <ShieldCheck size={16} />, text: "Government ID & College ID" },
     { icon: <Briefcase size={16} />, text: "Personal essentials" },
   ];
@@ -16,7 +16,7 @@ export default function EventDetails() {
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-slate-50 rounded-full blur-[140px] -mr-400" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-slate-50 rounded-full blur-[120px] -ml-300" />
       
-      <Container className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto">
         <div className="flex flex-col gap-20 md:gap-24">
           
           {/* Top: Header & Description */}
@@ -34,7 +34,7 @@ export default function EventDetails() {
 
               <h2 className="text-5xl md:text-8xl font-serif font-black text-slate-900 leading-[0.9] tracking-tight">
                 Where Innovation <br />
-                <span className="text-slate-400 italic">Takes Center Stage.</span>
+                <span className="text-[#16A34A] font-bold italic">Takes Center Stage.</span>
               </h2>
             </motion.div>
 

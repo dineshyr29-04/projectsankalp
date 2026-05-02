@@ -82,7 +82,7 @@ export const siteConfig = {
     },
     {
       question: "Is there a registration fee?",
-      answer: "Yes, Project Sankalp has a nominal registration fee, which applies only to teams selected for the second round of the offline hackathon. The fee will be of Rs.800 per team only."
+      answer: "Round 1 is completely free for everyone. Only teams selected for the Offline Grand Finale (Round 2) are required to pay a nominal commitment fee of ₹800 per team, which covers meals, kits, and venue access."
     }
   ]
 };
