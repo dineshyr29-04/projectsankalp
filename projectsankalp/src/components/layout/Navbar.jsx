@@ -114,8 +114,8 @@ export default function Navbar({ onNavigate }) {
             <a
               href="https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755"
               className={cn(
-                "bg-primary text-white rounded-full font-black uppercase tracking-[0.2em] flex items-center gap-2 hover:bg-primary/95 hover:scale-[1.03] active:scale-95 transition-all shadow-xl shadow-primary/20 px-8 py-3.5 text-[10px]",
-                isScrolled && "px-6 py-3 text-[9px]"
+                "bg-primary text-white rounded-full font-black uppercase tracking-[0.2em] flex items-center gap-2 hover:bg-primary/95 hover:scale-[1.03] active:scale-95 transition-all shadow-xl shadow-primary/20 px-6 py-2.5 text-[8px] md:px-8 md:py-3.5 md:text-[10px]",
+                isScrolled && "px-4 py-2 text-[8px] md:px-6 md:py-3 md:text-[9px]"
               )}
               target="_blank"
             >
