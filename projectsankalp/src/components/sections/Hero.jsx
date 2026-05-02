@@ -116,36 +116,47 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ 
               scale: 1.01, 
-              boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.1)"
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)"
             }}
             transition={{ delay: 0.1, duration: 1 }}
-            className="mt-4 md:mt-6 w-full min-w-[20vw] md:w-[60vw] p-1 rounded-[25px] bg-white border border-border/50 shadow-2xl shadow-black/5"
+            className="mt-6 md:mt-10 w-[92vw] md:w-[70vw] lg:w-[60vw] p-1.5 rounded-[35px] bg-white/70 backdrop-blur-3xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative overflow-hidden group"
           >
-            <div className="flex items-center gap-1">
-              <div className="flex-1 p-2.5 md:p-4 flex flex-col items-start gap-1.5 md:gap-2 bg-surface rounded-[20px]">
-                <span className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-accent flex items-center gap-1 whitespace-nowrap">
-                  <Zap size={10} className="fill-accent" /> Registration Open
-                </span>
-                <h3 className="text-[10px] md:text-[13px] font-serif font-black text-primary leading-tight whitespace-nowrap">Join the Revolution.</h3>
-                <button className="bg-primary text-white px-3 md:px-4 py-1 md:py-1.5 rounded-lg text-[9px] md:text-[11px] font-black uppercase tracking-widest">
+            {/* Subtle Inner Glow */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+            <div className="flex flex-col md:flex-row items-stretch md:items-center gap-1 relative z-10">
+              {/* Left Side: Registration CTA */}
+              <div className="flex-1 p-5 md:p-8 flex flex-col items-center text-center gap-3 md:gap-4 bg-surface/80 rounded-[30px] border border-white/50">
+                <motion.span 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-accent flex items-center gap-2 whitespace-nowrap bg-accent/5 px-4 py-1 rounded-full border border-accent/10"
+                >
+                  <Zap size={12} className="fill-accent animate-pulse" /> Registration Open
+                </motion.span>
+                <h3 className="text-sm md:text-xl font-serif font-black text-primary leading-tight">Join the Revolution.</h3>
+                <button className="bg-primary text-white px-8 py-2.5 md:py-3 rounded-2xl text-[10px] md:text-[12px] font-black uppercase tracking-[0.3em] hover:bg-primary/95 hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-300">
                   Register Now
                 </button>
               </div>
 
-              <div className="flex-1 p-2.5 md:p-4 flex items-center justify-around gap-2">
-                <div className="text-center">
-                  <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-text-secondary block mb-0.5 whitespace-nowrap">Dates</span>
-                  <div className="flex items-center gap-1 whitespace-nowrap">
-                    <Calendar size={8} className="text-primary" />
-                    <span className="text-[10px] md:text-[11px] font-bold text-primary">May 24-25</span>
+              {/* Right Side: Key Details */}
+              <div className="flex-1 p-5 md:p-8 flex items-center justify-around gap-6 md:gap-8">
+                <div className="flex flex-col items-center gap-2 group/item">
+                  <span className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.3em] text-text-secondary opacity-60 block group-hover/item:text-primary transition-colors">Dates</span>
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/50 border border-border/50 shadow-sm group-hover/item:border-primary/20 transition-all">
+                    <Calendar size={14} className="text-primary" />
+                    <span className="text-[11px] md:text-[13px] font-bold text-primary tracking-wide">May 24-25</span>
                   </div>
                 </div>
-                <div className="w-px h-4 bg-border" />
-                <div className="text-center">
-                  <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-text-secondary block mb-0.5 whitespace-nowrap">Rounds</span>
-                  <div className="flex items-center gap-1 whitespace-nowrap">
-                    <div className="w-2.5 h-2.5 rounded-sm border border-primary flex items-center justify-center text-[5px] font-black">3</div>
-                    <span className="text-[10px] md:text-[11px] font-bold text-primary">3 Rounds</span>
+                
+                <div className="w-px h-12 bg-gradient-to-b from-transparent via-border to-transparent opacity-50" />
+                
+                <div className="flex flex-col items-center gap-2 group/item">
+                  <span className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.3em] text-text-secondary opacity-60 block group-hover/item:text-primary transition-colors">Rounds</span>
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/50 border border-border/50 shadow-sm group-hover/item:border-primary/20 transition-all">
+                    <div className="w-5 h-5 rounded-lg bg-primary text-white flex items-center justify-center text-[10px] font-black shadow-md shadow-primary/20">3</div>
+                    <span className="text-[11px] md:text-[13px] font-bold text-primary tracking-wide">3 Rounds</span>
                   </div>
                 </div>
               </div>
