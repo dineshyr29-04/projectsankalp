@@ -35,8 +35,21 @@ export default function Prizes() {
             <span className="text-[#2563EB] font-bold italic mt-[16px]" >Prizes.</span>
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto font-medium border-t border-slate-50 pt-8 leading-relaxed">
-            Excellence deserves extraordinary rewards. We've curated a prize pool that fuels your next big step.
+            Excellence deserves extraordinary rewards. Compete for a massive prize pool of <strong className="text-slate-900 font-black text-xl">₹1,00,000+</strong> that fuels your next big step.
           </p>
+          
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-8 inline-flex items-center gap-3 bg-[#2563EB]/5 border border-[#2563EB]/10 rounded-full px-6 py-3 shadow-sm"
+          >
+            <div className="w-2 h-2 bg-[#2563EB] rounded-full animate-pulse" />
+            <span className="text-[11px] md:text-[13px] font-black uppercase tracking-[0.2em] text-[#2563EB]">
+              ₹1,00,000+ Total Prize Pool
+            </span>
+          </motion.div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
