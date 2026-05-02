@@ -22,7 +22,7 @@ export default function Hero() {
   return (
     <section 
       ref={containerRef}
-      className="relative min-h-screen flex flex-col items-center justify-center bg-white overflow-hidden pt-20 md:pt-24 pb-12"
+      className="relative min-h-screen flex flex-col items-center justify-center bg-white overflow-hidden py-12 md:py-20"
     >
       {/* Premium Background System */}
       <div className="absolute inset-0 z-0">
@@ -42,7 +42,7 @@ export default function Hero() {
         />
       </div>
 
-      <Container className="relative z-10 w-full px-4 sm:px-6 py-6 max-w-6xl mx-auto flex flex-col items-center gap-8 md:gap-12">
+      <Container className="relative z-10 w-full px-4 sm:px-6 py-4 max-w-6xl mx-auto flex flex-col items-center justify-center gap-10 md:gap-16">
         {/* Main Content Stack */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -52,36 +52,36 @@ export default function Hero() {
         >
           {/* Heading - Centered Tagline Strategy */}
           <div className="flex flex-col items-center">
-            <h1 className="text-5xl sm:text-6xl md:text-[80px] lg:text-[100px] font-serif font-black text-slate-900 leading-[0.8] tracking-wider uppercase">
+            <h1 className="text-5xl sm:text-6xl md:text-[90px] lg:text-[110px] font-serif font-black text-slate-900 leading-[0.8] tracking-wider uppercase">
               PROJECT
             </h1>
             
             {/* Pill Badge - Centered between heading words */}
-            <div className="my-4 md:my-6 bg-white/40 backdrop-blur-md border border-slate-200/50 rounded-full px-6 py-2 shadow-sm inline-block">
-              <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.5em] text-slate-500">
+            <div className="my-5 md:my-8 bg-white/40 backdrop-blur-md border border-slate-200/50 rounded-full px-8 py-3 shadow-sm inline-block">
+              <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.5em] text-slate-500">
                 Code 4 Change
               </span>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-[80px] lg:text-[100px] font-serif font-black text-slate-900 leading-[0.8] tracking-wider uppercase italic">
+            <h1 className="text-5xl sm:text-6xl md:text-[90px] lg:text-[110px] font-serif font-black text-slate-900 leading-[0.8] tracking-wider uppercase italic">
               SANKALP
             </h1>
           </div>
 
           {/* CTA Group - Optimized for Flow */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-5 w-full md:w-auto px-6 md:px-0">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full md:w-auto px-6 md:px-0">
             <motion.button 
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
-              className="w-full md:w-auto bg-slate-900 text-white px-12 py-4 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.4em] shadow-xl shadow-slate-900/10 transition-all duration-300"
+              className="w-full md:w-auto bg-slate-900 text-white px-14 py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.4em] shadow-xl shadow-slate-900/10 transition-all duration-300"
             >
               Register Now
             </motion.button>
             <motion.button 
               whileHover={{ scale: 1.02, y: -2, backgroundColor: "rgba(15, 23, 42, 0.03)" }}
               whileTap={{ scale: 0.98 }}
-              className="w-full md:w-auto border border-slate-200 text-slate-900 px-12 py-4 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.4em] transition-all duration-300"
+              className="w-full md:w-auto border border-slate-200 text-slate-900 px-14 py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.4em] transition-all duration-300"
               onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Learn More
@@ -94,16 +94,16 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 1.2 }}
-          className="w-full flex flex-col items-center gap-6"
+          className="w-full flex flex-col items-center gap-8"
         >
-          <span className="text-[9px] font-black uppercase tracking-[0.5em] text-slate-300">Presented By</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-300">Presented By</span>
           
-          <div className="flex items-center gap-12 md:gap-20 px-10 md:px-16 py-6 md:py-8 bg-white/40 backdrop-blur-md border border-slate-100 rounded-full shadow-lg shadow-slate-900/[0.02]">
+          <div className="flex items-center gap-16 md:gap-32 px-12 md:px-24 py-8 md:py-12 bg-white/40 backdrop-blur-md border border-slate-100 rounded-full shadow-lg shadow-slate-900/[0.02]">
             {sponsors.map((sponsor) => (
               <motion.div
                 key={sponsor.name}
                 whileHover={{ scale: 1.1 }}
-                className="h-[35px] sm:h-[45px] md:h-[60px] transition-all duration-500 cursor-pointer"
+                className="h-[45px] sm:h-[60px] md:h-[90px] transition-all duration-500 cursor-pointer"
               >
                 <img 
                   src={sponsor.logo} 
