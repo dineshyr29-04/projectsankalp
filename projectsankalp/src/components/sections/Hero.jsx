@@ -41,9 +41,8 @@ export default function Hero() {
         />
       </div>
 
-      {/* Main Content - Centered with Navbar Offset */}
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 pt-28 pb-12">
-        <Container className="w-full px-4 sm:px-6 max-w-6xl mx-auto flex flex-col items-center justify-center gap-10 md:gap-14">
+        <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto flex flex-col items-center justify-center gap-10 md:gap-14">
           {/* Main Content Stack */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}

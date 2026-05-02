@@ -23,7 +23,7 @@ export default function Tracks({ onKnowMore }) {
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-slate-50 rounded-full blur-[120px] -mr-200 -mb-200" />
       </div>
       
-      <Container className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+      <Container className="relative z-10 w-full px-4 sm:px-10 lg:px-20 mx-auto">
         <div className="text-left mb-20 md:mb-24 max-w-2xl">
           <motion.div
             initial={{ opacity: 0, x: -20 }}

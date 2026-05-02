@@ -16,7 +16,7 @@ export default function EventDetails() {
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-slate-50 rounded-full blur-[140px] -mr-400" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-slate-50 rounded-full blur-[120px] -ml-300" />
       
-      <Container className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto">
         <div className="flex flex-col gap-20 md:gap-24">
           
           {/* Top: Header & Description */}
