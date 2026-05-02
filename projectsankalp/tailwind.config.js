@@ -9,11 +9,11 @@ export default {
       colors: {
         background: "#FFFFFF",
         surface: "#F8FAFC",
-        primary: "#0A0A0A",
-        accent: "#22C55E",
-        "text-primary": "#0A0A0A",
-        "text-secondary": "#64748B",
-        border: "#E2E8F0",
+        primary: "#0F172A", // slate-900
+        accent: "#10B981", // emerald-500
+        "text-primary": "#0F172A",
+        "text-secondary": "#475569", // slate-600
+        border: "#F1F5F9", // slate-100
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
