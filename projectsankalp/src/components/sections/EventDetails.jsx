@@ -60,7 +60,7 @@ export default function EventDetails() {
             <div className="absolute -inset-4 bg-accent/5 rounded-[40px] blur-3xl group-hover:bg-accent/10 transition-colors duration-700" />
             <div className="relative aspect-[21/9] md:aspect-[21/8] overflow-hidden rounded-[30px] md:rounded-[40px] border border-border shadow-2xl">
               <img 
-                src="/event-placeholder.png" 
+                src="/event.png" 
                 alt="Yendurance Zone Venue" 
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
               />
