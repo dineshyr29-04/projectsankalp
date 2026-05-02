@@ -66,18 +66,18 @@ export default function Process() {
         {/* Process Grid - Normalized Geometry */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 relative">
           {steps.map((step, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative p-10 rounded-2xl bg-white border border-slate-100 transition-all duration-500 hover:shadow-2xl hover:shadow-slate-900/[0.03] hover:-translate-y-1"
-            >
+            <div key={index} className="flex flex-col items-center">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="group relative p-10 rounded-2xl bg-white border border-slate-100 transition-all duration-500 hover:shadow-2xl hover:shadow-slate-900/[0.03] hover:-translate-y-1 w-full h-full flex flex-col"
+              >
               {/* Card Header */}
               <div className="flex justify-between items-start mb-12">
                 <div className="flex flex-col gap-1.5">
-                  <span className="text-[10px] font-black tracking-[0.2em] text-slate-300">
+                  <span className="text-[10px] font-black tracking-[0.2em] text-slate-500">
                     {step.round}
                   </span>
                   <div className="flex items-center gap-2">
@@ -94,7 +94,7 @@ export default function Process() {
               </div>
 
               {/* Card Body */}
-              <div className="space-y-6">
+              <div className="space-y-6 flex-grow">
                 <h3 className="text-2xl font-serif font-black text-slate-900 leading-tight">
                   {step.title}
                 </h3>
@@ -122,7 +122,23 @@ export default function Process() {
                   <ArrowRight size={16} className="text-emerald-500" />
                 </motion.div>
               </div>
-            </motion.div>
+              </motion.div>
+
+              {/* Connecting Arrow - Only on md and larger screens, between cards */}
+              {index < 2 && (
+                <div className="hidden md:flex absolute top-1/3 -right-8 z-10">
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: (index + 1) * 0.1, duration: 1 }}
+                    className="text-slate-300 group-hover:text-emerald-500 transition-colors"
+                  >
+                    <ArrowRight size={24} strokeWidth={1.5} />
+                  </motion.div>
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </Container>
