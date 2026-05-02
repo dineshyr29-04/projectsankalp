@@ -123,18 +123,10 @@ export default function Process() {
                 </motion.div>
               </div>
               </motion.div>
-
-              {/* Connecting Arrow - Only on md and larger screens, between cards */}
-              {index < 2 && (
-                <div className="hidden md:flex absolute top-1/3 -right-8 z-10">
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: (index + 1) * 0.1, duration: 1 }}
-                    className="text-slate-300 group-hover:text-emerald-500 transition-colors"
-                  >
-                    <ArrowRight size={24} strokeWidth={1.5} />
-                  </motion.div>
-                </div>
-              )}
+            </div>
+          ))}
+        </div>
+      </Container>
+    </Section>
+  );
+}
