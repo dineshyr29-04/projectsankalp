@@ -22,7 +22,7 @@ export default function Hero() {
   return (
     <section 
       ref={containerRef}
-      className="relative min-h-screen flex flex-col items-center justify-center bg-white overflow-hidden pt-24 md:pt-32 pb-16"
+      className="relative min-h-screen flex flex-col items-center justify-center bg-white overflow-hidden pt-20 md:pt-24 pb-12"
     >
       {/* Premium Background System */}
       <div className="absolute inset-0 z-0">
@@ -42,27 +42,28 @@ export default function Hero() {
         />
       </div>
 
-      <Container className="relative z-10 w-full px-4 sm:px-6 py-10 max-w-6xl mx-auto flex flex-col items-center gap-12 md:gap-24">
+      <Container className="relative z-10 w-full px-4 sm:px-6 py-6 max-w-6xl mx-auto flex flex-col items-center gap-8 md:gap-12">
         {/* Main Content Stack */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center space-y-8 md:space-y-14 w-full text-center"
+          className="flex flex-col items-center space-y-6 md:space-y-10 w-full text-center"
         >
-          {/* Pill Badge - Clean Glass */}
-          <div className="bg-white/40 backdrop-blur-md border border-slate-200/50 rounded-full px-6 py-2 shadow-sm inline-block">
-            <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.5em] text-slate-500">
-              Code 4 Change
-            </span>
-          </div>
-
-          {/* Heading - Slate-900 High Impact */}
-          <div className="space-y-2 md:space-y-6">
-            <h1 className="text-5xl sm:text-6xl md:text-[100px] lg:text-[130px] font-serif font-black text-slate-900 leading-[0.8] tracking-wider uppercase">
+          {/* Heading - Centered Tagline Strategy */}
+          <div className="flex flex-col items-center">
+            <h1 className="text-5xl sm:text-6xl md:text-[80px] lg:text-[100px] font-serif font-black text-slate-900 leading-[0.8] tracking-wider uppercase">
               PROJECT
             </h1>
-            <h1 className="text-5xl sm:text-6xl md:text-[100px] lg:text-[130px] font-serif font-black text-slate-900 leading-[0.8] tracking-wider uppercase italic">
+            
+            {/* Pill Badge - Centered between heading words */}
+            <div className="my-4 md:my-6 bg-white/40 backdrop-blur-md border border-slate-200/50 rounded-full px-6 py-2 shadow-sm inline-block">
+              <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.5em] text-slate-500">
+                Code 4 Change
+              </span>
+            </div>
+
+            <h1 className="text-5xl sm:text-6xl md:text-[80px] lg:text-[100px] font-serif font-black text-slate-900 leading-[0.8] tracking-wider uppercase italic">
               SANKALP
             </h1>
           </div>
@@ -93,16 +94,16 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 1.2 }}
-          className="w-full flex flex-col items-center gap-8"
+          className="w-full flex flex-col items-center gap-6"
         >
           <span className="text-[9px] font-black uppercase tracking-[0.5em] text-slate-300">Presented By</span>
           
-          <div className="flex items-center gap-14 md:gap-28 px-12 md:px-20 py-8 md:py-10 bg-white/40 backdrop-blur-md border border-slate-100 rounded-full shadow-lg shadow-slate-900/[0.02]">
+          <div className="flex items-center gap-12 md:gap-20 px-10 md:px-16 py-6 md:py-8 bg-white/40 backdrop-blur-md border border-slate-100 rounded-full shadow-lg shadow-slate-900/[0.02]">
             {sponsors.map((sponsor) => (
               <motion.div
                 key={sponsor.name}
-                whileHover={{ scale: 1.15 }}
-                className="h-[45px] sm:h-[55px] md:h-[75px] transition-all duration-500 cursor-pointer"
+                whileHover={{ scale: 1.1 }}
+                className="h-[35px] sm:h-[45px] md:h-[60px] transition-all duration-500 cursor-pointer"
               >
                 <img 
                   src={sponsor.logo} 
