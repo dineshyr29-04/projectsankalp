@@ -38,24 +38,17 @@ export default function Navbar() {
 
   return (
     <div className="fixed left-0 right-0 top-0 z-50 flex flex-col items-center pointer-events-none">
-      {/* Announcement Bar */}
-      <AnimatePresence>
-        {!isScrolled && (
-          <motion.div 
-            initial={{ height: 0, opacity: 0, y: -20 }}
-            animate={{ height: "auto", opacity: 1, y: 0 }}
-            exit={{ height: 0, opacity: 0, y: -20 }}
-            className="fixded left-0 right-0 top-0 w-full bg-primary text-white text-[9px] md:text-[10px] py-2 px-4 flex justify-center items-center gap-4 overflow-hidden whitespace-nowrap uppercase tracking-[0.3em] font-black pointer-events-auto"
-          >
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.5)]" />
-              QUALIFIER ROUND 1 IS LIVE
-            </span>
-            <span className="opacity-30">/</span>
-            <span>SUBMIT BY 15th MAY, 11:59 PM IST</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Announcement Bar - Always Fixed */}
+      <div 
+        className="w-full bg-primary text-white text-[9px] md:text-[10px] py-2 px-4 flex justify-center items-center gap-4 overflow-hidden whitespace-nowrap uppercase tracking-[0.3em] font-black pointer-events-auto shadow-md"
+      >
+        <span className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.5)]" />
+          QUALIFIER ROUND 1 IS LIVE
+        </span>
+        <span className="opacity-30">/</span>
+        <span>SUBMIT BY 15th MAY, 11:59 PM IST</span>
+      </div>
 
       <nav className="w-full flex justify-center py-0">
         <motion.div 
