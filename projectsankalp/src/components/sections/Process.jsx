@@ -138,10 +138,3 @@ export default function Process() {
                   </motion.div>
                 </div>
               )}
-            </div>
-          ))}
-        </div>
-      </Container>
-    </Section>
-  );
-}
