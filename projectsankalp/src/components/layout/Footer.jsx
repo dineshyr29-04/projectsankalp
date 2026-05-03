@@ -25,7 +25,7 @@ export default function Footer() {
               </div>
             </div>
             
-            <p className="text-sm text-white/50 leading-relaxed max-w-sm font-medium">
+            <p className="text-sm text-white/70 leading-relaxed max-w-sm font-medium">
               The premier social-impact hackathon connecting innovators to solve global climate and health challenges through purposeful technology.
             </p>
 
@@ -42,7 +42,7 @@ export default function Footer() {
 
           {/* Column 2: Hackathon */}
           <div className="lg:col-span-2 space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Hackathon</h4>
+            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-white/90">Quick Links</h4>
             <ul className="space-y-4">
               {['About', 'Tracks', 'Process', 'Prizes', 'Timeline', 'Register'].map((item) => (
                 <li key={item}>
@@ -56,7 +56,7 @@ export default function Footer() {
 
           {/* Column 3: Partners */}
           <div className="lg:col-span-2 space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Partners</h4>
+            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-white/90">Partners</h4>
             <ul className="space-y-4">
               {['NSS Unit', 'YSET', 'Yenepoya Univ', 'Research Hub'].map((item) => (
                 <li key={item}>
@@ -70,9 +70,9 @@ export default function Footer() {
 
           {/* Column 4: Support */}
           <div className="lg:col-span-4 space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Support</h4>
+            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-white/90">Support</h4>
             <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-8 space-y-8 backdrop-blur-md">
-              <p className="text-xs text-white/40 leading-relaxed font-medium">
+              <p className="text-xs text-white/90 leading-relaxed font-medium">
                 Need help with registration or have questions about the hackathon?
               </p>
               
@@ -82,7 +82,7 @@ export default function Footer() {
               </a>
 
               <div className="space-y-4 pt-2">
-                <a href="tel:+919876543210" className="flex items-center gap-4 text-xs text-white/60 hover:text-white transition-colors font-bold">
+                <a href="tel:+919876543210" className="flex items-center gap-4 text-xs text-white/90 hover:text-white transition-colors font-bold">
                   <Phone size={14} className="text-emerald-500" />
                   +91 89513 49166
                 </a>
@@ -94,11 +94,11 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-[10px] text-white/20 uppercase tracking-widest font-black">
+          <p className="text-[10px] text-white/40 uppercase tracking-widest font-black">
             © 2026 Project Sankalp. All rights reserved.
           </p>
           <div className="flex items-center gap-3 text-[10px] uppercase tracking-widest">
-            <span className="text-white/20 font-medium">Organized by</span>
+            <span className="text-white/40 font-medium">Organized by</span>
             <span className="font-black text-white/60">NSS Unit & YSET</span>
           </div>
         </div>
