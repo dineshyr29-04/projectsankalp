@@ -79,7 +79,7 @@ export default function Process() {
                   </span>
                 </div>
                 
-                <div className="text-slate-200 group-hover:text-emerald-500 transition-colors duration-500">
+                <div className="text-slate-800 group-hover:text-emerald-500 transition-colors duration-500">
                   <step.icon size={22} strokeWidth={1.5} />
                 </div>
               </div>
