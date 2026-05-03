@@ -35,7 +35,7 @@ export default function Prizes() {
             <span className="text-[#2563EB] font-bold italic mt-[16px]" >Prizes.</span>
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto font-medium border-t border-slate-50 pt-8 leading-relaxed">
-            Excellence deserves extraordinary rewards. Compete for a massive prize pool of <strong className="text-slate-900 font-black text-xl">₹1,00,000+</strong> that fuels your next big step.
+            Excellence deserves extraordinary rewards. Compete for a massive prize pool that fuels <strong>your next big step.</strong>
           </p>
           
           <motion.div 
