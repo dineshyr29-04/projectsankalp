@@ -43,12 +43,12 @@ export default function Tracks({ onKnowMore }) {
             <p className="text-slate-600 text-lg font-medium max-w-sm leading-relaxed">
               Choose a mission that matters. Each track is designed for high impact and real-world scalability.
             </p>
-            <button 
+            {/* <button 
               onClick={() => onKnowMore?.()}
               className="group/btn flex items-center gap-4 bg-emerald-500 text-white px-10 py-4 rounded-full text-[11px] font-black uppercase tracking-[0.3em] hover:bg-emerald-600 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-emerald-500/10"
             >
               Know More <ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-            </button>
+            </button> */}
           </div>
         </div>
 
