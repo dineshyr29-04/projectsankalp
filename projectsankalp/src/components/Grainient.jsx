@@ -125,7 +125,12 @@ const Grainient = ({
   className = ''
 }) => {
   const containerRef = useRef(null);
+  const rendererRef = useRef(null);
+  const programRef = useRef(null);
+  const meshRef = useRef(null);
+  const rafRef = useRef(0);
 
+  // Initialize WebGL
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -144,6 +149,7 @@ const Grainient = ({
 
     const container = containerRef.current;
     container.appendChild(canvas);
+    rendererRef.current = renderer;
 
     const geometry = new Triangle(gl);
     const program = new Program(gl, {
@@ -175,8 +181,10 @@ const Grainient = ({
         uColor3: { value: new Float32Array(hexToRgb(color3)) }
       }
     });
+    programRef.current = program;
 
     const mesh = new Mesh(gl, { geometry, program });
+    meshRef.current = mesh;
 
     const setSize = () => {
       const rect = container.getBoundingClientRect();
@@ -186,31 +194,56 @@ const Grainient = ({
       const res = program.uniforms.iResolution.value;
       res[0] = gl.drawingBufferWidth;
       res[1] = gl.drawingBufferHeight;
-      renderer.render({ scene: mesh });
     };
 
     const ro = new ResizeObserver(setSize);
     ro.observe(container);
     setSize();
 
-    let raf = 0;
     const t0 = performance.now();
     const loop = t => {
       program.uniforms.iTime.value = (t - t0) * 0.001;
       renderer.render({ scene: mesh });
-      raf = requestAnimationFrame(loop);
+      rafRef.current = requestAnimationFrame(loop);
     };
-    raf = requestAnimationFrame(loop);
+    rafRef.current = requestAnimationFrame(loop);
 
     return () => {
-      cancelAnimationFrame(raf);
+      cancelAnimationFrame(rafRef.current);
       ro.disconnect();
-      try {
+      if (container.contains(canvas)) {
         container.removeChild(canvas);
-      } catch {
-        // Ignore
       }
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
+  }, []);
+
+  // Update Uniforms
+  useEffect(() => {
+    if (!programRef.current) return;
+    const uniforms = programRef.current.uniforms;
+    uniforms.uTimeSpeed.value = timeSpeed;
+    uniforms.uColorBalance.value = colorBalance;
+    uniforms.uWarpStrength.value = warpStrength;
+    uniforms.uWarpFrequency.value = warpFrequency;
+    uniforms.uWarpSpeed.value = warpSpeed;
+    uniforms.uWarpAmplitude.value = warpAmplitude;
+    uniforms.uBlendAngle.value = blendAngle;
+    uniforms.uBlendSoftness.value = blendSoftness;
+    uniforms.uRotationAmount.value = rotationAmount;
+    uniforms.uNoiseScale.value = noiseScale;
+    uniforms.uGrainAmount.value = grainAmount;
+    uniforms.uGrainScale.value = grainScale;
+    uniforms.uGrainAnimated.value = grainAnimated ? 1.0 : 0.0;
+    uniforms.uContrast.value = contrast;
+    uniforms.uGamma.value = gamma;
+    uniforms.uSaturation.value = saturation;
+    uniforms.uCenterOffset.value[0] = centerX;
+    uniforms.uCenterOffset.value[1] = centerY;
+    uniforms.uZoom.value = zoom;
+    uniforms.uColor1.value.set(hexToRgb(color1));
+    uniforms.uColor2.value.set(hexToRgb(color2));
+    uniforms.uColor3.value.set(hexToRgb(color3));
   }, [
     timeSpeed,
     colorBalance,

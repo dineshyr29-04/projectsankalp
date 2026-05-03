@@ -74,19 +74,19 @@ export default function EventDetails() {
                     <div className="p-2.5 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
                       <MapPin size={18} className="text-white" />
                     </div>
-                    <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.5em] text-white/70">Event Venue</span>
+                    <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.5em] text-[#fffdf5]">Event Venue</span>
                   </div>
                   <div className="space-y-2">
                     <h4 className="text-2xl sm:text-3xl md:text-5xl font-serif font-black text-white leading-tight tracking-tight">
                       Yendurance Zone
                     </h4>
-                    <p className="text-sm sm:text-base font-bold text-white/50 max-w-lg uppercase tracking-widest">
+                    <p className="text-sm sm:text-base font-bold text-white/100 max-w-lg uppercase tracking-widest">
                       Yenepoya University, Mangalore, India
                     </p>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-8 text-white/90 bg-white/5 backdrop-blur-lg p-6 rounded-2xl border border-white/10 w-fit">
+                <div className="flex items-center gap-8 text-white/90 bg-white/5 backdrop-blur-lg px-4 py-6 rounded-2xl border border-white/10 w-fit">
                   <div className="text-center">
                     <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] block mb-2 opacity-50">Capacity</span>
                     <span className="text-xl md:text-3xl font-serif font-bold">30 Teams</span>
