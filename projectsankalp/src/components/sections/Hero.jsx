@@ -32,11 +32,11 @@ export default function Hero() {
           color1="#84CC16"
           color2="#ffffff"
           color3="#3B82F6"
-          timeSpeed={1.35}
+          timeSpeed={3}
           colorBalance={-0.41}
           warpStrength={1.0}
           warpFrequency={5.0}
-          warpSpeed={2.0}
+          warpSpeed={3.0}
           warpAmplitude={50.0}
           blendAngle={-115}
           blendSoftness={0.38}
