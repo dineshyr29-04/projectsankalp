@@ -30,7 +30,7 @@ export default function Prizes() {
             <span className="text-[#2563EB] font-black uppercase tracking-[0.4em] text-[10px]">Grand Rewards</span>
             <div className="w-12 h-[1px] bg-slate-100" />
           </div>
-          <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
+          <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[1.1]">
             Recognition & <br />
             <span className="text-[#2563EB] font-bold italic mt-[16px]" >Prizes.</span>
           </h2>
@@ -46,7 +46,7 @@ export default function Prizes() {
             className="mt-8 inline-flex items-center gap-3 bg-[#2563EB]/5 border border-[#2563EB]/10 rounded-full px-6 py-3 shadow-sm"
           >
             <div className="w-2 h-2 bg-[#2563EB] rounded-full animate-pulse" />
-            <span className="text-[11px] md:text-[13px] font-black uppercase tracking-[0.2em] text-[#2563EB]">
+            <span className="text-[11px] md:text-[13px] font-black uppercase tracking-[0.1em] text-[#2563EB]">
               ₹1,00,000+ Total Prize Pool
             </span>
           </motion.div>
