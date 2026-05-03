@@ -67,7 +67,7 @@ export default function Hero() {
 
 
             {/* Heading - Wide & Impactful */}
-            <div className="flex flex-col items-center w-full mt-[70px]">
+            <div className="flex flex-col items-center w-full mt-[70px] md:mt-[0px]">
               <h1 className="mt-10 text-6xl italic font-light sm:text-8xl md:text-[90px] lg:text-[130px] sm:mt-[100px] font-serif font-black text-slate-900 leading-[0.8] tracking-[0.1em] uppercase">
                 PROJECT
               </h1>

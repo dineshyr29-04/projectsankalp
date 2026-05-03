@@ -77,10 +77,7 @@ export default function Tracks({ onKnowMore }) {
                 bg-gradient-to-r from-emerald-400/20 via-transparent to-blue-400/20 blur-xl" />
 
               {/* Card */}
-              <div className="relative h-full p-10 rounded-3xl bg-white/80 backdrop-blur-md border border-white/60 
-                  shadow-[inset_0_4px_6px_rgba(0,0,0,0.12),inset_0_-1px_3px_rgba(255,255,255,0.6),0_4px_12px_rgba(0,0,0,0.08)]
-                group-hover:shadow-[0_20px_60px_rgba(16,185,129,0.12)] 
-                transition-all duration-500">
+              <div className="relative h-full p-10 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/50 shadow-[inset_0_1px_2px_rgba(255,255,255,0.7),inset_0_-2px_6px_rgba(0,0,0,0.08),0_8px_30px_rgba(0,0,0,0.06)] group-hover:bg-white/50 group-hover:shadow-[0_20px_60px_rgba(16,185,129,0.15)] transition-all duration-500 shadow-[inset_0_4px_6px_rgba(0,0,0,0.12),inset_0_-1px_3px_rgba(255,255,255,0.6),0_4px_12px_rgba(0,0,0,0.08)]">
 
                 {/* Top Meta */}
                 <div className="flex justify-between items-center mb-10">
