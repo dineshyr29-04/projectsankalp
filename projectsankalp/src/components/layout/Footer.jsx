@@ -19,11 +19,6 @@ export default function Footer() {
           {/* Column 1: Info */}
           <div className="lg:col-span-4 space-y-10">
             <div className="flex items-center gap-5">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-blue-500 p-0.5">
-                <div className="w-full h-full rounded-2xl bg-slate-900 flex items-center justify-center">
-                  <span className="text-2xl font-serif font-black text-white">PS</span>
-                </div>
-              </div>
               <div>
                 <h3 className="text-2xl font-serif font-black tracking-tight uppercase">Project Sankalp</h3>
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500/80">Code for Change</span>
