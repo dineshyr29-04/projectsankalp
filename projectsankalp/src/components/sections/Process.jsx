@@ -10,21 +10,24 @@ export default function Process() {
       title: "Online Submission",
       description: "Submit a high-impact video pitch and project core idea via our portal. Should be no longer than 3 minutes.",
       icon: Video,
-      status: "Online"
+      status: "Online",
+      date: "1st May - 15th May 2026"
     },
     {
-      round: "ROUND 2",
-      title: "Evaluation Round",
+      round: "EVALUATION",
+      title: "Top 30 teams",
       description: "Expert screening phase where feasibility and innovation are rigorously evaluated.",
       icon: ClipboardCheck,
-      status: "Internal"
+      status: "Internal",
+      date: "Results on 17th May 2026"
     },
     {
       round: "ROUND 3",
       title: "The Grand Finale",
       description: "Top 30 teams compete in a 24-hour offline sprint at the physical venue.",
       icon: MapPin,
-      status: "Offline"
+      status: "Offline",
+      date: "25th May 2026"
     }
   ];
 
@@ -69,7 +72,7 @@ export default function Process() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative p-10 rounded-2xl bg-white border border-slate-300 transition-all duration-500 hover:shadow-2xl hover:shadow-slate-900/[0.03] hover:-translate-y-1 w-full h-full flex flex-col"
+                className="group relative p-10 rounded-2xl bg-white border border-slate-300 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02] w-full h-full flex flex-col"
               >
               {/* Card Header */}
               <div className="flex justify-between items-start mb-12">
@@ -79,7 +82,7 @@ export default function Process() {
                   </span>
                 </div>
                 
-                <div className="text-slate-200 group-hover:text-emerald-500 transition-colors duration-500">
+                <div className="text-slate-800 group-hover:text-emerald-500 transition-colors duration-500">
                   <step.icon size={22} strokeWidth={1.5} />
                 </div>
               </div>
@@ -98,21 +101,28 @@ export default function Process() {
               </div>
 
               {/* Card Footer */}
-              <div className="mt-12 flex items-center justify-between">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-100">
-                  <div className={`w-1.5 h-1.5 rounded-full ${index === 2 ? 'bg-slate-900' : 'bg-emerald-500'} animate-pulse`} />
-                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-900">
-                    {step.status}
-                  </span>
+              <div className="mt-12 pt-6 border-t border-slate-100 flex items-center justify-between">
+                <div className="flex flex-col gap-3 w-full">
+                  <div className="text-xs font-semibold text-emerald-600 tracking-wide group-hover:text-emerald-500 transition-colors">
+                        {step.date}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-100 group-hover:bg-emerald-50 group-hover:border-emerald-300 transition-all duration-500">
+                      <div className={`w-1.5 h-1.5 rounded-full ${index === 2 ? 'bg-slate-900' : 'bg-emerald-500'} animate-pulse`} />
+                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-900">
+                        {step.status}
+                      </span>
+                    </div>
+                    
+                    {index !== 2 && (
+                      <motion.div 
+                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <ArrowRight size={16} className="text-emerald-500" />
+                      </motion.div>
+                    )}
+                  </div>
                 </div>
-                
-                {index !== 2 && (
-                  <motion.div 
-                    className="opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    <ArrowRight size={16} className="text-emerald-500" />
-                  </motion.div>
-                )}
               </div>
               </motion.div>
             </div>
