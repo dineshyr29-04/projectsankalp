@@ -46,7 +46,7 @@ export default function EventDetails() {
               className="text-lg text-slate-600 leading-relaxed font-medium max-w-xl border-l border-slate-100 pl-8"
             >
               The final phase of Project Sankalp is a high-stakes, 24-hour sprint where the most promising social-impact solutions are brought to life. Hosted at the state-of-the-art facilities of Yenepoya University, the top teams will build the future of social entrepreneurship. <br />
-              <span className="text-emerald-600 font-black text-[10px] uppercase tracking-[0.4em] mt-8 block bg-emerald-500/5 py-2 px-4 rounded-full border border-emerald-500/10 w-fit">Click the venue image below for exact location on Google Maps.</span>
+              <span className="text-emerald-600 font-black text-[10px] uppercase tracking-[0.1em] mt-8 block bg-emerald-500/5 py-2 px-4 rounded-full border border-emerald-500/10 w-fit">Click the venue image below for exact location on Google Maps.</span>
             </motion.p>
           </div>
 
@@ -116,8 +116,8 @@ export default function EventDetails() {
                   {item.icon}
                 </div>
                 <div>
-                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 block mb-2">Bring With You</span>
-                  <p className="text-sm font-bold text-slate-900 tracking-tight">{item.text}</p>
+                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-600 block mb-2">Bring With You</span>
+                  <p className="text-m font-bold text-slate-900 tracking-tight">{item.text}</p>
                 </div>
               </motion.div>
             ))}
