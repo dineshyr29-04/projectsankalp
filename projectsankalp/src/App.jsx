@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Lenis from "lenis";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "./components/layout/Navbar";
@@ -14,6 +16,7 @@ import FAQ from "./components/sections/FAQ";
 import Sponsors from "./components/sections/Sponsors";
 import { ArrowUp } from "lucide-react";
 import TracksPage from "./components/pages/TracksPage";
+import Loader from "./components/ui/loader-11";
 
 // AUDIT FIX: Simple, premium Back to Top button
 const BackToTop = () => {
@@ -44,7 +47,13 @@ const BackToTop = () => {
 
 function App() {
   const [currentView, setCurrentView] = useState("landing");
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    // Premium loading sequence
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -77,45 +86,69 @@ function App() {
 
   return (
     <div className="relative min-h-screen bg-white">
-
-      <Navbar currentView={currentView} onNavigate={(view) => setCurrentView(view)} />
-      <BackToTop />
+      <Analytics />
+      <SpeedInsights />
       
-      <main>
-        <AnimatePresence mode="wait">
-          {currentView === "landing" && (
-            <motion.div
-              key="landing"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Hero />
-              <About />
-              <Process />
-              <EventDetails />
-              <Tracks onKnowMore={() => setCurrentView("tracks-page")} />
-              <Prizes />
-              <Sponsors />
-              <FAQ />
-              <Footer />
-            </motion.div>
-          )}
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <motion.div
+            key="loader"
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-white"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+          >
+            <Loader />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="app-content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            <Navbar currentView={currentView} onNavigate={(view) => setCurrentView(view)} />
+            <BackToTop />
+            
+            <main>
+              <AnimatePresence mode="wait">
+                {currentView === "landing" && (
+                  <motion.div
+                    key="landing"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <Hero />
+                    <About />
+                    <Process />
+                    <EventDetails />
+                    <Tracks onKnowMore={() => setCurrentView("tracks-page")} />
+                    <Prizes />
+                    <Team />
+                    <Sponsors />
+                    <FAQ />
+                    <Footer />
+                  </motion.div>
+                )}
 
-          {currentView === "tracks-page" && (
-            <motion.div
-              key="tracks-page"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <TracksPage onBack={() => setCurrentView("landing")} />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </main>
+                {currentView === "tracks-page" && (
+                  <motion.div
+                    key="tracks-page"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <TracksPage onBack={() => setCurrentView("landing")} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </main>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
