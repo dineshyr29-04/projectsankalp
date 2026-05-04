@@ -29,7 +29,12 @@ export default function Sponsors() {
       tier:"Techincal partner",
       description:"Prestigious Technical Club of YSET"
     },
-    
+    {
+      name:"Ministry of Youth Affairs and Sports",
+      logo:"MYAA.png",
+      tier:"Part of the Sponsor",
+      description:"Empowering the next generation of innovators and showcasing those talents."
+    }
   ];
 
   return (
