@@ -97,8 +97,8 @@ function App() {
               <EventDetails />
               <Tracks onKnowMore={() => setCurrentView("tracks-page")} />
               <Prizes />
+              <Sponsors />
               <FAQ />
-              <Team />
               <Footer />
             </motion.div>
           )}
