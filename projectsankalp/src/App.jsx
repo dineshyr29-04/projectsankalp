@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Lenis from "lenis";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "./components/layout/Navbar";
@@ -79,6 +80,7 @@ function App() {
   return (
     <div className="relative min-h-screen bg-white">
       <Analytics />
+      <SpeedInsights />
       <Navbar currentView={currentView} onNavigate={(view) => setCurrentView(view)} />
       <BackToTop />
       
