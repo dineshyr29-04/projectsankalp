@@ -32,7 +32,7 @@ export default function Navbar({ onNavigate, currentView }) {
   });
 
   // Premium Easing Curve
-  const fluidEasing = [0.16, 1, 0.3, 1];
+  const fluidEasing =  [0.16, 1, 0.3, 1];
 
   // Progressive Transforms based on scroll (Gradual, not binary)
   const navWidth = useTransform(smoothScrollY, [0, 150], isMobile ? ["94%", "90%"] : ["96%", "90%"]);
