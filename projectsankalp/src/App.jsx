@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -50,8 +51,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Premium loading sequence
-    const timer = setTimeout(() => setIsLoading(false), 1500);
+    const timer = setTimeout(() => setIsLoading(false), 900);
     return () => clearTimeout(timer);
   }, []);
 
@@ -88,28 +88,29 @@ function App() {
     <div className="relative min-h-screen bg-white">
       <Analytics />
       <SpeedInsights />
-      
       <AnimatePresence mode="wait">
         {isLoading ? (
           <motion.div
             key="loader"
-            className="fixed inset-0 z-[200] flex items-center justify-center bg-white"
-            initial={{ opacity: 1 }}
+            className="min-h-screen flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
           >
             <Loader />
           </motion.div>
         ) : (
           <motion.div
-            key="app-content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
+            key="app"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.45, ease: "easeOut" }}
           >
             <Navbar currentView={currentView} onNavigate={(view) => setCurrentView(view)} />
             <BackToTop />
-            
+
             <main>
               <AnimatePresence mode="wait">
                 {currentView === "landing" && (
@@ -126,7 +127,6 @@ function App() {
                     <EventDetails />
                     <Tracks onKnowMore={() => setCurrentView("tracks-page")} />
                     <Prizes />
-                    <Team />
                     <Sponsors />
                     <FAQ />
                     <Footer />
