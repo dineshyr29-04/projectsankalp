@@ -11,6 +11,21 @@ export default function Navbar({ onNavigate, currentView }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
+  // Handle smooth scroll to section
+  const handleSmoothScroll = (e, href) => {
+    e.preventDefault();
+    const sectionId = href.replace("#", "");
+    const element = document.getElementById(sectionId);
+    
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
@@ -150,14 +165,7 @@ export default function Navbar({ onNavigate, currentView }) {
                   <a
                     key={item.name}
                     href={item.href}
-                    onClick={(e) => {
-                      if (item.href === "#stages") {
-                        e.preventDefault();
-                        onNavigate?.("stages");
-                      } else if (item.href.startsWith("#")) {
-                        onNavigate?.("landing");
-                      }
-                    }}
+                    onClick={(e) => handleSmoothScroll(e, item.href)}
                     className={cn(
                       "font-black uppercase tracking-widest transition-all rounded-full relative group/link overflow-hidden px-5 py-2 text-[10px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                       isActive ? "text-white" : "text-primary/80 hover:text-primary"
@@ -232,15 +240,7 @@ export default function Navbar({ onNavigate, currentView }) {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.05 + index * 0.05, duration: 0.4, ease: fluidEasing }}
-                  onClick={(e) => {
-                    setIsMobileMenuOpen(false);
-                    if (item.href === "#stages") {
-                      e.preventDefault();
-                      onNavigate?.("stages");
-                    } else if (item.href.startsWith("#")) {
-                      onNavigate?.("landing");
-                    }
-                  }}
+                  onClick={(e) => handleSmoothScroll(e, item.href)}
                   className="text-sm font-black uppercase tracking-widest text-primary/70 hover:text-primary transition-colors flex items-center justify-between group py-2"
                 >
                   {item.name}
