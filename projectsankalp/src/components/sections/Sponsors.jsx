@@ -28,7 +28,8 @@ export default function Sponsors() {
       logo:"yentech.png",
       tier:"Techincal partner",
       description:"Prestigious Technical Club of YSET"
-    }
+    },
+    
   ];
 
   return (
@@ -80,7 +81,7 @@ export default function Sponsors() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.15 }}
               whileHover={{ y: -5 }}
-              className="group relative p-12 rounded-[40px] bg-slate-50/50 border border-slate-100 hover:bg-white hover:border-slate-200 transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)]"
+              className="group relative p-12 rounded-[40px] bg-white/30 backdrop-blur-xl border border-white/40 shadow-[inset_0_1px_2px_rgba(255,255,255,0.7),0_8px_30px_rgba(0,0,0,0.06)] hover:bg-white/40 hover:border-white/60 hover:shadow-[inset_0_1px_3px_rgba(255,255,255,0.8),0_20px_60px_rgba(16,185,129,0.12)] transition-all duration-500"
             >
               <div className="flex flex-col items-center text-center gap-8">
                 <div className="h-24 md:h-32 flex items-center justify-center p-4">
