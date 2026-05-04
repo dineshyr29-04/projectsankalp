@@ -11,7 +11,6 @@ import About from "./components/sections/About";
 import Process from "./components/sections/Process";
 import EventDetails from "./components/sections/EventDetails";
 import Tracks from "./components/sections/Tracks";
-import Team from "./components/sections/Team";
 import Prizes from "./components/sections/Prizes";
 import FAQ from "./components/sections/FAQ";
 import Sponsors from "./components/sections/Sponsors";
