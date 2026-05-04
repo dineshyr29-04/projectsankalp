@@ -8,31 +8,26 @@ export default function Sponsors() {
     { 
       name: "NSS Unit", 
       logo: "/nsslogo.png",
-      tier: "Lead Partner",
       description: "Service through leadership and social impact."
     },
     { 
       name: "Yenepoya University", 
       logo: "/ysetlogo.png",
-      tier: "Organising Partner",
       description: "Center for academic excellence and innovation."
     },
     {
       name:"IIC",
       logo:"/IIC.png",
-      tier:"Part of hackathon",
       description: "YenTech,IIC"
     },
     {
       name:"Yentech",
       logo:"yentech.png",
-      tier:"Techincal partner",
       description:"Prestigious Technical Club of YSET"
     },
     {
       name:"Ministry of Youth Affairs and Sports",
       logo:"MYAA.png",
-      tier:"Part of the Sponsor",
       description:"Empowering the next generation of innovators and showcasing those talents."
     }
   ];
@@ -98,10 +93,8 @@ export default function Sponsors() {
                 </div>
                 
                 <div className="space-y-2">
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-600 bg-emerald-50 px-4 py-1.5 rounded-full">
-                    {sponsor.tier}
-                  </span>
-                  <h3 className="text-xl font-bold text-slate-900">{sponsor.name}</h3>
+                  
+                  <h3 className="text-xl italic text-slate-900 mt-4">{sponsor.name}</h3>
                   <p className="text-sm text-slate-500 font-medium">{sponsor.description}</p>
                 </div>
               </div>
