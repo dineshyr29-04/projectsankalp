@@ -121,14 +121,13 @@ export default function Hero() {
               {sponsors.map((sponsor) => (
                 <motion.div
                   key={sponsor.name}
-                  whileHover={{ scale: 1.05 }}
                   className="flex flex-col items-center gap-3 transition-all duration-500 cursor-pointer"
                 >
                   <div className="h-[85px] sm:h-[100px] md:h-[110px]">
                     <img
                       src={sponsor.logo}
                       alt={sponsor.name}
-                      className="h-full w-auto object-contain transition-opacity"
+                      className="h-full w-auto object-contain transition-opacity hover:rotate-[3.5deg] hover:ease-in-out transition-transform duration-500 ease"
                     />
                   </div>
                 </motion.div>
