@@ -22,6 +22,12 @@ export default function Sponsors() {
       logo:"/IIC.png",
       tier:"Part of hackathon",
       description: "YenTech,IIC"
+    },
+    {
+      name:"Yentech",
+      logo:"yentech.png",
+      tier:"Techincal partner",
+      description:"Prestigious Technical Club of YSET"
     }
   ];
 
