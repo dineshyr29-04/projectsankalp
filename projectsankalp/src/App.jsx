@@ -17,6 +17,7 @@ import Sponsors from "./components/sections/Sponsors";
 import { ArrowUp } from "lucide-react";
 import TracksPage from "./components/pages/TracksPage";
 import Loader from "./components/ui/loader-11";
+import WinnersPage from "./components/pages/WinnersPage";
 
 // AUDIT FIX: Simple, premium Back to Top button
 const BackToTop = () => {
@@ -51,6 +52,12 @@ function App() {
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 900);
+    
+    // Check for winners slug
+    if (window.location.pathname === "/winners") {
+      setCurrentView("winners");
+    }
+    
     return () => clearTimeout(timer);
   }, []);
 
@@ -141,6 +148,18 @@ function App() {
                     transition={{ duration: 0.5 }}
                   >
                     <TracksPage onBack={() => setCurrentView("landing")} />
+                  </motion.div>
+                )}
+
+                {currentView === "winners" && (
+                  <motion.div
+                    key="winners"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <WinnersPage />
                   </motion.div>
                 )}
               </AnimatePresence>
