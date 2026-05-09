@@ -34,6 +34,7 @@ export default function Navbar({ onNavigate, currentView }) {
   }, []);
 
   const isLanding = currentView === "landing";
+  const isTeam = currentView === "team";
 
   // Direct scroll without spring for snappy response
   const { scrollY } = useScroll();
@@ -51,11 +52,11 @@ export default function Navbar({ onNavigate, currentView }) {
 
   // Progressive Transforms based on scroll (Gradual, not binary)
   const navWidth = useTransform(smoothScrollY, [0, 150], isMobile ? ["94%", "90%"] : ["96%", "90%"]);
-  const navMaxWidth = useTransform(smoothScrollY, [0, 150], isMobile ? ["600px", "500px"] : ["2200px", "1000px"]);
-  const navMarginTop = useTransform(smoothScrollY, [0, 150], isMobile ? [4, 8] : [10, 20]);
+  const navMaxWidth = useTransform(smoothScrollY, [0, 150], isMobile ? ["600px", "500px"] : (isTeam ? ["1000px", "800px"] : ["2200px", "1000px"]));
+  const navMarginTop = useTransform(smoothScrollY, [0, 150], isMobile ? [4, 8] : (isTeam ? [5, 10] : [10, 20]));
   const navBorderRadius = useTransform(smoothScrollY, [0, 150], isMobile ? [20, 40] : [24, 80]);
   const navPaddingX = useTransform(smoothScrollY, [0, 150], isMobile ? [16, 12] : [32, 24]);
-  const navPaddingY = useTransform(smoothScrollY, [0, 150], isMobile ? [10, 8] : [14, 10]);
+  const navPaddingY = useTransform(smoothScrollY, [0, 150], isMobile ? [10, 8] : (isTeam ? [8, 6] : [14, 10]));
   const navBg = useTransform(smoothScrollY, [0, 150], ["rgba(255, 255, 255, 0.95)", "rgba(255, 255, 255, 0.75)"]);
   const navBorderColor = useTransform(smoothScrollY, [0, 150], ["rgba(255, 255, 255, 0.9)", "rgba(255, 255, 255, 0.4)"]);
   const navShadow = useTransform(smoothScrollY, [0, 150], [

@@ -161,33 +161,29 @@ export default function TeamPage() {
   return (
     <div className="bg-slate-950 min-h-screen relative overflow-hidden selection:bg-emerald-500/30">
       
-      {/* ── Deep Void 3D Background ── */}
+      {/* ── Subtle Deep Void Image Background ── */}
       <div className="fixed inset-0 z-0 pointer-events-none bg-[#030712] overflow-hidden">
         
-        {/* 3D Floor Grid */}
-        <div className="absolute inset-0 flex items-center justify-center" style={{ perspective: '1000px' }}>
-          <div 
-            className="absolute w-[200vw] h-[200vh] border-slate-800/20"
-            style={{
-              backgroundImage: 'linear-gradient(to right, rgba(52, 211, 153, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(52, 211, 153, 0.05) 1px, transparent 1px)',
-              backgroundSize: '4rem 4rem',
-              transform: 'rotateX(75deg) translateY(0) translateZ(-200px)',
-              transformOrigin: 'center center'
-            }}
-          />
-        </div>
+        {/* Subtle Background Image (Dark Earth/Network theme) */}
+        <img 
+          src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop" 
+          alt="Deep Space Network" 
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.15]"
+        />
+        
+        {/* Dark overlay to keep the image subtle and text readable */}
+        <div className="absolute inset-0 bg-[#030712]/70" />
 
-        {/* Deep Space Vignette (Darkens edges to create a tunnel/void effect) */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#030712_100%)] z-10" />
+        {/* Deep Space Vignette (Darkens edges to create depth) */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#030712_100%)] z-10 opacity-90" />
 
-        {/* Ambient Nebula Glows */}
+        {/* Ambient Nebula Glows (maintains your brand colors in the void) */}
         <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[150px] mix-blend-screen z-0" />
         <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-emerald-600/10 rounded-full blur-[150px] mix-blend-screen z-0" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px] mix-blend-screen z-0" />
         
-        {/* Static Star Dust (Subtle dots) */}
+        {/* Static Star Dust overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.03] z-10"
+          className="absolute inset-0 opacity-[0.02] z-10"
           style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '32px 32px' }}
         />
       </div>
