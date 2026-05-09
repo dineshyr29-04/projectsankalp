@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Compass, Code, PenTool, MessageSquare, Zap, Target, ArrowRight, User } from "lucide-react";
+import { Compass, Code, PenTool, MessageSquare, Zap, Target, ArrowRight, User, Map } from "lucide-react";
 import Container from "../core/Container";
 
 // --- MOCK DATA FOR 30+ MEMBERS ---
@@ -161,10 +161,35 @@ export default function TeamPage() {
   return (
     <div className="bg-slate-950 min-h-screen relative overflow-hidden selection:bg-emerald-500/30">
       
-      {/* ── Background Atmospheric Gradients ── */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[1000px] h-[1000px] bg-blue-900/10 rounded-full blur-[120px] opacity-50 mix-blend-screen" />
-        <div className="absolute bottom-1/4 right-1/4 w-[800px] h-[800px] bg-emerald-900/10 rounded-full blur-[100px] opacity-40 mix-blend-screen" />
+      {/* ── Deep Void 3D Background ── */}
+      <div className="fixed inset-0 z-0 pointer-events-none bg-[#030712] overflow-hidden">
+        
+        {/* 3D Floor Grid */}
+        <div className="absolute inset-0 flex items-center justify-center" style={{ perspective: '1000px' }}>
+          <div 
+            className="absolute w-[200vw] h-[200vh] border-slate-800/20"
+            style={{
+              backgroundImage: 'linear-gradient(to right, rgba(52, 211, 153, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(52, 211, 153, 0.05) 1px, transparent 1px)',
+              backgroundSize: '4rem 4rem',
+              transform: 'rotateX(75deg) translateY(0) translateZ(-200px)',
+              transformOrigin: 'center center'
+            }}
+          />
+        </div>
+
+        {/* Deep Space Vignette (Darkens edges to create a tunnel/void effect) */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#030712_100%)] z-10" />
+
+        {/* Ambient Nebula Glows */}
+        <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[150px] mix-blend-screen z-0" />
+        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-emerald-600/10 rounded-full blur-[150px] mix-blend-screen z-0" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px] mix-blend-screen z-0" />
+        
+        {/* Static Star Dust (Subtle dots) */}
+        <div 
+          className="absolute inset-0 opacity-[0.03] z-10"
+          style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '32px 32px' }}
+        />
       </div>
 
       {/* ── Hero Section ── */}
@@ -325,7 +350,7 @@ export default function TeamPage() {
         </Container>
       </div>
 
-      <style jsx global>{`
+      <style>{`
         .perspective-1000 {
           perspective: 1000px;
         }
