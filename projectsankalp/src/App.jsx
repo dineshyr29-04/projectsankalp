@@ -18,6 +18,7 @@ import { ArrowUp } from "lucide-react";
 import TracksPage from "./components/pages/TracksPage";
 import Loader from "./components/ui/loader-11";
 import WinnersPage from "./components/pages/WinnersPage";
+import TeamPage from "./components/pages/TeamPage";
 
 // AUDIT FIX: Simple, premium Back to Top button
 const BackToTop = () => {
@@ -56,6 +57,11 @@ function App() {
     // Check for winners slug
     if (window.location.pathname === "/winners") {
       setCurrentView("winners");
+    }
+    
+    // Check for team slug (hidden)
+    if (window.location.pathname === "/team") {
+      setCurrentView("team");
     }
     
     return () => clearTimeout(timer);
@@ -160,6 +166,18 @@ function App() {
                     transition={{ duration: 0.5 }}
                   >
                     <WinnersPage />
+                  </motion.div>
+                )}
+
+                {currentView === "team" && (
+                  <motion.div
+                    key="team"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <TeamPage />
                   </motion.div>
                 )}
               </AnimatePresence>
