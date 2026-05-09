@@ -90,30 +90,22 @@ const TimelineNode = ({ member, index, total, scrollYProgress }) => {
         viewport={{ once: true, margin: "-50px" }}
         className="absolute bottom-0 -translate-y-1/2 z-10 
                    left-[80px] right-4 md:right-auto md:left-auto md:w-[400px]"
-        style={
-          // On mobile, card is always on the right of the node.
-          // On desktop, card alternates.
-          // We can't use JS window.innerWidth easily in style without re-renders, 
-          // so we use Tailwind classes for layout, but for exact left/right percentages we use style if needed.
-          // Actually, we can just rely on Tailwind classes for positioning!
-          {}
-        }
       >
         {/* We use a wrapper to handle desktop alternating positions */}
         <div className={`
           w-full md:absolute md:-translate-y-1/2
           ${isLeft 
-            ? 'md:left-[calc(30%+40px)]' 
-            : 'md:right-[calc(30%+40px)]'
+            ? 'md:left-[calc(30%+80px)]' 
+            : 'md:right-[calc(30%+80px)]'
           }
         `}>
           
           <div 
-            className="relative bg-slate-900/60 backdrop-blur-xl border border-white/10 p-5 md:p-6 transition-all duration-500 group-hover:bg-slate-800/80 group-hover:border-emerald-500/50"
+            className={`relative bg-slate-900/60 backdrop-blur-xl border border-white/10 p-5 md:p-6 transition-all duration-500 group-hover:bg-slate-800/80 group-hover:border-emerald-500/50 ${isLeft ? 'text-left' : 'md:text-right text-left'}`}
             style={{ clipPath: 'polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px)' }}
           >
             {/* Category Tag */}
-            <div className={`inline-flex items-center gap-1.5 px-2 py-1 rounded bg-white/5 border border-white/5 mb-3`}>
+            <div className={`inline-flex items-center gap-1.5 px-2 py-1 rounded bg-white/5 border border-white/5 mb-3 ${isLeft ? '' : 'md:flex-row-reverse'}`}>
               <member.icon className="w-3 h-3 text-emerald-400" />
               <span className="text-[8px] uppercase tracking-widest text-slate-300">{member.category}</span>
             </div>
@@ -121,7 +113,7 @@ const TimelineNode = ({ member, index, total, scrollYProgress }) => {
             <h4 className="text-xl md:text-2xl font-serif font-black text-white">{member.name}</h4>
             <p className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-emerald-400 mt-1 font-bold">{member.role}</p>
             
-            <div className="mt-4 pt-3 border-t border-white/10 flex gap-6">
+            <div className={`mt-4 pt-3 border-t border-white/10 flex gap-6 ${isLeft ? 'justify-start' : 'md:justify-end justify-start'}`}>
               <div>
                 <span className="block text-[8px] uppercase tracking-widest text-slate-500">Focus</span>
                 <span className="block text-xs md:text-sm font-medium text-slate-200">{member.stats.power}</span>
