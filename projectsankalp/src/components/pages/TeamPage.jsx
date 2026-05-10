@@ -24,15 +24,15 @@ const ALL_MEMBERS = [
   // --- VISIONARIES ---
   {
     id: "v1",
-    name: "Dr. Akash Yadav",
+    name: "Dr. Ashwini Shetty",
     role: "Expedition Lead",
     category: "The Visionaries",
     color: "from-blue-400 to-blue-600",
   },
   {
     id: "v2",
-    name: "Prof. S. Kumar",
-    role: "Faculty Coordinator",
+    name: "Radesh Pai",
+    role: "Overall Student Coordinator",
     category: "The Visionaries",
     color: "from-blue-400 to-blue-600",
   },
