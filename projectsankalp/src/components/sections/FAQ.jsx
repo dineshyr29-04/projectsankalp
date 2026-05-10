@@ -9,42 +9,41 @@ export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
 
   return (
-    <Section id="faq" className="relative bg-emerald-50/10 py-24 md:py-32 overflow-hidden border-t border-slate-50">
+    <Section id="faq" className="relative bg-emerald-50/10 py-12 md:py-20 overflow-hidden border-t border-slate-50">
       {/* Premium Atmospheric Accents */}
       <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-white rounded-full blur-[150px] -mr-400" />
       <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-white rounded-full blur-[120px] -ml-300" />
       
       <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto">
-        <div className="text-center mb-16 md:mb-20">
-          <div className="flex items-center justify-center gap-4 mb-8">
-            <div className="w-12 h-[1px] bg-slate-500" />
+        <div className="text-center mb-10 md:mb-12">
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="w-10 h-[1px] bg-slate-400" />
             <span className="text-[#16A34A] font-black uppercase tracking-[0.4em] text-[10px]">Help Center</span>
-            <div className="w-12 h-[1px] bg-slate-100" />
+            <div className="w-10 h-[1px] bg-slate-400" />
           </div>
-          <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
-            Common <br />
-            <span className="text-[#16A34A] font-bold italic">Questions.</span>
+          <h2 className="text-5xl md:text-8xl font-serif font-black mb-4 text-slate-900 tracking-tight leading-[0.9]">
+            Common <span className="text-[#16A34A] font-bold italic">Questions.</span>
           </h2>
-          <p className="text-slate-600 font-medium border-t border-slate-50 pt-8 max-w-lg mx-auto leading-relaxed">Everything you need to know before you start your mission.</p>
+          <p className="text-slate-600 font-medium border-t border-slate-50 pt-4 max-w-lg mx-auto leading-relaxed text-sm">Everything you need to know before you start your mission.</p>
         </div>
 
-        <div className="max-w-3xl mx-auto grid gap-4">
+        <div className="max-w-3xl mx-auto grid gap-3">
           {siteConfig.faq.map((item, index) => (
             <div 
               key={index} 
               className="group relative rounded-2xl bg-white border border-slate-300 overflow-hidden transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400"
             >
               <button
-                className="w-full p-8 text-left flex justify-between items-center hover:bg-slate-50/50 transition-colors"
+                className="w-full p-5 md:p-6 text-left flex justify-between items-center hover:bg-slate-50/50 transition-colors"
                 onClick={() => setActiveIndex(activeIndex === index ? null : index)}
               >
-                <span className="font-bold text-slate-900 tracking-tight">{item.question}</span>
+                <span className="font-bold text-slate-900 tracking-tight text-sm md:text-base">{item.question}</span>
                 <motion.div
                   animate={{ rotate: activeIndex === index ? 45 : 0 }}
                   transition={{ duration: 0.3 }}
                   className="p-1 rounded-full bg-slate-50 border border-slate-100"
                 >
-                  <Plus size={18} className="text-slate-900" />
+                  <Plus size={16} className="text-slate-900" />
                 </motion.div>
               </button>
               
@@ -56,7 +55,7 @@ export default function FAQ() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <div className="p-8 pt-0 text-slate-500 text-sm leading-relaxed font-medium border-t border-slate-50/50">
+                    <div className="p-5 md:p-6 pt-0 text-slate-500 text-xs md:text-sm leading-relaxed font-medium border-t border-slate-50/50">
                       {item.answer}
                     </div>
                   </motion.div>

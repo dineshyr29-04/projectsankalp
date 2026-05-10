@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-slate-900 text-white pt-24 pb-12 overflow-hidden">
+    <footer className="relative bg-slate-900 text-white pt-16 pb-8 overflow-hidden">
       {/* Premium Background Atmosphere */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full select-none pointer-events-none overflow-hidden">
         <h2 className="text-[15vw] font-serif font-black text-white/[0.02] leading-none uppercase tracking-tighter whitespace-nowrap text-center">
@@ -14,7 +14,7 @@ export default function Footer() {
       </div>
 
       <Container className="relative z-10 w-full px-4 sm:px-10 lg:px-20 mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 border-b border-white/5 pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 border-b border-white/5 pb-10">
           
           {/* Column 1: Info */}
           <div className="lg:col-span-4 space-y-10">
@@ -71,7 +71,7 @@ export default function Footer() {
           {/* Column 4: Support */}
           <div className="lg:col-span-4 space-y-8">
             <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-white/90">Support</h4>
-            <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-8 space-y-8 backdrop-blur-md">
+            <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6 space-y-6 backdrop-blur-md">
               <p className="text-xs text-white/90 leading-relaxed font-medium">
                 Need help with registration or have questions about the hackathon?
               </p>
