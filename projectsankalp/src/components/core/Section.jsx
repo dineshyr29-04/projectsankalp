@@ -1,12 +1,7 @@
 import { motion } from "framer-motion";
 import { cn } from "../../utils/helpers";
 
-export default function Section({ 
-  children, 
-  className, 
-  id,
-  animate = true 
-}) {
+export default function Section({ children, className, id, animate = true }) {
   return (
     <motion.section
       id={id}

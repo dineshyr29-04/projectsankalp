@@ -9,7 +9,7 @@ export default function Timeline() {
     <Section id="timeline" className="bg-transparent">
       <Container>
         <div className="text-center mb-24">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -17,9 +17,12 @@ export default function Timeline() {
           >
             The Roadmap
           </motion.span>
-          <h2 className="text-5xl md:text-6xl font-serif font-black mb-6 text-primary">Event Timeline</h2>
+          <h2 className="text-5xl md:text-6xl font-serif font-black mb-6 text-primary">
+            Event Timeline
+          </h2>
           <p className="text-text-secondary max-w-2xl mx-auto font-medium">
-            From the initial spark of an idea to the final pitch. Follow the journey.
+            From the initial spark of an idea to the final pitch. Follow the
+            journey.
           </p>
         </div>
 
@@ -35,7 +38,7 @@ export default function Timeline() {
             >
               {/* Background Accent */}
               <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-full translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-700" />
-              
+
               <div>
                 <div className="flex justify-between items-start mb-8">
                   <div className="p-3 rounded-2xl bg-surface border border-border group-hover:bg-accent group-hover:text-white transition-all duration-500">
@@ -45,7 +48,7 @@ export default function Timeline() {
                     {item.time}
                   </span>
                 </div>
-                
+
                 <h3 className="text-2xl font-serif font-black mb-3 text-primary group-hover:text-accent transition-colors leading-tight">
                   {item.event}
                 </h3>

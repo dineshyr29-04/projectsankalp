@@ -6,7 +6,7 @@ export function useNavbar() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       if (currentScrollY > 60) {
         setIsScrolled(true);
       } else {

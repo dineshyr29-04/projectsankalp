@@ -8,30 +8,33 @@ export default function Team() {
       name: "Dr. Akash Yadav",
       role: "Lead Organizer",
       tag: "Leadership",
-      bio: "Spearheading social innovation through technology and community empowerment."
+      bio: "Spearheading social innovation through technology and community empowerment.",
     },
     {
       name: "Prof. S. Kumar",
       role: "Faculty Coordinator",
       tag: "Mentorship",
-      bio: "Bridging the gap between academic research and real-world impact."
+      bio: "Bridging the gap between academic research and real-world impact.",
     },
     {
       name: "Ms. Priya Rao",
       role: "Tech Lead",
       tag: "Development",
-      bio: "Expert in building scalable solutions for global challenges."
+      bio: "Expert in building scalable solutions for global challenges.",
     },
     {
       name: "Mr. Rahul V.",
       role: "Design Lead",
       tag: "Experience",
-      bio: "Focused on creating intentional and human-centric digital experiences."
-    }
+      bio: "Focused on creating intentional and human-centric digital experiences.",
+    },
   ];
 
   return (
-    <Section id="team" className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-50">
+    <Section
+      id="team"
+      className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-50"
+    >
       {/* Premium Atmospheric Accents */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
         {/* Massive Background Label - Subtler */}
@@ -49,15 +52,18 @@ export default function Team() {
             className="flex items-center gap-4 mb-8"
           >
             <div className="w-12 h-[1px] bg-slate-200" />
-            <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">The Minds Behind</span>
+            <span className="text-slate-400 font-black uppercase tracking-[0.4em] text-[10px]">
+              The Minds Behind
+            </span>
           </motion.div>
-          
+
           <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
-            Meet the <br /> 
+            Meet the <br />
             <span className="text-slate-400 italic">Core Team.</span>
           </h2>
           <p className="text-slate-600 text-lg font-medium border-l border-slate-100 pl-8 max-w-2xl">
-            A diverse group of educators, developers, and designers working to make Project Sankalp a reality.
+            A diverse group of educators, developers, and designers working to
+            make Project Sankalp a reality.
           </p>
         </div>
 
@@ -68,7 +74,11 @@ export default function Team() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                delay: index * 0.1,
+                duration: 1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="group relative p-10 rounded-2xl bg-white border border-slate-300 transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02]"
             >
               <div className="space-y-4 mb-12">

@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -23,10 +20,10 @@ export default {
         "primary-gradient": "linear-gradient(to right, #0A0A0A, #262626)",
       },
       spacing: {
-        '18': '4.5rem',
-        '22': '5.5rem',
-      }
+        18: "4.5rem",
+        22: "5.5rem",
+      },
     },
   },
   plugins: [],
-}
+};

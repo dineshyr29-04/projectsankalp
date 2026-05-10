@@ -8,7 +8,7 @@ export default function About() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
@@ -17,23 +17,29 @@ export default function About() {
   const features = [
     {
       title: "24 Hours",
-      description: "A high-intensity sprint to turn your wildest ideas into reality.",
+      description:
+        "A high-intensity sprint to turn your wildest ideas into reality.",
       icon: Clock,
     },
     {
       title: "Innovation",
-      description: "Push the boundaries of technology with creative problem solving.",
+      description:
+        "Push the boundaries of technology with creative problem solving.",
       icon: Zap,
     },
     {
       title: "Real-world Impact",
       description: "Build solutions that matter and can change lives globally.",
       icon: Target,
-    }
+    },
   ];
 
   return (
-    <Section id="about" className="relative py-24 md:py-32 overflow-hidden bg-slate-50/50" ref={containerRef}>
+    <Section
+      id="about"
+      className="relative py-24 md:py-32 overflow-hidden bg-slate-50/50"
+      ref={containerRef}
+    >
       {/* Premium Background Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Soft Tonal Blobs */}
@@ -51,33 +57,43 @@ export default function About() {
           >
             <div className="flex items-center gap-4 mb-8">
               <div className="w-12 h-[1px] bg-slate-800" />
-              <span className="text-[#484848] font-black uppercase tracking-[0.4em] text-[10px]">Our Mission</span>
+              <span className="text-[#484848] font-black uppercase tracking-[0.4em] text-[10px]">
+                Our Mission
+              </span>
             </div>
-            
+
             <h2 className="text-5xl md:text-8xl font-serif font-black mb-8 leading-[0.9] tracking-tight text-slate-900">
-              Build the Future <br /> 
+              Build the Future <br />
               <span className="text-[#22C55E] italic">With Purpose.</span>
             </h2>
             <p className="text-lg text-[#484848] leading-relaxed mb-12 max-w-xl font-medium border-l border-slate-100 pl-8">
-              Project Sankalp is a premier 24-hour hackathon designed to empower the next generation of innovators to solve critical real-world problems.
+              Project Sankalp is a premier 24-hour hackathon designed to empower
+              the next generation of innovators to solve critical real-world
+              problems.
             </p>
           </motion.div>
 
           <div className="grid gap-6 md:gap-8">
             {features.map((feature, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                transition={{
+                  delay: index * 0.1,
+                  duration: 1,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
                 className="group relative p-8 rounded-2xl bg-white border border-slate-300 transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02] flex flex-col sm:flex-row gap-6 items-start"
               >
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 group-hover:bg-white group-hover:border-slate-200 transition-all shadow-sm">
                   <feature.icon size={22} className="text-slate-900" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold mb-2 text-slate-900 tracking-tight">{feature.title}</h3>
+                  <h3 className="text-lg font-bold mb-2 text-slate-900 tracking-tight">
+                    {feature.title}
+                  </h3>
                   <p className="text-sm text-slate-500 leading-relaxed font-medium">
                     {feature.description}
                   </p>

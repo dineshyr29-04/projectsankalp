@@ -1,6 +1,13 @@
 import Container from "../core/Container";
 import { siteConfig } from "../../config/site";
-import { MapPin, Mail, Phone, ExternalLink, Send, ArrowUpRight } from "lucide-react";
+import {
+  MapPin,
+  Mail,
+  Phone,
+  ExternalLink,
+  Send,
+  ArrowUpRight,
+} from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Footer() {
@@ -15,18 +22,23 @@ export default function Footer() {
 
       <Container className="relative z-10 w-full px-4 sm:px-10 lg:px-20 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 border-b border-white/5 pb-10">
-          
           {/* Column 1: Info */}
           <div className="lg:col-span-4 space-y-10">
             <div className="flex items-center gap-5">
               <div>
-                <h3 className="text-2xl font-serif font-black tracking-tight uppercase">Project Sankalp</h3>
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500/80">Code for Change</span>
+                <h3 className="text-2xl font-serif font-black tracking-tight uppercase">
+                  Project Sankalp
+                </h3>
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500/80">
+                  Code for Change
+                </span>
               </div>
             </div>
-            
+
             <p className="text-sm text-white/70 leading-relaxed max-w-sm font-medium">
-              The premier social-impact hackathon connecting innovators to solve global climate and health challenges through purposeful technology.
+              The premier social-impact hackathon connecting innovators to solve
+              global climate and health challenges through purposeful
+              technology.
             </p>
 
             <div className="flex items-start gap-4 text-white/50 group cursor-pointer hover:text-white transition-colors duration-500">
@@ -34,7 +46,8 @@ export default function Footer() {
                 <MapPin size={18} className="text-emerald-500" />
               </div>
               <p className="text-xs leading-relaxed font-medium">
-                Yenepoya (Deemed to be University),<br />
+                Yenepoya (Deemed to be University),
+                <br />
                 Deralakatte, Mangalore, Karnataka 575018
               </p>
             </div>
@@ -42,11 +55,23 @@ export default function Footer() {
 
           {/* Column 2: Hackathon */}
           <div className="lg:col-span-2 space-y-8">
-            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-white/90">Quick Links</h4>
+            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-white/90">
+              Quick Links
+            </h4>
             <ul className="space-y-4">
-              {['About', 'Tracks', 'Process', 'Prizes', 'Timeline', 'Register'].map((item) => (
+              {[
+                "About",
+                "Tracks",
+                "Process",
+                "Prizes",
+                "Timeline",
+                "Register",
+              ].map((item) => (
                 <li key={item}>
-                  <a href={`#${item.toLowerCase()}`} className="text-sm text-white/50 hover:text-white transition-all flex items-center gap-2 group font-medium">
+                  <a
+                    href={`#${item.toLowerCase()}`}
+                    className="text-sm text-white/50 hover:text-white transition-all flex items-center gap-2 group font-medium"
+                  >
                     {item}
                   </a>
                 </li>
@@ -56,37 +81,55 @@ export default function Footer() {
 
           {/* Column 3: Partners */}
           <div className="lg:col-span-2 space-y-8">
-            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-white/90">Partners</h4>
+            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-white/90">
+              Partners
+            </h4>
             <ul className="space-y-4">
-              {['NSS Unit', 'YSET', 'Yenepoya Univ', 'Research Hub'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-sm text-white/50 hover:text-white transition-all flex items-center gap-1.5 group font-medium">
-                    {item} <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </a>
-                </li>
-              ))}
+              {["NSS Unit", "YSET", "Yenepoya Univ", "Research Hub"].map(
+                (item) => (
+                  <li key={item}>
+                    <a
+                      href="#"
+                      className="text-sm text-white/50 hover:text-white transition-all flex items-center gap-1.5 group font-medium"
+                    >
+                      {item}{" "}
+                      <ArrowUpRight
+                        size={12}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      />
+                    </a>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
 
           {/* Column 4: Support */}
           <div className="lg:col-span-4 space-y-8">
-            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-white/90">Support</h4>
+            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-white/90">
+              Support
+            </h4>
             <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-6 space-y-6 backdrop-blur-md">
               <p className="text-xs text-white/90 leading-relaxed font-medium">
-                Need help with registration or have questions about the hackathon?
+                Need help with registration or have questions about the
+                hackathon?
               </p>
-              
-              <a className="w-full bg-white text-slate-900 py-4 rounded-xl font-black uppercase tracking-widest text-[11px] flex items-center justify-center gap-2 hover:bg-slate-50 transition-all active:scale-95 shadow-xl shadow-black/20"
-              href="mailto:[projectsankalp@yenepoya.edu.in] ">
+
+              <a
+                className="w-full bg-white text-slate-900 py-4 rounded-xl font-black uppercase tracking-widest text-[11px] flex items-center justify-center gap-2 hover:bg-slate-50 transition-all active:scale-95 shadow-xl shadow-black/20"
+                href="mailto:[projectsankalp@yenepoya.edu.in] "
+              >
                 Contact Us <Mail size={14} />
               </a>
 
               <div className="space-y-4 pt-2">
-                <a href="tel:+919876543210" className="flex items-center gap-4 text-xs text-white/90 hover:text-white transition-colors font-bold">
+                <a
+                  href="tel:+919876543210"
+                  className="flex items-center gap-4 text-xs text-white/90 hover:text-white transition-colors font-bold"
+                >
                   <Phone size={14} className="text-emerald-500" />
                   +91 89513 49166
                 </a>
-                
               </div>
             </div>
           </div>

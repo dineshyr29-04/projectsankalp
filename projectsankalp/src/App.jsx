@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -40,7 +39,10 @@ const BackToTop = () => {
           className="fixed bottom-10 right-10 z-[100] p-4 bg-slate-900 text-white rounded-full shadow-2xl hover:bg-emerald-600 transition-all active:scale-95 group"
           aria-label="Back to top"
         >
-          <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />
+          <ArrowUp
+            size={20}
+            className="group-hover:-translate-y-1 transition-transform"
+          />
         </motion.button>
       )}
     </AnimatePresence>
@@ -53,17 +55,17 @@ function App() {
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 900);
-    
+
     // Check for winners slug
     if (window.location.pathname === "/winners") {
       setCurrentView("winners");
     }
-    
+
     // Check for team slug (hidden)
     if (window.location.pathname === "/team") {
       setCurrentView("team");
     }
-    
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -120,7 +122,10 @@ function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.45, ease: "easeOut" }}
           >
-            <Navbar currentView={currentView} onNavigate={(view) => setCurrentView(view)} />
+            <Navbar
+              currentView={currentView}
+              onNavigate={(view) => setCurrentView(view)}
+            />
             <BackToTop />
 
             <main>

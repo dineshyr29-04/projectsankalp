@@ -4,12 +4,17 @@
 @layer base {
   body {
     @apply text-primary font-sans antialiased selection:bg-accent/20 selection:text-primary;
-    background: linear-gradient(135deg, #FFFFFF 0%, #F0F9FF 50%, #F5F3FF 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 50%, #f5f3ff 100%);
     background-attachment: fixed;
     scroll-behavior: smooth;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply tracking-tight font-serif;
   }
 
@@ -28,7 +33,8 @@
   }
 }
 
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -50,10 +56,10 @@ html.lenis, html.lenis body {
 
 @layer components {
   .grid-pattern {
-    background-image: radial-gradient(circle, #E2E8F0 1px, transparent 1px);
+    background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
     background-size: 32px 32px;
   }
-  
+
   .glass-effect {
     @apply bg-white/70 backdrop-blur-md border border-border/50 shadow-sm;
   }
@@ -73,8 +79,12 @@ html.lenis, html.lenis body {
 }
 
 @keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Custom scrollbar */
@@ -91,9 +101,15 @@ html.lenis, html.lenis body {
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .animate-float {

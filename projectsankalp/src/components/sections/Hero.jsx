@@ -9,7 +9,7 @@ export default function Hero() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
 
   const yText = useTransform(scrollYProgress, [0, 1], [0, 100]);
@@ -17,7 +17,7 @@ export default function Hero() {
 
   const sponsors = [
     { name: "Yenepoya University", logo: "/ysetlogo.png" },
-    { name: "NSS Unit", logo: "/nsslogo.png" }
+    { name: "NSS Unit", logo: "/nsslogo.png" },
   ];
 
   return (
@@ -65,7 +65,6 @@ export default function Hero() {
           >
             {/* AUDIT FIX: Clear primary date & prize pool info */}
 
-
             {/* Heading - Wide & Impactful */}
             <div className="flex flex-col items-center w-full mt-[70px] md:mt-[0px]">
               <h1 className="mt-10 text-6xl italic font-light sm:text-8xl md:text-[90px] lg:text-[130px] sm:mt-[100px] font-serif font-black text-slate-900 leading-[0.8] tracking-[0.1em] uppercase">
@@ -88,20 +87,34 @@ export default function Hero() {
             {/* CTA Group */}
             <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full md:w-auto px-6 md:px-0 mt-3 sm:mt-[120px] mt-[100px]">
               <motion.button
-                whileHover={{ boxShadow: "0 25px 50px rgba(16, 185, 129, 0.4)" }}
+                whileHover={{
+                  boxShadow: "0 25px 50px rgba(16, 185, 129, 0.4)",
+                }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
+                onClick={() =>
+                  window.open(
+                    "https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755",
+                    "_blank",
+                  )
+                }
                 className="md:w-auto bg-slate-900 text-white px-14 py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.4em] shadow-lg shadow-slate-900/10 hover:-translate-y-[2px] hover:shadow-[0_12px_30px_rgba(16,185,129,0.25)] hover:bg-slate-800 focus-visible:ring-4 focus-visible:ring-emerald-500/50 transition-all duration-300"
               >
                 Register Now
               </motion.button>
               <motion.button
-                whileHover={{ backgroundColor: "rgba(15, 23, 42, 0.1)", boxShadow: "0 15px 35px rgba(15, 23, 42, 0.2)" }}
+                whileHover={{
+                  backgroundColor: "rgba(15, 23, 42, 0.1)",
+                  boxShadow: "0 15px 35px rgba(15, 23, 42, 0.2)",
+                }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 whileTap={{ scale: 0.98 }}
                 className="md:w-auto border-2 border-slate-900 text-slate-900 px-14 py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.4em] focus-visible:ring-4 focus-visible:ring-slate-900/10 transition-all duration-300 bg-white/80 backdrop-blur-sm"
-                onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() =>
+                  document
+                    .getElementById("about")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
               >
                 Learn More
               </motion.button>
@@ -115,7 +128,9 @@ export default function Hero() {
             transition={{ delay: 0.6, duration: 1 }}
             className="w-full flex flex-col items-center gap-6"
           >
-            <span className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-800">Presented By</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-800">
+              Presented By
+            </span>
 
             <div className="flex items-center gap-14 md:gap-24 px-5 md:px-16 py-5 md:py-5 bg-white/40 backdrop-blur-md border border-slate-100 rounded-full shadow-lg shadow-slate-900/[0.02]">
               {sponsors.map((sponsor) => (

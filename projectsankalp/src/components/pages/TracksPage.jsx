@@ -97,7 +97,12 @@ export default function TracksPage({ onBack }) {
         />
         <motion.div
           animate={{ scale: [1.1, 1, 1.1], opacity: [0.03, 0.06, 0.03] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
           className="absolute -bottom-40 -right-40 w-[700px] h-[700px] bg-blue-500/10 blur-[140px] rounded-full"
         />
         {/* Grain - Much smoother */}
@@ -160,8 +165,8 @@ export default function TracksPage({ onBack }) {
             custom={2}
             className="text-lg text-slate-500 font-medium leading-relaxed max-w-2xl border-l-2 border-slate-200 pl-6"
           >
-            Three carefully chosen challenge areas, each addressing a critical societal need.
-            Choose your track and build technology that matters.
+            Three carefully chosen challenge areas, each addressing a critical
+            societal need. Choose your track and build technology that matters.
           </motion.p>
         </div>
 
@@ -329,13 +334,13 @@ export default function TracksPage({ onBack }) {
         </motion.div>
 
         {/* Back to top button */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           className="mt-20 flex justify-center"
         >
-          <button 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="flex items-center gap-2 text-slate-400 hover:text-slate-900 transition-colors uppercase tracking-[0.3em] text-[10px] font-black group"
           >
             Scroll to Top

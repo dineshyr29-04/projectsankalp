@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { cn } from "../../utils/helpers";
 
-export default function Button({ 
-  children, 
-  className, 
-  variant = "primary", 
+export default function Button({
+  children,
+  className,
+  variant = "primary",
   onClick,
-  ...props 
+  ...props
 }) {
   const variants = {
     primary: "bg-primary text-white border-primary hover:bg-primary/90",
@@ -21,7 +21,7 @@ export default function Button({
       className={cn(
         "px-8 py-3 rounded-full font-semibold transition-all duration-300 border flex items-center justify-center gap-2 text-sm md:text-base",
         variants[variant],
-        className
+        className,
       )}
       onClick={onClick}
       {...props}
