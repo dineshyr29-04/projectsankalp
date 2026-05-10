@@ -42,7 +42,8 @@ export default function Navbar({ onNavigate, currentView }) {
   const isLanding = currentView === "landing";
   const isTeam = currentView === "team";
 
-  // Direct scroll without spring for snappy response
+  // Direct scroll perfectly maps layout to the scrollbar.
+  // Using a spring here was causing the "cluttered" lag after scrolling stopped.
   const { scrollY } = useScroll();
 
   // High-performance spring: calibrated for "liquid" fluid motion
@@ -50,92 +51,32 @@ export default function Navbar({ onNavigate, currentView }) {
     stiffness: 80, // Lower stiffness for calmer, more fluid motion
     damping: 30, // Balanced damping to prevent bounce
     mass: 1,
-    restDelta: 0.001,
+    restDelta: 0.001
   });
 
   // Premium Easing Curve
   const fluidEasing = [0.16, 1, 0.3, 1];
 
   // Progressive Transforms based on scroll (Gradual, not binary)
-  const navWidth = useTransform(
-    smoothScrollY,
-    [0, 150],
-    isMobile ? ["94%", "90%"] : ["96%", "90%"],
-  );
-  const navMaxWidth = useTransform(
-    smoothScrollY,
-    [0, 150],
-    isMobile
-      ? ["600px", "500px"]
-      : isTeam
-        ? ["1000px", "800px"]
-        : ["2200px", "1000px"],
-  );
-  const navMarginTop = useTransform(
-    smoothScrollY,
-    [0, 150],
-    isMobile ? [4, 8] : isTeam ? [5, 10] : [10, 20],
-  );
-  const navBorderRadius = useTransform(
-    smoothScrollY,
-    [0, 150],
-    isMobile ? [20, 40] : [24, 80],
-  );
-  const navPaddingX = useTransform(
-    smoothScrollY,
-    [0, 150],
-    isMobile ? [16, 12] : [32, 24],
-  );
-  const navPaddingY = useTransform(
-    smoothScrollY,
-    [0, 150],
-    isMobile ? [10, 8] : isTeam ? [8, 6] : [14, 10],
-  );
-  const navBg = useTransform(
-    smoothScrollY,
-    [0, 150],
-    ["rgba(255, 255, 255, 0.95)", "rgba(255, 255, 255, 0.75)"],
-  );
-  const navBorderColor = useTransform(
-    smoothScrollY,
-    [0, 150],
-    ["rgba(255, 255, 255, 0.9)", "rgba(255, 255, 255, 0.4)"],
-  );
-  const navShadow = useTransform(
-    smoothScrollY,
-    [0, 150],
-    [
-      "0 10px 30px -10px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.6)",
-      "0 20px 40px -15px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.7)",
-    ],
-  );
-  const logoScale = useTransform(
-    smoothScrollY,
-    [0, 150],
-    isMobile ? [0.85, 0.8] : [1, 0.85],
-  );
-  const logoWidth = useTransform(
-    smoothScrollY,
-    [0, 150],
-    isMobile ? [90, 80] : [120, 90],
-  );
+  const navWidth = useTransform(smoothScrollY, [0, 150], isMobile ? ["94%", "90%"] : ["96%", "90%"]);
+  const navMaxWidth = useTransform(smoothScrollY, [0, 150], isMobile ? ["600px", "500px"] : (isTeam ? ["1000px", "800px"] : ["2200px", "1000px"]));
+  const navMarginTop = useTransform(smoothScrollY, [0, 150], isMobile ? [4, 8] : (isTeam ? [5, 10] : [10, 20]));
+  const navBorderRadius = useTransform(smoothScrollY, [0, 150], isMobile ? [20, 40] : [24, 80]);
+  const navPaddingX = useTransform(smoothScrollY, [0, 150], isMobile ? [16, 12] : [32, 24]);
+  const navPaddingY = useTransform(smoothScrollY, [0, 150], isMobile ? [10, 8] : (isTeam ? [8, 6] : [14, 10]));
+  const navBg = useTransform(smoothScrollY, [0, 150], ["rgba(255, 255, 255, 0.95)", "rgba(255, 255, 255, 0.75)"]);
+  const navBorderColor = useTransform(smoothScrollY, [0, 150], ["rgba(255, 255, 255, 0.9)", "rgba(255, 255, 255, 0.4)"]);
+  const navShadow = useTransform(smoothScrollY, [0, 150], [
+    "0 10px 30px -10px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.6)",
+    "0 20px 40px -15px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.7)"
+  ]);
+  const logoScale = useTransform(smoothScrollY, [0, 150], isMobile ? [0.85, 0.8] : [1, 0.85]);
+  const logoWidth = useTransform(smoothScrollY, [0, 150], isMobile ? [90, 80] : [120, 90]);
 
   // CTA Button Transforms (Fluid instead of binary)
-  const buttonPx = useTransform(
-    smoothScrollY,
-    [0, 150],
-    isMobile ? [16, 12] : [32, 24],
-  );
-  const buttonPy = useTransform(
-    smoothScrollY,
-    [0, 150],
-    isMobile ? [8, 6] : [14, 12],
-  );
-  const buttonFontSize = useTransform(
-    smoothScrollY,
-    [0, 150],
-    isMobile ? [7, 7] : [10, 9],
-  );
+  const buttonPx = useTransform(smoothScrollY, [0, 150], isMobile ? [16, 12] : [32, 24]);
+  const buttonPy = useTransform(smoothScrollY, [0, 150], isMobile ? [8, 6] : [14, 12]);
+  const buttonFontSize = useTransform(smoothScrollY, [0, 150], isMobile ? [7, 7] : [10, 9]);
   const buttonGap = useTransform(smoothScrollY, [0, 150], [6, 4]);
 
   useEffect(() => {
@@ -178,7 +119,9 @@ export default function Navbar({ onNavigate, currentView }) {
   return (
     <div className="fixed left-0 right-0 top-0 z-50 flex flex-col items-center pointer-events-none">
       {/* Announcement Bar - Always Fixed */}
-      <div className="w-full bg-primary text-white text-[8px] md:text-[10px] py-1.5 md:py-2 px-4 flex justify-center items-center gap-3 md:gap-4 overflow-hidden whitespace-nowrap uppercase tracking-[0.2em] md:tracking-[0.3em] font-black pointer-events-auto shadow-[inset_0_4px_6px_rgba(0,0,0,0.1),inset_0_-1px_2px_rgba(255,255,255,0.4),0_2px_8px_rgba(0,0,0,0.05)]">
+      <div 
+        className="w-full bg-primary text-white text-[8px] md:text-[10px] py-1.5 md:py-2 px-4 flex justify-center items-center gap-3 md:gap-4 overflow-hidden whitespace-nowrap uppercase tracking-[0.2em] md:tracking-[0.3em] font-black pointer-events-auto shadow-[inset_0_4px_6px_rgba(0,0,0,0.1),inset_0_-1px_2px_rgba(255,255,255,0.4),0_2px_8px_rgba(0,0,0,0.05)]"
+      >
         <span className="flex items-center gap-1.5 md:gap-2">
           <span className="w-1 md:w-1.5 h-1 md:h-1.5 bg-green-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.5)]" />
           QUALIFIER ROUND 1 IS LIVE

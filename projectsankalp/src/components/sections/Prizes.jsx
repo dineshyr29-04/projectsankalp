@@ -16,20 +16,16 @@ export default function Prizes() {
   const icons = [Trophy, Award, Medal];
 
   return (
-    <Section
-      id="prizes"
-      className="relative bg-slate-50/50 py-24 md:py-32 overflow-hidden"
-      ref={containerRef}
-    >
-      <motion.div
+    <Section id="prizes" className="relative bg-slate-50/50 py-24 md:py-32 overflow-hidden" ref={containerRef}>
+      <motion.div 
         style={{ y: bgY }}
         className="absolute top-0 right-0 w-[800px] h-[800px] bg-white rounded-full blur-[150px] -mr-400 -mt-400 opacity-50"
       />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white rounded-full blur-[120px] -ml-300 -mb-300 opacity-50" />
 
       <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto">
-        <div className="text-center mb-20 md:mb-24">
-          <div className="flex items-center justify-center gap-4 mb-8">
+        <div className="text-center mb-12 md:mb-16">
+          <div className="flex items-center justify-center gap-4 mb-6">
             <div className="w-12 h-[1px] bg-slate-100" />
             <span className="text-[#2563EB] font-black uppercase tracking-[0.4em] text-[10px]">
               Grand Rewards
@@ -38,13 +34,10 @@ export default function Prizes() {
           </div>
           <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[1.1]">
             Recognition & <br />
-            <span className="text-[#2563EB] font-bold italic mt-[16px]">
-              Prizes.
-            </span>
+            <span className="text-[#2563EB] font-bold italic mt-[16px]" >Prizes.</span>
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto font-medium border-t border-slate-50 pt-8 leading-relaxed">
-            Excellence deserves extraordinary rewards. Compete for a massive
-            prize pool that fuels <strong>your next big step.</strong>
+            Excellence deserves extraordinary rewards. Compete for a massive prize pool that fuels <strong>your next big step.</strong>
           </p>
 
           <motion.div
@@ -69,14 +62,10 @@ export default function Prizes() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{
-                  delay: index * 0.1,
-                  duration: 1,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
+                transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 className={`group relative p-10 rounded-2xl bg-white border flex flex-col items-center text-center transition-all duration-700 ease-out ${
-                  index === 0
-                    ? "border-slate-900 shadow-xl shadow-slate-900/5 md:scale-105 z-10 hover:shadow-2xl hover:shadow-slate-900/[0.03] hover:-translate-y-1"
+                  index === 0 
+                    ? "border-slate-900 shadow-xl shadow-slate-900/5 md:scale-105 z-10 hover:shadow-2xl hover:shadow-slate-900/[0.03] hover:-translate-y-1" 
                     : "border-slate-300 transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02]"
                 }`}
               >
