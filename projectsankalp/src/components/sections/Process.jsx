@@ -72,7 +72,7 @@ export default function Process() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative p-10 rounded-2xl bg-white border border-slate-300 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02] w-full h-full flex flex-col"
+                className="group relative p-10 rounded-2xl bg-white border border-slate-300 transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02] w-full h-full flex flex-col"
               >
               {/* Card Header */}
               <div className="flex justify-between items-start mb-12">

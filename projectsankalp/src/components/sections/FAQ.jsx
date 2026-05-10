@@ -32,7 +32,7 @@ export default function FAQ() {
           {siteConfig.faq.map((item, index) => (
             <div 
               key={index} 
-              className="rounded-2xl border border-slate-100 bg-white overflow-hidden transition-all duration-300 hover:border-emerald-500/20 hover:shadow-xl hover:shadow-slate-900/[0.02]"
+              className="group relative rounded-2xl bg-white border border-slate-300 overflow-hidden transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400"
             >
               <button
                 className="w-full p-8 text-left flex justify-between items-center hover:bg-slate-50/50 transition-colors"

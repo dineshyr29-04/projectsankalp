@@ -110,7 +110,7 @@ export default function EventDetails() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="flex items-center gap-6 p-8 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-900/[0.03] hover:-translate-y-1 transition-all duration-500 group"
+                className="group relative flex items-center gap-6 p-8 rounded-2xl bg-white border border-slate-300 transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02]"
               >
                 <div className="w-14 h-14 flex items-center justify-center rounded-xl bg-slate-50 text-slate-900 group-hover:bg-slate-900 group-hover:text-white transition-all duration-500 shadow-sm">
                   {item.icon}

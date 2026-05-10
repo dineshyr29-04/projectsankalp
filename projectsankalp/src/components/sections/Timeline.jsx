@@ -31,7 +31,7 @@ export default function Timeline() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.8 }}
-              className="group relative p-8 rounded-[40px] bg-white border border-border/50 hover:border-accent hover:shadow-2xl hover:shadow-black/5 transition-all duration-500 flex flex-col justify-between overflow-hidden"
+              className="group relative p-8 rounded-[40px] bg-white border border-slate-300 transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02] flex flex-col justify-between overflow-hidden"
             >
               {/* Background Accent */}
               <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-full translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-700" />

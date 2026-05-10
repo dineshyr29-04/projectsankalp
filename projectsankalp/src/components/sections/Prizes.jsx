@@ -61,8 +61,10 @@ export default function Prizes() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className={`p-10 rounded-2xl bg-white border flex flex-col items-center text-center transition-all duration-500 hover:shadow-2xl hover:shadow-slate-900/[0.03] hover:-translate-y-1 ${
-                  index === 0 ? "border-slate-900 shadow-xl shadow-slate-900/5 md:scale-105 z-10" : "border-slate-100"
+                className={`group relative p-10 rounded-2xl bg-white border flex flex-col items-center text-center transition-all duration-700 ease-out ${
+                  index === 0 
+                    ? "border-slate-900 shadow-xl shadow-slate-900/5 md:scale-105 z-10 hover:shadow-2xl hover:shadow-slate-900/[0.03] hover:-translate-y-1" 
+                    : "border-slate-300 transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02]"
                 }`}
               >
                 <h3 className="text-xs font-black mb-4 text-slate-400 uppercase tracking-[0.3em]">{prize.rank}</h3>

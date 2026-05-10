@@ -82,8 +82,7 @@ export default function Sponsors() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -8 }}
-              className="group relative bg-white border border-slate-100 rounded-3xl p-8 transition-all duration-500 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] overflow-hidden"
+              className="group relative bg-white border border-slate-300 rounded-3xl p-8 transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02] overflow-hidden"
             >
               {/* Subtle accent line */}
               <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-slate-100 to-transparent transform -translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
@@ -122,7 +121,7 @@ export default function Sponsors() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
-            className="sm:col-span-2 lg:col-span-1 group relative p-8 rounded-3xl border-2 border-dashed border-slate-100 hover:border-slate-900 transition-all duration-700 flex flex-col justify-center items-center text-center gap-8 bg-slate-50/30"
+            className="sm:col-span-2 lg:col-span-1 group relative p-8 rounded-3xl border border-slate-300 bg-white transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02] flex flex-col justify-center items-center text-center gap-8"
           >
             <div className="space-y-3">
               <h3 className="text-2xl font-serif font-black text-slate-900 leading-tight">Partner with us.</h3>

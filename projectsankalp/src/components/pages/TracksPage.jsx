@@ -175,7 +175,7 @@ export default function TracksPage({ onBack }) {
               whileInView="visible"
               viewport={{ once: true, margin: "-80px" }}
               custom={index}
-              className="relative group rounded-[28px] overflow-hidden border border-slate-100 bg-white transition-all duration-500 hover:border-emerald-500/20 hover:shadow-2xl hover:shadow-emerald-900/[0.03]"
+              className="group relative rounded-[28px] overflow-hidden bg-white border border-slate-300 transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02]"
             >
               {/* Accent Left Bar */}
               <div
@@ -296,7 +296,7 @@ export default function TracksPage({ onBack }) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="relative rounded-[36px] overflow-hidden border border-slate-100 p-12 md:p-20 text-center bg-slate-50"
+          className="relative rounded-[36px] overflow-hidden border border-slate-300 p-12 md:p-20 text-center bg-slate-50 transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02]"
         >
           <div className="relative z-10 max-w-2xl mx-auto space-y-8">
             <div className="flex items-center justify-center gap-4 mb-2">

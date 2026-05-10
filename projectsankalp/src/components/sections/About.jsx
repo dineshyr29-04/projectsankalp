@@ -71,7 +71,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="p-8 rounded-2xl bg-white border border-slate-100 flex flex-col sm:flex-row gap-6 items-start hover:shadow-2xl hover:shadow-slate-900/[0.03] hover:-translate-y-1 transition-all duration-500 group"
+                className="group relative p-8 rounded-2xl bg-white border border-slate-300 transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02] flex flex-col sm:flex-row gap-6 items-start"
               >
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 group-hover:bg-white group-hover:border-slate-200 transition-all shadow-sm">
                   <feature.icon size={22} className="text-slate-900" />
