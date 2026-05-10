@@ -16,7 +16,7 @@ export default function Navbar({ onNavigate, currentView }) {
     e.preventDefault();
     const sectionId = href.replace("#", "");
     const element = document.getElementById(sectionId);
-    
+
     if (element) {
       element.scrollIntoView({
         behavior: "smooth",
@@ -36,56 +36,51 @@ export default function Navbar({ onNavigate, currentView }) {
   const isLanding = currentView === "landing";
   const isTeam = currentView === "team";
 
-  // Direct scroll without spring for snappy response
+  // Direct scroll perfectly maps layout to the scrollbar.
+  // Using a spring here was causing the "cluttered" lag after scrolling stopped.
   const { scrollY } = useScroll();
-  
-  // High-performance spring: calibrated for "liquid" fluid motion
-  const smoothScrollY = useSpring(scrollY, {
-    stiffness: 80, // Lower stiffness for calmer, more fluid motion
-    damping: 30,   // Balanced damping to prevent bounce
-    mass: 1,
-    restDelta: 0.001
-  });
 
   // Premium Easing Curve
-  const fluidEasing =  [0.16, 1, 0.3, 1];
+  const fluidEasing = [0.16, 1, 0.3, 1];
 
-  // Progressive Transforms based on scroll (Gradual, not binary)
-  const navWidth = useTransform(smoothScrollY, [0, 150], isMobile ? ["94%", "90%"] : ["96%", "90%"]);
-  const navMaxWidth = useTransform(smoothScrollY, [0, 150], isMobile ? ["600px", "500px"] : (isTeam ? ["1000px", "800px"] : ["2200px", "1000px"]));
-  const navMarginTop = useTransform(smoothScrollY, [0, 150], isMobile ? [4, 8] : (isTeam ? [5, 10] : [10, 20]));
-  const navBorderRadius = useTransform(smoothScrollY, [0, 150], isMobile ? [20, 40] : [24, 80]);
-  const navPaddingX = useTransform(smoothScrollY, [0, 150], isMobile ? [16, 12] : [32, 24]);
-  const navPaddingY = useTransform(smoothScrollY, [0, 150], isMobile ? [10, 8] : (isTeam ? [8, 6] : [14, 10]));
-  const navBg = useTransform(smoothScrollY, [0, 150], ["rgba(255, 255, 255, 0.95)", "rgba(255, 255, 255, 0.75)"]);
-  const navBorderColor = useTransform(smoothScrollY, [0, 150], ["rgba(255, 255, 255, 0.9)", "rgba(255, 255, 255, 0.4)"]);
-  const navShadow = useTransform(smoothScrollY, [0, 150], [
+  // Progressive Transforms based on direct scroll
+  // Range expanded to 400px so the transition is incredibly gradual and never "snaps"
+  const scrollRange = [0, 400]; 
+  const navWidth = useTransform(scrollY, scrollRange, isMobile ? ["94%", "90%"] : ["96%", "90%"]);
+  const navMaxWidth = useTransform(scrollY, scrollRange, isMobile ? ["600px", "500px"] : (isTeam ? ["1000px", "800px"] : ["2200px", "1000px"]));
+  const navMarginTop = useTransform(scrollY, scrollRange, isMobile ? [4, 8] : (isTeam ? [5, 10] : [10, 20]));
+  const navBorderRadius = useTransform(scrollY, scrollRange, isMobile ? [20, 40] : [24, 80]);
+  const navPaddingX = useTransform(scrollY, scrollRange, isMobile ? [16, 12] : [32, 24]);
+  const navPaddingY = useTransform(scrollY, scrollRange, isMobile ? [10, 8] : (isTeam ? [8, 6] : [14, 10]));
+  const navBg = useTransform(scrollY, scrollRange, ["rgba(255, 255, 255, 0.95)", "rgba(255, 255, 255, 0.75)"]);
+  const navBorderColor = useTransform(scrollY, scrollRange, ["rgba(255, 255, 255, 0.9)", "rgba(255, 255, 255, 0.4)"]);
+  const navShadow = useTransform(scrollY, scrollRange, [
     "0 10px 30px -10px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.6)",
     "0 20px 40px -15px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.7)"
   ]);
-  const logoScale = useTransform(smoothScrollY, [0, 150], isMobile ? [0.85, 0.8] : [1, 0.85]);
-  const logoWidth = useTransform(smoothScrollY, [0, 150], isMobile ? [90, 80] : [120, 90]);
+  const logoScale = useTransform(scrollY, scrollRange, isMobile ? [0.85, 0.8] : [1, 0.85]);
+  const logoWidth = useTransform(scrollY, scrollRange, isMobile ? [90, 80] : [120, 90]);
 
-  // CTA Button Transforms (Fluid instead of binary)
-  const buttonPx = useTransform(smoothScrollY, [0, 150], isMobile ? [16, 12] : [32, 24]);
-  const buttonPy = useTransform(smoothScrollY, [0, 150], isMobile ? [8, 6] : [14, 12]);
-  const buttonFontSize = useTransform(smoothScrollY, [0, 150], isMobile ? [7, 7] : [10, 9]);
-  const buttonGap = useTransform(smoothScrollY, [0, 150], [6, 4]);
+  // CTA Button Transforms
+  const buttonPx = useTransform(scrollY, scrollRange, isMobile ? [16, 12] : [32, 24]);
+  const buttonPy = useTransform(scrollY, scrollRange, isMobile ? [8, 6] : [14, 12]);
+  const buttonFontSize = useTransform(scrollY, scrollRange, isMobile ? [7, 7] : [10, 9]);
+  const buttonGap = useTransform(scrollY, scrollRange, [6, 4]);
 
   useEffect(() => {
     const sections = navigation.map(item => item.href.replace("#", ""));
     let ticking = false;
-    
+
     const handleScroll = () => {
       if (ticking) return;
       ticking = true;
-      
+
       requestAnimationFrame(() => {
         // Find the current section based on scroll position
         const scrollPosition = window.scrollY + window.innerHeight / 3;
-        
+
         let currentSection = sections[0];
-        
+
         for (const id of sections) {
           const el = document.getElementById(id);
           if (el) {
@@ -95,7 +90,7 @@ export default function Navbar({ onNavigate, currentView }) {
             }
           }
         }
-        
+
         setActiveSection(currentSection);
         ticking = false;
       });
@@ -112,7 +107,7 @@ export default function Navbar({ onNavigate, currentView }) {
   return (
     <div className="fixed left-0 right-0 top-0 z-50 flex flex-col items-center pointer-events-none">
       {/* Announcement Bar - Always Fixed */}
-      <div 
+      <div
         className="w-full bg-primary text-white text-[8px] md:text-[10px] py-1.5 md:py-2 px-4 flex justify-center items-center gap-3 md:gap-4 overflow-hidden whitespace-nowrap uppercase tracking-[0.2em] md:tracking-[0.3em] font-black pointer-events-auto shadow-[inset_0_4px_6px_rgba(0,0,0,0.1),inset_0_-1px_2px_rgba(255,255,255,0.4),0_2px_8px_rgba(0,0,0,0.05)]"
       >
         <span className="flex items-center gap-1.5 md:gap-2">
@@ -125,7 +120,7 @@ export default function Navbar({ onNavigate, currentView }) {
       </div>
 
       <nav className="w-full flex justify-center py-0">
-        <motion.div 
+        <motion.div
           style={{
             width: navWidth,
             maxWidth: navMaxWidth,
@@ -144,15 +139,15 @@ export default function Navbar({ onNavigate, currentView }) {
         >
           {/* Left: Logo */}
           <div className="flex items-center">
-            <button 
+            <button
               onClick={() => onNavigate?.("landing")}
               className="block hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
             >
-              <motion.img 
-                src="/nsslogo.png" 
-                alt="Logo" 
+              <motion.img
+                src="/nsslogo.png"
+                alt="Logo"
                 style={{ scale: logoScale, width: logoWidth }}
-                className="h-8 md:h-12 object-contain origin-left drop-shadow-sm will-change-transform" 
+                className="h-8 md:h-12 object-contain origin-left drop-shadow-sm will-change-transform"
               />
             </button>
           </div>
