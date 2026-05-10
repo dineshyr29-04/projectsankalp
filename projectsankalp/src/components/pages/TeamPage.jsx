@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Compass,
   Code,
@@ -9,11 +9,11 @@ import {
   Target,
   User,
   Map,
+  Search,
 } from "lucide-react";
 import Container from "../core/Container";
 
 // --- FLATTENED MOCK DATA FOR 30+ MEMBERS ---
-// Instead of categories, it's a single continuous array
 const ALL_MEMBERS = [
   {
     id: "v1",
@@ -117,201 +117,100 @@ const ALL_MEMBERS = [
   })),
 ];
 
-// --- INDIVIDUAL NODE TIMELINE ITEM ---
-const TimelineNode = ({ member, index, total, scrollYProgress }) => {
-  const isLeft = index % 2 === 0;
+const CATEGORIES = [
+  "All",
+  "The Visionaries",
+  "The Navigators",
+  "The Builders",
+  "The Storytellers",
+  "The Enablers",
+];
 
-  // Calculate SVG spline path
-  // Center = 500, Left Node = 300, Right Node = 700
-  const startX = index === 0 ? 500 : isLeft ? 700 : 300;
-  const endX = isLeft ? 300 : 700;
-
-  // If it's the very last item, we draw the curve down to the node and stop.
-  // Wait, the path goes from top (0) to bottom (250). The node is at Y=250.
-  // Actually, let's put the node at the BOTTOM of the SVG (Y=250).
-  // Then the next SVG starts from the top (Y=0). This connects them perfectly!
-  const rowHeight = 250;
-  const d = `M ${startX} 0 C ${startX} ${rowHeight / 2}, ${endX} ${rowHeight / 2}, ${endX} ${rowHeight}`;
-
-  // Calculate when this specific line should start drawing based on scroll
-  const startTrigger = index / total;
-  const endTrigger = (index + 1) / total;
-  const lineDraw = useTransform(
-    scrollYProgress,
-    [startTrigger, endTrigger],
-    [0, 1],
-  );
+const TeamCard = ({ member }) => {
+  const Icon = member.icon;
 
   return (
-    <div className="relative w-full h-[250px] group">
-      {/* ── Desktop SVG Spline Segment ── */}
-      <svg
-        className="absolute top-0 left-0 w-full h-full pointer-events-none hidden md:block"
-        viewBox="0 0 1000 250"
-        preserveAspectRatio="none"
-      >
-        <path
-          d={d}
-          fill="none"
-          stroke="rgba(255,255,255,0.05)"
-          strokeWidth="4"
-        />
-        <motion.path
-          d={d}
-          fill="none"
-          stroke={`url(#glowGradient-${index})`}
-          strokeWidth="4"
-          style={{ pathLength: lineDraw }}
-        />
-        <defs>
-          <linearGradient
-            id={`glowGradient-${index}`}
-            x1="0"
-            y1="0"
-            x2="0"
-            y2="250"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#34d399" />
-            <stop offset="1" stopColor="#047857" />
-          </linearGradient>
-        </defs>
-      </svg>
-
-      {/* ── Mobile Vertical Line ── */}
-      <div className="absolute top-0 left-[30px] w-[2px] h-full bg-white/5 md:hidden" />
-      <motion.div
-        className="absolute top-0 left-[30px] w-[2px] h-full bg-emerald-500 origin-top md:hidden shadow-[0_0_10px_#10b981]"
-        style={{ scaleY: lineDraw }}
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.3 }}
+      className="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-slate-900/60 p-6 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]"
+    >
+      {/* Background glow on hover */}
+      <div
+        className={`absolute inset-0 bg-gradient-to-br ${member.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500`}
       />
 
-      {/* ── The Avatar Node ── */}
-      <motion.div
-        initial={{ scale: 0, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        viewport={{ once: true, margin: "-50px" }}
-        className={`absolute bottom-0 -translate-y-1/2 -translate-x-1/2 z-20 left-[30px] ${isLeft ? "md:left-[30%]" : "md:left-[70%]"}`}
-      >
-        <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-slate-900 border-2 border-emerald-500/50 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(16,185,129,0.6)] group-hover:border-emerald-400">
-          <User className="w-8 h-8 md:w-10 md:h-10 text-emerald-100" />
-        </div>
-      </motion.div>
-
-      {/* ── The Data Shard Card ── */}
-      <motion.div
-        initial={{ opacity: 0, x: isLeft ? 50 : -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        className="absolute bottom-0 -translate-y-1/2 z-10 
-                   left-[80px] right-4 md:right-auto md:left-auto md:w-[400px]"
-      >
-        {/* We use a wrapper to handle desktop alternating positions */}
-        <div
-          className={`
-          w-full md:absolute md:-translate-y-1/2
-          ${isLeft ? "md:left-[calc(30%+80px)]" : "md:right-[calc(30%+80px)]"}
-        `}
-        >
-          <div
-            className={`relative bg-slate-900/60 backdrop-blur-xl border border-white/10 p-5 md:p-6 transition-all duration-500 group-hover:bg-slate-800/80 group-hover:border-emerald-500/50 ${isLeft ? "text-left" : "md:text-right text-left"}`}
-            style={{
-              clipPath:
-                "polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px)",
-            }}
-          >
-            {/* Category Tag */}
-            <div
-              className={`inline-flex items-center gap-1.5 px-2 py-1 rounded bg-white/5 border border-white/5 mb-3 ${isLeft ? "" : "md:flex-row-reverse"}`}
-            >
-              <member.icon className="w-3 h-3 text-emerald-400" />
-              <span className="text-[8px] uppercase tracking-widest text-slate-300">
-                {member.category}
-              </span>
-            </div>
-
-            <h4 className="text-xl md:text-2xl font-serif font-black text-white">
+      {/* Top Section */}
+      <div className="flex items-start justify-between z-10">
+        <div className="flex items-center gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-transform duration-500 group-hover:scale-110">
+            <Icon className="h-5 w-5 text-emerald-400" />
+          </div>
+          <div>
+            <h3 className="font-serif text-lg font-bold text-white transition-colors duration-300 group-hover:text-emerald-400">
               {member.name}
-            </h4>
-            <p className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-emerald-400 mt-1 font-bold">
+            </h3>
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mt-1">
               {member.role}
             </p>
-
-            <div
-              className={`mt-4 pt-3 border-t border-white/10 flex gap-6 ${isLeft ? "justify-start" : "md:justify-end justify-start"}`}
-            >
-              <div>
-                <span className="block text-[8px] uppercase tracking-widest text-slate-500">
-                  Focus
-                </span>
-                <span className="block text-xs md:text-sm font-medium text-slate-200">
-                  {member.stats.power}
-                </span>
-              </div>
-              <div>
-                <span className="block text-[8px] uppercase tracking-widest text-slate-500">
-                  Level
-                </span>
-                <span className="block text-xs md:text-sm font-medium text-slate-200">
-                  {member.stats.exp}
-                </span>
-              </div>
-            </div>
           </div>
-
-          {/* Horizontal Connection Line (Desktop only) */}
-          <div
-            className={`hidden md:block absolute top-1/2 -translate-y-1/2 w-10 h-[2px] bg-emerald-500/30 group-hover:bg-emerald-400 transition-colors
-            ${isLeft ? "left-[-40px]" : "right-[-40px]"}
-          `}
-          />
         </div>
-      </motion.div>
-    </div>
+      </div>
+
+      {/* Stats overlay revealed on hover (Law of Proximity / Aesthetic-Usability Effect) */}
+      <div className="mt-8 pt-5 border-t border-white/10 relative z-10 flex items-center justify-between">
+        <div>
+          <span className="block text-[9px] uppercase tracking-[0.2em] text-slate-500 mb-1">
+            Focus
+          </span>
+          <span className="block text-sm font-medium text-slate-200 group-hover:text-white transition-colors">
+            {member.stats.power}
+          </span>
+        </div>
+        <div className="text-right">
+          <span className="block text-[9px] uppercase tracking-[0.2em] text-slate-500 mb-1">
+            Level
+          </span>
+          <span className="block text-sm font-medium text-slate-200 group-hover:text-white transition-colors">
+            {member.stats.exp}
+          </span>
+        </div>
+      </div>
+    </motion.div>
   );
 };
 
-// --- MAIN COMPONENT ---
 export default function TeamPage() {
-  const containerRef = useRef(null);
+  const [activeCategory, setActiveCategory] = useState("All");
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const smoothScrollYProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  const filteredMembers = ALL_MEMBERS.filter(
+    (member) => activeCategory === "All" || member.category === activeCategory
+  );
 
   return (
-    <div className="bg-slate-950 min-h-screen relative overflow-hidden selection:bg-emerald-500/30">
-      {/* ── Deep Sea Image Background ── */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <img
-          src="/sea-bg.png"
-          alt="Deep Sea"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-[#0a4d3c]/80 to-[#021f15]/95 mix-blend-normal" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)] mix-blend-multiply" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-white/20 blur-[100px] mix-blend-overlay" />
+    <div className="bg-[#020817] min-h-screen relative overflow-hidden selection:bg-emerald-500/30 font-sans">
+      {/* Premium Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#020817] to-[#020817]" />
+        <div className="absolute -top-[500px] left-1/2 -translate-x-1/2 w-[1000px] h-[1000px] bg-emerald-500/10 blur-[120px] rounded-full mix-blend-screen" />
       </div>
 
-      {/* ── Hero Section ── */}
-      <section className="relative pt-40 pb-20 z-10">
+      {/* Hero Section */}
+      <section className="relative pt-40 pb-16 z-10">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-slate-200/20 bg-white/10 backdrop-blur-md mb-8 shadow-xl"
+              className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 backdrop-blur-md mb-8"
             >
-              <Map className="w-4 h-4 text-emerald-800 md:text-emerald-300" />
-              <span className="text-xs font-black uppercase tracking-[0.2em] text-slate-800 md:text-white drop-shadow-sm">
-                The Continuous Journey
+              <Target className="w-4 h-4 text-emerald-400" />
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-emerald-300 drop-shadow-sm">
+                The Collective
               </span>
             </motion.div>
 
@@ -319,10 +218,10 @@ export default function TeamPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-5xl md:text-7xl lg:text-[90px] font-serif font-black text-slate-900 md:text-white leading-[0.9] tracking-tight mb-8"
+              className="text-5xl md:text-7xl lg:text-[90px] font-serif font-black text-white leading-[0.9] tracking-tight mb-8"
             >
               Meet the <br />
-              <span className="text-emerald-700 md:text-emerald-400 italic font-light drop-shadow-md">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-600 italic font-light">
                 Crew.
               </span>
             </motion.h1>
@@ -330,39 +229,65 @@ export default function TeamPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-slate-800 md:text-emerald-50 text-lg max-w-2xl mx-auto font-medium"
+              className="text-slate-400 text-lg max-w-2xl mx-auto font-medium"
             >
-              30+ individuals tracing a singular path. As you dive deeper, each
-              node reveals a critical piece of the expedition.
+              30+ individuals tracing a singular path. Explore the specialized
+              nodes that form our collective intelligence.
             </motion.p>
           </div>
         </Container>
       </section>
 
-      {/* ── The Individual Node Timeline ── */}
-      <div
-        ref={containerRef}
-        className="relative z-10 pb-40 w-full max-w-[1000px] mx-auto"
-      >
-        <div className="flex flex-col w-full relative">
-          {ALL_MEMBERS.map((member, index) => (
-            <TimelineNode
-              key={member.id}
-              member={member}
-              index={index}
-              total={ALL_MEMBERS.length}
-              scrollYProgress={smoothScrollYProgress}
-            />
-          ))}
-
-          {/* Final Endpoint Node */}
-          <div className="relative w-full h-[100px] flex items-end">
-            <div className="absolute bottom-0 -translate-y-1/2 -translate-x-1/2 z-20 left-[30px] md:left-[30%] md:group-even:left-[70%]">
-              <div className="w-4 h-4 rounded-full bg-emerald-400 shadow-[0_0_20px_#34d399] animate-pulse" />
-            </div>
+      {/* Filter Navigation (Hick's Law & Fitts's Law) */}
+      <section className="relative z-20 pb-10 sticky top-20 md:top-24 backdrop-blur-xl bg-[#020817]/80 border-b border-white/5 pt-4">
+        <Container>
+          <div className="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-4 hide-scrollbar">
+            {CATEGORIES.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`relative px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-colors duration-300 ${
+                  activeCategory === category
+                    ? "text-slate-950"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                {activeCategory === category && (
+                  <motion.div
+                    layoutId="activeFilter"
+                    className="absolute inset-0 bg-emerald-400 rounded-full"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{category}</span>
+              </button>
+            ))}
           </div>
-        </div>
-      </div>
+        </Container>
+      </section>
+
+      {/* Grid Layout (Jakob's Law) */}
+      <section className="relative z-10 py-16 pb-40">
+        <Container>
+          <motion.div
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredMembers.map((member) => (
+                <TeamCard key={member.id} member={member} />
+              ))}
+            </AnimatePresence>
+          </motion.div>
+
+          {filteredMembers.length === 0 && (
+            <div className="text-center py-20 text-slate-500">
+              <Search className="w-10 h-10 mx-auto mb-4 opacity-50" />
+              <p>No members found in this category.</p>
+            </div>
+          )}
+        </Container>
+      </section>
     </div>
   );
 }
