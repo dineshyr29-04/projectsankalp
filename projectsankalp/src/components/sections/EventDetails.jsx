@@ -19,7 +19,7 @@ export default function EventDetails() {
   return (
     <Section
       id="venue"
-      className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-50"
+      className="relative bg-white py-16 md:py-24 overflow-hidden border-t border-slate-50"
     >
       {/* Premium Atmospheric Accents */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-slate-50 rounded-full blur-[140px] -mr-400" />

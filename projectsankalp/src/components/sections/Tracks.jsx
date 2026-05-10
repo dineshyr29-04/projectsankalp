@@ -24,7 +24,7 @@ export default function Tracks({ onKnowMore }) {
   return (
     <Section
       id="tracks"
-      className="relative bg-white py-24 md:py-32 overflow-hidden"
+      className="relative bg-white py-16 md:py-24 overflow-hidden"
     >
       {/* Premium Atmospheric Background */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">

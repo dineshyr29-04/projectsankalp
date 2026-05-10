@@ -37,7 +37,7 @@ export default function Process() {
   return (
     <Section
       id="process"
-      className="relative bg-emerald-50/20 flex items-center py-24 md:py-32 overflow-hidden"
+      className="relative bg-emerald-50/20 flex items-center py-16 md:py-24 overflow-hidden"
     >
       {/* Premium Atmospheric Accents */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">

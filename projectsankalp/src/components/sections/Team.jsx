@@ -33,7 +33,7 @@ export default function Team() {
   return (
     <Section
       id="team"
-      className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-50"
+      className="relative bg-white py-16 md:py-24 overflow-hidden border-t border-slate-50"
     >
       {/* Premium Atmospheric Accents */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">

@@ -35,7 +35,7 @@ export default function Sponsors() {
   return (
     <Section
       id="sponsors"
-      className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-50"
+      className="relative bg-white py-16 md:py-24 overflow-hidden border-t border-slate-50"
     >
       {/* Premium Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
