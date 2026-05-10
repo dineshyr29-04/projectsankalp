@@ -1,118 +1,87 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Compass,
-  Code,
-  PenTool,
-  MessageSquare,
-  Zap,
-  Target,
-  User,
-  Map,
-  Search,
-} from "lucide-react";
+import { Target, Search } from "lucide-react";
 import Container from "../core/Container";
 
-// --- FLATTENED MOCK DATA FOR 30+ MEMBERS ---
+// --- TEAM DATA ---
 const ALL_MEMBERS = [
+  // --- WEB DEVELOPERS ---
+  {
+    id: "dev1",
+    name: "Dinesh",
+    role: "Technical Lead",
+    category: "The Builders",
+    color: "from-emerald-400 to-teal-600",
+  },
+  {
+    id: "dev2",
+    name: "Dhanush Shenoy",
+    role: "Web Developer",
+    category: "The Builders",
+    color: "from-emerald-400 to-teal-600",
+  },
+  
+  // --- VISIONARIES ---
   {
     id: "v1",
     name: "Dr. Akash Yadav",
     role: "Expedition Lead",
-    title: "Lead Organizer",
-    stats: { power: "Vision", exp: "15 yrs" },
     category: "The Visionaries",
-    icon: Target,
-    color: "from-emerald-400 to-emerald-600",
+    color: "from-blue-400 to-blue-600",
   },
   {
     id: "v2",
     name: "Prof. S. Kumar",
-    role: "Chief Mentor",
-    title: "Faculty Coordinator",
-    stats: { power: "Guidance", exp: "20 yrs" },
+    role: "Faculty Coordinator",
     category: "The Visionaries",
-    icon: Target,
-    color: "from-emerald-400 to-emerald-600",
+    color: "from-blue-400 to-blue-600",
   },
   {
     id: "v3",
     name: "Sarah Jenkins",
-    role: "Strategy Lead",
-    title: "Co-Organizer",
-    stats: { power: "Planning", exp: "8 yrs" },
+    role: "Co-Organizer",
     category: "The Visionaries",
-    icon: Target,
-    color: "from-emerald-400 to-emerald-600",
+    color: "from-blue-400 to-blue-600",
   },
+
+  // --- NAVIGATORS ---
   {
     id: "n1",
     name: "Ms. Priya Rao",
-    role: "Chief Navigator",
-    title: "Tech Lead",
-    stats: { power: "Optimization", exp: "10 yrs" },
+    role: "Tech Lead",
     category: "The Navigators",
-    icon: Compass,
-    color: "from-blue-400 to-blue-600",
+    color: "from-indigo-400 to-indigo-600",
   },
   {
     id: "n2",
     name: "Mr. Rahul V.",
-    role: "Visual Scout",
-    title: "Design Lead",
-    stats: { power: "Aesthetics", exp: "7 yrs" },
+    role: "Design Lead",
     category: "The Navigators",
-    icon: Compass,
-    color: "from-blue-400 to-blue-600",
+    color: "from-indigo-400 to-indigo-600",
   },
   {
     id: "n3",
     name: "Anita Desai",
-    role: "Data Cartographer",
-    title: "Data Head",
-    stats: { power: "Analytics", exp: "6 yrs" },
+    role: "Data Head",
     category: "The Navigators",
-    icon: Compass,
-    color: "from-blue-400 to-blue-600",
-  },
-  {
-    id: "n4",
-    name: "James Wilson",
-    role: "Security Warden",
-    title: "Cyber Lead",
-    stats: { power: "Firewalls", exp: "9 yrs" },
-    category: "The Navigators",
-    icon: Compass,
-    color: "from-blue-400 to-blue-600",
-  },
-  ...Array.from({ length: 8 }).map((_, i) => ({
-    id: `b${i + 1}`,
-    name: `Engineer ${i + 1}`,
-    role: ["Frontend Dev", "Backend Dev", "Fullstack"][i % 3],
-    title: "Core Team",
-    stats: { power: "Coding", exp: `${(i % 5) + 1} yrs` },
-    category: "The Builders",
-    icon: Code,
     color: "from-indigo-400 to-indigo-600",
-  })),
-  ...Array.from({ length: 6 }).map((_, i) => ({
+  },
+
+  // --- STORYTELLERS ---
+  ...Array.from({ length: 4 }).map((_, i) => ({
     id: `s${i + 1}`,
     name: `Creative ${i + 1}`,
     role: ["UI Designer", "UX Researcher", "Copywriter", "Motion Gen"][i % 4],
-    title: "Design Team",
-    stats: { power: "Pixels", exp: `${(i % 4) + 2} yrs` },
     category: "The Storytellers",
-    icon: PenTool,
     color: "from-purple-400 to-purple-600",
   })),
+
+  // --- ENABLERS ---
   ...Array.from({ length: 4 }).map((_, i) => ({
     id: `e${i + 1}`,
     name: `Operator ${i + 1}`,
     role: ["Community Mgr", "Event Ops", "Logistics"][i % 3],
-    title: "Ops Team",
-    stats: { power: "Organization", exp: `${(i % 3) + 1} yrs` },
     category: "The Enablers",
-    icon: Zap,
     color: "from-amber-400 to-amber-600",
   })),
 ];
@@ -126,8 +95,18 @@ const CATEGORIES = [
   "The Enablers",
 ];
 
+const getInitials = (name) => {
+  // Remove titles so initials are based on actual names
+  const cleanName = name.replace(/Dr\.\s*|Prof\.\s*|Ms\.\s*|Mr\.\s*/g, '');
+  const words = cleanName.trim().split(' ');
+  if (words.length >= 2) {
+    return (words[0][0] + words[1][0]).toUpperCase();
+  }
+  return cleanName[0]?.toUpperCase() || "X";
+};
+
 const TeamCard = ({ member }) => {
-  const Icon = member.icon;
+  const initials = getInitials(member.name);
 
   return (
     <motion.div
@@ -136,47 +115,29 @@ const TeamCard = ({ member }) => {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.3 }}
-      className="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-slate-900/60 p-6 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]"
+      className="group relative flex flex-col items-center justify-center text-center overflow-hidden rounded-2xl p-8 backdrop-blur-xl bg-slate-900/40 border border-white/5 hover:border-white/10 hover:bg-slate-800/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]"
     >
-      {/* Background glow on hover */}
+      {/* Background animated glow on hover */}
       <div
-        className={`absolute inset-0 bg-gradient-to-br ${member.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500`}
+        className={`absolute inset-0 bg-gradient-to-b ${member.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500`}
       />
 
-      {/* Top Section */}
-      <div className="flex items-start justify-between z-10">
-        <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-transform duration-500 group-hover:scale-110">
-            <Icon className="h-5 w-5 text-emerald-400" />
-          </div>
-          <div>
-            <h3 className="font-serif text-lg font-bold text-white transition-colors duration-300 group-hover:text-emerald-400">
-              {member.name}
-            </h3>
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mt-1">
-              {member.role}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Stats overlay revealed on hover (Law of Proximity / Aesthetic-Usability Effect) */}
-      <div className="mt-8 pt-5 border-t border-white/10 relative z-10 flex items-center justify-between">
-        <div>
-          <span className="block text-[9px] uppercase tracking-[0.2em] text-slate-500 mb-1">
-            Focus
-          </span>
-          <span className="block text-sm font-medium text-slate-200 group-hover:text-white transition-colors">
-            {member.stats.power}
+      <div className="z-10 flex flex-col items-center">
+        {/* Initials Avatar Box */}
+        <div className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-full border border-white/10 bg-slate-950/50 shadow-inner mb-6 transition-transform duration-500 group-hover:scale-110">
+          <span className="font-serif text-2xl font-black text-transparent bg-clip-text bg-gradient-to-br from-slate-200 to-slate-500 group-hover:from-white group-hover:to-slate-200 transition-all duration-300">
+            {initials}
           </span>
         </div>
-        <div className="text-right">
-          <span className="block text-[9px] uppercase tracking-[0.2em] text-slate-500 mb-1">
-            Level
-          </span>
-          <span className="block text-sm font-medium text-slate-200 group-hover:text-white transition-colors">
-            {member.stats.exp}
-          </span>
+        
+        {/* Details Box */}
+        <div className="flex flex-col">
+          <h3 className="font-serif text-xl font-bold text-slate-100 group-hover:text-white transition-colors duration-300 leading-tight">
+            {member.name}
+          </h3>
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-emerald-400/80 mt-2">
+            {member.role}
+          </p>
         </div>
       </div>
     </motion.div>
@@ -231,14 +192,14 @@ export default function TeamPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-slate-400 text-lg max-w-2xl mx-auto font-medium"
             >
-              30+ individuals tracing a singular path. Explore the specialized
+              The brilliant minds tracing our path. Explore the specialized
               nodes that form our collective intelligence.
             </motion.p>
           </div>
         </Container>
       </section>
 
-      {/* Filter Navigation (Hick's Law & Fitts's Law) */}
+      {/* Filter Navigation */}
       <section className="relative z-20 pb-10 sticky top-20 md:top-24 backdrop-blur-xl bg-[#020817]/80 border-b border-white/5 pt-4">
         <Container>
           <div className="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-4 hide-scrollbar">
@@ -266,12 +227,12 @@ export default function TeamPage() {
         </Container>
       </section>
 
-      {/* Grid Layout (Jakob's Law) */}
+      {/* Grid Layout */}
       <section className="relative z-10 py-16 pb-40">
         <Container>
           <motion.div
             layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           >
             <AnimatePresence mode="popLayout">
               {filteredMembers.map((member) => (
