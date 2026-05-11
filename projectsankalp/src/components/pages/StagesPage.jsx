@@ -1,27 +1,43 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowLeft,
   Target,
   Users,
   Zap,
   Sparkles,
+  ArrowUpRight,
+  ShieldCheck,
+  Heart,
+  Globe,
+  Activity,
+  Leaf,
 } from "lucide-react";
 import Container from "../core/Container";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function StagesPage({ onBack }) {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Problem Statements | Project Sankalp";
+    document.title = "Mission Challenges | Project Sankalp";
   }, []);
 
   const domainTracks = [
     {
       title: "Women's Entrepreneurship",
       subtitle: "Economic Empowerment",
-      icon: <Users className="w-6 h-6 text-blue-600" />,
+      icon: <Users className="w-8 h-8 text-blue-600" />,
       color: "blue",
-      description: "Championing gender equality by building tools for financial independence and micro-business scaling.",
+      accent: "#2563eb",
+      description: "Championing gender equality by building tools for financial independence and micro-business scaling. We aim to bridge the credit gap and provide digital ecosystems for growth.",
+      features: ["Micro-Financing", "Skill Networks", "Leadership Tools"],
       problems: [
         "Decentralized marketplaces for rural artisans to scale global reach.",
         "AI-driven financial literacy platforms for women-led startups.",
@@ -31,9 +47,11 @@ export default function StagesPage({ onBack }) {
     {
       title: "Health & Sanitation",
       subtitle: "Community Wellbeing",
-      icon: <Target className="w-6 h-6 text-emerald-600" />,
+      icon: <Activity className="w-8 h-8 text-emerald-600" />,
       color: "emerald",
-      description: "Developing innovative systems for preventive healthcare, clean water access, and waste management.",
+      accent: "#059669",
+      description: "Developing innovative systems for preventive healthcare, clean water access, and waste management. Focus on tech that solves basic human needs at scale.",
+      features: ["Telemedicine", "Waste Optimization", "Clean Water"],
       problems: [
         "Predictive analysis of water-borne diseases in urban settlements.",
         "Smart waste management systems for decentralized municipalities.",
@@ -43,9 +61,11 @@ export default function StagesPage({ onBack }) {
     {
       title: "Climate Action",
       subtitle: "Sustainability",
-      icon: <Zap className="w-6 h-6 text-teal-600" />,
+      icon: <Leaf className="w-8 h-8 text-teal-600" />,
       color: "teal",
-      description: "Harnessing technology to combat climate change and promote green energy transitions.",
+      accent: "#0d9488",
+      description: "Harnessing technology to combat climate change and promote green energy transitions. Building a circular economy and tracking environmental impact.",
+      features: ["Renewable Energy", "Circular Economy", "Carbon Tracking"],
       problems: [
         "Real-time carbon footprint trackers for household consumption.",
         "Marketplaces for upcycled industrial waste and circular resources.",
@@ -55,143 +75,206 @@ export default function StagesPage({ onBack }) {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-24">
-      {/* Dynamic Background */}
+    <div 
+      ref={containerRef}
+      className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-32 overflow-hidden"
+    >
+      {/* ── Background Atmosphere ── */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-emerald-500/5 rounded-full blur-[150px] -mr-500" />
-        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[150px] -ml-400" />
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+        <motion.div 
+          style={{ y: backgroundY }}
+          className="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[120px]" 
+        />
+        <motion.div 
+          style={{ y: backgroundY }}
+          className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[100px]" 
+        />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.05] mix-blend-multiply" />
       </div>
 
-      <Container className="relative z-10 pt-32 md:pt-40 px-6 sm:px-10 lg:px-20 mx-auto">
-        {/* Back Button */}
-        <motion.a
+      <Container className="relative z-10 pt-32 md:pt-48 px-6 sm:px-10 lg:px-20 mx-auto">
+        {/* Navigation */}
+        <motion.button
           onClick={onBack}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="flex items-center gap-3 text-slate-400 hover:text-slate-900 transition-colors mb-12 group cursor-pointer"
+          whileHover={{ x: -5 }}
+          className="flex items-center gap-4 text-slate-400 hover:text-slate-900 transition-all mb-24 group cursor-pointer"
         >
-          <div className="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center bg-slate-50 group-hover:border-slate-300 group-hover:bg-slate-100 transition-all">
-            <ArrowLeft size={16} />
+          <div className="w-12 h-12 rounded-2xl border border-slate-100 flex items-center justify-center bg-white shadow-sm group-hover:shadow-md group-hover:border-slate-200 transition-all">
+            <ArrowLeft size={18} />
           </div>
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">
-            Back to Hub
-          </span>
-        </motion.a>
+          <div className="flex flex-col items-start">
+            <span className="text-[9px] font-black uppercase tracking-[0.4em] text-slate-300">Return to</span>
+            <span className="text-xs font-bold uppercase tracking-widest">Main Portal</span>
+          </div>
+        </motion.button>
 
-        {/* Header */}
-        <div className="max-w-4xl mb-24 md:mb-32">
+        {/* Hero */}
+        <div className="max-w-5xl mb-40">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-4 mb-8"
+            className="flex items-center gap-4 mb-10"
           >
-            <div className="w-12 h-[1px] bg-emerald-500" />
-            <span className="text-emerald-600 font-black uppercase tracking-[0.4em] text-[11px]">
-              Problem Domains
+            <div className="w-12 h-[2px] bg-emerald-500 rounded-full" />
+            <span className="text-emerald-600 font-black uppercase tracking-[0.5em] text-[10px]">
+              Mission Objectives
             </span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-5xl md:text-8xl font-serif font-black mb-8 leading-[0.9] tracking-tight text-slate-900"
+            transition={{ delay: 0.1, duration: 0.8 }}
+            className="text-6xl md:text-[110px] font-serif font-black mb-10 leading-[0.85] tracking-tighter text-slate-900"
           >
-            Mission <br />
+            Global <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-teal-600 to-emerald-600 italic">Challenges.</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-2xl font-medium border-l-2 border-slate-100 pl-6"
+            transition={{ delay: 0.2, duration: 0.8 }}
+            className="text-xl md:text-2xl text-slate-500 leading-relaxed max-w-3xl font-medium border-l-4 border-slate-100 pl-8"
           >
-            Select a domain and dive into real-world challenges. We're looking for solutions that are scalable, sustainable, and built for real impact.
+            A high-stakes arena for social innovation. We've identified three critical domains where technology can create the most profound impact. Choose your mission.
           </motion.p>
         </div>
 
-        {/* Domain Challenges Grid */}
-        <div className="space-y-12 mb-32">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {domainTracks.map((track, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="group relative bg-white border border-slate-100 rounded-[32px] p-8 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500 hover:-translate-y-2 flex flex-col"
-              >
-                <div className="flex items-center gap-4 mb-8">
-                  <div className={`p-3 rounded-2xl bg-${track.color}-50 border border-${track.color}-100`}>
-                    {track.icon}
-                  </div>
-                  <div>
-                    <span className={`text-${track.color}-600 text-[9px] font-black uppercase tracking-[0.2em] block mb-1`}>
-                      {track.subtitle}
-                    </span>
-                    <h3 className="text-xl font-serif font-black text-slate-900 leading-tight">
-                      {track.title}
-                    </h3>
-                  </div>
-                </div>
+        {/* ── UI LAW: Law of Common Region (Horizontal Layout) ── */}
+        <div className="space-y-24 mb-40">
+          {domainTracks.map((track, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="group relative"
+            >
+              {/* Back Glow Decoration */}
+              <div 
+                className="absolute inset-0 opacity-0 group-hover:opacity-[0.03] blur-[100px] transition-opacity duration-1000 pointer-events-none"
+                style={{ backgroundColor: track.accent }}
+              />
 
-                <p className="text-sm text-slate-500 font-medium leading-relaxed mb-8">
-                  {track.description}
-                </p>
-
-                <div className="space-y-4 mt-auto">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Sparkles size={12} className="text-emerald-500" />
-                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
-                      Problem Statements
+              <div className="relative flex flex-col lg:flex-row gap-12 lg:gap-20 bg-white border border-slate-100 rounded-[48px] p-8 md:p-12 lg:p-16 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] transition-all duration-700 hover:border-slate-200">
+                
+                {/* Left Side: Domain Info */}
+                <div className="lg:w-[450px] shrink-0 space-y-10">
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-16 h-16 rounded-3xl bg-slate-50 border border-slate-100 flex items-center justify-center shadow-inner group-hover:bg-${track.color}-50 group-hover:border-${track.color}-100 transition-colors duration-500`}>
+                        {track.icon}
+                      </div>
+                      <div className="flex flex-col">
+                        <span className={`text-${track.color}-600 text-[10px] font-black uppercase tracking-[0.4em] block mb-1`}>
+                          {track.subtitle}
+                        </span>
+                        <h2 className="text-3xl md:text-5xl font-serif font-black text-slate-900 tracking-tight leading-none">
+                          {track.title}
+                        </h2>
+                      </div>
+                    </div>
+                    
+                    <p className="text-lg text-slate-500 font-medium leading-relaxed">
+                      {track.description}
                     </p>
                   </div>
-                  {track.problems.map((prob, i) => (
-                    <div key={i} className="flex gap-3 items-start group/item">
-                      <div className="w-1.5 h-1.5 rounded-full bg-slate-200 mt-2 shrink-0 group-hover/item:bg-emerald-500 transition-colors" />
-                      <p className="text-[13px] font-bold text-slate-600 leading-relaxed group-hover/item:text-slate-900 transition-colors">
-                        {prob}
-                      </p>
-                    </div>
-                  ))}
+
+                  <div className="flex flex-wrap gap-3">
+                    {track.features.map((feat, i) => (
+                      <span key={i} className="px-4 py-2 rounded-full bg-slate-50 border border-slate-100 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                        {feat}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Subtle highlight */}
-                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-${track.color}-500/20 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700`} />
-              </motion.div>
-            ))}
-          </div>
+                {/* Vertical Divider (Desktop Only) */}
+                <div className="hidden lg:block w-px bg-gradient-to-b from-transparent via-slate-100 to-transparent" />
+
+                {/* Right Side: Problem Statements */}
+                <div className="flex-1 space-y-10">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center">
+                      <Sparkles size={16} className="text-emerald-500" />
+                    </div>
+                    <span className="text-[11px] font-black uppercase tracking-[0.5em] text-slate-400">
+                      Targeted Problem Statements
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-6">
+                    {track.problems.map((prob, i) => (
+                      <motion.div 
+                        key={i}
+                        whileHover={{ x: 10 }}
+                        className="group/item flex gap-6 p-6 rounded-3xl border border-transparent hover:border-slate-100 hover:bg-slate-50/50 transition-all duration-300"
+                      >
+                        <div className="w-10 h-10 rounded-2xl bg-white border border-slate-100 flex items-center justify-center shrink-0 shadow-sm group-hover/item:border-emerald-200 transition-colors">
+                          <ArrowUpRight size={16} className="text-slate-300 group-hover/item:text-emerald-500 transition-colors" />
+                        </div>
+                        <div className="space-y-1">
+                          <p className="text-[10px] font-black text-emerald-500/60 uppercase tracking-[0.2em]">PS-0{i+1}</p>
+                          <p className="text-lg font-bold text-slate-700 leading-snug group-hover/item:text-slate-900 transition-colors">
+                            {prob}
+                          </p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Decor */}
+                <div 
+                  className="absolute bottom-0 left-0 w-full h-2 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left rounded-b-[48px]"
+                  style={{ backgroundColor: track.accent }}
+                />
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Footer CTA */}
+        {/* Closing CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="p-12 md:p-24 rounded-[60px] bg-slate-50 border border-slate-200 text-center relative overflow-hidden group hover:border-emerald-200 transition-all"
+          className="relative rounded-[80px] bg-slate-900 p-16 md:p-32 text-center overflow-hidden group shadow-2xl"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="relative z-10 max-w-2xl mx-auto space-y-8">
-            <h2 className="text-3xl md:text-5xl font-serif font-black leading-tight text-slate-900">
-              Ready to <span className="text-emerald-600 italic">Build</span> the Future?
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-emerald-500/10 rounded-full blur-[100px]" />
+            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px]" />
+          </div>
+
+          <div className="relative z-10 max-w-3xl mx-auto space-y-12">
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+              <Sparkles className="w-4 h-4 text-emerald-400" />
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/70">
+                Phase One Registration
+              </span>
+            </div>
+
+            <h2 className="text-5xl md:text-8xl font-serif font-black leading-[0.9] text-white tracking-tighter">
+              Commit to <br />
+              <span className="italic text-emerald-400">Innovation.</span>
             </h2>
-            <p className="text-slate-500 font-medium text-lg">
-              Pick your challenge and start your journey. Registration is open until May 15th.
+
+            <p className="text-white/50 font-medium text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+              Your journey from ideation to impact starts with a single click. Join 500+ innovators building for a better tomorrow.
             </p>
-            <a
-              className="inline-block bg-emerald-600 text-white px-12 py-4 rounded-full text-[12px] font-black uppercase tracking-[0.4em] hover:bg-emerald-500 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-emerald-500/20 cursor-pointer"
-              onClick={() =>
-                window.open(
-                  "https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755",
-                  "_blank",
-                )
-              }
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
+              className="bg-white text-slate-900 px-16 py-6 rounded-full text-xs font-black uppercase tracking-[0.4em] shadow-2xl hover:bg-emerald-400 transition-all cursor-pointer"
             >
-              Register on Unstop
-            </a>
+              Start Your Mission
+            </motion.button>
           </div>
         </motion.div>
       </Container>
