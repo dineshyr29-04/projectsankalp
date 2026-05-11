@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Target, Search } from "lucide-react";
+import { motion } from "framer-motion";
 import Container from "../core/Container";
 
 // --- TEAM DATA ---
@@ -11,77 +10,73 @@ const ALL_MEMBERS = [
     name: "Dr. Ashwini Shetty",
     role: "Expedition Lead",
     category: "The Visionaries",
-    color: "from-blue-400 to-blue-600",
   },
   {
     id: "v2",
     name: "Radesh Pai",
     role: "Overall Student Coordinator",
     category: "The Visionaries",
-    color: "from-blue-400 to-blue-600",
   },
   {
     id: "v3",
     name: "Sarah Jenkins",
     role: "Co-Organizer",
     category: "The Visionaries",
-    color: "from-blue-400 to-blue-600",
   },
-
-  // --- NAVIGATORS ---
   {
     id: "n1",
     name: "Ms. Priya Rao",
     role: "Tech Lead",
     category: "The Navigators",
-    color: "from-indigo-400 to-indigo-600",
   },
   {
     id: "n2",
     name: "Mr. Rahul V.",
     role: "Design Lead",
     category: "The Navigators",
-    color: "from-indigo-400 to-indigo-600",
   },
   {
     id: "n3",
     name: "Anita Desai",
     role: "Data Head",
     category: "The Navigators",
-    color: "from-indigo-400 to-indigo-600",
   },
   {
     id: "dev1",
     name: "Dinesh",
     role: "Technical Lead",
     category: "The Builders",
-    color: "from-emerald-400 to-teal-600",
   },
   {
     id: "dev2",
     name: "Dhanush Shenoy",
     role: "Web Developer",
     category: "The Builders",
-    color: "from-emerald-400 to-teal-600",
   },
-  
-  // --- STORYTELLERS ---
-  ...Array.from({ length: 4 }).map((_, i) => ({
-    id: `s${i + 1}`,
-    name: `Creative ${i + 1}`,
-    role: ["UI Designer", "UX Researcher", "Copywriter", "Motion Gen"][i % 4],
+  {
+    id: "s1",
+    name: "Arjun Mehta",
+    role: "UI Designer",
     category: "The Storytellers",
-    color: "from-purple-400 to-purple-600",
-  })),
-
-  // --- ENABLERS ---
-  ...Array.from({ length: 4 }).map((_, i) => ({
-    id: `e${i + 1}`,
-    name: `Operator ${i + 1}`,
-    role: ["Community Mgr", "Event Ops", "Logistics"][i % 3],
+  },
+  {
+    id: "s2",
+    name: "Kavita Singh",
+    role: "UX Researcher",
+    category: "The Storytellers",
+  },
+  {
+    id: "e1",
+    name: "Suresh G.",
+    role: "Community Manager",
     category: "The Enablers",
-    color: "from-amber-400 to-amber-600",
-  })),
+  },
+  {
+    id: "e2",
+    name: "Meera K.",
+    role: "Logistics Lead",
+    category: "The Enablers",
+  },
 ];
 
 const CATEGORIES = [
@@ -94,7 +89,6 @@ const CATEGORIES = [
 ];
 
 const getInitials = (name) => {
-  // Remove titles so initials are based on actual names
   const cleanName = name.replace(/Dr\.\s*|Prof\.\s*|Ms\.\s*|Mr\.\s*/g, '');
   const words = cleanName.trim().split(' ');
   if (words.length >= 2) {
@@ -107,38 +101,21 @@ const TeamCard = ({ member }) => {
   const initials = getInitials(member.name);
 
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.3 }}
-      className="group relative flex flex-col items-center justify-center text-center overflow-hidden rounded-2xl p-8 bg-white border border-slate-100 hover:border-emerald-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)]"
-    >
-      {/* Background animated glow on hover */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-b ${member.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`}
-      />
-
-      <div className="z-10 flex flex-col items-center">
-        {/* Initials Avatar Box */}
-        <div className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-full border border-slate-100 bg-slate-50 shadow-inner mb-6 transition-transform duration-500 group-hover:scale-110">
-          <span className="font-serif text-2xl font-black text-transparent bg-clip-text bg-gradient-to-br from-slate-400 to-slate-600 group-hover:from-emerald-500 group-hover:to-teal-700 transition-all duration-300">
-            {initials}
-          </span>
-        </div>
-        
-        {/* Details Box */}
-        <div className="flex flex-col">
-          <h3 className="font-serif text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors duration-300 leading-tight">
-            {member.name}
-          </h3>
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-emerald-600 mt-2">
-            {member.role}
-          </p>
-        </div>
+    <div className="flex flex-col items-center text-center p-10 bg-slate-50 rounded-[32px] border border-transparent transition-all">
+      <div className="flex h-24 w-24 items-center justify-center rounded-full bg-white border border-slate-100 mb-8 shadow-sm">
+        <span className="font-serif text-3xl font-black text-slate-900">
+          {initials}
+        </span>
       </div>
-    </motion.div>
+      <div className="space-y-2">
+        <h3 className="font-serif text-2xl font-black text-slate-900 leading-tight">
+          {member.name}
+        </h3>
+        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-600">
+          {member.role}
+        </p>
+      </div>
+    </div>
   );
 };
 
@@ -150,75 +127,45 @@ export default function TeamPage() {
   );
 
   return (
-    <div className="bg-white min-h-screen relative overflow-hidden selection:bg-emerald-100 selection:text-emerald-900 font-sans">
-      {/* Premium Background */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-slate-50 to-white" />
-        <div className="absolute -top-[500px] left-1/2 -translate-x-1/2 w-[1000px] h-[1000px] bg-emerald-500/5 blur-[120px] rounded-full" />
-      </div>
-
+    <div className="bg-white min-h-screen relative font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-32">
       {/* Hero Section */}
-      <section className="relative pt-40 pb-16 z-10">
+      <section className="relative pt-40 pb-24 z-10 border-b border-slate-100">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-emerald-500/10 bg-emerald-500/5 backdrop-blur-md mb-8"
-            >
-              <Target className="w-4 h-4 text-emerald-600" />
-              <span className="text-xs font-black uppercase tracking-[0.2em] text-emerald-700">
+          <div className="max-w-5xl">
+            <div className="flex items-center gap-4 mb-10">
+              <div className="w-12 h-1 bg-slate-900" />
+              <span className="text-slate-900 font-black uppercase tracking-[0.5em] text-[10px]">
                 The Collective
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-5xl md:text-7xl lg:text-[90px] font-serif font-black text-slate-900 leading-[0.9] tracking-tight mb-8"
-            >
+            <h1 className="text-6xl md:text-8xl lg:text-[110px] font-serif font-black text-slate-900 leading-[0.85] tracking-tighter mb-10">
               Meet the <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-700 italic font-light">
-                Crew.
-              </span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-slate-500 text-lg max-w-2xl mx-auto font-medium border-l-2 border-slate-100 pl-6 md:border-l-0 md:pl-0"
-            >
+              <span className="italic">Crew.</span>
+            </h1>
+            <p className="text-slate-500 text-xl md:text-2xl max-w-2xl font-medium border-l-4 border-slate-100 pl-8">
               The brilliant minds tracing our path. Explore the specialized
               nodes that form our collective intelligence.
-            </motion.p>
+            </p>
           </div>
         </Container>
       </section>
 
       {/* Filter Navigation */}
-      <section className="relative z-20 pb-10 sticky top-20 md:top-24 backdrop-blur-xl bg-white/80 border-b border-slate-100 pt-4">
+      <section className="relative z-20 py-12 border-b border-slate-50">
         <Container>
-          <div className="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-4 hide-scrollbar px-4">
+          <div className="flex items-center gap-4 overflow-x-auto pb-4 hide-scrollbar">
             {CATEGORIES.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`relative px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-colors duration-300 ${
+                className={`px-8 py-4 rounded-full text-xs font-black uppercase tracking-[0.2em] transition-all border-none cursor-pointer ${
                   activeCategory === category
-                    ? "text-white"
-                    : "text-slate-500 hover:text-slate-900"
+                    ? "bg-slate-900 text-white shadow-xl"
+                    : "bg-slate-50 text-slate-400 hover:text-slate-900 hover:bg-slate-100"
                 }`}
               >
-                {activeCategory === category && (
-                  <motion.div
-                    layoutId="activeFilter"
-                    className="absolute inset-0 bg-emerald-600 rounded-full shadow-lg shadow-emerald-600/20"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{category}</span>
+                {category}
               </button>
             ))}
           </div>
@@ -226,27 +173,25 @@ export default function TeamPage() {
       </section>
 
       {/* Grid Layout */}
-      <section className="relative z-10 py-16 pb-40">
+      <section className="relative z-10 py-24">
         <Container>
-          <motion.div
-            layout
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredMembers.map((member) => (
-                <TeamCard key={member.id} member={member} />
-              ))}
-            </AnimatePresence>
-          </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
+            {filteredMembers.map((member) => (
+              <TeamCard key={member.id} member={member} />
+            ))}
+          </div>
 
           {filteredMembers.length === 0 && (
-            <div className="text-center py-20 text-slate-400">
-              <Search className="w-10 h-10 mx-auto mb-4 opacity-30" />
-              <p className="font-medium">No members found in this category.</p>
+            <div className="text-center py-32 text-slate-400">
+              <p className="text-xl font-bold">No members found in this category.</p>
             </div>
           )}
         </Container>
       </section>
+
+      <div className="flex flex-col items-center gap-6 opacity-30 text-center">
+        <p className="text-[10px] font-black uppercase tracking-[0.5em]">Project Sankalp Team _ 2026</p>
+      </div>
     </div>
   );
 }
