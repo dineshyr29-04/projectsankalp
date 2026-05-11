@@ -15,7 +15,7 @@ export default function Footer() {
     <footer className="relative bg-slate-900 text-white pt-16 pb-8 overflow-hidden">
       {/* Premium Background Atmosphere */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full select-none pointer-events-none overflow-hidden">
-        <h2 className="text-[15vw] font-serif font-black text-white/[0.02] leading-none uppercase tracking-tighter whitespace-nowrap text-center">
+        <h2 className="text-[15vw] font-serif font-black text-white/[0.05] leading-none uppercase tracking-tighter whitespace-nowrap text-center">
           PROJECT SANKALP
         </h2>
       </div>
