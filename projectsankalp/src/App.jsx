@@ -18,6 +18,7 @@ import TracksPage from "./components/pages/TracksPage";
 import Loader from "./components/ui/loader-11";
 import WinnersPage from "./components/pages/WinnersPage";
 import TeamPage from "./components/pages/TeamPage";
+import StagesPage from "./components/pages/StagesPage";
 
 // AUDIT FIX: Simple, premium Back to Top button
 const BackToTop = () => {
@@ -69,6 +70,11 @@ function App() {
     // Check for team slug (hidden)
     if (window.location.pathname === "/team") {
       setCurrentView("team");
+    }
+
+    // Check for stages slug (hidden)
+    if (window.location.pathname === "/stages") {
+      setCurrentView("stages");
     }
 
     return () => clearTimeout(timer);
@@ -188,6 +194,18 @@ function App() {
                     transition={{ duration: 0.5 }}
                   >
                     <TeamPage />
+                  </motion.div>
+                )}
+
+                {currentView === "stages" && (
+                  <motion.div
+                    key="stages"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <StagesPage onBack={() => setCurrentView("landing")} />
                   </motion.div>
                 )}
               </AnimatePresence>
