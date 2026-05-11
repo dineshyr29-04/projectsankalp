@@ -55,7 +55,7 @@ export default function StagesPage({ onBack }) {
 
   return (
     <div className="min-h-screen bg-neutral-50 text-zinc-900 font-sans selection:bg-zinc-200 selection:text-zinc-900 pb-40">
-      <Container className="relative pt-32 md:pt-48 px-6 sm:px-14 lg:px-28 mx-auto max-w-5xl">
+      <Container className="relative pt-32 md:pt-48 px-6 sm:px-14 lg:px-28 mx-auto ">
         {/* Navigation */}
         <button
           onClick={onBack}
@@ -79,47 +79,139 @@ export default function StagesPage({ onBack }) {
         </header>
 
         {/* Domain Challenges */}
-        <main className="space-y-24">
-          {domains.map((domain, idx) => (
-            <section
-              key={domain.id}
-              className={`relative bg-white border border-zinc-200 rounded-2xl px-10 py-14 md:px-20 md:py-20 flex flex-col md:flex-row gap-14 md:gap-24 ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
-              style={{ boxShadow: '0 1px 4px 0 rgba(24, 24, 27, 0.03)' }}
-            >
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-xs font-semibold text-zinc-400">Mission {domain.id}</span>
-                  <span className="h-1 w-1 rounded-full bg-zinc-300" />
-                  <span className="text-xs text-zinc-400 font-normal">{domain.tags.join(', ')}</span>
+          <main className="space-y-40">
+    {domains.map((domain, idx) => (
+      <section
+        key={domain.id}
+        className={`
+          relative overflow-hidden rounded-[32px]
+          border border-zinc-200/80 bg-white
+          px-10 py-14
+          md:px-20 md:py-24
+          xl:px-28 xl:py-32
+          transition-colors duration-300
+          hover:border-zinc-300
+          ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}
+        `}
+        style={{
+          boxShadow: "0 1px 2px rgba(0,0,0,0.02)",
+        }}
+      >
+        {/* subtle top accent */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-200 to-transparent" />
+
+        <div
+          className={`
+          flex flex-col gap-24
+          md:gap-30
+          xl:gap-36
+          md:flex-row
+          ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}
+        `}
+      >
+        {/* LEFT SIDE */}
+        <div className="flex-1 min-w-0 max-w-2xl">
+          
+          {/* meta */}
+          <div className="mb-14 flex items-center gap-5">
+            <span className="text-[11px] font-medium tracking-wide text-zinc-400">
+              Mission {domain.id}
+            </span>
+
+            <span className="h-[3px] w-[3px] rounded-full bg-zinc-300" />
+
+            <span className="text-[11px] text-zinc-400">
+              {domain.tags.join(" · ")}
+            </span>
+          </div>
+
+          {/* title */}
+          <h2 className="
+            max-w-[10ch]
+            text-4xl
+            leading-[0.95]
+            tracking-[-0.045em]
+            text-zinc-950
+            md:text-6xl
+            font-semibold
+          ">
+            {domain.title}
+          </h2>
+
+          {/* description */}
+          <p className="
+            mt-12
+            max-w-[34ch]
+            text-[17px]
+            leading-8
+            text-zinc-600
+            md:text-[18px]
+          ">
+            {domain.description}
+          </p>
+        </div>
+
+        {/* RIGHT SIDE */}
+        <div className="flex-[1.4] min-w-0">
+          
+          {/* section label */}
+          <div className="mb-14 flex items-center justify-between">
+            <span className="text-[11px] font-medium tracking-wide text-zinc-400">
+              Problem Statements
+            </span>
+
+            <span className="text-[11px] text-zinc-300">
+              {domain.problems.length} items
+            </span>
+          </div>
+
+          {/* problems */}
+          <ul className="space-y-0">
+            {domain.problems.map((ps, i) => (
+              <li
+                key={ps.id}
+                className="
+                  group
+                  flex items-start gap-8
+                  border-b border-zinc-100
+                  py-10
+                  last:border-b-0
+                "
+              >
+                {/* id */}
+                <span className="
+                  min-w-[56px]
+                  pt-1
+                  font-mono
+                  text-[11px]
+                  tracking-wide
+                  text-zinc-400
+                ">
+                  {ps.id}
+                </span>
+
+                {/* content */}
+                <div className="flex-1">
+                  <p className="
+                    max-w-[44ch]
+                    text-[17px]
+                    leading-8
+                    text-zinc-800
+                    transition-colors duration-200
+                    group-hover:text-zinc-950
+                    md:text-[18px]
+                  ">
+                    {ps.text}
+                  </p>
                 </div>
-                <h2 className="font-serif text-2xl md:text-4xl font-bold text-zinc-900 mb-4 tracking-tight">
-                  {domain.title}
-                </h2>
-                <p className="text-zinc-600 text-base md:text-lg mb-8 max-w-xl">
-                  {domain.description}
-                </p>
-              </div>
-              <div className="flex-[2] min-w-0">
-                <div className="mb-2">
-                  <span className="block text-xs font-medium text-zinc-400 mb-4">Problem Statements</span>
-                  <ul className="space-y-6">
-                    {domain.problems.map((ps) => (
-                      <li
-                        key={ps.id}
-                        className="flex items-start gap-4 px-0 py-4 border-b border-zinc-100 last:border-b-0"
-                      >
-                        <span className="text-xs font-mono text-zinc-400 pt-1 min-w-[48px] inline-block">{ps.id}</span>
-                        <span className="text-zinc-800 text-base md:text-lg leading-snug">
-                          {ps.text}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </section>
-          ))}
-        </main>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  ))}
+</main>
 
         {/* CTA */}
         <footer className="mt-40 flex flex-col items-center gap-8 text-center">
