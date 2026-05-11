@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+
 import Container from "../core/Container";
 import { useEffect } from "react";
 
@@ -54,145 +54,87 @@ export default function StagesPage({ onBack }) {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-emerald-50 to-blue-50 text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-40 overflow-x-hidden">
-      {/* Animated Background Atmosphere */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] animate-pulse" />
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-emerald-200/40 via-blue-200/30 to-white rounded-full blur-3xl opacity-60 animate-float" />
-        <div className="absolute -bottom-40 right-0 w-[400px] h-[400px] bg-gradient-to-br from-blue-100/40 via-emerald-100/30 to-white rounded-full blur-2xl opacity-40 animate-float" style={{animationDelay: '1.5s'}} />
-      </div>
-
-      <Container className="relative z-10 pt-32 md:pt-48 px-6 sm:px-10 lg:px-20 mx-auto max-w-[1400px]">
+    <div className="min-h-screen bg-neutral-50 text-zinc-900 font-sans selection:bg-zinc-200 selection:text-zinc-900 pb-40">
+      <Container className="relative pt-32 md:pt-48 px-6 sm:px-14 lg:px-28 mx-auto max-w-5xl">
         {/* Navigation */}
         <button
           onClick={onBack}
-          className="flex items-center gap-3 text-slate-400 hover:text-slate-900 transition-all mb-24 group cursor-pointer border-none bg-transparent p-0"
+          className="flex items-center gap-2 text-zinc-400 hover:text-zinc-700 transition-colors mb-24 text-sm font-medium"
         >
-          <span className="text-[10px] font-black uppercase tracking-[0.3em]">← Back to Hub</span>
+          <span aria-hidden className="text-base">←</span>
+          Back to Hub
         </button>
 
         {/* Hero */}
-        <div className="max-w-5xl mb-48">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
-            <div className="flex items-center gap-4 mb-10">
-              <div className="w-12 h-1 bg-slate-900" />
-              <span className="text-slate-900 font-black uppercase tracking-[0.5em] text-[10px]">
-                Mission Objectives
-              </span>
-            </div>
-
-            <h1 className="text-6xl md:text-[120px] font-serif font-black mb-12 leading-[0.8] tracking-tighter text-slate-900 drop-shadow-xl">
-              Global <br />
-              <span className="italic text-emerald-500">Challenges.</span>
+        <header className="mb-28">
+          <div className="mb-6">
+            <span className="block text-xs font-semibold text-zinc-500 tracking-tight mb-2">Mission Objectives</span>
+            <h1 className="font-serif text-4xl md:text-6xl font-extrabold tracking-tight text-zinc-900 mb-4 leading-tight">
+              Global Challenges
             </h1>
-
-            <p className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-4xl font-medium border-l-8 border-emerald-400 pl-10 bg-white/60 backdrop-blur-sm rounded-2xl py-6">
-              We've identified three critical domains where technology can create the most profound impact. Choose your mission and solve the problem statements listed below.
+            <p className="text-base md:text-lg text-zinc-600 max-w-2xl">
+              We’ve identified three critical domains where technology can create the most profound impact. Choose your mission and solve the problem statements listed below.
             </p>
-          </motion.div>
-        </div>
+          </div>
+        </header>
 
-        {/* Domain Challenges - With Proper Partitions */}
-        <div className="space-y-40">
+        {/* Domain Challenges */}
+        <main className="space-y-24">
           {domains.map((domain, idx) => (
-            <motion.div
+            <section
               key={domain.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.7, delay: idx * 0.2 }}
-              className={`relative border-2 ${domain.borderColor} glass-effect rounded-[60px] overflow-hidden p-12 md:p-20 lg:p-24 shadow-xl backdrop-blur-md`}
+              className={`relative bg-white border border-zinc-200 rounded-2xl px-10 py-14 md:px-20 md:py-20 flex flex-col md:flex-row gap-14 md:gap-24 ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
+              style={{ boxShadow: '0 1px 4px 0 rgba(24, 24, 27, 0.03)' }}
             >
-              {/* Domain Header Row */}
-              <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-24">
-                <div className="max-w-4xl">
-                  <div className="flex items-center gap-4 mb-8">
-                    <span className={`${domain.color} text-[12px] font-black uppercase tracking-[0.6em]`}>
-                      Mission {domain.id}
-                    </span>
-                    <div className={`h-px w-12 ${domain.accent} opacity-20`} />
-                  </div>
-                  <h2 className="text-5xl md:text-8xl font-serif font-black text-slate-900 tracking-tighter mb-6 leading-none">
-                    {domain.title}
-                  </h2>
-                  <div className="flex flex-wrap gap-3 mb-6">
-                    {domain.tags.map((tag) => (
-                      <span key={tag} className="inline-block bg-emerald-100 text-emerald-700 px-4 py-1 rounded-full text-xs font-bold shadow-sm border border-emerald-200">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="text-lg md:text-xl text-slate-600 mb-2 font-medium">
-                    {domain.description}
-                  </p>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-4 mb-6">
+                  <span className="text-xs font-semibold text-zinc-400">Mission {domain.id}</span>
+                  <span className="h-1 w-1 rounded-full bg-zinc-300" />
+                  <span className="text-xs text-zinc-400 font-normal">{domain.tags.join(', ')}</span>
                 </div>
+                <h2 className="font-serif text-2xl md:text-4xl font-bold text-zinc-900 mb-4 tracking-tight">
+                  {domain.title}
+                </h2>
+                <p className="text-zinc-600 text-base md:text-lg mb-8 max-w-xl">
+                  {domain.description}
+                </p>
               </div>
-
-              {/* Problem Statements Arena */}
-              <div className="bg-white/80 rounded-[48px] p-12 md:p-16 border border-slate-100 shadow-inner backdrop-blur-md">
-                <div className="flex items-center gap-8 mb-16">
-                  <h3 className="text-[11px] font-black uppercase tracking-[0.8em] text-slate-900 shrink-0">
-                    Targeted Problem Statements
-                  </h3>
-                  <div className={`h-[2px] flex-1 ${domain.accent} opacity-10`} />
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                  {domain.problems.map((ps) => (
-                    <motion.div
-                      key={ps.id}
-                      whileHover={{ scale: 1.04, boxShadow: '0 8px 32px 0 rgba(16,185,129,0.12)' }}
-                      className="group relative flex flex-col justify-between bg-white/90 rounded-3xl p-8 border border-slate-100 shadow hover:shadow-lg transition-all duration-200"
-                    >
-                      <div>
-                        <div className="mb-8">
-                          <span className={`${domain.color} text-[10px] font-black tracking-[0.4em] uppercase border-b-2 ${domain.borderColor} pb-2`}>
-                            {ps.id}
-                          </span>
-                        </div>
-                        <p className="text-xl md:text-2xl font-black text-slate-900 leading-[1.1] tracking-tight">
+              <div className="flex-[2] min-w-0">
+                <div className="mb-2">
+                  <span className="block text-xs font-medium text-zinc-400 mb-4">Problem Statements</span>
+                  <ul className="space-y-6">
+                    {domain.problems.map((ps) => (
+                      <li
+                        key={ps.id}
+                        className="flex items-start gap-4 px-0 py-4 border-b border-zinc-100 last:border-b-0"
+                      >
+                        <span className="text-xs font-mono text-zinc-400 pt-1 min-w-[48px] inline-block">{ps.id}</span>
+                        <span className="text-zinc-800 text-base md:text-lg leading-snug">
                           {ps.text}
-                        </p>
-                      </div>
-                    </motion.div>
-                  ))}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            </motion.div>
+            </section>
           ))}
-        </div>
+        </main>
 
-        {/* Closing CTA */}
-        <motion.div
-          className="mt-64 relative rounded-[80px] bg-slate-900 p-20 md:p-40 text-center overflow-hidden shadow-2xl"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="relative z-10 max-w-4xl mx-auto space-y-16">
-            <h2 className="text-6xl md:text-[130px] font-serif font-black leading-[0.8] text-white tracking-tighter drop-shadow-xl">
-              Commit to <br />
-              <span className="italic text-emerald-400 text-[0.8em]">Innovation.</span>
-            </h2>
-
-            <p className="text-white/40 font-medium text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed">
-              Your journey from ideation to impact starts with a single click. Join 500+ innovators building for a better tomorrow.
-            </p>
-
-            <motion.button
-              whileHover={{ scale: 1.07, backgroundColor: '#34d399', color: '#fff' }}
+        {/* CTA */}
+        <footer className="mt-40 flex flex-col items-center gap-8 text-center">
+          <div className="bg-zinc-900 rounded-2xl px-12 py-16 md:px-24 md:py-20 w-full max-w-2xl mx-auto">
+            <h2 className="font-serif text-2xl md:text-4xl font-bold text-white mb-6 tracking-tight">Commit to Innovation</h2>
+            <p className="text-zinc-400 text-base md:text-lg mb-10">Your journey from ideation to impact starts with a single click. Join 500+ innovators building for a better tomorrow.</p>
+            <button
               onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
-              className="bg-white text-slate-900 px-20 py-8 rounded-full text-xs font-black uppercase tracking-[0.5em] hover:bg-emerald-400 transition-all cursor-pointer border-none shadow-lg"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-white text-zinc-900 font-semibold text-base border border-zinc-200 hover:bg-zinc-50 transition-colors"
             >
               Start Your Mission
-            </motion.button>
+            </button>
           </div>
-        </motion.div>
+          <p className="text-xs text-zinc-400 mt-12">Project Sankalp &mdash; 2026</p>
+        </footer>
 
         <div className="mt-32 flex flex-col items-center gap-6 opacity-20 text-center">
           <p className="text-[11px] font-black uppercase tracking-[0.5em]">Project Sankalp _ 2026</p>

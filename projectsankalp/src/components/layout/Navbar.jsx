@@ -202,8 +202,7 @@ export default function Navbar({ onNavigate, currentView }) {
                   backgroundColor: "var(--color-primary)",
                   color: "black",
                   scale: 1.1,
-                  borderWidth: 1,
-                  borderBlockColor: "#2c63c0",
+                  
                 }}
                 transition={{ duration: 0.35, ease: fluidEasing }}
                 className="flex items-center gap-2 px-6 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary bg-transparent rounded-full"
