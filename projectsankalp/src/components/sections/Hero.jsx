@@ -75,7 +75,7 @@ export default function Hero() {
               <div className="flex items-center justify-center gap-4 my-4 md:my-6">
                 <span className="h-px w-10 bg-gradient-to-r from-transparent via-slate-400 to-transparent"></span>
                 <span className="text-[11px] font-normal italic md:text-[14px] font-semibold uppercase tracking-[0.35em] text-slate-500">
-                  Code 4 Change
+                  Code4Change
                 </span>
                 <span className="h-px w-10 bg-gradient-to-r from-transparent via-slate-400 to-transparent"></span>
               </div>

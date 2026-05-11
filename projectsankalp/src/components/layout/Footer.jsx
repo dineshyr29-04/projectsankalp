@@ -30,7 +30,7 @@ export default function Footer() {
                   Project Sankalp
                 </h3>
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500/80">
-                  Code for Change
+                  Code4Change
                 </span>
               </div>
             </div>
