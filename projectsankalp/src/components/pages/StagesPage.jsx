@@ -1,12 +1,10 @@
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
-  Rocket,
-  Zap,
-  Award,
-  CheckCircle,
   Target,
   Users,
+  Zap,
+  Sparkles,
 } from "lucide-react";
 import Container from "../core/Container";
 import { useEffect } from "react";
@@ -14,55 +12,8 @@ import { useEffect } from "react";
 export default function StagesPage({ onBack }) {
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.title = "Problem Statements | Project Sankalp";
   }, []);
-
-  const stages = [
-    {
-      id: "01",
-      title: "The Spark",
-      subtitle: "Online Submission Phase",
-      icon: <Rocket className="w-8 h-8 text-emerald-600" />,
-      description:
-        "This is where your journey begins. Submit a 3-minute video pitch explaining your solution's core value proposition and how it addresses one of our problem tracks.",
-      details: [
-        "Focus on 'The Why' behind your project",
-        "Clear problem-solution fit demonstration",
-        "Initial prototype or architecture diagram",
-        "High-impact presentation and storytelling",
-      ],
-      gradient: "from-blue-600/10 to-emerald-600/10",
-    },
-    {
-      id: "02",
-      title: "The Filter",
-      subtitle: "Expert Evaluation Round",
-      icon: <Zap className="w-8 h-8 text-emerald-600" />,
-      description:
-        "Our panel of industry experts and academics rigorously vet every submission. We're looking for scalability, technical depth, and sustainable impact.",
-      details: [
-        "Technical feasibility and code quality",
-        "Potential for real-world implementation",
-        "Market readiness and sustainability",
-        "Team capability and domain expertise",
-      ],
-      gradient: "from-emerald-600/10 to-teal-600/10",
-    },
-    {
-      id: "03",
-      title: "The Forge",
-      subtitle: "24-Hour Grand Finale",
-      icon: <Award className="w-8 h-8 text-emerald-600" />,
-      description:
-        "The ultimate test of endurance and innovation. The top 30 teams gather at our campus for a 24-hour non-stop build phase ending in a live jury demo.",
-      details: [
-        "Rapid prototyping and iteration",
-        "Live technical demonstrations",
-        "Q&A session with the Grand Jury",
-        "Networking with social entrepreneurs",
-      ],
-      gradient: "from-teal-600/10 to-blue-600/10",
-    },
-  ];
 
   const domainTracks = [
     {
@@ -70,6 +21,7 @@ export default function StagesPage({ onBack }) {
       subtitle: "Economic Empowerment",
       icon: <Users className="w-6 h-6 text-blue-600" />,
       color: "blue",
+      description: "Championing gender equality by building tools for financial independence and micro-business scaling.",
       problems: [
         "Decentralized marketplaces for rural artisans to scale global reach.",
         "AI-driven financial literacy platforms for women-led startups.",
@@ -81,6 +33,7 @@ export default function StagesPage({ onBack }) {
       subtitle: "Community Wellbeing",
       icon: <Target className="w-6 h-6 text-emerald-600" />,
       color: "emerald",
+      description: "Developing innovative systems for preventive healthcare, clean water access, and waste management.",
       problems: [
         "Predictive analysis of water-borne diseases in urban settlements.",
         "Smart waste management systems for decentralized municipalities.",
@@ -92,6 +45,7 @@ export default function StagesPage({ onBack }) {
       subtitle: "Sustainability",
       icon: <Zap className="w-6 h-6 text-teal-600" />,
       color: "teal",
+      description: "Harnessing technology to combat climate change and promote green energy transitions.",
       problems: [
         "Real-time carbon footprint trackers for household consumption.",
         "Marketplaces for upcycled industrial waste and circular resources.",
@@ -126,7 +80,7 @@ export default function StagesPage({ onBack }) {
         </motion.a>
 
         {/* Header */}
-        <div className="max-w-3xl mb-24 md:mb-32">
+        <div className="max-w-4xl mb-24 md:mb-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -134,7 +88,7 @@ export default function StagesPage({ onBack }) {
           >
             <div className="w-12 h-[1px] bg-emerald-500" />
             <span className="text-emerald-600 font-black uppercase tracking-[0.4em] text-[11px]">
-              The Roadmap
+              Problem Domains
             </span>
           </motion.div>
 
@@ -145,7 +99,7 @@ export default function StagesPage({ onBack }) {
             className="text-5xl md:text-8xl font-serif font-black mb-8 leading-[0.9] tracking-tight text-slate-900"
           >
             Mission <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-teal-600 to-emerald-600 italic">Architecture.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-teal-600 to-emerald-600 italic">Challenges.</span>
           </motion.h1>
 
           <motion.p
@@ -154,26 +108,12 @@ export default function StagesPage({ onBack }) {
             transition={{ delay: 0.2 }}
             className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-2xl font-medium border-l-2 border-slate-100 pl-6"
           >
-            A rigorous three-phase selection process designed to transform raw
-            ideas into scalable social impact reality. Understand every step of
-            your journey.
+            Select a domain and dive into real-world challenges. We're looking for solutions that are scalable, sustainable, and built for real impact.
           </motion.p>
         </div>
 
-        {/* Domain Challenges Section */}
-        <div className="mb-32">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-4 mb-12"
-          >
-            <div className="w-12 h-[1px] bg-blue-500" />
-            <span className="text-blue-600 font-black uppercase tracking-[0.4em] text-[11px]">
-              Mission Domains
-            </span>
-          </motion.div>
-
+        {/* Domain Challenges Grid */}
+        <div className="space-y-12 mb-32">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {domainTracks.map((track, idx) => (
               <motion.div
@@ -182,7 +122,7 @@ export default function StagesPage({ onBack }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="group relative bg-white border border-slate-100 rounded-[32px] p-8 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500 hover:-translate-y-2"
+                className="group relative bg-white border border-slate-100 rounded-[32px] p-8 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500 hover:-translate-y-2 flex flex-col"
               >
                 <div className="flex items-center gap-4 mb-8">
                   <div className={`p-3 rounded-2xl bg-${track.color}-50 border border-${track.color}-100`}>
@@ -198,14 +138,21 @@ export default function StagesPage({ onBack }) {
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">
-                    Core Challenges
-                  </p>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed mb-8">
+                  {track.description}
+                </p>
+
+                <div className="space-y-4 mt-auto">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Sparkles size={12} className="text-emerald-500" />
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
+                      Problem Statements
+                    </p>
+                  </div>
                   {track.problems.map((prob, i) => (
                     <div key={i} className="flex gap-3 items-start group/item">
-                      <div className="w-1 h-1 rounded-full bg-slate-300 mt-2 shrink-0 group-hover/item:bg-emerald-500 transition-colors" />
-                      <p className="text-[13px] font-medium text-slate-600 leading-relaxed group-hover/item:text-slate-900 transition-colors">
+                      <div className="w-1.5 h-1.5 rounded-full bg-slate-200 mt-2 shrink-0 group-hover/item:bg-emerald-500 transition-colors" />
+                      <p className="text-[13px] font-bold text-slate-600 leading-relaxed group-hover/item:text-slate-900 transition-colors">
                         {prob}
                       </p>
                     </div>
@@ -219,134 +166,20 @@ export default function StagesPage({ onBack }) {
           </div>
         </div>
 
-        {/* Roadmap Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-4 mb-16"
-        >
-          <div className="w-12 h-[1px] bg-emerald-500" />
-          <span className="text-emerald-600 font-black uppercase tracking-[0.4em] text-[11px]">
-            The Journey Phases
-          </span>
-        </motion.div>
-
-        {/* Stages List */}
-        <div className="space-y-32 md:space-y-48">
-          {stages.map((stage, index) => (
-            <div
-              key={index}
-              className={`flex flex-col ${index % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"} gap-12 md:gap-24 items-center`}
-            >
-              {/* Content */}
-              <div className="flex-1 space-y-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="flex flex-col gap-4"
-                >
-                  <span className="text-[60px] md:text-[100px] font-serif font-black text-slate-100 leading-none block -mb-8 md:-mb-12">
-                    {stage.id}
-                  </span>
-                  <div className="flex items-center gap-4">
-                    <div className="p-4 bg-white rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/50">
-                      {stage.icon}
-                    </div>
-                    <div>
-                      <span className="text-emerald-600 text-[10px] font-black uppercase tracking-[0.3em] block mb-1">
-                        {stage.subtitle}
-                      </span>
-                      <h2 className="text-3xl md:text-5xl font-serif font-black text-slate-900">
-                        {stage.title}
-                      </h2>
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="text-lg text-slate-600 leading-relaxed font-medium border-l-2 border-slate-100 pl-6"
-                >
-                  {stage.description}
-                </motion.p>
-
-                <motion.ul
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-                >
-                  {stage.details.map((detail, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100 group hover:bg-white hover:shadow-lg hover:shadow-slate-200/50 transition-all"
-                    >
-                      <CheckCircle
-                        size={14}
-                        className="text-emerald-500 mt-0.5 shrink-0"
-                      />
-                      <span className="text-[12px] font-bold text-slate-700">
-                        {detail}
-                      </span>
-                    </li>
-                  ))}
-                </motion.ul>
-              </div>
-
-              {/* Visual Element */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                className={`flex-1 relative aspect-square md:aspect-video w-full max-w-[500px]`}
-              >
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${stage.gradient} blur-[80px] rounded-full opacity-60`}
-                />
-                <div className="relative w-full h-full rounded-[40px] border border-slate-200 bg-white shadow-2xl shadow-slate-200/50 overflow-hidden flex items-center justify-center p-12 transition-transform duration-700 hover:scale-[1.02]">
-                  <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
-                  <div className="relative z-10 text-center space-y-6">
-                    <div className="w-24 h-24 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center mx-auto shadow-inner">
-                      {index === 0 ? (
-                        <Users size={40} className="text-emerald-600" />
-                      ) : index === 1 ? (
-                        <Target size={40} className="text-emerald-600" />
-                      ) : (
-                        <Award size={40} className="text-emerald-600" />
-                      )}
-                    </div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400">
-                      Phase_Verification_0{index + 1}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          ))}
-        </div>
-
         {/* Footer CTA */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-48 p-12 md:p-24 rounded-[60px] bg-slate-50 border border-slate-200 text-center relative overflow-hidden group hover:border-emerald-200 transition-all"
+          className="p-12 md:p-24 rounded-[60px] bg-slate-50 border border-slate-200 text-center relative overflow-hidden group hover:border-emerald-200 transition-all"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
           <div className="relative z-10 max-w-2xl mx-auto space-y-8">
             <h2 className="text-3xl md:text-5xl font-serif font-black leading-tight text-slate-900">
-              Ready to <span className="text-emerald-600 italic">Transform</span>{" "}
-              Society?
+              Ready to <span className="text-emerald-600 italic">Build</span> the Future?
             </h2>
             <p className="text-slate-500 font-medium text-lg">
-              Registration closes soon. Secure your team's spot in the most
-              impactful hackathon of the year.
+              Pick your challenge and start your journey. Registration is open until May 15th.
             </p>
             <a
               className="inline-block bg-emerald-600 text-white px-12 py-4 rounded-full text-[12px] font-black uppercase tracking-[0.4em] hover:bg-emerald-500 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-emerald-500/20 cursor-pointer"
@@ -357,7 +190,7 @@ export default function StagesPage({ onBack }) {
                 )
               }
             >
-              Register Now
+              Register on Unstop
             </a>
           </div>
         </motion.div>
