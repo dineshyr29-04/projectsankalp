@@ -154,7 +154,7 @@ export default function StagesPage({ onBack }) {
                             {ps.id}
                           </span>
                         </div>
-                        <p className="text-2xl md:text-3xl font-black text-slate-900 leading-[1.1] tracking-tight">
+                        <p className="text-xl md:text-2xl font-black text-slate-900 leading-[1.1] tracking-tight">
                           {ps.text}
                         </p>
                       </div>
