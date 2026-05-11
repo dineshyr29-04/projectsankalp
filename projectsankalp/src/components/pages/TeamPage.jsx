@@ -6,20 +6,6 @@ import Container from "../core/Container";
 // --- TEAM DATA ---
 const ALL_MEMBERS = [
   // --- WEB DEVELOPERS ---
-  {
-    id: "dev1",
-    name: "Dinesh",
-    role: "Technical Lead",
-    category: "The Builders",
-    color: "from-emerald-400 to-teal-600",
-  },
-  {
-    id: "dev2",
-    name: "Dhanush Shenoy",
-    role: "Web Developer",
-    category: "The Builders",
-    color: "from-emerald-400 to-teal-600",
-  },
   
   // --- VISIONARIES ---
   {
@@ -66,7 +52,21 @@ const ALL_MEMBERS = [
     category: "The Navigators",
     color: "from-indigo-400 to-indigo-600",
   },
-
+{
+    id: "dev1",
+    name: "Dinesh",
+    role: "Technical Lead",
+    category: "The Builders",
+    color: "from-emerald-400 to-teal-600",
+  },
+  {
+    id: "dev2",
+    name: "Dhanush Shenoy",
+    role: "Web Developer",
+    category: "The Builders",
+    color: "from-emerald-400 to-teal-600",
+  },
+  
   // --- STORYTELLERS ---
   ...Array.from({ length: 4 }).map((_, i) => ({
     id: `s${i + 1}`,
