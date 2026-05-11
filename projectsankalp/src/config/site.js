@@ -1,11 +1,11 @@
 export const siteConfig = {
   name: "Project Sankalp",
-  subtitle: "Code for Change",
+  subtitle: "Code4Change",
   description:
     "Project Sankalp is a premier 24-hour hackathon designed to empower developers, designers, and innovators to build technology that solves real-world challenges. Whether you are a beginner or a pro, join us to collaborate, innovate, and create a lasting impact.",
   duration: "24 Hours",
   date: "May 24-25, 2026",
-  location: "Global Hybrid",
+  location: "Yendurance zone, Yenepoya University, Deralakatte, Mangalore",
   links: {
     register: "#register",
     learnMore: "#about",
@@ -13,8 +13,8 @@ export const siteConfig = {
   stats: [
     { label: "Duration", value: "24 Hours" },
     { label: "Participants", value: "500+" },
-    { label: "Prizes", value: "$10k+" },
-    { label: "Mentors", value: "30+" },
+    { label: "Prizes", value: "₹100k" },
+    { label: "Mentors", value: "5" },
   ],
   tracks: [
     {
