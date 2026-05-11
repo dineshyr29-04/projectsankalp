@@ -64,6 +64,42 @@ export default function StagesPage({ onBack }) {
     },
   ];
 
+  const domainTracks = [
+    {
+      title: "Women's Entrepreneurship",
+      subtitle: "Economic Empowerment",
+      icon: <Users className="w-6 h-6 text-blue-600" />,
+      color: "blue",
+      problems: [
+        "Decentralized marketplaces for rural artisans to scale global reach.",
+        "AI-driven financial literacy platforms for women-led startups.",
+        "P2P micro-lending systems with community-based trust scoring.",
+      ],
+    },
+    {
+      title: "Health & Sanitation",
+      subtitle: "Community Wellbeing",
+      icon: <Target className="w-6 h-6 text-emerald-600" />,
+      color: "emerald",
+      problems: [
+        "Predictive analysis of water-borne diseases in urban settlements.",
+        "Smart waste management systems for decentralized municipalities.",
+        "Mobile-first diagnostic tools for rural maternal healthcare.",
+      ],
+    },
+    {
+      title: "Climate Action",
+      subtitle: "Sustainability",
+      icon: <Zap className="w-6 h-6 text-teal-600" />,
+      color: "teal",
+      problems: [
+        "Real-time carbon footprint trackers for household consumption.",
+        "Marketplaces for upcycled industrial waste and circular resources.",
+        "Community-driven reforestation monitoring using satellite imagery.",
+      ],
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-24">
       {/* Dynamic Background */}
@@ -123,6 +159,78 @@ export default function StagesPage({ onBack }) {
             your journey.
           </motion.p>
         </div>
+
+        {/* Domain Challenges Section */}
+        <div className="mb-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-4 mb-12"
+          >
+            <div className="w-12 h-[1px] bg-blue-500" />
+            <span className="text-blue-600 font-black uppercase tracking-[0.4em] text-[11px]">
+              Mission Domains
+            </span>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {domainTracks.map((track, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="group relative bg-white border border-slate-100 rounded-[32px] p-8 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500 hover:-translate-y-2"
+              >
+                <div className="flex items-center gap-4 mb-8">
+                  <div className={`p-3 rounded-2xl bg-${track.color}-50 border border-${track.color}-100`}>
+                    {track.icon}
+                  </div>
+                  <div>
+                    <span className={`text-${track.color}-600 text-[9px] font-black uppercase tracking-[0.2em] block mb-1`}>
+                      {track.subtitle}
+                    </span>
+                    <h3 className="text-xl font-serif font-black text-slate-900 leading-tight">
+                      {track.title}
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">
+                    Core Challenges
+                  </p>
+                  {track.problems.map((prob, i) => (
+                    <div key={i} className="flex gap-3 items-start group/item">
+                      <div className="w-1 h-1 rounded-full bg-slate-300 mt-2 shrink-0 group-hover/item:bg-emerald-500 transition-colors" />
+                      <p className="text-[13px] font-medium text-slate-600 leading-relaxed group-hover/item:text-slate-900 transition-colors">
+                        {prob}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Subtle highlight */}
+                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-${track.color}-500/20 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700`} />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Roadmap Title */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-4 mb-16"
+        >
+          <div className="w-12 h-[1px] bg-emerald-500" />
+          <span className="text-emerald-600 font-black uppercase tracking-[0.4em] text-[11px]">
+            The Journey Phases
+          </span>
+        </motion.div>
 
         {/* Stages List */}
         <div className="space-y-32 md:space-y-48">
