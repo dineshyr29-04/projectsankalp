@@ -12,9 +12,9 @@ export default function StagesPage({ onBack }) {
     {
       id: "01",
       title: "Women's Entrepreneurship",
-      category: "Economic Empowerment",
       color: "text-blue-600",
       accent: "bg-blue-600",
+      borderColor: "border-blue-100",
       description: "Championing gender equality by building tools for financial independence and micro-business scaling. We aim to bridge the credit gap and provide digital ecosystems for growth.",
       tags: ["Micro-Financing", "Skill Networks", "Leadership Tools"],
       problems: [
@@ -26,9 +26,9 @@ export default function StagesPage({ onBack }) {
     {
       id: "02",
       title: "Health & Sanitation",
-      category: "Community Wellbeing",
       color: "text-emerald-600",
       accent: "bg-emerald-600",
+      borderColor: "border-emerald-100",
       description: "Developing innovative systems for preventive healthcare, clean water access, and waste management. Focus on tech that solves basic human needs at scale.",
       tags: ["Telemedicine", "Waste Optimization", "Clean Water"],
       problems: [
@@ -40,9 +40,9 @@ export default function StagesPage({ onBack }) {
     {
       id: "03",
       title: "Climate Action",
-      category: "Sustainability",
       color: "text-teal-600",
       accent: "bg-teal-600",
+      borderColor: "border-teal-100",
       description: "Harnessing technology to combat climate change and promote green energy transitions. Building a circular economy and tracking environmental impact.",
       tags: ["Renewable Energy", "Circular Economy", "Carbon Tracking"],
       problems: [
@@ -88,61 +88,59 @@ export default function StagesPage({ onBack }) {
           </p>
         </div>
 
-        {/* Domain Challenges - Perfectly Spaced Horizontal Layout */}
-        <div className="space-y-48">
+        {/* Domain Challenges - With Proper Partitions */}
+        <div className="space-y-40">
           {domains.map((domain) => (
-            <div key={domain.id} className="relative border-2 b
-            order-slate-200 p-2 rounded-3xl">
+            <div 
+              key={domain.id} 
+              className={`relative border-2 ${domain.borderColor} ${domain.bgLight} rounded-[60px] overflow-hidden p-12 md:p-20 lg:p-24 shadow-sm`}
+            >
               {/* Domain Header Row */}
-              <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-20 border-b border-slate-100 pb-12">
-                <div className="max-w-3xl">
-                  <span className={`${domain.color} text-[11px] font-black uppercase tracking-[0.5em] block mb-6`}>
-                    Domain {domain.id} / {domain.category}
-                  </span>
-                  <h2 className="text-5xl md:text-8xl font-serif font-black text-slate-900 tracking-tighter mb-8 leading-none">
+              <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-24">
+                <div className="max-w-4xl">
+                  <div className="flex items-center gap-4 mb-8">
+                    <span className={`${domain.color} text-[12px] font-black uppercase tracking-[0.6em]`}>
+                      Mission {domain.id}
+                    </span>
+                    <div className={`h-px w-12 ${domain.accent} opacity-20`} />
+                    <span className="text-slate-400 text-[11px] font-bold uppercase tracking-[0.4em]">
+                      {domain.category}
+                    </span>
+                  </div>
+                  
+                  <h2 className="text-5xl md:text-8xl font-serif font-black text-slate-900 tracking-tighter mb-10 leading-none">
                     {domain.title}
                   </h2>
-                  <p className="text-xl text-slate-500 font-medium leading-relaxed">
-                    {domain.description}
-                  </p>
+                  
                 </div>
                 
-                <div className="flex flex-wrap gap-3">
-                  {domain.tags.map(tag => (
-                    <span key={tag} className="px-6 py-3 rounded-full bg-slate-50 border border-slate-100 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                
               </div>
 
-              {/* Problem Statements Section - Clear and Spaced */}
-              <div className="space-y-12">
-                <div className="flex items-center gap-6">
-                  <h3 className="text-xs font-black uppercase tracking-[0.6em] text-slate-900 shrink-0">
+              {/* Problem Statements Arena */}
+              <div className="bg-white rounded-[48px] p-12 md:p-16 border border-slate-100 shadow-inner">
+                <div className="flex items-center gap-8 mb-16">
+                  <h3 className="text-[11px] font-black uppercase tracking-[0.8em] text-slate-900 shrink-0">
                     Targeted Problem Statements
                   </h3>
-                  <div className="h-px bg-slate-100 flex-1" />
+                  <div className={`h-[2px] flex-1 ${domain.accent} opacity-10`} />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-16">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                   {domain.problems.map((ps) => (
                     <div 
                       key={ps.id} 
-                      className="group relative p-12 rounded-[48px] bg-white border border-slate-100 shadow-sm transition-all duration-500"
+                      className="group relative flex flex-col justify-between"
                     >
-                      <div className="mb-8">
-                        <span className={`px-5 py-2 rounded-xl ${domain.accent} text-white text-[10px] font-black tracking-[0.2em] uppercase`}>
-                          {ps.id}
-                        </span>
-                      </div>
-                      <p className="text-2xl font-bold text-slate-900 leading-tight tracking-tight">
-                        {ps.text}
-                      </p>
-                      
-                      {/* Sub-label for clarity */}
-                      <div className="mt-10 pt-10 border-t border-slate-50">
-                        <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Mission Challenge Detail</p>
+                      <div>
+                        <div className="mb-8">
+                          <span className={`${domain.color} text-[10px] font-black tracking-[0.4em] uppercase border-b-2 ${domain.borderColor} pb-2`}>
+                            {ps.id}
+                          </span>
+                        </div>
+                        <p className="text-2xl md:text-3xl font-black text-slate-900 leading-[1.1] tracking-tight">
+                          {ps.text}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -153,7 +151,7 @@ export default function StagesPage({ onBack }) {
         </div>
 
         {/* Closing CTA */}
-        <div className="mt-64 relative rounded-[80px] bg-slate-900 p-20 md:p-40 text-center overflow-hidden">
+        <div className="mt-64 relative rounded-[80px] bg-slate-900 p-20 md:p-40 text-center overflow-hidden shadow-2xl">
           <div className="relative z-10 max-w-4xl mx-auto space-y-16">
             <h2 className="text-6xl md:text-[130px] font-serif font-black leading-[0.8] text-white tracking-tighter">
               Commit to <br />
@@ -166,7 +164,7 @@ export default function StagesPage({ onBack }) {
 
             <button
               onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
-              className="bg-white text-slate-900 px-20 py-8 rounded-full text-xs font-black uppercase tracking-[0.5em] hover:bg-emerald-400 transition-all cursor-pointer border-none shadow-2xl"
+              className="bg-white text-slate-900 px-20 py-8 rounded-full text-xs font-black uppercase tracking-[0.5em] hover:bg-emerald-400 transition-all cursor-pointer border-none"
             >
               Start Your Mission
             </button>
