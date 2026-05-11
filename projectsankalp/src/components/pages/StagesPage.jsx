@@ -55,7 +55,7 @@ export default function StagesPage({ onBack }) {
 
   return (
     <div className="min-h-screen bg-neutral-50 text-zinc-900 font-sans selection:bg-zinc-200 selection:text-zinc-900 pb-40">
-      <Container className="relative pt-32 md:pt-48 px-6 sm:px-14 lg:px-28 mx-auto ">
+      <Container className="relative pt-32 md:pt-48 px-6 sm:px-14 lg:px-2 mx-auto ">
         {/* Navigation */}
         <button
           onClick={onBack}
@@ -79,15 +79,17 @@ export default function StagesPage({ onBack }) {
         </header>
 
         {/* Domain Challenges */}
-          <main className="space-y-40">
+          <main className="space-y-24 sm:space-y-32 md:space-y-40">
     {domains.map((domain, idx) => (
       <section
         key={domain.id}
         className={`
-          relative overflow-hidden rounded-[32px]
+          relative overflow-hidden rounded-2xl
           border border-zinc-200/80 bg-white
-          px-10 py-14
-          md:px-20 md:py-24
+          px-6 py-12
+          sm:px-8 sm:py-16
+          md:px-16 md:py-20
+          lg:px-24 lg:py-28
           xl:px-28 xl:py-32
           transition-colors duration-300
           hover:border-zinc-300
@@ -102,37 +104,47 @@ export default function StagesPage({ onBack }) {
 
         <div
           className={`
-          flex flex-col gap-24
-          md:gap-30
+          flex flex-col gap-16
+          sm:gap-20
+          md:gap-24
+          lg:gap-28
           xl:gap-36
           md:flex-row
           ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}
         `}
       >
         {/* LEFT SIDE */}
-        <div className="flex-1 min-w-0 max-w-2xl">
+        <div className="flex-1 min-w-0">
           
           {/* meta */}
-          <div className="mb-14 flex items-center gap-5">
-            <span className="text-[11px] font-medium tracking-wide text-zinc-400">
+          <div className="mb-8 sm:mb-10 md:mb-12 lg:mb-14 flex items-center gap-4 sm:gap-5">
+            <span className="text-xs sm:text-[11px] font-medium tracking-wide text-zinc-400">
               Mission {domain.id}
             </span>
 
             <span className="h-[3px] w-[3px] rounded-full bg-zinc-300" />
 
-            <span className="text-[11px] text-zinc-400">
+            <span className="text-xs sm:text-[11px] text-zinc-400 line-clamp-1">
               {domain.tags.join(" · ")}
             </span>
           </div>
 
           {/* title */}
           <h2 className="
-            max-w-[10ch]
-            text-4xl
-            leading-[0.95]
-            tracking-[-0.045em]
+            max-w-[11ch]
+            sm:max-w-[12ch]
+            md:max-w-[10ch]
+            text-3xl
+            sm:text-4xl
+            md:text-5xl
+            lg:text-6xl
+            leading-tight
+            sm:leading-[1]
+            md:leading-[0.95]
+            tracking-[-0.02em]
+            sm:tracking-[-0.035em]
+            md:tracking-[-0.045em]
             text-zinc-950
-            md:text-6xl
             font-semibold
           ">
             {domain.title}
@@ -140,27 +152,33 @@ export default function StagesPage({ onBack }) {
 
           {/* description */}
           <p className="
-            mt-12
-            max-w-[34ch]
-            text-[17px]
-            leading-8
-            text-zinc-600
+            mt-8
+            sm:mt-10
+            md:mt-12
+            max-w-[32ch]
+            sm:max-w-[36ch]
+            md:max-w-[34ch]
+            text-base
+            sm:text-[17px]
             md:text-[18px]
+            leading-7
+            sm:leading-8
+            text-zinc-600
           ">
             {domain.description}
           </p>
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="flex-[1.4] min-w-0">
+        <div className="flex-[1.2] min-w-0 md:flex-[1.4]">
           
           {/* section label */}
-          <div className="mb-14 flex items-center justify-between">
-            <span className="text-[11px] font-medium tracking-wide text-zinc-400">
+          <div className="mb-8 sm:mb-10 md:mb-12 lg:mb-14 flex items-center justify-between">
+            <span className="text-xs sm:text-[11px] font-medium tracking-wide text-zinc-400">
               Problem Statements
             </span>
 
-            <span className="text-[11px] text-zinc-300">
+            <span className="text-xs sm:text-[11px] text-zinc-300">
               {domain.problems.length} items
             </span>
           </div>
@@ -172,34 +190,45 @@ export default function StagesPage({ onBack }) {
                 key={ps.id}
                 className="
                   group
-                  flex items-start gap-8
+                  flex items-start gap-4
+                  sm:gap-6
+                  md:gap-8
                   border-b border-zinc-100
-                  py-10
+                  py-6
+                  sm:py-8
+                  md:py-10
                   last:border-b-0
+                  last:pb-0
                 "
               >
                 {/* id */}
                 <span className="
-                  min-w-[56px]
+                  min-w-[44px]
+                  sm:min-w-[48px]
+                  md:min-w-[56px]
                   pt-1
                   font-mono
-                  text-[11px]
+                  text-[10px]
+                  sm:text-[11px]
                   tracking-wide
                   text-zinc-400
+                  flex-shrink-0
                 ">
                   {ps.id}
                 </span>
 
                 {/* content */}
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <p className="
                     max-w-[44ch]
-                    text-[17px]
-                    leading-8
+                    text-base
+                    sm:text-[17px]
+                    md:text-[18px]
+                    leading-7
+                    sm:leading-8
                     text-zinc-800
                     transition-colors duration-200
                     group-hover:text-zinc-950
-                    md:text-[18px]
                   ">
                     {ps.text}
                   </p>
