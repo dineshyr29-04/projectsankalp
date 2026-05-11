@@ -61,6 +61,11 @@ function App() {
       setCurrentView("winners");
     }
 
+    // Check for tracks slug
+    if (window.location.pathname === "/tracks") {
+      setCurrentView("tracks-page");
+    }
+
     // Check for team slug (hidden)
     if (window.location.pathname === "/team") {
       setCurrentView("team");
