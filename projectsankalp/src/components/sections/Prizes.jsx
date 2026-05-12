@@ -118,10 +118,6 @@ export default function Prizes() {
                   <div className={`h-1 w-16 mx-auto rounded-full ${prize.featured ? "bg-amber-500" : "bg-slate-200"}`} />
                 </div>
 
-                <p className="text-slate-500 text-sm font-medium leading-relaxed max-w-[220px]">
-                  {prize.description}
-                </p>
-
                 {/* Decorative background glow on hover */}
                 <div className={`absolute inset-0 rounded-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none blur-3xl -z-10 ${prize.glow}`} />
               </motion.div>
