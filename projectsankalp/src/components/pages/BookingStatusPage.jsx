@@ -64,13 +64,6 @@ export default function BookingStatusPage({ slots, onBack, onDelete }) {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-20">
           <div>
-            <button
-              onClick={onBack}
-              className="flex items-center gap-2 text-slate-400 hover:text-slate-900 transition-colors mb-8 group"
-            >
-              <ChevronLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em]">Return to Hub</span>
-            </button>
             <h1 className="font-serif text-5xl md:text-7xl font-black tracking-tighter text-slate-900">Mission Manifest.</h1>
             <p className="text-slate-500 mt-4 text-lg font-medium max-w-xl italic">
               Real-time synchronization of all orbital docking bays across the three mission sectors.
@@ -117,9 +110,6 @@ export default function BookingStatusPage({ slots, onBack, onDelete }) {
             >
               <div className="flex items-center justify-between mb-10">
                 <div className="flex items-center gap-4">
-                  <div className={`p-4 rounded-2xl bg-slate-50 ${domain.color}`}>
-                    <domain.icon size={24} />
-                  </div>
                   <h3 className="text-xl font-black tracking-tight leading-tight max-w-[140px]">{domain.title}</h3>
                 </div>
                 <div className="text-right">

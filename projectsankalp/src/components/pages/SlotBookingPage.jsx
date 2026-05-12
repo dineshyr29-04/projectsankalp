@@ -13,7 +13,6 @@ import {
   ChevronLeft
 } from "lucide-react";
 import Container from "../core/Container";
-import Footer from "../layout/Footer";
 
 const DOMAINS = [
   {
