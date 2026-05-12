@@ -60,16 +60,19 @@ export default function Prizes() {
         <div className="flex flex-row justify-center items-end gap-2 md:gap-19 mx-auto">
           {artifactPrizes.map((prize, index) => (
             <div key={index} className={`relative flex flex-col items-center ${prize.yOffset} transition-transform duration-1000`}>
-              {/* Prize Rank - Tiny Editorial Style */}
+              {/* Prize Value & Rank - Top Group */}
               <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: prize.delay + 0.6 }}
-                className="absolute -top-8 md:-top-16 left-0 right-0 text-center pointer-events-none"
+                className="absolute -top-16 md:-top-24 left-0 right-0 text-center pointer-events-none"
               >
-                <span className="text-[8px] md:text-[10px] font-serif italic text-slate-400">
+                <span className="text-[8px] md:text-[10px] font-serif italic text-slate-400 block mb-1">
                   {prize.rank}
+                </span>
+                <span className="text-sm md:text-2xl font-serif font-black text-slate-900 block tracking-tight">
+                  {prize.amount}
                 </span>
               </motion.div>
 
