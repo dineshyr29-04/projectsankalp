@@ -105,55 +105,57 @@ export default function StagesPage({ onBack }) {
       </div>
 
       <AnimatePresence>
-        {active && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm h-full w-full z-[60]"
-          />
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
         {active ? (
-          <div className="fixed inset-0 grid place-items-center z-[100] p-4 overflow-y">
-            <motion.button
-              key={`button-${active.title}-${id}`}
-              layout
+          <div 
+            data-lenis-prevent
+            className="fixed inset-0 z-[100] overflow-y-auto flex flex-col items-center p-6 md:p-12 custom-scrollbar"
+          >
+            {/* Real Backdrop - clickable to close */}
+            <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex absolute top-6 right-6 items-center justify-center bg-white rounded-full h-10 w-10 shadow-xl border border-slate-200 z-[110] overflow-hidden"
+              onClick={() => setActive(null)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-md z-0"
+            />
+
+            {/* Close button - Fixed to top right of screen */}
+            <motion.button
+              key={`button-${active.title}-${id}`}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="fixed top-8 right-8 flex items-center justify-center bg-white rounded-full h-14 w-14 shadow-2xl border border-slate-200 z-[130] hover:scale-110 active:scale-95 transition-all text-slate-900"
               onClick={() => setActive(null)}
             >
-              <CloseIcon />
+              <X size={24} />
             </motion.button>
+
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
               transition={{ type: "spring", damping: 25, stiffness: 200, mass: 1 }}
-              className="w-full max-w-[900px] h-full md:h-fit md:max-h-[90vh] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden shadow-2xl border border-slate-100 z-[100] overflow-y-auto"
+              className="w-full max-w-[1100px] h-fit min-h-fit flex flex-col bg-white dark:bg-neutral-900 rounded-[40px] shadow-2xl border border-slate-100 z-10 relative mb-20 overflow-hidden"
             >
-              <motion.div layoutId={`image-${active.title}-${id}`} className="relative h-80 w-full flex-shrink-0 overflow-hidden">
+              <motion.div layoutId={`image-${active.title}-${id}`} className="relative h-[450px] w-full flex-shrink-0 overflow-hidden">
                 <motion.img
                   layoutId={`img-${active.title}-${id}`}
                   src={active.src}
                   alt={active.title}
                   className="w-full h-full object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-8 left-10">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                <div className="absolute bottom-12 left-12 right-12">
                    <motion.span 
                      initial={{ opacity: 0, y: 10 }}
                      animate={{ opacity: 1, y: 0 }}
-                     className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-400 mb-3 block"
+                     className="text-[12px] font-black uppercase tracking-[0.5em] text-emerald-400 mb-4 block"
                    >
                      Mission Sector
                    </motion.span>
                    <motion.h3 
                      layoutId={`title-${active.title}-${id}`} 
-                     className="text-4xl font-black text-white font-serif italic tracking-tight leading-none"
+                     className="text-5xl md:text-6xl font-black text-white font-serif italic tracking-tight leading-none"
                    >
                      {active.title}
                    </motion.h3>
