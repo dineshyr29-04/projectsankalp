@@ -117,14 +117,14 @@ export default function StagesPage({ onBack }) {
 
       <AnimatePresence>
         {active ? (
-          <div className="fixed inset-0 grid place-items-center z-[100] p-4">
+          <div className="fixed inset-0 grid place-items-center z-[100] p-4 overflow-y">
             <motion.button
               key={`button-${active.title}-${id}`}
               layout
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex absolute top-6 right-6 items-center justify-center bg-white rounded-full h-10 w-10 shadow-xl border border-slate-200 z-[110]"
+              className="flex absolute top-6 right-6 items-center justify-center bg-white rounded-full h-10 w-10 shadow-xl border border-slate-200 z-[110] overflow-hidden"
               onClick={() => setActive(null)}
             >
               <CloseIcon />
