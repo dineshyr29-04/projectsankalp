@@ -21,7 +21,7 @@ const STYLES = {
   },
   item: {
     container:
-      'rounded-full flex items-center justify-center absolute bg-white border border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm active:scale-90 transition-transform',
+      'rounded-full flex items-center justify-center absolute bg-white border border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm active:scale-90 transition-transform outline-none',
     label: 'text-[10px] font-black uppercase tracking-widest text-slate-900 absolute left-full ml-4 whitespace-nowrap bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-slate-100 transition-all shadow-sm pointer-events-none'
   }
 };
@@ -72,15 +72,19 @@ const MenuItem = ({ icon, label, href, index, totalItems, isOpen, onClick, isMob
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
-      <a 
-        href={href} 
-        onClick={(e) => onClick(e, href)}
+      <button 
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          onClick(e, href);
+        }}
         className={cn(STYLES.item.container, isMobile ? "w-16 h-16" : "w-12 h-12")}
       >
         <div className={isMobile ? "scale-150" : "scale-100"}>
           {icon}
         </div>
-      </a>
+      </button>
     </motion.div>
   );
 };
@@ -156,7 +160,11 @@ const MenuTrigger = ({
           isOpen && STYLES.trigger.active,
           isAnimating && "cursor-wait opacity-80"
         )}
-        onClick={handleToggle}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          handleToggle();
+        }}
       >
         <AnimatePresence mode="popLayout">
           {isOpen ? (
