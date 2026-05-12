@@ -195,7 +195,15 @@ export default function StagesPage({ onBack }) {
                 </div>
 
                 {/* RIGHT SIDE */}
-                <div className="flex-[1.2] min-w-0 md:flex-[1.4]">
+                <div className="flex-[1.2] min-w-0 md:flex-[1.4] relative">
+                  {/* Visual Separator - Vertical on Desktop, Horizontal on Mobile */}
+                  <div className={`
+                    absolute 
+                    -top-8 -left-12 bottom-0 w-px bg-slate-200 hidden md:block
+                    ${idx % 2 === 1 ? "left-auto -right-12" : ""}
+                  `} />
+                  <div className="h-px w-full bg-slate-100 border-t border-dashed border-slate-200 md:hidden mb-16" />
+
                   {/* section label */}
                   <div className="mb-10 flex items-center justify-between">
                     <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">
