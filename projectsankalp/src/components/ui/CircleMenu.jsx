@@ -8,7 +8,7 @@ import { cn } from "../../utils/helpers";
 
 const CONSTANTS = {
   itemSize: 48,
-  spacing: 64, // Spacing between horizontal items
+  spacing: 72, // Increased spacing for a "neaty" look
   openStagger: 0.05,
   closeStagger: 0.03
 };
@@ -16,19 +16,19 @@ const CONSTANTS = {
 const STYLES = {
   trigger: {
     container:
-      'rounded-full flex items-center bg-slate-900 text-white justify-center cursor-pointer outline-none ring-0 hover:brightness-125 transition-all duration-100 z-50 shadow-lg shadow-slate-900/20',
+      'rounded-full flex items-center bg-slate-900 text-white justify-center cursor-pointer outline-none ring-0 hover:brightness-125 transition-all duration-100 z-50 shadow-lg shadow-slate-900/20 active:scale-95',
     active: 'bg-emerald-600'
   },
   item: {
     container:
-      'rounded-full flex items-center justify-center absolute bg-white border border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm',
-    label: 'text-[10px] font-black uppercase tracking-widest text-slate-900 absolute top-full left-1/2 -translate-x-1/2 mt-3 whitespace-nowrap bg-white/80 backdrop-blur-sm px-2 py-1 rounded-md border border-slate-100 opacity-0 group-hover:opacity-100 transition-opacity'
+      'rounded-full flex items-center justify-center absolute bg-white border border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm active:scale-90 transition-transform',
+    label: 'text-[10px] font-black uppercase tracking-widest text-slate-900 absolute left-full ml-4 whitespace-nowrap bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-slate-100 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm pointer-events-none'
   }
 };
 
-// Modified to return horizontal position
+// Modified to return vertical position
 const pointOnLine = (i, n, spacing) => {
-  return { x: (i + 1) * spacing, y: 0 };
+  return { x: 0, y: (i + 1) * spacing };
 };
 
 const MenuItem = ({ icon, label, href, index, totalItems, isOpen, onClick }) => {
@@ -186,7 +186,7 @@ const CircleMenu = ({
       />
       <motion.div
         animate={animate}
-        className={cn('absolute left-0 flex items-center')}
+        className={cn('absolute inset-0 z-0 flex flex-col items-center justify-center')}
       >
         {items.map((item, index) => {
           return (

@@ -53,7 +53,7 @@ export default function Navbar({ onNavigate, currentView }) {
 
   return (
     <div className="fixed top-8 left-8 z-[100] flex flex-col gap-4 pointer-events-none">
-      {/* ── Minimalist Horizontal Dropdown Navbar ── */}
+      {/* ── Minimalist Vertical Dropdown Navbar ── */}
       <div className="pointer-events-auto">
         {!isLanding ? (
           <motion.button
@@ -72,15 +72,6 @@ export default function Navbar({ onNavigate, currentView }) {
           />
         )}
       </div>
-
-      {/* Symbol label */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.4 }}
-        className="ml-2 pointer-events-none"
-      >
-        <p className="text-[9px] font-black uppercase tracking-[0.5em] text-slate-900">Project Sankalp</p>
-      </motion.div>
     </div>
   );
 }

@@ -54,7 +54,7 @@ export default function Hero() {
         />
       </div>
       {/* Main Content - Centered with Navbar Offset */}
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 pt-28 pb-12">
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 pt-[-40px] pb-12">
         <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto flex flex-col items-center justify-center gap-8 md:gap-12">
           {/* Main Content Stack */}
           <motion.div
@@ -66,7 +66,7 @@ export default function Hero() {
             {/* AUDIT FIX: Clear primary date & prize pool info */}
 
             {/* Heading - Wide & Impactful */}
-            <div className="flex flex-col items-center w-full mt-[70px] md:mt-[0px]">
+            <div className="flex flex-col items-center w-full mt-[30px] md:mt-[0px]">
               <h1 className="mt-10 text-6xl italic font-light sm:text-8xl md:text-[90px] lg:text-[130px] sm:mt-[100px] font-serif font-black text-slate-900 leading-[0.8] tracking-[0.1em] uppercase">
                 PROJECT
               </h1>
