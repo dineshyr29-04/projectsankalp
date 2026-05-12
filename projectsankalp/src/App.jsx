@@ -68,8 +68,9 @@ function App() {
 
   // ── FIREBASE SYNC LOGIC ──
   useEffect(() => {
-    // Only attempt sync if a valid Project ID is provided
-    if (!db || db._databaseId?.projectId === "YOUR_PROJECT_ID") return;
+    // Only attempt sync if a valid Project ID is provided in .env
+    const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
+    if (!db || !projectId || projectId === "your_project_id") return;
 
     const q = query(collection(db, "bookings"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -99,7 +100,8 @@ function App() {
   const handleBookSlot = async (domainId, slotId, teamId) => {
     // 1. Update Firestore (Truth)
     try {
-      if (db && db._databaseId?.projectId !== "YOUR_PROJECT_ID") {
+      const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
+      if (db && projectId && projectId !== "your_project_id") {
         await addDoc(collection(db, "bookings"), {
           domainId,
           slotId,
