@@ -10,8 +10,7 @@ import {
   Zap, 
   Trophy, 
   HelpCircle,
-  ArrowLeft,
-  Clock
+  ArrowLeft
 } from "lucide-react";
 
 export default function Navbar({ onNavigate, currentView }) {
