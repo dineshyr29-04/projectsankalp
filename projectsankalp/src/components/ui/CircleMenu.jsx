@@ -16,13 +16,13 @@ const CONSTANTS = {
 const STYLES = {
   trigger: {
     container:
-      'rounded-full flex items-center bg-slate-900 text-white justify-center cursor-pointer outline-none ring-0 hover:brightness-125 transition-all duration-100 z-50 shadow-lg shadow-slate-900/20 active:scale-95',
+      'rounded-2xl flex items-center bg-slate-900 text-white justify-center cursor-pointer outline-none ring-0 hover:brightness-125 transition-all duration-100 z-50 shadow-lg shadow-slate-900/20 active:scale-95',
     active: 'bg-emerald-600'
   },
   item: {
     container:
-      'rounded-full flex items-center justify-center absolute bg-white border border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm active:scale-90 transition-transform outline-none',
-    label: 'text-[10px] font-black uppercase tracking-widest text-slate-900 absolute left-full ml-4 whitespace-nowrap bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-slate-100 transition-all shadow-sm pointer-events-none'
+      'rounded-2xl flex items-center justify-center absolute bg-white border border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm active:scale-90 transition-transform outline-none',
+    label: 'text-[10px] font-black uppercase tracking-widest text-slate-900 absolute left-full ml-4 whitespace-nowrap bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-2xl border border-slate-100 transition-all shadow-sm pointer-events-none'
   }
 };
 
@@ -33,7 +33,7 @@ const getPoint = (i, n, spacing, isMobile) => {
     // Offset the angle slightly to make it look more dynamic
     const totalItems = n;
     // Increased radius even further to accommodate the massive 64px mobile icons
-    const radius = spacing * 4.2; 
+    const radius = spacing * 3.5;
     // Standard 90-degree arc for a clean corner expansion
     const angle = (i / (totalItems - 1)) * (Math.PI / 2);
     return {
