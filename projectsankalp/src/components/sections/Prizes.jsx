@@ -107,11 +107,11 @@ export default function Prizes() {
 
               {/* 3D Hand Holder */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                initial={{ opacity: 0, scale: 0.8, y: 100 }}
                 whileInView={{ opacity: 1, scale: prize.scale, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{ delay: prize.delay, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                className="relative z-10 cursor-pointer"
+                className="relative z-10 cursor-pointer min-h-[300px] flex items-center justify-center"
               >
                 <div className="relative w-64 md:w-80 aspect-square flex items-center justify-center">
                   {/* Subtle Aura Glow */}
@@ -119,11 +119,10 @@ export default function Prizes() {
                   
                   {/* The Hand Image */}
                   <img 
-                    src="/metallic_prize_hands_1778607870736.png" 
+                    src="/metallic_prize_hands.png" 
                     alt={`${prize.material} Hand Holder`}
                     className={`w-full h-full object-contain filter drop-shadow-2xl transition-transform duration-700 group-hover:scale-105 group-hover:-rotate-2`}
                     style={{
-                      // Use a subtle tint based on material if needed, but the image should be good
                       mixBlendMode: "multiply"
                     }}
                   />
