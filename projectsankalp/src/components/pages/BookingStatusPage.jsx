@@ -39,6 +39,13 @@ const DOMAINS = [
 ];
 
 export default function BookingStatusPage({ slots, onBack }) {
+  const [time, setTime] = React.useState(new Date());
+
+  React.useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   // Calculate stats
   const totalSlots = 30;
   const bookedCount = Object.values(slots).flat().filter(s => s.teamId).length;
@@ -79,6 +86,15 @@ export default function BookingStatusPage({ slots, onBack }) {
               </div>
             </div>
             <div className="h-12 w-[1px] bg-slate-800" />
+            <div className="hidden sm:block">
+              <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">System Pulse</span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl font-mono font-bold tracking-tighter text-slate-200">
+                  {time.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                </span>
+              </div>
+            </div>
+            <div className="h-12 w-[1px] bg-slate-800 hidden sm:block" />
             <div>
               <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Allocated</span>
               <div className="flex items-baseline gap-2">

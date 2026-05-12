@@ -278,39 +278,67 @@ export default function SlotBookingPage({ onBack, slots, onBook }) {
             </motion.div>
           )}
 
-          {/* STEP 4: SUCCESS */}
           {step === 4 && (
             <motion.div
               key="step4"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="flex flex-col items-center text-center py-20"
+              className="max-w-md mx-auto text-center py-10"
             >
-              <div className="w-24 h-24 rounded-full bg-emerald-100 flex items-center justify-center mb-10 shadow-inner">
-                <CheckCircle2 className="text-emerald-600" size={56} />
-              </div>
-              <h1 className="font-serif text-5xl md:text-7xl font-black tracking-tighter mb-6">Mission Docked.</h1>
-              <p className="text-slate-500 max-w-md mb-12 text-lg font-medium leading-relaxed">
-                Team <span className="text-slate-900 font-black">{teamId}</span> has successfully reserved **Slot {selectedSlot.id}** in the **{selectedDomain.title}** sector.
-              </p>
-              
-              <div className="grid grid-cols-2 gap-4 w-full max-w-sm mb-12">
-                <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-                  <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Slot</span>
-                  <span className="text-2xl font-black text-slate-900">{selectedSlot.id}</span>
+              <div className="relative bg-white rounded-[40px] border border-slate-200 p-10 shadow-2xl overflow-hidden group">
+                {/* Digital Pass Aesthetic */}
+                <div className="absolute top-0 left-0 w-full h-2 bg-emerald-500" />
+                <div className="absolute -right-10 -top-10 w-40 h-40 bg-emerald-50 rounded-full blur-3xl opacity-60 group-hover:opacity-100 transition-opacity" />
+                
+                <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
+                  <CheckCircle2 size={40} className="text-emerald-600" />
                 </div>
-                <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-                  <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Status</span>
-                  <span className="text-xs font-black text-emerald-600 uppercase">Confirmed</span>
-                </div>
-              </div>
+                
+                <h2 className="font-serif text-3xl font-black tracking-tight text-slate-900 mb-2">Mission Accomplished.</h2>
+                <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest mb-10 italic opacity-80">Docking Bay #{selectedSlot?.id} Allocated</p>
 
-              <button
-                onClick={onBack}
-                className="inline-flex items-center gap-3 text-slate-900 px-8 py-4 rounded-xl border border-slate-200 font-black uppercase tracking-[0.3em] text-xs hover:bg-slate-50 transition-all"
-              >
-                Return to Hub
-              </button>
+                <div className="space-y-6 text-left border-t border-dashed border-slate-200 pt-8">
+                  <div className="flex justify-between items-end">
+                    <div>
+                      <span className="block text-[9px] font-black uppercase tracking-widest text-slate-400">Team Identity</span>
+                      <span className="text-xl font-black text-slate-900">{teamId}</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="block text-[9px] font-black uppercase tracking-widest text-slate-400">Mission Sector</span>
+                      <span className={`text-sm font-black uppercase tracking-wider ${selectedDomain?.color}`}>{selectedDomain?.title}</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-50 rounded-2xl p-6 flex items-center justify-between border border-slate-100">
+                    <div>
+                      <span className="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Pass Status</span>
+                      <span className="text-xs font-black text-emerald-600 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        VERIFIED & SECURE
+                      </span>
+                    </div>
+                    <div className="w-12 h-12 bg-white border border-slate-200 rounded-lg flex items-center justify-center">
+                      <ShieldCheck size={24} className="text-slate-300" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-10 pt-8 border-t border-slate-100 flex flex-col gap-3">
+                  <button 
+                    onClick={() => window.print()}
+                    className="w-full py-4 rounded-2xl border-2 border-slate-900 text-slate-900 font-black uppercase tracking-widest text-[10px] hover:bg-slate-50 transition-all active:scale-95"
+                  >
+                    Print Digital Pass
+                  </button>
+                  <button 
+                    onClick={onBack}
+                    className="w-full py-4 rounded-2xl bg-slate-900 text-white font-black uppercase tracking-widest text-[10px] hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-900/20"
+                  >
+                    Return to Hub
+                  </button>
+                </div>
+              </div>
+              <p className="mt-8 text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em] italic">Transaction ID: {Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
             </motion.div>
           )}
         </AnimatePresence>
