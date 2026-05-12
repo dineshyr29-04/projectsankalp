@@ -26,7 +26,7 @@ export default function Footer() {
               <div className="h-10 w-1 bg-emerald-500 rounded-full" />
               <div>
                 <h3 className="text-2xl font-serif font-black tracking-tight uppercase leading-none">
-                  Sankalp
+                  Project Sankalp
                 </h3>
                 <span className="text-[9px] font-black uppercase tracking-[0.4em] text-emerald-500/80">
                   Code4Change

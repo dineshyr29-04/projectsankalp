@@ -131,16 +131,18 @@ export default function StagesPage({ onBack }) {
             </motion.button>
 
             <motion.div
-              layoutId={`card-${active.title}-${id}`}
               ref={ref}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
               transition={{ 
-                duration: 0.6, 
+                duration: 0.5, 
                 ease: [0.22, 1, 0.36, 1] 
               }}
               style={{ willChange: "transform, opacity" }}
-              className="w-full max-w-[1100px] h-fit min-h-fit flex flex-col bg-white dark:bg-neutral-900 rounded-[40px] shadow-2xl border border-slate-100 z-10 relative mb-20 overflow-hidden"
+              className="w-full max-w-4xl h-fit min-h-fit flex flex-col bg-white dark:bg-neutral-900 rounded-[40px] shadow-2xl border border-slate-100 z-10 relative mb-20 overflow-hidden"
             >
-              <motion.div layoutId={`image-${active.title}-${id}`} className="relative h-[450px] w-full flex-shrink-0 overflow-hidden">
+              <motion.div layoutId={`image-${active.title}-${id}`} className="relative h-[350px] w-full flex-shrink-0 overflow-hidden">
                 <motion.img
                   layoutId={`img-${active.title}-${id}`}
                   src={active.src}
@@ -148,24 +150,24 @@ export default function StagesPage({ onBack }) {
                   className="w-full h-full object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                <div className="absolute bottom-12 left-12 right-12">
+                <div className="absolute bottom-10 left-10 right-10">
                    <motion.span 
                      initial={{ opacity: 0, y: 10 }}
                      animate={{ opacity: 1, y: 0 }}
-                     className="text-[12px] font-black uppercase tracking-[0.5em] text-emerald-400 mb-4 block"
+                     className="text-[11px] font-black uppercase tracking-[0.5em] text-emerald-400 mb-3 block"
                    >
                      Mission Sector
                    </motion.span>
                    <motion.h3 
                      layoutId={`title-${active.title}-${id}`} 
-                     className="text-5xl md:text-6xl font-black text-white font-serif italic tracking-tight leading-none"
+                     className="text-4xl md:text-5xl font-black text-white font-serif italic tracking-tight leading-none"
                    >
                      {active.title}
                    </motion.h3>
                 </div>
               </motion.div>
 
-              <div className="flex-1 overflow-y-auto p-10 custom-scrollbar">
+              <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
                 <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-12">
                   <div className="max-w-2xl">
                     <motion.p
