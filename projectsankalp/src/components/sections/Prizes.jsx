@@ -3,7 +3,7 @@ import { useRef } from "react";
 import Section from "../core/Section";
 import Container from "../core/Container";
 import { siteConfig } from "../../config/site";
-import { Trophy, Award, Medal } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export default function Prizes() {
   const containerRef = useRef(null);
@@ -13,75 +13,130 @@ export default function Prizes() {
   });
 
   const bgY = useTransform(scrollYProgress, [0, 1], [-100, 100]);
-  const icons = [Trophy, Award, Medal];
+  
+  // Reorder prizes for podium: 2nd, 1st, 3rd
+  const podiumPrizes = [
+    { ...siteConfig.prizes[1], color: "text-slate-400", bg: "bg-slate-50", border: "border-slate-200", glow: "shadow-slate-200/20" },
+    { ...siteConfig.prizes[0], color: "text-amber-500", bg: "bg-amber-50/50", border: "border-amber-200", glow: "shadow-amber-500/20", featured: true },
+    { ...siteConfig.prizes[2], color: "text-orange-700", bg: "bg-orange-50/50", border: "border-orange-200", glow: "shadow-orange-700/20" }
+  ];
 
   return (
-    <Section id="prizes" className="relative bg-slate-50/50 py-24 md:py-32 overflow-hidden" ref={containerRef}>
+    <Section id="prizes" className="relative bg-white py-32 md:py-48 overflow-hidden" ref={containerRef}>
+      {/* Background Decorative Elements */}
       <motion.div 
         style={{ y: bgY }}
-        className="absolute top-0 right-0 w-[800px] h-[800px] bg-white rounded-full blur-[150px] -mr-400 -mt-400 opacity-50"
+        className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-50/50 rounded-full blur-[150px] -mr-96 -mt-96 pointer-events-none"
       />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white rounded-full blur-[120px] -ml-300 -mb-300 opacity-50" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-50/30 rounded-full blur-[120px] -ml-72 -mb-72 pointer-events-none" />
 
-      <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto">
-        <div className="text-center mb-12 md:mb-16">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-12 h-[1px] bg-slate-100" />
-            <span className="text-[#2563EB] font-black uppercase tracking-[0.4em] text-[10px]">
-              Grand Rewards
+      <Container className="relative z-10 px-6 sm:px-14 lg:px-20 mx-auto">
+        <header className="text-center mb-24 md:mb-32">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center justify-center gap-4 mb-8"
+          >
+            <div className="w-12 h-px bg-slate-200" />
+            <span className="text-emerald-600 font-black uppercase tracking-[0.5em] text-[10px]">
+              Rewards of Innovation
             </span>
-            <div className="w-12 h-[1px] bg-slate-100" />
-          </div>
-          <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[1.1]">
-            Recognition & <br />
-            <span className="text-[#2563EB] font-bold italic mt-[16px]" >Prizes.</span>
-          </h2>
-          <p className="text-slate-600 max-w-2xl mx-auto font-medium border-t border-slate-50 pt-8 leading-relaxed">
-            Excellence deserves extraordinary rewards. Compete for a massive prize pool that fuels <strong>your next big step.</strong>
-          </p>
+            <div className="w-12 h-px bg-slate-200" />
+          </motion.div>
+
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-6xl md:text-8xl font-serif font-black text-slate-900 tracking-tighter leading-[0.9] mb-12"
+          >
+            Excellence recognized. <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic">
+              Impact rewarded.
+            </span>
+          </motion.h2>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mt-8 inline-flex items-center gap-3 bg-[#2563EB]/5 border border-[#2563EB]/10 rounded-full px-6 py-3 shadow-sm"
+            transition={{ delay: 0.3 }}
+            className="inline-flex items-center gap-4 bg-slate-900 text-white rounded-full px-8 py-4 shadow-2xl"
           >
-            <div className="w-2 h-2 bg-[#2563EB] rounded-full animate-pulse" />
-            <span className="text-[11px] md:text-[13px] font-black uppercase tracking-[0.1em] text-[#2563EB]">
+            <Sparkles className="text-amber-400 animate-pulse" size={18} />
+            <span className="text-[11px] md:text-[13px] font-black uppercase tracking-[0.2em]">
               ₹1,00,000+ Total Prize Pool
             </span>
           </motion.div>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-          {siteConfig.prizes.map((prize, index) => {
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-end max-w-6xl mx-auto">
+          {podiumPrizes.map((prize, index) => {
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className={`group relative p-10 rounded-2xl bg-white border flex flex-col items-center text-center transition-all duration-700 ease-out ${
-                  index === 0 
-                    ? "border-slate-900 shadow-xl shadow-slate-900/5 md:scale-105 z-10 hover:shadow-2xl hover:shadow-slate-900/[0.03] hover:-translate-y-1" 
-                    : "border-slate-300 transition-all duration-700 ease-out shadow-[0_4px_12px_rgba(0,0,0,0.05),inset_0_0_0_rgba(139,92,246,0)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.15),inset_0_0_20px_rgba(139,92,246,0.05)] hover:border-emerald-400 hover:-translate-y-2 hover:scale-[1.02]"
-                }`}
+                transition={{ 
+                  delay: index * 0.1, 
+                  duration: 0.8, 
+                  type: "spring", 
+                  damping: 20 
+                }}
+                className={`
+                  group relative flex flex-col items-center text-center p-12 md:p-16 rounded-[40px] 
+                  border bg-white transition-all duration-500
+                  ${prize.featured 
+                    ? "md:pb-24 md:pt-20 border-amber-200 shadow-2xl shadow-amber-500/10 z-20 md:-translate-y-8" 
+                    : "border-slate-100 shadow-xl shadow-slate-200/20 z-10"
+                  }
+                  hover:scale-[1.02] active:scale-[0.98]
+                `}
               >
-                <h3 className="text-xs font-black mb-4 text-slate-400 uppercase tracking-[0.3em]">
+                {/* Float animation for 1st Prize */}
+                {prize.featured && (
+                  <motion.div
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -top-6 bg-amber-500 text-white text-[10px] font-black uppercase tracking-[0.3em] px-6 py-2 rounded-full shadow-lg shadow-amber-500/30"
+                  >
+                    Grand Champion
+                  </motion.div>
+                )}
+
+                <h3 className="text-[12px] font-black mb-6 text-slate-400 uppercase tracking-[0.4em]">
                   {prize.rank}
                 </h3>
-                <span className="text-4xl md:text-5xl font-serif font-black text-slate-900 mb-6 block tracking-tight">
-                  {prize.amount}
-                </span>
-                <p className="text-sm text-slate-500 leading-relaxed font-medium">
+
+                <div className="space-y-6 mb-10">
+                  <span className="text-5xl md:text-6xl font-serif font-black text-slate-900 block tracking-tight leading-none">
+                    {prize.amount}
+                  </span>
+                  <div className={`h-1 w-16 mx-auto rounded-full ${prize.featured ? "bg-amber-500" : "bg-slate-200"}`} />
+                </div>
+
+                <p className="text-slate-500 text-sm font-medium leading-relaxed max-w-[220px]">
                   {prize.description}
                 </p>
+
+                {/* Decorative background glow on hover */}
+                <div className={`absolute inset-0 rounded-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none blur-3xl -z-10 ${prize.glow}`} />
               </motion.div>
             );
           })}
         </div>
+
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center mt-20 text-slate-400 text-[10px] font-black uppercase tracking-[0.5em]"
+        >
+          + Special Track Prizes & Goodies for all Finalists
+        </motion.p>
       </Container>
     </Section>
   );

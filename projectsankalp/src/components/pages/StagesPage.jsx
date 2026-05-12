@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   ArrowUpRight, 
   ChevronRight,
-  ShieldCheck,
   X
 } from "lucide-react";
 import Container from "../core/Container";
