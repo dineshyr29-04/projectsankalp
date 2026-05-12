@@ -102,17 +102,7 @@ export default function SlotBookingPage({ onBack, slots, onBook }) {
 
       <Container className="relative z-10 pt-32 mx-auto ">
         {/* Navigation */}
-        {step < 4 && (
-          <button
-            onClick={step === 1 ? onBack : () => setStep(step - 1)}
-            className="flex items-center gap-2 text-slate-400 hover:text-slate-900 transition-colors mb-12 group"
-          >
-            <ChevronLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em]">
-              {step === 1 ? "Cancel Allocation" : "Go Back"}
-            </span>
-          </button>
-        )}
+        
 
         <AnimatePresence mode="wait">
           {/* STEP 1: IDENTITY */}
