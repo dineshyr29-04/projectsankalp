@@ -16,11 +16,11 @@ import Sponsors from "./components/sections/Sponsors";
 import { ArrowUp } from "lucide-react";
 import TracksPage from "./components/pages/TracksPage";
 import Loader from "./components/ui/loader-11";
-import WinnersPage from "./components/pages/WinnersPage";
-import TeamPage from "./components/pages/TeamPage";
 import StagesPage from "./components/pages/StagesPage";
 import SlotBookingPage from "./components/pages/SlotBookingPage";
 import BookingStatusPage from "./components/pages/BookingStatusPage";
+import { db } from "./lib/firebase";
+import { collection, onSnapshot, addDoc, query } from "firebase/firestore";
 
 // AUDIT FIX: Simple, premium Back to Top button
 const BackToTop = () => {
@@ -51,9 +51,6 @@ const BackToTop = () => {
     </AnimatePresence>
   );
 };
-
-import { db } from "./lib/firebase";
-import { collection, onSnapshot, addDoc, query } from "firebase/firestore";
 
 function App() {
   const [currentView, setCurrentView] = useState("landing");
