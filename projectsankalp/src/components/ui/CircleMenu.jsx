@@ -2,15 +2,15 @@
 'use client';
 
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { cn } from "../../utils/helpers";
 
 const CONSTANTS = {
   itemSize: 48,
-  spacing: 72, // Increased spacing for a "neaty" look
-  openStagger: 0.05,
-  closeStagger: 0.03
+  spacing: 70, // Slightly tighter spacing for vertical list
+  openStagger: 0.1,
+  closeStagger: 0.1
 };
 
 const STYLES = {
@@ -22,17 +22,29 @@ const STYLES = {
   item: {
     container:
       'rounded-full flex items-center justify-center absolute bg-white border border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm active:scale-90 transition-transform',
-    label: 'text-[10px] font-black uppercase tracking-widest text-slate-900 absolute left-full ml-4 whitespace-nowrap bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-slate-100 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm pointer-events-none'
+    label: 'text-[10px] font-black uppercase tracking-widest text-slate-900 absolute left-full ml-4 whitespace-nowrap bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-slate-100 transition-all shadow-sm pointer-events-none'
   }
 };
 
-// Modified to return vertical position
-const pointOnLine = (i, n, spacing) => {
+// Calculate position based on layout
+const getPoint = (i, n, spacing, isMobile) => {
+  if (isMobile) {
+    // Creative Radial Arc for mobile (Quarter circle)
+    // Offset the angle slightly to make it look more dynamic
+    const totalItems = n;
+    const radius = spacing * 1.5;
+    const angle = (i / (totalItems - 1)) * (Math.PI / 2);
+    return {
+      x: radius * Math.cos(angle),
+      y: radius * Math.sin(angle)
+    };
+  }
+  // Standard vertical dropdown for desktop
   return { x: 0, y: (i + 1) * spacing };
 };
 
-const MenuItem = ({ icon, label, href, index, totalItems, isOpen, onClick }) => {
-  const { x, y } = pointOnLine(index, totalItems, CONSTANTS.spacing);
+const MenuItem = ({ icon, label, href, index, totalItems, isOpen, onClick, isMobile }) => {
+  const { x, y } = getPoint(index, totalItems, CONSTANTS.spacing, isMobile);
   const [hovering, setHovering] = useState(false);
 
   return (
@@ -161,7 +173,15 @@ const CircleMenu = ({
   onItemClick
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const animate = useAnimationControls();
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const closeAnimationCallback = async () => {
     await animate.start({
@@ -176,6 +196,19 @@ const CircleMenu = ({
 
   return (
     <div className="relative flex items-center">
+      {/* Backdrop blur for mobile when menu is open */}
+      <AnimatePresence>
+        {isOpen && isMobile && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsOpen(false)}
+            className="fixed inset-0 z-40 bg-white/40 backdrop-blur-md"
+          />
+        )}
+      </AnimatePresence>
+
       <MenuTrigger
         setIsOpen={setIsOpen}
         isOpen={isOpen}
@@ -186,7 +219,7 @@ const CircleMenu = ({
       />
       <motion.div
         animate={animate}
-        className={cn('absolute inset-0 z-0 flex flex-col items-center justify-center')}
+        className={cn('absolute top-0 left-0 flex items-center z-50')}
       >
         {items.map((item, index) => {
           return (
@@ -198,6 +231,7 @@ const CircleMenu = ({
               index={index}
               totalItems={items.length}
               isOpen={isOpen}
+              isMobile={isMobile}
               onClick={(e, href) => {
                 setIsOpen(false);
                 onItemClick?.(e, href);
