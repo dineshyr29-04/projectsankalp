@@ -207,20 +207,28 @@ const CircleMenu = ({
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    // Close menu on click outside
+    // Close menu on click outside and lock scroll on mobile
     const handleClickOutside = (e) => {
       if (isOpen && !e.target.closest('.circle-menu-container')) {
         setIsOpen(false);
         closeAnimationCallback();
       }
     };
+
+    if (isOpen && isMobile) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
     document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
       window.removeEventListener('resize', checkMobile);
       document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'unset';
     };
-  }, [isOpen]);
+  }, [isOpen, isMobile]);
 
   const closeAnimationCallback = async () => {
     await animate.start({
