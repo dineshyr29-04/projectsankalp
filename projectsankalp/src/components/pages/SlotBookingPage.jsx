@@ -51,6 +51,8 @@ export default function SlotBookingPage({ onBack, slots, onBook }) {
   const [selectedDomain, setSelectedDomain] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [isVerifying, setIsVerifying] = useState(false);
+  const [isBooking, setIsBooking] = useState(false);
+  const [error, setError] = useState("");
   
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -59,16 +61,36 @@ export default function SlotBookingPage({ onBack, slots, onBook }) {
   const handleVerify = () => {
     if (!teamId.trim()) return;
     setIsVerifying(true);
+    setError("");
+
+    // ── SECURITY CHECK: Already Registered? ──
+    const allBookings = Object.values(slots).flat();
+    const isAlreadyRegistered = allBookings.some(
+      s => s.teamId?.toLowerCase() === teamId.toLowerCase()
+    );
+
     setTimeout(() => {
       setIsVerifying(false);
-      setStep(2);
-    }, 1500);
+      if (isAlreadyRegistered) {
+        setError("This team is already registered in the system.");
+      } else {
+        setStep(2);
+      }
+    }, 1200);
   };
 
-  const handleBook = () => {
-    if (!selectedSlot) return;
-    onBook(selectedDomain.id, selectedSlot.id, teamId);
-    setStep(4);
+  const handleBook = async () => {
+    if (!selectedSlot || isBooking) return;
+    
+    setIsBooking(true);
+    try {
+      await onBook(selectedDomain.id, selectedSlot.id, teamId);
+      setStep(4);
+    } catch (err) {
+      setError("System error: Unable to lock docking bay. Please try again.");
+    } finally {
+      setIsBooking(false);
+    }
   };
 
   return (
@@ -117,6 +139,20 @@ export default function SlotBookingPage({ onBack, slots, onBook }) {
                   onChange={(e) => setTeamId(e.target.value)}
                   className="w-full bg-white border-2 border-slate-200 rounded-2xl px-6 py-5 text-center font-bold tracking-widest uppercase text-slate-900 focus:border-emerald-500 outline-none transition-all shadow-sm group-hover:shadow-md"
                 />
+                
+                <AnimatePresence>
+                  {error && (
+                    <motion.p 
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="text-red-500 text-[10px] font-black uppercase tracking-widest mt-4"
+                    >
+                      {error}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+
                 <button
                   onClick={handleVerify}
                   disabled={!teamId || isVerifying}
@@ -214,12 +250,28 @@ export default function SlotBookingPage({ onBack, slots, onBook }) {
               </div>
 
               <div className="mt-20 flex flex-col items-center border-t border-slate-200 pt-16">
+                <AnimatePresence>
+                  {error && (
+                    <motion.p 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-red-500 text-[10px] font-black uppercase tracking-widest mb-6"
+                    >
+                      {error}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+                
                 <button
                   onClick={handleBook}
-                  disabled={!selectedSlot}
+                  disabled={!selectedSlot || isBooking}
                   className="bg-slate-900 text-white px-12 py-5 rounded-2xl font-black uppercase tracking-[0.4em] flex items-center gap-4 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-2xl shadow-slate-900/20 active:scale-95"
                 >
-                  Finalize Allocation <CheckCircle2 size={20} />
+                  {isBooking ? (
+                    <Loader2 className="animate-spin" size={20} />
+                  ) : (
+                    <>Finalize Allocation <CheckCircle2 size={20} /></>
+                  )}
                 </button>
                 <p className="mt-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Note: Slot allocation is final and cannot be modified.</p>
               </div>

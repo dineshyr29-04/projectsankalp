@@ -52,6 +52,9 @@ const BackToTop = () => {
   );
 };
 
+import { db } from "./lib/firebase";
+import { collection, onSnapshot, addDoc, query } from "firebase/firestore";
+
 function App() {
   const [currentView, setCurrentView] = useState("landing");
   const [isLoading, setIsLoading] = useState(true);
@@ -63,13 +66,58 @@ function App() {
     climate: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
   });
 
-  const handleBookSlot = (domainId, slotId, teamId) => {
-    setGlobalSlots(prev => ({
-      ...prev,
-      [domainId]: prev[domainId].map(slot => 
-        slot.id === slotId ? { ...slot, teamId } : slot
-      )
-    }));
+  // ── FIREBASE SYNC LOGIC ──
+  useEffect(() => {
+    // Only attempt sync if a valid Project ID is provided
+    if (!db || db._databaseId?.projectId === "YOUR_PROJECT_ID") return;
+
+    const q = query(collection(db, "bookings"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const bookings = snapshot.docs.map(doc => doc.data());
+      
+      // Reset to empty first, then fill from DB
+      const freshSlots = {
+        women: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
+        health: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
+        climate: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
+      };
+
+      bookings.forEach(booking => {
+        const sector = freshSlots[booking.domainId];
+        if (sector) {
+          const slot = sector.find(s => s.id === booking.slotId);
+          if (slot) slot.teamId = booking.teamId;
+        }
+      });
+
+      setGlobalSlots(freshSlots);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleBookSlot = async (domainId, slotId, teamId) => {
+    // 1. Update Firestore (Truth)
+    try {
+      if (db && db._databaseId?.projectId !== "YOUR_PROJECT_ID") {
+        await addDoc(collection(db, "bookings"), {
+          domainId,
+          slotId,
+          teamId,
+          timestamp: new Date()
+        });
+      } else {
+        // Fallback for local testing
+        setGlobalSlots(prev => ({
+          ...prev,
+          [domainId]: prev[domainId].map(slot => 
+            slot.id === slotId ? { ...slot, teamId } : slot
+          )
+        }));
+      }
+    } catch (error) {
+      console.error("Booking failed:", error);
+    }
   };
 
   useEffect(() => {
