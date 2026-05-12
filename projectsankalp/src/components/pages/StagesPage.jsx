@@ -132,26 +132,39 @@ export default function StagesPage({ onBack }) {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[600px] h-fit max-h-[90vh] flex flex-col bg-white rounded-[40px] overflow-hidden shadow-2xl border border-slate-100"
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden shadow-2xl border border-slate-100"
             >
-              <motion.div layoutId={`image-${active.title}-${id}`} className="relative h-64 w-full">
-                <img src={active.src} alt={active.title} className="w-full h-full object-cover" />
+              <motion.div layoutId={`image-${active.title}-${id}`} className="relative h-80 w-full flex-shrink-0">
+                <img
+                  src={active.src}
+                  alt={active.title}
+                  className="w-full h-full object-cover object-top"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-8 left-8">
                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400 mb-2 block">Mission Sector</span>
-                   <h3 className="text-3xl font-black text-white font-serif italic tracking-tight">{active.title}</h3>
+                   <motion.h3 layoutId={`title-${active.title}-${id}`} className="text-3xl font-black text-white font-serif italic tracking-tight">{active.title}</motion.h3>
                 </div>
               </motion.div>
 
-              <div className="p-8 overflow-y-auto">
+              <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
                 <div className="flex justify-between items-start mb-8">
                   <div className="max-w-[70%]">
-                    <motion.p layoutId={`description-${active.description}-${id}`} className="text-slate-500 font-medium leading-relaxed">
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.1 }}
+                      className="text-slate-500 font-medium leading-relaxed"
+                    >
                       {active.description}
                     </motion.p>
                   </div>
+
                   <motion.button
-                    layoutId={`button-${active.title}-${id}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.1 }}
                     onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
                     className="px-6 py-3 text-[10px] rounded-full font-black uppercase tracking-widest bg-slate-900 text-white hover:bg-emerald-600 transition-colors shadow-lg"
                   >
@@ -159,19 +172,25 @@ export default function StagesPage({ onBack }) {
                   </motion.button>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-6 pb-10">
                    <div className="flex items-center gap-4">
                       <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 whitespace-nowrap">Problem Statements</span>
                       <div className="h-px w-full bg-slate-100" />
                    </div>
+                   
                    <div className="grid gap-4">
                       {active.problems.map((ps) => (
-                        <div key={ps.id} className="p-6 rounded-3xl bg-slate-50 border border-slate-100 group transition-all hover:border-emerald-200 hover:bg-emerald-50/30">
+                        <motion.div 
+                          key={ps.id} 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="p-6 rounded-3xl bg-slate-50 border border-slate-100 group transition-all hover:border-emerald-200 hover:bg-emerald-50/30"
+                        >
                           <div className="flex gap-4">
                             <span className={`text-[10px] font-black uppercase tracking-widest ${active.color} mt-1 opacity-40 group-hover:opacity-100`}>{ps.id}</span>
                             <p className="text-sm font-bold text-slate-700 group-hover:text-slate-900 leading-relaxed">{ps.text}</p>
                           </div>
-                        </div>
+                        </motion.div>
                       ))}
                    </div>
                 </div>
