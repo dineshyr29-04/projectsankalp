@@ -45,7 +45,7 @@ export default function StagesPage({ onBack }) {
       title: "Women's Entrepreneurship",
       color: "text-blue-600",
       accent: "bg-blue-600",
-      src: "https://images.unsplash.com/photo-1573163231162-717dfc3e0c1f?q=80&w=2069&auto=format&fit=crop",
+      src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
       description: "Championing gender equality by building tools for financial independence and micro-business scaling.",
       tags: ["Micro-Financing", "Skill Networks"],
       problems: [
@@ -132,30 +132,42 @@ export default function StagesPage({ onBack }) {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden shadow-2xl border border-slate-100"
+              transition={{ type: "spring", damping: 25, stiffness: 200, mass: 1 }}
+              className="w-full max-w-[900px] h-full md:h-fit md:max-h-[90vh] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden shadow-2xl border border-slate-100 z-[100] overflow-y-auto"
             >
-              <motion.div layoutId={`image-${active.title}-${id}`} className="relative h-80 w-full flex-shrink-0">
-                <img
+              <motion.div layoutId={`image-${active.title}-${id}`} className="relative h-80 w-full flex-shrink-0 overflow-hidden">
+                <motion.img
+                  layoutId={`img-${active.title}-${id}`}
                   src={active.src}
                   alt={active.title}
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-8 left-8">
-                   <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400 mb-2 block">Mission Sector</span>
-                   <motion.h3 layoutId={`title-${active.title}-${id}`} className="text-3xl font-black text-white font-serif italic tracking-tight">{active.title}</motion.h3>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-8 left-10">
+                   <motion.span 
+                     initial={{ opacity: 0, y: 10 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-400 mb-3 block"
+                   >
+                     Mission Sector
+                   </motion.span>
+                   <motion.h3 
+                     layoutId={`title-${active.title}-${id}`} 
+                     className="text-4xl font-black text-white font-serif italic tracking-tight leading-none"
+                   >
+                     {active.title}
+                   </motion.h3>
                 </div>
               </motion.div>
 
-              <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
-                <div className="flex justify-between items-start mb-8">
-                  <div className="max-w-[70%]">
+              <div className="flex-1 overflow-y-auto p-10 custom-scrollbar">
+                <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-12">
+                  <div className="max-w-2xl">
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.1 }}
-                      className="text-slate-500 font-medium leading-relaxed"
+                      className="text-slate-500 font-medium leading-relaxed text-lg"
                     >
                       {active.description}
                     </motion.p>
@@ -166,29 +178,36 @@ export default function StagesPage({ onBack }) {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.1 }}
                     onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
-                    className="px-6 py-3 text-[10px] rounded-full font-black uppercase tracking-widest bg-slate-900 text-white hover:bg-emerald-600 transition-colors shadow-lg"
+                    className="whitespace-nowrap px-8 py-4 text-[10px] rounded-full font-black uppercase tracking-widest bg-slate-900 text-white hover:bg-emerald-600 transition-colors shadow-lg shadow-slate-900/20"
                   >
                     Solve Now
                   </motion.button>
                 </div>
 
-                <div className="space-y-6 pb-10">
+                <div className="space-y-10 pb-10">
                    <div className="flex items-center gap-4">
                       <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 whitespace-nowrap">Problem Statements</span>
                       <div className="h-px w-full bg-slate-100" />
                    </div>
                    
-                   <div className="grid gap-4">
+                   <div className="grid md:grid-cols-3 gap-6">
                       {active.problems.map((ps) => (
                         <motion.div 
                           key={ps.id} 
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="p-6 rounded-3xl bg-slate-50 border border-slate-100 group transition-all hover:border-emerald-200 hover:bg-emerald-50/30"
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="p-8 rounded-[32px] bg-slate-50 border border-slate-100 group transition-all hover:border-emerald-200 hover:bg-emerald-50/30 hover:shadow-xl hover:shadow-emerald-500/5 flex flex-col justify-between"
                         >
-                          <div className="flex gap-4">
-                            <span className={`text-[10px] font-black uppercase tracking-widest ${active.color} mt-1 opacity-40 group-hover:opacity-100`}>{ps.id}</span>
-                            <p className="text-sm font-bold text-slate-700 group-hover:text-slate-900 leading-relaxed">{ps.text}</p>
+                          <div>
+                            <span className={`inline-block text-[9px] font-black uppercase tracking-widest ${active.color} mb-6 opacity-40 group-hover:opacity-100`}>
+                              Objective {ps.id.split(' ').pop()}
+                            </span>
+                            <p className="text-sm font-bold text-slate-700 group-hover:text-slate-900 leading-relaxed mb-8">
+                              {ps.text}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-widest text-slate-300 group-hover:text-emerald-500 transition-colors">
+                            Challenge Active <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                           </div>
                         </motion.div>
                       ))}
@@ -222,7 +241,12 @@ export default function StagesPage({ onBack }) {
               className="relative group cursor-pointer bg-white rounded-[40px] border border-slate-200 overflow-hidden transition-all hover:border-emerald-400/40 hover:shadow-2xl hover:shadow-emerald-500/10"
             >
               <motion.div layoutId={`image-${domain.title}-${id}`} className="h-64 overflow-hidden relative">
-                <img src={domain.src} alt={domain.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <motion.img
+                  layoutId={`img-${domain.title}-${id}`}
+                  src={domain.src}
+                  alt={domain.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
                 <div className={`absolute top-6 left-6 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm text-[9px] font-black uppercase tracking-widest ${domain.color} border border-white`}>
                   Sector {domain.id}
