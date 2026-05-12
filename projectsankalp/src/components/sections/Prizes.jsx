@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef } from "react";
 import Section from "../core/Section";
 import Container from "../core/Container";
@@ -14,126 +14,132 @@ export default function Prizes() {
 
   const bgY = useTransform(scrollYProgress, [0, 1], [-100, 100]);
   
-  // Reorder prizes for podium: 2nd, 1st, 3rd
   const podiumPrizes = [
-    { ...siteConfig.prizes[1], color: "text-slate-400", bg: "bg-slate-50", border: "border-slate-200", glow: "shadow-slate-200/20" },
-    { ...siteConfig.prizes[0], color: "text-amber-500", bg: "bg-amber-50/50", border: "border-amber-200", glow: "shadow-amber-500/20", featured: true },
-    { ...siteConfig.prizes[2], color: "text-orange-700", bg: "bg-orange-50/50", border: "border-orange-200", glow: "shadow-orange-700/20" }
+    { ...siteConfig.prizes[1], accent: "from-blue-500/20 to-transparent", glow: "shadow-blue-500/10", delay: 0.2, height: "h-64" },
+    { ...siteConfig.prizes[0], accent: "from-emerald-500/30 to-transparent", glow: "shadow-emerald-500/20", delay: 0, height: "h-80", featured: true },
+    { ...siteConfig.prizes[2], accent: "from-slate-500/20 to-transparent", glow: "shadow-slate-500/10", delay: 0.4, height: "h-56" }
   ];
 
   return (
-    <Section id="prizes" className="relative bg-white py-32 md:py-48 overflow-hidden" ref={containerRef}>
-      {/* Background Decorative Elements */}
+    <Section id="prizes" className="relative  py-32 md:py-48 overflow-hidden" ref={containerRef}>
+      {/* Deep Space Background */}
       <motion.div 
         style={{ y: bgY }}
-        className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-50/50 rounded-full blur-[150px] -mr-96 -mt-96 pointer-events-none"
+        className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-blue-900/10 rounded-full blur-[200px] -mr-96 -mt-96 pointer-events-none"
       />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-50/30 rounded-full blur-[120px] -ml-72 -mb-72 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/5 via-transparent to-transparent opacity-30" />
 
       <Container className="relative z-10 px-6 sm:px-14 lg:px-20 mx-auto">
-        <header className="text-center mb-24 md:mb-32">
+        <header className="text-center mb-32">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex items-center justify-center gap-4 mb-8"
+            className="flex items-center justify-center gap-4 mb-6"
           >
-            <div className="w-12 h-px bg-slate-200" />
-            <span className="text-emerald-600 font-black uppercase tracking-[0.5em] text-[10px]">
-              Rewards of Innovation
+            <div className="w-8 h-px bg-emerald-500/50" />
+            <span className="text-emerald-500 font-black uppercase tracking-[0.5em] text-[9px]">
+              Mission Rewards
             </span>
-            <div className="w-12 h-px bg-slate-200" />
+            <div className="w-8 h-px bg-emerald-500/50" />
           </motion.div>
 
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-6xl md:text-8xl font-serif font-black text-slate-900 tracking-tighter leading-[0.9] mb-12"
+            className="text-4xl md:text-7xl font-serif font-black text-white tracking-tighter leading-none"
           >
-            Excellence recognized. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic">
-              Impact rewarded.
+            Excellence Rewarded. <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 italic">
+              Future Funded.
             </span>
           </motion.h2>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="inline-flex items-center gap-4 bg-slate-900 text-white rounded-full px-8 py-4 shadow-2xl"
-          >
-            <Sparkles className="text-amber-400 animate-pulse" size={18} />
-            <span className="text-[11px] md:text-[13px] font-black uppercase tracking-[0.2em]">
-              ₹1,00,000+ Total Prize Pool
-            </span>
-          </motion.div>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-end max-w-6xl mx-auto">
-          {podiumPrizes.map((prize, index) => {
-            return (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-end max-w-5xl mx-auto">
+          {podiumPrizes.map((prize, index) => (
+            <div key={index} className="relative group perspective-1000">
+              {/* Floating Amount - Weightless Animation */}
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ 
-                  delay: index * 0.1, 
-                  duration: 0.8, 
-                  type: "spring", 
-                  damping: 20 
-                }}
-                className={`
-                  group relative flex flex-col items-center text-center p-12 md:p-16 rounded-[40px] 
-                  border bg-white transition-all duration-500
-                  ${prize.featured 
-                    ? "md:pb-24 md:pt-20 border-amber-200 shadow-2xl shadow-amber-500/10 z-20 md:-translate-y-8" 
-                    : "border-slate-100 shadow-xl shadow-slate-200/20 z-10"
+                  delay: prize.delay + 0.5,
+                  duration: 1,
+                  y: {
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
                   }
-                  hover:scale-[1.02] active:scale-[0.98]
-                `}
+                }}
+                animate={{ y: [0, -15, 0] }}
+                className="absolute -top-24 left-0 right-0 text-center z-30"
               >
-                {/* Float animation for 1st Prize */}
-                {prize.featured && (
-                  <motion.div
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute -top-6 bg-amber-500 text-white text-[10px] font-black uppercase tracking-[0.3em] px-6 py-2 rounded-full shadow-lg shadow-amber-500/30"
-                  >
-                    Grand Champion
-                  </motion.div>
-                )}
-
-                <h3 className="text-[12px] font-black mb-6 text-slate-400 uppercase tracking-[0.4em]">
+                <span className="text-4xl md:text-6xl font-serif font-black text-white block tracking-tighter drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                  {prize.amount}
+                </span>
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-400/60 mt-2 block">
                   {prize.rank}
-                </h3>
+                </span>
+              </motion.div>
 
-                <div className="space-y-6 mb-10">
-                  <span className="text-5xl md:text-6xl font-serif font-black text-slate-900 block tracking-tight leading-none">
-                    {prize.amount}
-                  </span>
-                  <div className={`h-1 w-16 mx-auto rounded-full ${prize.featured ? "bg-amber-500" : "bg-slate-200"}`} />
+              {/* Kinetic Grant Pillar */}
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                whileInView={{ height: "auto", opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: prize.delay, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                className="relative"
+              >
+                <div className={`relative ${prize.height} w-full bg-slate-900/50 backdrop-blur-xl border-x border-t border-white/10 rounded-t-[40px] overflow-hidden group-hover:border-emerald-500/50 transition-colors duration-700`}>
+                   {/* Internal Energy Beam */}
+                   <div className={`absolute inset-0 bg-gradient-to-t ${prize.accent} opacity-50 group-hover:opacity-80 transition-opacity duration-700`} />
+                   
+                   {/* Laser Scan Line */}
+                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent opacity-0 group-hover:animate-scan" />
+                   
+                   {/* Base Light */}
+                   <div className={`absolute bottom-0 left-0 right-0 h-1 bg-white/20 blur-sm`} />
                 </div>
 
-                {/* Decorative background glow on hover */}
-                <div className={`absolute inset-0 rounded-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none blur-3xl -z-10 ${prize.glow}`} />
+                {/* Pillar Base */}
+                <div className="h-4 bg-slate-950 rounded-b-xl border-x border-b border-white/5 shadow-2xl" />
+                
+                {/* Visual Glow */}
+                <div className={`absolute -inset-10 bg-emerald-500/5 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -z-10`} />
               </motion.div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
-        <motion.p 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mt-20 text-slate-400 text-[10px] font-black uppercase tracking-[0.5em]"
-        >
-          + Special Track Prizes & Goodies for all Finalists
-        </motion.p>
+        <div className="mt-32 flex justify-center">
+           <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-full flex items-center gap-4"
+          >
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50">
+              ₹1,00,000+ Distributed in Research Grants
+            </span>
+          </motion.div>
+        </div>
       </Container>
+      
+      <style>{`
+        @keyframes scan {
+          0% { transform: translateY(0); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateY(300px); opacity: 0; }
+        }
+        .animate-scan {
+          animation: scan 3s linear infinite;
+        }
+      `}</style>
     </Section>
   );
 }
