@@ -5,4 +5,5 @@ export const navigation = [
   { name: "Tracks", href: "#tracks" },
   { name: "Prizes", href: "#prizes" },
   { name: "FAQ", href: "#faq" },
+  { name: "Booking", href: "/booking" },
 ];

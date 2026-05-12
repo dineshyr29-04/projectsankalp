@@ -19,6 +19,7 @@ import Loader from "./components/ui/loader-11";
 import WinnersPage from "./components/pages/WinnersPage";
 import TeamPage from "./components/pages/TeamPage";
 import StagesPage from "./components/pages/StagesPage";
+import SlotBookingPage from "./components/pages/SlotBookingPage";
 
 // AUDIT FIX: Simple, premium Back to Top button
 const BackToTop = () => {
@@ -75,6 +76,11 @@ function App() {
     // Check for stages slug (hidden)
     if (window.location.pathname === "/stages") {
       setCurrentView("stages");
+    }
+
+    // Check for booking slug
+    if (window.location.pathname === "/booking") {
+      setCurrentView("booking");
     }
 
     return () => clearTimeout(timer);
@@ -206,6 +212,18 @@ function App() {
                     transition={{ duration: 0.5 }}
                   >
                     <StagesPage onBack={() => setCurrentView("landing")} />
+                  </motion.div>
+                )}
+
+                {currentView === "booking" && (
+                  <motion.div
+                    key="booking"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <SlotBookingPage onBack={() => setCurrentView("landing")} />
                   </motion.div>
                 )}
               </AnimatePresence>
