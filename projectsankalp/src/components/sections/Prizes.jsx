@@ -17,30 +17,30 @@ export default function Prizes() {
     { 
       ...siteConfig.prizes[1], 
       material: "Silver", 
-      image: "/hand-silver.png",
+      image: "/hand-silver-v.png",
       accent: "from-slate-200/50 to-transparent", 
-      glow: "shadow-slate-200/20", 
       delay: 0.2, 
-      scale: 1 
+      scale: 1.1,
+      yOffset: "md:translate-y-24"
     },
     { 
       ...siteConfig.prizes[0], 
       material: "Gold", 
-      image: "/hand-gold.png",
+      image: "/hand-gold-v.png",
       accent: "from-amber-200/50 to-transparent", 
-      glow: "shadow-amber-200/40", 
       delay: 0, 
-      scale: 1.2,
+      scale: 1.35,
+      yOffset: "md:translate-y-0",
       featured: true 
     },
     { 
       ...siteConfig.prizes[2], 
       material: "Bronze", 
-      image: "/hand-bronze.png",
+      image: "/hand-bronze-v.png",
       accent: "from-orange-200/40 to-transparent", 
-      glow: "shadow-orange-200/20", 
       delay: 0.4, 
-      scale: 0.9 
+      scale: 0.95,
+      yOffset: "md:translate-y-40"
     }
   ];
 
@@ -79,7 +79,7 @@ export default function Prizes() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-24 md:gap-12 items-center max-w-6xl mx-auto">
           {podiumPrizes.map((prize, index) => (
-            <div key={index} className="relative group flex flex-col items-center">
+            <div key={index} className={`relative group flex flex-col items-center transition-transform duration-1000 ${prize.yOffset}`}>
               {/* Floating Amount Above Palm */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
