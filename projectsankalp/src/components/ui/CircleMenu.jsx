@@ -32,8 +32,9 @@ const getPoint = (i, n, spacing, isMobile) => {
     // Creative Radial Arc for mobile (Quarter circle)
     // Offset the angle slightly to make it look more dynamic
     const totalItems = n;
-    const radius = spacing * 1.5;
-    const angle = (i / (totalItems - 1)) * (Math.PI / 2);
+    const radius = spacing * 2.0; // Increased for a "Big Arch" feel
+    // Distribute items across a larger arc (100 degrees instead of 90)
+    const angle = (i / (totalItems - 1)) * (Math.PI / 1.8);
     return {
       x: radius * Math.cos(angle),
       y: radius * Math.sin(angle)
@@ -185,8 +186,21 @@ const CircleMenu = ({
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+
+    // Close menu on click outside
+    const handleClickOutside = (e) => {
+      if (isOpen && !e.target.closest('.circle-menu-container')) {
+        setIsOpen(false);
+        closeAnimationCallback();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   const closeAnimationCallback = async () => {
     await animate.start({
@@ -200,7 +214,7 @@ const CircleMenu = ({
   };
 
   return (
-    <div className="relative flex items-center">
+    <div className="relative flex items-center circle-menu-container">
       {/* Backdrop blur for mobile when menu is open */}
       <AnimatePresence>
         {isOpen && isMobile && (
@@ -239,6 +253,7 @@ const CircleMenu = ({
               isMobile={isMobile}
               onClick={(e, href) => {
                 setIsOpen(false);
+                closeAnimationCallback();
                 onItemClick?.(e, href);
               }}
             />
