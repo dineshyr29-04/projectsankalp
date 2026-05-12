@@ -56,6 +56,37 @@ function App() {
   const [currentView, setCurrentView] = useState("landing");
   const [isLoading, setIsLoading] = useState(true);
 
+  // ── ROUTING LOGIC ──
+  const navigate = (view) => {
+    const slug = view === "landing" ? "/" : `/${view}`;
+    window.history.pushState({ view }, "", slug);
+    setCurrentView(view);
+    window.scrollTo(0, 0);
+  };
+
+  useEffect(() => {
+    // Handle initial load slug
+    const path = window.location.pathname.slice(1);
+    const validViews = ["landing", "tracks", "winners", "team", "stages", "booking", "status"];
+    if (validViews.includes(path)) {
+      setCurrentView(path);
+    } else if (path === "") {
+      setCurrentView("landing");
+    }
+
+    // Handle browser back/forward buttons
+    const handlePopState = (e) => {
+      if (e.state && e.state.view) {
+        setCurrentView(e.state.view);
+      } else {
+        setCurrentView("landing");
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
   // Global Booking State
   const [globalSlots, setGlobalSlots] = useState({
     women: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
@@ -256,18 +287,17 @@ function App() {
         ) : (
           <motion.div
             key="app"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.45, ease: "easeOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex flex-col min-h-screen"
           >
             <Navbar
               currentView={currentView}
-              onNavigate={(view) => setCurrentView(view)}
+              onNavigate={navigate}
             />
             <BackToTop />
 
-            <main>
+            <main className="flex-grow">
               <AnimatePresence mode="wait">
                 {currentView === "landing" && (
                   <motion.div
@@ -277,11 +307,11 @@ function App() {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <Hero />
+                    <Hero onBookingClick={() => navigate("booking")} />
                     <About />
                     <Process />
                     <EventDetails />
-                    <Tracks onKnowMore={() => setCurrentView("tracks-page")} />
+                    <Tracks onKnowMore={() => navigate("tracks-page")} />
                     <Prizes />
                     <Sponsors />
                     <FAQ />
@@ -297,7 +327,7 @@ function App() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <TracksPage onBack={() => setCurrentView("landing")} />
+                    <TracksPage onBack={() => navigate("landing")} />
                   </motion.div>
                 )}
 
@@ -333,22 +363,22 @@ function App() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <StagesPage onBack={() => setCurrentView("landing")} />
+                    <StagesPage onBack={() => navigate("landing")} />
                   </motion.div>
                 )}
 
                 {currentView === "booking" && (
                   <motion.div
                     key="booking"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
+                    initial={{ opacity: 0, scale: 1.1 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
                   >
                     <SlotBookingPage 
                       slots={globalSlots}
                       onBook={handleBookSlot}
-                      onBack={() => setCurrentView("landing")} 
+                      onBack={() => navigate("landing")} 
                     />
                   </motion.div>
                 )}
@@ -356,14 +386,14 @@ function App() {
                 {currentView === "status" && (
                   <motion.div
                     key="status"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -50 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
                   >
                     <BookingStatusPage 
                       slots={globalSlots}
-                      onBack={() => setCurrentView("landing")} 
+                      onBack={() => navigate("landing")} 
                       onDelete={handleDeleteBooking}
                     />
                   </motion.div>

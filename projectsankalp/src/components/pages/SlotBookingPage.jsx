@@ -101,8 +101,18 @@ export default function SlotBookingPage({ onBack, slots, onBook }) {
       </div>
 
       <Container className="relative z-10 pt-32 mx-auto ">
-        {/* Navigation */}
-        
+        {/* Navigation - High End Floating Back Button */}
+        <motion.button
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          onClick={step === 1 ? onBack : () => setStep(1)}
+          className="fixed top-8 left-8 z-50 flex items-center gap-3 bg-white/80 backdrop-blur-md border border-slate-200 px-6 py-3 rounded-full shadow-lg hover:bg-slate-900 hover:text-white transition-all group active:scale-95"
+        >
+          <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+          <span className="text-[10px] font-black uppercase tracking-[0.2em]">
+            {step === 1 ? "Exit Terminal" : "Reset Mission"}
+          </span>
+        </motion.button>
 
         <AnimatePresence mode="wait">
           {/* STEP 1: IDENTITY */}
@@ -123,9 +133,14 @@ export default function SlotBookingPage({ onBack, slots, onBook }) {
               <div className="relative w-full max-w-sm group">
                 <input
                   type="text"
-                  placeholder="Enter Team ID (e.g., PS-2026-001)"
+                  maxLength={20}
+                  placeholder="Enter Team ID"
                   value={teamId}
-                  onChange={(e) => setTeamId(e.target.value)}
+                  onChange={(e) => {
+                    // SECURE: Sanitize input to prevent injection
+                    const sanitized = e.target.value.replace(/[^a-zA-Z0-9-]/g, '').toUpperCase();
+                    setTeamId(sanitized);
+                  }}
                   className="w-full bg-white border-2 border-slate-200 rounded-2xl px-6 py-5 text-center font-bold tracking-widest uppercase text-slate-900 focus:border-emerald-500 outline-none transition-all shadow-sm group-hover:shadow-md"
                 />
                 

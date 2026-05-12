@@ -61,6 +61,17 @@ export default function BookingStatusPage({ slots, onBack, onDelete }) {
       </div>
 
       <Container className="relative z-10 pt-32 px-6 mx-auto max-w-7xl">
+        {/* Navigation - High End Floating Back Button */}
+        <motion.button
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          onClick={onBack}
+          className="fixed top-8 left-8 z-50 flex items-center gap-3 bg-white/80 backdrop-blur-md border border-slate-200 px-6 py-3 rounded-full shadow-lg hover:bg-slate-900 hover:text-white transition-all group active:scale-95"
+        >
+          <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+          <span className="text-[10px] font-black uppercase tracking-[0.2em]">Exit Manifest</span>
+        </motion.button>
+
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-20">
           <div>
