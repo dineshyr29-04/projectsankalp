@@ -1,6 +1,18 @@
 
+import { motion } from "framer-motion";
+import { ArrowLeft, ArrowUpRight, Sparkles } from "lucide-react";
 import Container from "../core/Container";
 import { useEffect } from "react";
+import Footer from "../layout/Footer";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+  }),
+};
 
 export default function StagesPage({ onBack }) {
   useEffect(() => {
@@ -14,6 +26,7 @@ export default function StagesPage({ onBack }) {
       title: "Women's Entrepreneurship",
       color: "text-blue-600",
       accent: "bg-blue-600",
+      accentLight: "bg-blue-50/50",
       borderColor: "border-blue-100",
       description: "Championing gender equality by building tools for financial independence and micro-business scaling. We aim to bridge the credit gap and provide digital ecosystems for growth.",
       tags: ["Micro-Financing", "Skill Networks", "Leadership Tools"],
@@ -28,6 +41,7 @@ export default function StagesPage({ onBack }) {
       title: "Health & Sanitation",
       color: "text-emerald-600",
       accent: "bg-emerald-600",
+      accentLight: "bg-emerald-50/50",
       borderColor: "border-emerald-100",
       description: "Developing innovative systems for preventive healthcare, clean water access, and waste management. Focus on tech that solves basic human needs at scale.",
       tags: ["Telemedicine", "Waste Optimization", "Clean Water"],
@@ -42,6 +56,7 @@ export default function StagesPage({ onBack }) {
       title: "Climate Action",
       color: "text-teal-600",
       accent: "bg-teal-600",
+      accentLight: "bg-teal-50/50",
       borderColor: "border-teal-100",
       description: "Harnessing technology to combat climate change and promote green energy transitions. Building a circular economy and tracking environmental impact.",
       tags: ["Renewable Energy", "Circular Economy", "Carbon Tracking"],
@@ -54,213 +69,244 @@ export default function StagesPage({ onBack }) {
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-50 text-zinc-900 font-sans selection:bg-zinc-200 selection:text-zinc-900 pb-40">
-      <Container className="relative pt-32 md:pt-48 px-6 sm:px-14 lg:px-2 mx-auto ">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900">
+      {/* ── Background Atmosphere ── */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], opacity: [0.03, 0.06, 0.03] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-40 -left-40 w-[800px] h-[800px] bg-emerald-500/10 blur-[160px] rounded-full"
+        />
+        <motion.div
+          animate={{ scale: [1.1, 1, 1.1], opacity: [0.02, 0.05, 0.02] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute -bottom-40 -right-40 w-[800px] h-[800px] bg-blue-500/10 blur-[160px] rounded-full"
+        />
+        {/* Subtle SVG Grain */}
+        <div
+          className="absolute inset-0 opacity-[0.015] mix-blend-overlay"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          }}
+        />
+      </div>
+
+      <Container className="relative z-10 pt-32 md:pt-48 px-6 sm:px-14 lg:px-2 mx-auto ">
         {/* Navigation */}
-        <button
+        <motion.button
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
           onClick={onBack}
-          className="flex items-center gap-2 text-zinc-400 hover:text-zinc-700 transition-colors mb-24 text-sm font-medium"
+          className="flex items-center gap-3 text-slate-400 hover:text-slate-900 transition-colors group mb-20"
         >
-          <span aria-hidden className="text-base">←</span>
-          Back to Hub
-        </button>
+          <div className="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center bg-white/50 backdrop-blur-sm group-hover:border-slate-300 group-hover:bg-slate-50 transition-all">
+            <ArrowLeft size={16} />
+          </div>
+          <span className="text-[11px] font-black uppercase tracking-[0.4em]">
+            Back to Hub
+          </span>
+        </motion.button>
 
         {/* Hero */}
-        <header className="mb-28">
-          <div className="mb-6">
-            <span className="block text-xs font-semibold text-zinc-500 tracking-tight mb-2">Mission Objectives</span>
-            <h1 className="font-serif text-4xl md:text-6xl font-extrabold tracking-tight text-zinc-900 mb-4 leading-tight">
-              Global Challenges
+        <header className="mb-28 max-w-4xl">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={1}
+            className="mb-8"
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-10 h-[1px] bg-emerald-500" />
+              <span className="text-emerald-600 font-black uppercase tracking-[0.5em] text-[10px]">
+                Mission Objectives
+              </span>
+            </div>
+            <h1 className="font-serif text-6xl md:text-[88px] font-black tracking-tight text-slate-900 mb-8 leading-[0.9]">
+              Global <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-teal-600 to-emerald-600 italic">
+                Challenges.
+              </span>
             </h1>
-            <p className="text-base md:text-lg text-zinc-600 max-w-2xl">
+            <p className="text-lg md:text-xl text-slate-500 max-w-2xl font-medium leading-relaxed border-l-2 border-slate-200 pl-6">
               We’ve identified three critical domains where technology can create the most profound impact. Choose your mission and solve the problem statements listed below.
             </p>
-          </div>
+          </motion.div>
         </header>
 
         {/* Domain Challenges */}
-          <main className="space-y-24 sm:space-y-32 md:space-y-40">
-    {domains.map((domain, idx) => (
-      <section
-        key={domain.id}
-        className={`
-          relative overflow-hidden rounded-2xl
-          border border-zinc-200/80 bg-white
-          px-6 py-12
-          sm:px-8 sm:py-16
-          md:px-16 md:py-20
-          lg:px-24 lg:py-28
-          xl:px-28 xl:py-32
-          transition-colors duration-300
-          hover:border-zinc-300
-          ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}
-        `}
-        style={{
-          boxShadow: "0 1px 2px rgba(0,0,0,0.02)",
-        }}
-      >
-        {/* subtle top accent */}
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-200 to-transparent" />
+        <main className="space-y-24 sm:space-y-32 md:space-y-40">
+          {domains.map((domain, idx) => (
+            <motion.section
+              key={domain.id}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              custom={idx}
+              className={`
+                relative overflow-hidden rounded-[32px]
+                border border-slate-200 bg-white/70 backdrop-blur-sm
+                px-6 py-12
+                sm:px-8 sm:py-16
+                md:px-16 md:py-20
+                lg:px-24 lg:py-28
+                xl:px-28 xl:py-32
+                transition-all duration-500
+                hover:border-slate-300 hover:shadow-2xl hover:shadow-slate-200/50
+              `}
+            >
+              {/* Top accent line */}
+              <div className={`absolute inset-x-0 top-0 h-1 ${domain.accent} opacity-20`} />
+              <div className={`absolute top-0 left-0 w-1/4 h-1 ${domain.accent}`} />
 
-        <div
-          className={`
-          flex flex-col gap-16
-          sm:gap-20
-          md:gap-24
-          lg:gap-28
-          xl:gap-36
-          md:flex-row
-          ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}
-        `}
-      >
-        {/* LEFT SIDE */}
-        <div className="flex-1 min-w-0">
-          
-          {/* meta */}
-          <div className="mb-8 sm:mb-10 md:mb-12 lg:mb-14 flex items-center gap-4 sm:gap-5">
-            <span className="text-xs sm:text-[11px] font-medium tracking-wide text-zinc-400">
-              Mission {domain.id}
-            </span>
-
-            <span className="h-[3px] w-[3px] rounded-full bg-zinc-300" />
-
-            <span className="text-xs sm:text-[11px] text-zinc-400 line-clamp-1">
-              {domain.tags.join(" · ")}
-            </span>
-          </div>
-
-          {/* title */}
-          <h2 className="
-            max-w-[11ch]
-            sm:max-w-[12ch]
-            md:max-w-[10ch]
-            text-3xl
-            sm:text-4xl
-            md:text-5xl
-            lg:text-6xl
-            leading-tight
-            sm:leading-[1]
-            md:leading-[0.95]
-            tracking-[-0.02em]
-            sm:tracking-[-0.035em]
-            md:tracking-[-0.045em]
-            text-zinc-950
-            font-semibold
-          ">
-            {domain.title}
-          </h2>
-
-          {/* description */}
-          <p className="
-            mt-8
-            sm:mt-10
-            md:mt-12
-            max-w-[32ch]
-            sm:max-w-[36ch]
-            md:max-w-[34ch]
-            text-base
-            sm:text-[17px]
-            md:text-[18px]
-            leading-7
-            sm:leading-8
-            text-zinc-600
-          ">
-            {domain.description}
-          </p>
-        </div>
-
-        {/* RIGHT SIDE */}
-        <div className="flex-[1.2] min-w-0 md:flex-[1.4]">
-          
-          {/* section label */}
-          <div className="mb-8 sm:mb-10 md:mb-12 lg:mb-14 flex items-center justify-between">
-            <span className="text-xs sm:text-[11px] font-medium tracking-wide text-zinc-400">
-              Problem Statements
-            </span>
-
-            <span className="text-xs sm:text-[11px] text-zinc-300">
-              {domain.problems.length} items
-            </span>
-          </div>
-
-          {/* problems */}
-          <ul className="space-y-0">
-            {domain.problems.map((ps, i) => (
-              <li
-                key={ps.id}
-                className="
-                  group
-                  flex items-start gap-4
-                  sm:gap-6
-                  md:gap-8
-                  border-b border-zinc-100
-                  py-6
-                  sm:py-8
-                  md:py-10
-                  last:border-b-0
-                  last:pb-0
-                "
-              >
-                {/* id */}
-                <span className="
-                  min-w-[44px]
-                  sm:min-w-[48px]
-                  md:min-w-[56px]
-                  pt-1
-                  font-mono
-                  text-[10px]
-                  sm:text-[11px]
-                  tracking-wide
-                  text-zinc-400
-                  flex-shrink-0
-                ">
-                  {ps.id}
-                </span>
-
-                {/* content */}
+              <div className={`
+                flex flex-col gap-16
+                sm:gap-20
+                md:gap-24
+                lg:gap-28
+                xl:gap-36
+                md:flex-row
+                ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}
+              `}>
+                {/* LEFT SIDE */}
                 <div className="flex-1 min-w-0">
-                  <p className="
-                    max-w-[44ch]
-                    text-base
-                    sm:text-[17px]
-                    md:text-[18px]
-                    leading-7
-                    sm:leading-8
-                    text-zinc-800
-                    transition-colors duration-200
-                    group-hover:text-zinc-950
+                  {/* meta */}
+                  <div className="mb-10 flex items-center gap-4">
+                    <div className={`px-3 py-1 rounded-lg ${domain.accentLight} border ${domain.borderColor} ${domain.color} text-[10px] font-black uppercase tracking-widest`}>
+                      Mission {domain.id}
+                    </div>
+                    <span className="h-px w-8 bg-slate-200" />
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest line-clamp-1">
+                      {domain.tags.join(" · ")}
+                    </span>
+                  </div>
+
+                  {/* title */}
+                  <h2 className="
+                    text-4xl
+                    sm:text-5xl
+                    md:text-6xl
+                    font-serif
+                    font-black
+                    leading-[0.95]
+                    tracking-tight
+                    text-slate-900
                   ">
-                    {ps.text}
+                    {domain.title}
+                  </h2>
+
+                  {/* description */}
+                  <p className="
+                    mt-10
+                    text-base
+                    sm:text-lg
+                    leading-relaxed
+                    text-slate-500
+                    font-medium
+                    max-w-md
+                  ">
+                    {domain.description}
                   </p>
                 </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
-  ))}
-</main>
+
+                {/* RIGHT SIDE */}
+                <div className="flex-[1.2] min-w-0 md:flex-[1.4]">
+                  {/* section label */}
+                  <div className="mb-10 flex items-center justify-between">
+                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">
+                      Problem Statements
+                    </span>
+                    <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">
+                      {domain.problems.length} items
+                    </span>
+                  </div>
+
+                  {/* problems */}
+                  <ul className="space-y-0">
+                    {domain.problems.map((ps) => (
+                      <li
+                        key={ps.id}
+                        className="
+                          group/item
+                          flex items-start gap-6
+                          border-b border-slate-100
+                          py-8
+                          last:border-b-0
+                          last:pb-0
+                        "
+                      >
+                        {/* id */}
+                        <span className={`
+                          min-w-[56px]
+                          pt-1
+                          font-black
+                          text-[10px]
+                          tracking-[0.2em]
+                          ${domain.color}
+                          flex-shrink-0
+                        `}>
+                          {ps.id}
+                        </span>
+
+                        {/* content */}
+                        <div className="flex-1 min-w-0">
+                          <p className="
+                            text-base
+                            sm:text-lg
+                            leading-relaxed
+                            text-slate-700
+                            transition-colors duration-200
+                            group-hover/item:text-slate-900
+                            font-medium
+                          ">
+                            {ps.text}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </motion.section>
+          ))}
+        </main>
 
         {/* CTA */}
-        <footer className="mt-40 flex flex-col items-center gap-8 text-center">
-          <div className="bg-zinc-900 rounded-2xl px-12 py-16 md:px-24 md:py-20 w-full max-w-2xl mx-auto">
-            <h2 className="font-serif text-2xl md:text-4xl font-bold text-white mb-6 tracking-tight">Commit to Innovation</h2>
-            <p className="text-zinc-400 text-base md:text-lg mb-10">Your journey from ideation to impact starts with a single click. Join 500+ innovators building for a better tomorrow.</p>
-            <button
-              onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
-              className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-white text-zinc-900 font-semibold text-base border border-zinc-200 hover:bg-zinc-50 transition-colors"
-            >
-              Start Your Mission
-            </button>
+        <motion.footer
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-40 flex flex-col items-center gap-8 text-center"
+        >
+          <div className="relative overflow-hidden rounded-[40px] border border-slate-300 p-12 md:p-24 w-full bg-slate-50 transition-all duration-700 hover:border-emerald-400 hover:shadow-2xl hover:shadow-emerald-500/10 hover:-translate-y-2">
+            {/* Background Decoration */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-teal-600 to-emerald-600 opacity-20" />
+            <Sparkles className="absolute top-10 right-10 text-emerald-500/10" size={48} />
+            
+            <div className="relative z-10 max-w-2xl mx-auto space-y-8">
+              <h2 className="font-serif text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-none">
+                Commit to <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic">
+                  Innovation.
+                </span>
+              </h2>
+              <p className="text-slate-500 text-lg md:text-xl font-medium max-w-lg mx-auto">
+                Your journey from ideation to impact starts with a single click. Join 500+ innovators building for a better tomorrow.
+              </p>
+              <button
+                onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
+                className="inline-flex items-center gap-3 bg-emerald-600 text-white px-12 py-5 rounded-full text-[12px] font-black uppercase tracking-[0.4em] hover:bg-emerald-500 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-emerald-500/25"
+              >
+                Start Your Mission
+                <ArrowUpRight size={18} />
+              </button>
+            </div>
           </div>
-          <p className="text-xs text-zinc-400 mt-12">Project Sankalp &mdash; 2026</p>
-        </footer>
-
-        <div className="mt-32 flex flex-col items-center gap-6 opacity-20 text-center">
-          <p className="text-[11px] font-black uppercase tracking-[0.5em]">Project Sankalp _ 2026</p>
-        </div>
+        </motion.footer>
       </Container>
+      <Footer />
     </div>
   );
 }
