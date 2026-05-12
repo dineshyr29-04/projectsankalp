@@ -39,7 +39,7 @@ const DOMAINS = [
   }
 ];
 
-export default function BookingStatusPage({ slots, onBack }) {
+export default function BookingStatusPage({ slots, onBack, onDelete }) {
   const [time, setTime] = React.useState(new Date());
 
   React.useEffect(() => {

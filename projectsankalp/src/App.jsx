@@ -123,25 +123,42 @@ function App() {
   };
 
   const handleDeleteBooking = async (domainId, slotId, docId) => {
+    // Confirmation for safety
+    if (!window.confirm(`Are you sure you want to delete the booking for Team ${slotId} in the ${domainId} sector?`)) {
+      return;
+    }
+
+    console.log("Attempting deletion:", { domainId, slotId, docId });
+
     try {
       const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
       if (db && projectId && projectId !== "your_project_id") {
-        // Use docId directly if we have it, otherwise query
         if (docId) {
-          await deleteDoc(doc(db, "bookings", docId));
+          // Direct document deletion
+          const docRef = doc(db, "bookings", docId);
+          await deleteDoc(docRef);
+          console.log("Deletion successful via docId");
         } else {
+          // Fallback: Query for the document
+          console.log("No docId found, querying database...");
           const q = query(
             collection(db, "bookings"), 
             where("domainId", "==", domainId), 
             where("slotId", "==", slotId)
           );
           const snapshot = await getDocs(q);
-          snapshot.forEach(async (document) => {
-            await deleteDoc(document.ref);
-          });
+          
+          if (snapshot.empty) {
+            console.warn("No matching document found to delete.");
+            return;
+          }
+
+          const deletePromises = snapshot.docs.map(document => deleteDoc(document.ref));
+          await Promise.all(deletePromises);
+          console.log("Deletion successful via query");
         }
       } else {
-        // Fallback for local
+        // Local state fallback
         setGlobalSlots(prev => ({
           ...prev,
           [domainId]: prev[domainId].map(slot => 
@@ -151,6 +168,7 @@ function App() {
       }
     } catch (error) {
       console.error("Deletion failed:", error);
+      alert("System Error: Could not remove allocation. Please check your connection.");
     }
   };
 
