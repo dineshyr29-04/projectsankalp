@@ -17,27 +17,30 @@ export default function Prizes() {
     { 
       ...siteConfig.prizes[1], 
       material: "Silver", 
-      accent: "from-blue-200/50 to-transparent", 
-      glow: "shadow-blue-200/20", 
+      image: "/hand-silver.png",
+      accent: "from-slate-200/50 to-transparent", 
+      glow: "shadow-slate-200/20", 
       delay: 0.2, 
-      scale: 0.9 
+      scale: 1 
     },
     { 
       ...siteConfig.prizes[0], 
       material: "Gold", 
+      image: "/hand-gold.png",
       accent: "from-amber-200/50 to-transparent", 
       glow: "shadow-amber-200/40", 
       delay: 0, 
-      scale: 1.1,
+      scale: 1.2,
       featured: true 
     },
     { 
       ...siteConfig.prizes[2], 
       material: "Bronze", 
+      image: "/hand-bronze.png",
       accent: "from-orange-200/40 to-transparent", 
       glow: "shadow-orange-200/20", 
       delay: 0.4, 
-      scale: 0.85 
+      scale: 0.9 
     }
   ];
 
@@ -56,7 +59,7 @@ export default function Prizes() {
           >
             <div className="w-8 h-[1px] bg-slate-200" />
             <span className="text-emerald-600 font-black uppercase tracking-[0.5em] text-[9px]">
-              The Gilded Rewards
+              The Gilded Vault
             </span>
             <div className="w-8 h-[1px] bg-slate-200" />
           </motion.div>
@@ -105,7 +108,7 @@ export default function Prizes() {
                 </span>
               </motion.div>
 
-              {/* 3D Hand Holder */}
+              {/* 3D Metallic Hand Holder */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8, y: 100 }}
                 whileInView={{ opacity: 1, scale: prize.scale, y: 0 }}
@@ -117,9 +120,9 @@ export default function Prizes() {
                   {/* Subtle Aura Glow */}
                   <div className={`absolute inset-0 bg-gradient-to-b ${prize.accent} rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000`} />
                   
-                  {/* The Hand Image */}
+                  {/* The Specific Hand Image */}
                   <img 
-                    src="/metallic_prize_hands.png" 
+                    src={prize.image} 
                     alt={`${prize.material} Hand Holder`}
                     className={`w-full h-full object-contain filter drop-shadow-2xl transition-transform duration-700 group-hover:scale-105 group-hover:-rotate-2`}
                     style={{
