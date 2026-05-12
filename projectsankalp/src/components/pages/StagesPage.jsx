@@ -133,7 +133,11 @@ export default function StagesPage({ onBack }) {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              transition={{ type: "spring", damping: 25, stiffness: 200, mass: 1 }}
+              transition={{ 
+                duration: 0.6, 
+                ease: [0.22, 1, 0.36, 1] 
+              }}
+              style={{ willChange: "transform, opacity" }}
               className="w-full max-w-[1100px] h-fit min-h-fit flex flex-col bg-white dark:bg-neutral-900 rounded-[40px] shadow-2xl border border-slate-100 z-10 relative mb-20 overflow-hidden"
             >
               <motion.div layoutId={`image-${active.title}-${id}`} className="relative h-[450px] w-full flex-shrink-0 overflow-hidden">
