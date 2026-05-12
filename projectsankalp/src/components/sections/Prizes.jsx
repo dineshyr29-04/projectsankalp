@@ -36,37 +36,53 @@ export default function Prizes() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex items-center justify-center gap-4 mb-8"
+            className="flex items-center justify-center gap-4 mb-6"
           >
-            <div className="w-12 h-px bg-slate-200" />
-            <span className="text-emerald-600 font-black uppercase tracking-[0.5em] text-[10px]">
+            <div className="w-10 h-px bg-slate-200" />
+            <span className="text-emerald-600 font-black uppercase tracking-[0.5em] text-[9px]">
               Rewards of Innovation
             </span>
-            <div className="w-12 h-px bg-slate-200" />
+            <div className="w-10 h-px bg-slate-200" />
           </motion.div>
 
           <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-6xl md:text-8xl font-serif font-black text-slate-900 tracking-tighter leading-[0.9] mb-12"
+            className="text-4xl md:text-6xl lg:text-7xl font-serif font-black text-slate-900 tracking-tight leading-[0.95] mb-6"
           >
             Excellence recognized. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic">
+            <motion.span
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+              transition={{ delay: 0.25, duration: 6, repeat: Infinity, ease: "linear" }}
+              className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-emerald-500 to-blue-600 italic"
+              style={{ backgroundSize: "200% 200%" }}
+            >
               Impact rewarded.
-            </span>
+            </motion.span>
           </motion.h2>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="mx-auto mb-8 h-px w-36 bg-gradient-to-r from-transparent via-slate-300 to-transparent"
+          />
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="inline-flex items-center gap-4 bg-slate-900 text-white rounded-full px-8 py-4 shadow-2xl"
+            className="inline-flex items-center gap-3 bg-slate-900 text-white rounded-full px-6 py-3 shadow-2xl"
           >
-            <Sparkles className="text-amber-400 animate-pulse" size={18} />
-            <span className="text-[11px] md:text-[13px] font-black uppercase tracking-[0.2em]">
+            <Sparkles className="text-amber-400 animate-pulse" size={16} />
+            <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.25em]">
               ₹1,00,000+ Total Prize Pool
             </span>
           </motion.div>
