@@ -32,9 +32,9 @@ const getPoint = (i, n, spacing, isMobile) => {
     // Creative Radial Arc for mobile (Quarter circle)
     // Offset the angle slightly to make it look more dynamic
     const totalItems = n;
-    const radius = spacing * 2.0; // Increased for a "Big Arch" feel
-    // Distribute items across a larger arc (100 degrees instead of 90)
-    const angle = (i / (totalItems - 1)) * (Math.PI / 1.8);
+    const radius = spacing * 3.2; // Significantly larger for a dramatic "Big Arch" effect
+    // Standard 90-degree arc for a clean corner expansion
+    const angle = (i / (totalItems - 1)) * (Math.PI / 2);
     return {
       x: radius * Math.cos(angle),
       y: radius * Math.sin(angle)
@@ -74,7 +74,7 @@ const MenuItem = ({ icon, label, href, index, totalItems, isOpen, onClick, isMob
       <a 
         href={href} 
         onClick={(e) => onClick(e, href)}
-        className={cn(STYLES.item.container, "w-11 h-11 md:w-12 md:h-12")}
+        className={cn(STYLES.item.container, isMobile ? "w-10 h-10" : "w-12 h-12")}
       >
         {icon}
         <p className={cn(
