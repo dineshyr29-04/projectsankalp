@@ -179,9 +179,7 @@ export default function BookingStatusPage({ slots, onBack, onDelete }) {
         </div>
       </Container>
       
-      <div className="mt-40">
-        <Footer />
-      </div>
+      
     </div>
   );
 }

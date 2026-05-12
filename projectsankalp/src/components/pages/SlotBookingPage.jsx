@@ -94,14 +94,14 @@ export default function SlotBookingPage({ onBack, slots, onBook }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 pb-20 overflow-hidden">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 overflow-hidden">
       {/* Background Atmosphere */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-500/5 blur-[120px] rounded-full" />
       </div>
 
-      <Container className="relative z-10 pt-32 px-6 mx-auto max-w-5xl">
+      <Container className="relative z-10 pt-32 mx-auto ">
         {/* Navigation */}
         {step < 4 && (
           <button
@@ -329,11 +329,7 @@ export default function SlotBookingPage({ onBack, slots, onBook }) {
             </motion.div>
           )}
         </AnimatePresence>
-      </Container>
-      
-      <div className="mt-40">
-        <Footer />
-      </div>
+      </Container>      
     </div>
   );
 }
