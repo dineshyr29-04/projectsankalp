@@ -93,20 +93,7 @@ export default function StagesPage({ onBack }) {
 
       <Container className="relative z-10 pt-32 md:pt-48 px-6 sm:px-14 lg:px-2 mx-auto ">
         {/* Navigation */}
-        <motion.button
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          onClick={onBack}
-          className="flex items-center gap-3 text-slate-400 hover:text-slate-900 transition-colors group mb-20"
-        >
-          <div className="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center bg-white/50 backdrop-blur-sm group-hover:border-slate-300 group-hover:bg-slate-50 transition-all">
-            <ArrowLeft size={16} />
-          </div>
-          <span className="text-[11px] font-black uppercase tracking-[0.4em]">
-            Back to Hub
-          </span>
-        </motion.button>
+        
 
         {/* Hero */}
         <header className="mb-28 max-w-4xl">
@@ -151,16 +138,12 @@ export default function StagesPage({ onBack }) {
                 px-6 py-12
                 sm:px-8 sm:py-16
                 md:px-16 md:py-20
-                lg:px-24 lg:py-28
-                xl:px-28 xl:py-32
+                lg:px-24 lg:py-25
+                xl:px-20 xl:py-25
                 transition-all duration-500
                 hover:border-slate-300 hover:shadow-2xl hover:shadow-slate-200/50
               `}
             >
-              {/* Top accent line */}
-              <div className={`absolute inset-x-0 top-0 h-1 ${domain.accent} opacity-20`} />
-              <div className={`absolute top-0 left-0 w-1/4 h-1 ${domain.accent}`} />
-
               <div className={`
                 flex flex-col gap-16
                 sm:gap-20
@@ -174,7 +157,7 @@ export default function StagesPage({ onBack }) {
                 <div className="flex-1 min-w-0">
                   {/* meta */}
                   <div className="mb-10 flex items-center gap-4">
-                    <div className={`px-3 py-1 rounded-lg ${domain.accentLight} border ${domain.borderColor} ${domain.color} text-[10px] font-black uppercase tracking-widest`}>
+                    <div className={`px-3 py-1 text-[10px] font-black uppercase tracking-widest`}>
                       Mission {domain.id}
                     </div>
                     <span className="h-px w-8 bg-slate-200" />
@@ -272,40 +255,158 @@ export default function StagesPage({ onBack }) {
             </motion.section>
           ))}
         </main>
+      </Container>
+      <div className="px-6">
 
-        {/* CTA */}
         <motion.footer
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-40 flex flex-col items-center gap-8 text-center"
+          transition={{ duration: 0.6 }}
+          className="mt-48"
         >
-          <div className="relative overflow-hidden rounded-[40px] border border-slate-300 p-12 md:p-24 w-full bg-slate-50 transition-all duration-700 hover:border-emerald-400 hover:shadow-2xl hover:shadow-emerald-500/10 hover:-translate-y-2">
-            {/* Background Decoration */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-teal-600 to-emerald-600 opacity-20" />
-            <Sparkles className="absolute top-10 right-10 text-emerald-500/10" size={48} />
-            
-            <div className="relative z-10 max-w-2xl mx-auto space-y-8">
-              <h2 className="font-serif text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-none">
-                Commit to <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic">
-                  Innovation.
-                </span>
-              </h2>
-              <p className="text-slate-500 text-lg md:text-xl font-medium max-w-lg mx-auto">
-                Your journey from ideation to impact starts with a single click. Join 500+ innovators building for a better tomorrow.
-              </p>
-              <button
-                onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
-                className="inline-flex items-center gap-3 bg-emerald-600 text-white px-12 py-5 rounded-full text-[12px] font-black uppercase tracking-[0.4em] hover:bg-emerald-500 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-emerald-500/25"
-              >
-                Start Your Mission
-                <ArrowUpRight size={18} />
-              </button>
+          <div
+            className="
+              relative overflow-hidden
+              rounded-[32px]
+              border border-zinc-200
+              bg-white
+              px-8 py-16
+              md:px-20 md:py-24
+              xl:px-20 xl:py-20
+              transition-colors duration-300
+              hover:border-zinc-300
+              xl:mx-28 xl:my-28
+            "
+            style={{
+              boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
+            }}
+          >
+            {/* subtle top border accent */}
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-300 to-transparent" />
+
+            {/* background texture */}
+            <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
+              <div className="absolute -top-24 right-0 h-[320px] w-[320px] rounded-full border border-zinc-400" />
+              <div className="absolute bottom-0 left-[-120px] h-[240px] w-[240px] rounded-full border border-zinc-400" />
+            </div>
+
+            <div className="relative z-10 flex flex-col gap-20 xl:flex-row xl:items-end xl:justify-between">
+              
+              {/* LEFT CONTENT */}
+              <div className="max-w-3xl">
+                
+                {/* label */}
+                <div className="mb-10 flex items-center gap-4">
+                  <span className="text-[11px] font-medium tracking-wide text-zinc-400">
+                    Final Step
+                  </span>
+
+                  <span className="h-[3px] w-[3px] rounded-full bg-zinc-300" />
+
+                  <span className="text-[11px] text-zinc-400">
+                    Applications Open
+                  </span>
+                </div>
+
+                {/* heading */}
+                <h2
+                  className="
+                    max-w-[11ch]
+                    text-5xl
+                    font-semibold
+                    leading-[0.92]
+                    tracking-[-0.055em]
+                    text-zinc-950
+                    md:text-7xl
+                  "
+                >
+                  Build work that
+                  <span className="block text-emerald-400">
+                    actually matters.
+                  </span>
+                </h2>
+
+                {/* description */}
+                <p
+                  className="
+                    mt-10
+                    max-w-[36ch]
+                    text-[17px]
+                    leading-8
+                    text-zinc-600
+                    md:text-[18px]
+                  "
+                >
+                  Collaborate with ambitious builders, solve meaningful
+                  challenges, and transform ideas into products with
+                  measurable impact.
+                </p>
+              </div>
+
+              {/* RIGHT CTA */}
+              <div className="flex flex-col items-start gap-8 xl:items-end">
+                
+                {/* stats */}
+                <div className="flex items-center gap-10">
+                  <div>
+                    <p className="text-3xl font-semibold tracking-tight text-zinc-950">
+                      500+
+                    </p>
+                    <p className="mt-1 text-[12px] text-zinc-400">
+                      Participants
+                    </p>
+                  </div>
+
+                  <div className="h-10 w-px bg-zinc-200" />
+
+                  <div>
+                    <p className="text-3xl font-semibold tracking-tight text-zinc-950">
+                      48h
+                    </p>
+                    <p className="mt-1 text-[12px] text-zinc-400">
+                      Innovation Sprint
+                    </p>
+                  </div>
+                </div>
+
+                {/* button */}
+                <button
+                  onClick={() =>
+                    window.open(
+                      "https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755",
+                      "_blank"
+                    )
+                  }
+                  className="
+                    group
+                    inline-flex items-center gap-4
+                    rounded-full
+                    border border-zinc-300
+                    bg-zinc-950
+                    px-8 py-4
+                    text-[12px]
+                    font-medium
+                    tracking-wide
+                    text-white
+                    transition-all duration-200
+                    hover:bg-zinc-900
+                    hover:border-zinc-950
+                    active:scale-[0.98]
+                  "
+                >
+                  Start Your Mission
+
+                  <ArrowUpRight
+                    size={16}
+                    className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </motion.footer>
-      </Container>
+      </div>
       <Footer />
     </div>
   );
