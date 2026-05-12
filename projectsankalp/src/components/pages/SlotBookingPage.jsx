@@ -45,20 +45,13 @@ const DOMAINS = [
   }
 ];
 
-export default function SlotBookingPage({ onBack }) {
+export default function SlotBookingPage({ onBack, slots, onBook }) {
   const [step, setStep] = useState(1); // 1: Identity, 2: Domain, 3: Slots, 4: Success
   const [teamId, setTeamId] = useState("");
   const [selectedDomain, setSelectedDomain] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [isVerifying, setIsVerifying] = useState(false);
   
-  // Mock slot data
-  const [slots, setSlots] = useState({
-    women: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, time: `Session ${String(i + 1).padStart(2, '0')}`, taken: i === 2 || i === 5 })),
-    health: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, time: `Session ${String(i + 1).padStart(2, '0')}`, taken: i === 0 || i === 4 || i === 9 })),
-    climate: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, time: `Session ${String(i + 1).padStart(2, '0')}`, taken: i === 1 || i === 7 }))
-  });
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [step]);
@@ -74,14 +67,7 @@ export default function SlotBookingPage({ onBack }) {
 
   const handleBook = () => {
     if (!selectedSlot) return;
-    
-    // Decrease count (simulated by marking as taken)
-    const newSlots = { ...slots };
-    newSlots[selectedDomain.id] = newSlots[selectedDomain.id].map(s => 
-      s.id === selectedSlot.id ? { ...s, taken: true } : s
-    );
-    
-    setSlots(newSlots);
+    onBook(selectedDomain.id, selectedSlot.id, teamId);
     setStep(4);
   };
 
@@ -208,21 +194,21 @@ export default function SlotBookingPage({ onBack }) {
                 {slots[selectedDomain.id].map((slot) => (
                   <button
                     key={slot.id}
-                    disabled={slot.taken}
+                    disabled={slot.teamId}
                     onClick={() => setSelectedSlot(slot)}
                     className={`
                       relative aspect-square rounded-[24px] border-2 flex flex-col items-center justify-center gap-2 transition-all group
-                      ${slot.taken 
-                        ? "bg-slate-100 border-slate-200 cursor-not-allowed grayscale" 
+                      ${slot.teamId 
+                        ? "bg-slate-100 border-slate-200 cursor-not-allowed grayscale opacity-60" 
                         : selectedSlot?.id === slot.id 
                           ? "bg-emerald-600 border-emerald-400 text-white shadow-xl shadow-emerald-600/30 scale-95" 
                           : "bg-white border-slate-200 hover:border-emerald-500 hover:shadow-lg active:scale-95"
                       }
                     `}
                   >
-                    {slot.taken ? <Lock size={20} className="opacity-40" /> : <ShieldCheck size={24} className={selectedSlot?.id === slot.id ? "text-emerald-200" : "text-emerald-500 opacity-20 group-hover:opacity-100"} />}
+                    {slot.teamId ? <Lock size={20} className="opacity-40" /> : <ShieldCheck size={24} className={selectedSlot?.id === slot.id ? "text-emerald-200" : "text-emerald-500 opacity-20 group-hover:opacity-100"} />}
                     <span className="text-[10px] font-black uppercase tracking-widest opacity-60">Slot {slot.id}</span>
-                    <span className="text-[9px] font-bold opacity-40">{slot.taken ? "Reserved" : "Available"}</span>
+                    <span className="text-[9px] font-bold opacity-40">{slot.teamId ? "Reserved" : "Available"}</span>
                   </button>
                 ))}
               </div>

@@ -20,6 +20,7 @@ import WinnersPage from "./components/pages/WinnersPage";
 import TeamPage from "./components/pages/TeamPage";
 import StagesPage from "./components/pages/StagesPage";
 import SlotBookingPage from "./components/pages/SlotBookingPage";
+import BookingStatusPage from "./components/pages/BookingStatusPage";
 
 // AUDIT FIX: Simple, premium Back to Top button
 const BackToTop = () => {
@@ -55,6 +56,22 @@ function App() {
   const [currentView, setCurrentView] = useState("landing");
   const [isLoading, setIsLoading] = useState(true);
 
+  // Global Booking State
+  const [globalSlots, setGlobalSlots] = useState({
+    women: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
+    health: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
+    climate: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
+  });
+
+  const handleBookSlot = (domainId, slotId, teamId) => {
+    setGlobalSlots(prev => ({
+      ...prev,
+      [domainId]: prev[domainId].map(slot => 
+        slot.id === slotId ? { ...slot, teamId } : slot
+      )
+    }));
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 900);
 
@@ -81,6 +98,11 @@ function App() {
     // Check for booking slug
     if (window.location.pathname === "/booking") {
       setCurrentView("booking");
+    }
+
+    // Check for status slug
+    if (window.location.pathname === "/status") {
+      setCurrentView("status");
     }
 
     return () => clearTimeout(timer);
@@ -223,7 +245,26 @@ function App() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <SlotBookingPage onBack={() => setCurrentView("landing")} />
+                    <SlotBookingPage 
+                      slots={globalSlots}
+                      onBook={handleBookSlot}
+                      onBack={() => setCurrentView("landing")} 
+                    />
+                  </motion.div>
+                )}
+
+                {currentView === "status" && (
+                  <motion.div
+                    key="status"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <BookingStatusPage 
+                      slots={globalSlots}
+                      onBack={() => setCurrentView("landing")} 
+                    />
                   </motion.div>
                 )}
               </AnimatePresence>
