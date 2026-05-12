@@ -18,7 +18,7 @@ export default function Prizes() {
       ...siteConfig.prizes[1], 
       material: "Silver", 
       image: "/artifact-silver.png",
-      layout: "md:col-start-1 md:row-start-2 md:translate-y-16",
+      layout: "md:col-start-1 md:row-start-2 md:translate-y-6",
       delay: 0.2, 
       scale: 0.95
     },
@@ -34,7 +34,7 @@ export default function Prizes() {
       ...siteConfig.prizes[2], 
       material: "Bronze", 
       image: "/artifact-bronze.png",
-      layout: "md:col-start-3 md:row-start-2 md:translate-y-24",
+      layout: "md:col-start-3 md:row-start-2 md:translate-y-12",
       delay: 0.4, 
       scale: 0.8
     }
