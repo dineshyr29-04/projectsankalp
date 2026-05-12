@@ -32,7 +32,8 @@ const getPoint = (i, n, spacing, isMobile) => {
     // Creative Radial Arc for mobile (Quarter circle)
     // Offset the angle slightly to make it look more dynamic
     const totalItems = n;
-    const radius = spacing * 3.6; // Significantly larger for a dramatic "Big Arch" effect
+    // Increased radius even further to accommodate the massive 64px mobile icons
+    const radius = spacing * 4.2; 
     // Standard 90-degree arc for a clean corner expansion
     const angle = (i / (totalItems - 1)) * (Math.PI / 2);
     return {
@@ -76,8 +77,9 @@ const MenuItem = ({ icon, label, href, index, totalItems, isOpen, onClick, isMob
         onClick={(e) => onClick(e, href)}
         className={cn(STYLES.item.container, isMobile ? "w-16 h-16" : "w-12 h-12")}
       >
-        {icon}
-        
+        <div className={isMobile ? "scale-150" : "scale-100"}>
+          {icon}
+        </div>
       </a>
     </motion.div>
   );
@@ -91,6 +93,7 @@ const MenuTrigger = ({
   openIcon,
   closeIcon
 }) => {
+  const [isAnimating, setIsAnimating] = useState(false);
   const animate = useAnimationControls();
   const shakeAnimation = useAnimationControls();
 
@@ -98,6 +101,7 @@ const MenuTrigger = ({
     .map((_, index) => 1 + (index + 1) * 0.1);
 
   const closeAnimation = async () => {
+    setIsAnimating(true);
     shakeAnimation.start({
       translateX: [0, 2, -2, 0, 2, -2, 0],
       transition: {
@@ -117,29 +121,42 @@ const MenuTrigger = ({
     }
 
     shakeAnimation.stop();
-    animate.start({
+    await animate.start({
       scale: 1,
       transition: {
         duration: 0.2,
         type: 'spring'
       }
     });
+    setIsAnimating(false);
+  };
+
+  const handleToggle = async () => {
+    if (isAnimating) return;
+
+    if (isOpen) {
+      setIsOpen(false);
+      closeAnimationCallback();
+      await closeAnimation();
+    } else {
+      setIsAnimating(true);
+      setIsOpen(true);
+      // Wait for items to finish staggered animation before allowing another click
+      setTimeout(() => setIsAnimating(false), (itemsLength * CONSTANTS.openStagger + 0.5) * 1000);
+    }
   };
 
   return (
     <motion.div animate={shakeAnimation} className="z-50">
       <motion.button
         animate={animate}
-        className={cn(STYLES.trigger.container, "w-12 h-12 md:w-14 md:h-14", isOpen && STYLES.trigger.active)}
-        onClick={() => {
-          if (isOpen) {
-            setIsOpen(false);
-            closeAnimationCallback();
-            closeAnimation();
-          } else {
-            setIsOpen(true);
-          }
-        }}
+        className={cn(
+          STYLES.trigger.container, 
+          "w-12 h-12 md:w-14 md:h-14", 
+          isOpen && STYLES.trigger.active,
+          isAnimating && "cursor-wait opacity-80"
+        )}
+        onClick={handleToggle}
       >
         <AnimatePresence mode="popLayout">
           {isOpen ? (
