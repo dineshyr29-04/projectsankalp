@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { 
@@ -9,7 +8,9 @@ import {
   Leaf,
   Activity,
   UserCheck,
-  LayoutGrid
+  LayoutGrid,
+  Trash2,
+  X
 } from "lucide-react";
 import Container from "../core/Container";
 import Footer from "../layout/Footer";
@@ -156,9 +157,13 @@ export default function BookingStatusPage({ slots, onBack }) {
                       )}
                     </div>
                     {slot.teamId ? (
-                      <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                        <UserCheck size={12} className="text-emerald-400" />
-                      </div>
+                      <button
+                        onClick={() => onDelete(domain.id, slot.id, slot.docId)}
+                        className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center hover:bg-red-500 transition-all group/trash"
+                        title="Delete Allocation"
+                      >
+                        <Trash2 size={12} className="text-red-400 group-hover/trash:text-white" />
+                      </button>
                     ) : (
                       <LayoutGrid size={14} className="opacity-20" />
                     )}

@@ -20,7 +20,7 @@ import StagesPage from "./components/pages/StagesPage";
 import SlotBookingPage from "./components/pages/SlotBookingPage";
 import BookingStatusPage from "./components/pages/BookingStatusPage";
 import { db } from "./lib/firebase";
-import { collection, onSnapshot, addDoc, query } from "firebase/firestore";
+import { collection, onSnapshot, addDoc, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 
 // AUDIT FIX: Simple, premium Back to Top button
 const BackToTop = () => {
@@ -71,7 +71,7 @@ function App() {
 
     const q = query(collection(db, "bookings"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const bookings = snapshot.docs.map(doc => doc.data());
+      const bookings = snapshot.docs.map(doc => ({ ...doc.data(), _id: doc.id }));
       
       // Reset to empty first, then fill from DB
       const freshSlots = {
@@ -84,7 +84,10 @@ function App() {
         const sector = freshSlots[booking.domainId];
         if (sector) {
           const slot = sector.find(s => s.id === booking.slotId);
-          if (slot) slot.teamId = booking.teamId;
+          if (slot) {
+            slot.teamId = booking.teamId;
+            slot.docId = booking._id; // Store Firestore ID for easy deletion
+          }
         }
       });
 
@@ -116,6 +119,38 @@ function App() {
       }
     } catch (error) {
       console.error("Booking failed:", error);
+    }
+  };
+
+  const handleDeleteBooking = async (domainId, slotId, docId) => {
+    try {
+      const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
+      if (db && projectId && projectId !== "your_project_id") {
+        // Use docId directly if we have it, otherwise query
+        if (docId) {
+          await deleteDoc(doc(db, "bookings", docId));
+        } else {
+          const q = query(
+            collection(db, "bookings"), 
+            where("domainId", "==", domainId), 
+            where("slotId", "==", slotId)
+          );
+          const snapshot = await getDocs(q);
+          snapshot.forEach(async (document) => {
+            await deleteDoc(document.ref);
+          });
+        }
+      } else {
+        // Fallback for local
+        setGlobalSlots(prev => ({
+          ...prev,
+          [domainId]: prev[domainId].map(slot => 
+            slot.id === slotId ? { ...slot, teamId: null } : slot
+          )
+        }));
+      }
+    } catch (error) {
+      console.error("Deletion failed:", error);
     }
   };
 
@@ -311,6 +346,7 @@ function App() {
                     <BookingStatusPage 
                       slots={globalSlots}
                       onBack={() => setCurrentView("landing")} 
+                      onDelete={handleDeleteBooking}
                     />
                   </motion.div>
                 )}

@@ -168,7 +168,7 @@ export default function SlotBookingPage({ onBack, slots, onBook }) {
             </motion.div>
           )}
 
-          {/* STEP 2: DOMAIN SELECTION */}
+          {/* STEP 2: DOMAIN SELECTION & CONFIRMATION */}
           {step === 2 && (
             <motion.div
               key="step2"
@@ -183,98 +183,85 @@ export default function SlotBookingPage({ onBack, slots, onBook }) {
               </div>
 
               <div className="grid md:grid-cols-3 gap-6">
-                {DOMAINS.map((domain) => (
-                  <button
-                    key={domain.id}
-                    onClick={() => {
-                      setSelectedDomain(domain);
-                      setStep(3);
-                    }}
-                    className={`text-left p-8 rounded-[32px] border-2 bg-white transition-all hover:-translate-y-2 hover:shadow-2xl group ${domain.border} hover:border-emerald-500/40`}
-                  >
-                    <div className={`w-14 h-14 rounded-2xl ${domain.bg} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
-                      <domain.icon className={domain.color} size={28} />
-                    </div>
-                    <h3 className="text-xl font-black mb-4 tracking-tight leading-tight">{domain.title}</h3>
-                    <p className="text-slate-500 text-sm font-medium mb-8">{domain.description}</p>
-                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-emerald-600 transition-colors">
-                      Enter Sector <ArrowRight size={14} />
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* STEP 3: SLOT ALLOCATION */}
-          {step === 3 && (
-            <motion.div
-              key="step3"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              className="py-10"
-            >
-              <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div>
-                  <span className="text-emerald-600 font-black uppercase tracking-[0.5em] text-[10px]">Sector: {selectedDomain.title}</span>
-                  <h2 className="font-serif text-4xl md:text-6xl font-black tracking-tight text-slate-900 mt-4">Orbital Slots</h2>
-                </div>
-                <div className="bg-slate-900 text-white px-6 py-3 rounded-full flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[10px] font-black uppercase tracking-widest">System Online</span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
-                {slots[selectedDomain.id].map((slot) => (
-                  <button
-                    key={slot.id}
-                    disabled={slot.teamId}
-                    onClick={() => setSelectedSlot(slot)}
-                    className={`
-                      relative aspect-square rounded-[24px] border-2 flex flex-col items-center justify-center gap-2 transition-all group
-                      ${slot.teamId 
-                        ? "bg-slate-100 border-slate-200 cursor-not-allowed grayscale opacity-60" 
-                        : selectedSlot?.id === slot.id 
-                          ? "bg-emerald-600 border-emerald-400 text-white shadow-xl shadow-emerald-600/30 scale-95" 
-                          : "bg-white border-slate-200 hover:border-emerald-500 hover:shadow-lg active:scale-95"
-                      }
-                    `}
-                  >
-                    {slot.teamId ? <Lock size={20} className="opacity-40" /> : <ShieldCheck size={24} className={selectedSlot?.id === slot.id ? "text-emerald-200" : "text-emerald-500 opacity-20 group-hover:opacity-100"} />}
-                    <span className="text-[10px] font-black uppercase tracking-widest opacity-60">Slot {slot.id}</span>
-                    <span className="text-[9px] font-bold opacity-40">{slot.teamId ? "Reserved" : "Available"}</span>
-                  </button>
-                ))}
-              </div>
-
-              <div className="mt-20 flex flex-col items-center border-t border-slate-200 pt-16">
-                <AnimatePresence>
-                  {error && (
-                    <motion.p 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="text-red-500 text-[10px] font-black uppercase tracking-widest mb-6"
+                {DOMAINS.map((domain) => {
+                  const availableSlots = slots[domain.id].filter(s => !s.teamId).length;
+                  return (
+                    <button
+                      key={domain.id}
+                      disabled={availableSlots === 0}
+                      onClick={() => {
+                        setSelectedDomain(domain);
+                        // Find first available slot
+                        const firstAvailable = slots[domain.id].find(s => !s.teamId);
+                        setSelectedSlot(firstAvailable);
+                      }}
+                      className={`text-left p-8 rounded-[32px] border-2 bg-white transition-all hover:-translate-y-2 hover:shadow-2xl group ${domain.border} hover:border-emerald-500/40 ${availableSlots === 0 ? 'opacity-50 grayscale cursor-not-allowed' : ''}`}
                     >
-                      {error}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-                
-                <button
-                  onClick={handleBook}
-                  disabled={!selectedSlot || isBooking}
-                  className="bg-slate-900 text-white px-12 py-5 rounded-2xl font-black uppercase tracking-[0.4em] flex items-center gap-4 hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-2xl shadow-slate-900/20 active:scale-95"
-                >
-                  {isBooking ? (
-                    <Loader2 className="animate-spin" size={20} />
-                  ) : (
-                    <>Finalize Allocation <CheckCircle2 size={20} /></>
-                  )}
-                </button>
-                <p className="mt-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Note: Slot allocation is final and cannot be modified.</p>
+                      <div className={`w-14 h-14 rounded-2xl ${domain.bg} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
+                        <domain.icon className={domain.color} size={28} />
+                      </div>
+                      <h3 className="text-xl font-black mb-4 tracking-tight leading-tight">{domain.title}</h3>
+                      <p className="text-slate-500 text-sm font-medium mb-8">{domain.description}</p>
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-emerald-600 transition-colors">
+                          {availableSlots === 0 ? "Sector Full" : "Enter Sector"} <ArrowRight size={14} />
+                        </div>
+                        <span className="text-[9px] font-black bg-slate-100 px-3 py-1 rounded-full text-slate-400">
+                          {availableSlots} BAYS LEFT
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
+
+              {/* Confirmation Modal Overlay */}
+              <AnimatePresence>
+                {selectedDomain && selectedSlot && step === 2 && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/40 backdrop-blur-md"
+                  >
+                    <motion.div
+                      initial={{ scale: 0.9, y: 20 }}
+                      animate={{ scale: 1, y: 0 }}
+                      exit={{ scale: 0.9, y: 20 }}
+                      className="bg-white rounded-[40px] p-10 max-w-md w-full shadow-2xl border border-slate-100"
+                    >
+                      <div className={`w-20 h-20 rounded-3xl ${selectedDomain.bg} flex items-center justify-center mx-auto mb-8`}>
+                        <ShieldCheck className={selectedDomain.color} size={40} />
+                      </div>
+                      
+                      <h3 className="text-2xl font-black text-center text-slate-900 mb-4 font-serif italic">Confirm Allocation?</h3>
+                      <p className="text-center text-slate-500 text-sm font-medium mb-10 leading-relaxed px-4">
+                        You are about to be assigned to the <span className="font-bold text-slate-900">{selectedDomain.title}</span> mission sector. 
+                        This action is permanent.
+                      </p>
+
+                      <div className="space-y-3">
+                        <button
+                          onClick={handleBook}
+                          disabled={isBooking}
+                          className="w-full py-5 rounded-2xl bg-slate-900 text-white font-black uppercase tracking-[0.4em] text-[10px] shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-all active:scale-95 flex items-center justify-center gap-3"
+                        >
+                          {isBooking ? <Loader2 className="animate-spin" size={18} /> : "Finalize Mission"}
+                        </button>
+                        <button
+                          onClick={() => {
+                            setSelectedDomain(null);
+                            setSelectedSlot(null);
+                          }}
+                          className="w-full py-5 rounded-2xl text-slate-400 font-black uppercase tracking-[0.4em] text-[10px] hover:text-slate-900 transition-colors"
+                        >
+                          Decline Allocation
+                        </button>
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           )}
 
