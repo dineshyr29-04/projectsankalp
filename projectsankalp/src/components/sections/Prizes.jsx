@@ -46,7 +46,7 @@ export default function Prizes() {
       
 
       <Container className="relative z-10 px-4 sm:px-14 lg:px-20 mx-auto">
-        <header className="text-center mb-20">
+        <header className="text-center mb-60">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -68,7 +68,7 @@ export default function Prizes() {
                 transition={{ delay: prize.delay + 0.6 }}
                 className="absolute -top-16 md:-top-24 left-0 right-0 text-center pointer-events-none"
               >
-                <span className="text-[8px] md:text-[10px] font-serif italic text-slate-400 block mb-1">
+                <span className="text-[8px] md:text-[15px] font-serif italic text-slate-400 block mb-1">
                   {prize.rank}
                 </span>
                 <span className="text-sm md:text-2xl font-serif font-black text-slate-900 block tracking-tight">
