@@ -31,9 +31,9 @@ export default function StagesPage({ onBack }) {
       description: "Championing gender equality by building tools for financial independence and micro-business scaling. We aim to bridge the credit gap and provide digital ecosystems for growth.",
       tags: ["Micro-Financing", "Skill Networks", "Leadership Tools"],
       problems: [
-        { id: "PS-01", text: "Decentralized marketplaces for rural artisans to scale global reach." },
-        { id: "PS-02", text: "AI-driven financial literacy platforms for women-led startups." },
-        { id: "PS-03", text: "P2P micro-lending systems with community-based trust scoring." }
+        { id: "Problem Statement 01", text: "Decentralized marketplaces for rural artisans to scale global reach." },
+        { id: "Problem Statement 02", text: "AI-driven financial literacy platforms for women-led startups." },
+        { id: "Problem Statement 03", text: "P2P micro-lending systems with community-based trust scoring." }
       ]
     },
     {
@@ -46,9 +46,9 @@ export default function StagesPage({ onBack }) {
       description: "Developing innovative systems for preventive healthcare, clean water access, and waste management. Focus on tech that solves basic human needs at scale.",
       tags: ["Telemedicine", "Waste Optimization", "Clean Water"],
       problems: [
-        { id: "PS-01", text: "Predictive analysis of water-borne diseases in urban settlements." },
-        { id: "PS-02", text: "Smart waste management systems for decentralized municipalities." },
-        { id: "PS-03", text: "Mobile-first diagnostic tools for rural maternal healthcare." }
+        { id: "Problem Statement 01", text: "Predictive analysis of water-borne diseases in urban settlements." },
+        { id: "Problem Statement 02", text: "Smart waste management systems for decentralized municipalities." },
+        { id: "Problem Statement 03", text: "Mobile-first diagnostic tools for rural maternal healthcare." }
       ]
     },
     {
@@ -61,9 +61,9 @@ export default function StagesPage({ onBack }) {
       description: "Harnessing technology to combat climate change and promote green energy transitions. Building a circular economy and tracking environmental impact.",
       tags: ["Renewable Energy", "Circular Economy", "Carbon Tracking"],
       problems: [
-        { id: "PS-01", text: "Real-time carbon footprint trackers for household consumption." },
-        { id: "PS-02", text: "Marketplaces for upcycled industrial waste and circular resources." },
-        { id: "PS-03", text: "Community-driven reforestation monitoring using satellite imagery." }
+        { id: "Problem Statement-01", text: "Real-time carbon footprint trackers for household consumption." },
+        { id: "Problem Statement-02", text: "Marketplaces for upcycled industrial waste and circular resources." },
+        { id: "Problem Statement-03", text: "Community-driven reforestation monitoring using satellite imagery." }
       ]
     }
   ];
