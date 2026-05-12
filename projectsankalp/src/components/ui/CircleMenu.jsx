@@ -266,7 +266,10 @@ const CircleMenu = ({
       />
       <motion.div
         animate={animate}
-        className={cn('absolute top-0 left-0 flex items-center z-50')}
+        className={cn(
+          'absolute top-0 left-0 flex items-center z-50',
+          isOpen ? 'pointer-events-auto' : 'pointer-events-none'
+        )}
       >
         {items.map((item, index) => {
           return (
