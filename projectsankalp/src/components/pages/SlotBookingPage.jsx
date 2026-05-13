@@ -161,54 +161,59 @@ export default function SlotBookingPage({ onBack }) {
       setError("Please provide both transaction ID and payment proof.");
       return;
     }
+    
     setIsProcessing(true);
     setError("");
 
     try {
-      // 1. Convert Image to Base64 (Bypasses CORS issue)
-      const reader = new FileReader();
-      reader.readAsDataURL(screenshot);
-      reader.onload = async () => {
-        const base64Image = reader.result;
+      // 1. Read file as Base64 with Promise
+      const base64Image = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(screenshot);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
 
-        // 2. Send EVERYTHING to Google Sheets (Webapp handles Drive upload)
-        const registrationData = {
-          teamId: verifiedTeam.teamId,
-          teamName: verifiedTeam.teamName,
-          selectedDomain: selectedDomain.id,
-          transactionId,
-          paymentStatus: "PENDING",
-          image: base64Image, // Base64 string
-          timestamp: new Date().toISOString()
-        };
-
-        if (GOOGLE_SHEETS_WEBHOOK) {
-          try {
-            const response = await fetch(GOOGLE_SHEETS_WEBHOOK, {
-              method: "POST",
-              mode: "no-cors",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(registrationData)
-            });
-
-            // Note: with no-cors, we can't read the response, but we assume success if no error thrown
-          } catch (sheetErr) {
-            console.error("Sheet sync failed:", sheetErr);
-          }
-        }
-
-        // 3. Save to Firestore (Record of Truth)
-        await addDoc(collection(db, "registrations"), {
-          ...registrationData,
-          image: "Stored in Drive/Sheets", // Don't store massive base64 in Firestore
-          createdAt: serverTimestamp()
-        });
-
-        setStep("SUCCESS");
-        setIsProcessing(false);
+      const registrationData = {
+        teamId: verifiedTeam.teamId,
+        teamName: verifiedTeam.teamName,
+        selectedDomain: selectedDomain.id,
+        transactionId,
+        paymentStatus: "PENDING",
+        image: base64Image,
+        timestamp: new Date().toISOString()
       };
+
+      // 2. Send to Google Sheets (Parallel attempt)
+      let sheetSyncStatus = "SKIP";
+      if (GOOGLE_SHEETS_WEBHOOK) {
+        try {
+          await fetch(GOOGLE_SHEETS_WEBHOOK, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(registrationData)
+          });
+          sheetSyncStatus = "SUCCESS";
+        } catch (sheetErr) {
+          console.warn("Sheet sync failed, continuing to Firestore...", sheetErr);
+          sheetSyncStatus = "FAIL";
+        }
+      }
+
+      // 3. Save to Firestore (Primary Record)
+      await addDoc(collection(db, "registrations"), {
+        ...registrationData,
+        image: "Stored in Drive/Sheets", // Keep Firestore document size small
+        sheetSync: sheetSyncStatus,
+        createdAt: serverTimestamp()
+      });
+
+      setStep("SUCCESS");
     } catch (err) {
-      setError("Critical failure during finalization.");
+      console.error("Submission Error:", err);
+      setError(`Submission failed: ${err.message || "Unknown Error"}. Please check your connection or Firestore rules.`);
+    } finally {
       setIsProcessing(false);
     }
   };
@@ -301,63 +306,91 @@ export default function SlotBookingPage({ onBack }) {
           {step === "DOMAIN" && (
             <motion.div
               key="domain"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              className="py-12"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.05 }}
+              className="py-6 md:py-12"
             >
-              <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16">
+              <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-12">
                 <div>
-                  <span className="text-blue-500 font-black uppercase tracking-[0.5em] text-[10px] mb-4 block">Deployment Phase</span>
-                  <h2 className="text-5xl md:text-7xl font-serif font-black tracking-tighter italic">Select Sector</h2>
-                </div>                <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-3xl flex items-center gap-6 max-w-sm">
-                  <div className="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="text-emerald-500" size={24} />
+                  <span className="text-blue-500 font-black uppercase tracking-[0.5em] text-[10px] mb-3 block">Deployment Sector</span>
+                  <h2 className="text-4xl md:text-7xl font-serif font-black tracking-tighter italic">Select Mission.</h2>
+                </div>                
+                <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-5 rounded-3xl flex items-center gap-4 w-full md:w-auto">
+                  <div className="w-10 h-10 bg-emerald-500/20 rounded-2xl flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="text-emerald-500" size={20} />
                   </div>
                   <div className="overflow-hidden">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-lg font-black tracking-tight truncate">{verifiedTeam?.teamName}</span>
-                      <span className="bg-emerald-500 text-[8px] font-black px-2 py-0.5 rounded text-black uppercase">Verified</span>
-                    </div>
-                    <div className="flex flex-col text-[10px] font-bold text-white/40 uppercase tracking-widest leading-tight">
-                      <span>Capt. {verifiedTeam?.captainName || "Identity Secured"}</span>
-                      <span className="truncate">{verifiedTeam?.institute || "Universal Institute"}</span>
-                    </div>
+                    <span className="block text-xs font-black tracking-tight truncate max-w-[150px] uppercase">{verifiedTeam?.teamName}</span>
+                    <span className="block text-[9px] font-bold text-white/30 tracking-widest">{verifiedTeam?.teamId}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {DOMAINS.map((domain) => {
                   const slotsLeft = domainSlots[domain.id] ?? domain.slotsTotal;
+                  const isSelected = selectedDomain?.id === domain.id;
+                  const isFull = slotsLeft <= 0;
+
                   return (
                     <motion.button
                       key={domain.id}
-                      whileHover={{ y: -10 }}
-                      onClick={() => {
-                        setSelectedDomain(domain);
-                        setIsConfirming(true);
-                      }}
-                      disabled={slotsLeft <= 0}
-                      className="group relative text-left bg-white/5 border border-white/10 rounded-[40px] p-10 transition-all hover:bg-white/10 hover:border-white/20 disabled:opacity-30 disabled:cursor-not-allowed"
+                      whileHover={!isFull ? { y: -8, scale: 1.02 } : {}}
+                      whileTap={!isFull ? { scale: 0.98 } : {}}
+                      onClick={() => !isFull && setSelectedDomain(domain)}
+                      disabled={isFull}
+                      className={`
+                        relative group text-left rounded-[40px] p-8 transition-all duration-500 border overflow-hidden
+                        ${isSelected 
+                          ? "bg-white border-white shadow-2xl shadow-white/10" 
+                          : "bg-white/[0.03] border-white/10 hover:border-white/20"
+                        }
+                        ${isFull ? "opacity-20 grayscale cursor-not-allowed" : ""}
+                      `}
                     >
-                      <div className={`w-20 h-20 rounded-3xl ${domain.bg} flex items-center justify-center mb-10 group-hover:scale-110 transition-transform`}>
-                        <domain.icon className={domain.color} size={40} />
-                      </div>
-                      <h3 className="text-3xl font-black mb-4 tracking-tight leading-none uppercase">{domain.title}</h3>
-                      <p className="text-white/40 font-medium text-sm mb-12 leading-relaxed">{domain.description}</p>
-                      
-                      <div className="flex justify-between items-center pt-8 border-t border-white/5">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-blue-500 group-hover:translate-x-2 transition-transform">
-                          Initialize Sector
-                        </span>
-                        <div className="px-4 py-2 bg-white/5 rounded-full text-[9px] font-black uppercase tracking-widest">
-                          {slotsLeft} BAYS OPEN
+                      <div className="relative z-10">
+                        <div className="flex justify-between items-start mb-10">
+                          <div className={`w-14 h-14 rounded-2xl ${isSelected ? "bg-black/5" : domain.bg} flex items-center justify-center transition-colors`}>
+                            <domain.icon className={isSelected ? "text-black" : domain.color} size={28} />
+                          </div>
+                          <div className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest ${isSelected ? "bg-black/10 text-black" : "bg-white/5 text-white/40"}`}>
+                            {slotsLeft} Open
+                          </div>
+                        </div>
+
+                        <h3 className={`text-2xl font-serif font-black italic mb-3 tracking-tight ${isSelected ? "text-black" : "text-white"}`}>
+                          {domain.title}
+                        </h3>
+                        <p className={`text-[13px] font-medium leading-relaxed mb-8 ${isSelected ? "text-black/60" : "text-white/40"}`}>
+                          {domain.description}
+                        </p>
+                        
+                        <div className={`pt-6 border-t ${isSelected ? "border-black/10" : "border-white/5"} flex justify-between items-center`}>
+                          <span className={`text-[9px] font-black uppercase tracking-[0.2em] ${isSelected ? "text-black" : "text-blue-500"}`}>
+                            {isFull ? "Sector Full" : isSelected ? "Sector Selected" : "Initialize"}
+                          </span>
+                          {!isFull && <ArrowRight size={16} className={`transition-all duration-500 ${isSelected ? "text-black" : "text-white/20 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0"}`} />}
                         </div>
                       </div>
+
+                      {/* Ambient background glow for cards */}
+                      {!isSelected && (
+                        <div className={`absolute -bottom-20 -right-20 w-40 h-40 rounded-full blur-[80px] opacity-10 group-hover:opacity-30 transition-opacity ${domain.bg}`} />
+                      )}
                     </motion.button>
                   );
                 })}
+              </div>
+
+              <div className="flex justify-center pt-12">
+                <button
+                  onClick={() => setIsConfirming(true)}
+                  disabled={!selectedDomain}
+                  className="w-full md:w-auto bg-white text-black px-20 py-7 rounded-3xl font-black uppercase tracking-[0.5em] text-[11px] disabled:opacity-30 hover:bg-white/90 transition-all active:scale-95 shadow-2xl shadow-white/10"
+                >
+                  Confirm Mission Selection
+                </button>
               </div>
             </motion.div>
           )}
@@ -366,71 +399,71 @@ export default function SlotBookingPage({ onBack }) {
           {step === "PAYMENT" && (
             <motion.div
               key="payment"
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 py-12"
+              className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 py-6 md:py-12"
             >
               {/* Left Side: QR & Info */}
-              <div className="space-y-8">
-                <div className="bg-white/5 border border-white/10 p-10 rounded-[40px] flex flex-col items-center text-center relative overflow-hidden">
+              <div className="space-y-6 md:space-y-8">
+                <div className="bg-white/[0.03] border border-white/10 p-8 md:p-10 rounded-[40px] flex flex-col items-center text-center relative overflow-hidden backdrop-blur-xl">
                   <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-600 via-emerald-600 to-blue-600" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-8">Secure Payment Gateway</span>
+                  <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white/30 mb-8">Secure Payment Gateway</span>
                   
-                  <div className="bg-white p-6 rounded-[32px] shadow-2xl mb-8 relative group">
+                  <div className="bg-white p-5 rounded-[32px] shadow-2xl mb-8 relative group">
                     <div className="absolute inset-0 bg-blue-500/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <img src="/payment_qr.png" alt="Payment QR" className="w-56 h-auto relative z-10" />
+                    <img src="/payment_qr.png" alt="Payment QR" className="w-48 md:w-56 h-auto relative z-10" />
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-3xl font-black">{REGISTRATION_FEE}</h3>
+                    <h3 className="text-3xl md:text-4xl font-serif font-black italic">{REGISTRATION_FEE}</h3>
                     <p className="text-[10px] font-black uppercase tracking-widest text-white/40">Registration & Processing Fee</p>
                   </div>
                 </div>
 
-                <div className="bg-blue-600/10 border border-blue-500/20 p-8 rounded-3xl flex items-start gap-6">
-                  <div className="w-12 h-12 bg-blue-500/20 rounded-2xl flex items-center justify-center shrink-0">
-                    <Lock className="text-blue-500" size={24} />
+                <div className="bg-blue-600/5 border border-blue-500/10 p-6 md:p-8 rounded-3xl flex items-start gap-4 md:gap-6">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-500/20 rounded-2xl flex items-center justify-center shrink-0">
+                    <Lock className="text-blue-500" size={20} />
                   </div>
-                  <p className="text-xs text-blue-200/60 leading-relaxed font-medium">
-                    Ensure the transaction ID is clearly visible. Payment verification takes 12-24 hours. Your domain slot is reserved immediately upon submission.
+                  <p className="text-[11px] text-blue-200/50 leading-relaxed font-medium">
+                    Ensure the transaction ID is accurate. Verification takes 12-24 hours. Your domain slot is reserved immediately upon submission.
                   </p>
                 </div>
               </div>
 
               {/* Right Side: Verification Form */}
-              <div className="bg-white/5 border border-white/10 p-10 rounded-[40px] flex flex-col justify-between">
+              <div className="bg-white/[0.03] border border-white/10 p-8 md:p-10 rounded-[40px] flex flex-col justify-between backdrop-blur-xl">
                 <div>
-                  <h2 className="text-4xl font-serif font-black italic mb-10 leading-tight">Verify Payment.</h2>
+                  <h2 className="text-3xl md:text-4xl font-serif font-black italic mb-8 md:mb-10 leading-tight">Verify Payment.</h2>
                   
-                  <div className="space-y-8">
-                    <div className="space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Transaction ID (UTR)</label>
+                  <div className="space-y-6 md:space-y-8">
+                    <div className="space-y-3">
+                      <label className="text-[9px] font-black uppercase tracking-widest text-white/30 ml-4">Transaction ID (UTR)</label>
                       <input 
                         type="text" 
                         placeholder="EX: 4123..."
                         value={transactionId}
                         onChange={(e) => setTransactionId(e.target.value.toUpperCase())}
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 font-black tracking-widest uppercase focus:border-blue-500 outline-none transition-all"
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 md:py-5 font-black tracking-widest uppercase focus:border-white/30 focus:bg-white/[0.08] outline-none transition-all"
                       />
                     </div>
 
-                    <div className="space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Payment Screenshot</label>
-                      <label className="group relative w-full h-48 bg-white/5 border-2 border-dashed border-white/10 rounded-[32px] flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white/10 hover:border-blue-500/50 overflow-hidden">
+                    <div className="space-y-3">
+                      <label className="text-[9px] font-black uppercase tracking-widest text-white/30 ml-4">Payment Screenshot</label>
+                      <label className="group relative w-full h-40 md:h-48 bg-white/5 border-2 border-dashed border-white/10 rounded-[32px] flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white/10 hover:border-white/30 overflow-hidden">
                         {screenshot ? (
-                          <div className="flex flex-col items-center gap-4 p-4">
-                            <ImageIcon className="text-blue-500" size={40} />
-                            <span className="text-[10px] font-black uppercase tracking-widest truncate max-w-[200px]">{screenshot.name}</span>
-                            <button onClick={(e) => { e.preventDefault(); setScreenshot(null); }} className="text-red-400 hover:text-red-300">
-                              <X size={16} />
+                          <div className="flex flex-col items-center gap-3 p-4">
+                            <ImageIcon className="text-blue-500" size={32} />
+                            <span className="text-[9px] font-black uppercase tracking-widest truncate max-w-[150px]">{screenshot.name}</span>
+                            <button onClick={(e) => { e.preventDefault(); setScreenshot(null); }} className="text-red-400 hover:text-red-300 text-[10px] font-black uppercase tracking-widest mt-2">
+                              Remove
                             </button>
                           </div>
                         ) : (
                           <>
-                            <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                              <Upload className="text-white/30 group-hover:text-white" size={24} />
+                            <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                              <Upload className="text-white/20 group-hover:text-white" size={20} />
                             </div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-white/30 group-hover:text-white transition-colors">Click to Upload</span>
+                            <span className="text-[9px] font-black uppercase tracking-widest text-white/20 group-hover:text-white transition-colors">Click to Upload</span>
                           </>
                         )}
                         <input type="file" accept="image/*" className="hidden" onChange={handleScreenshotChange} />
@@ -439,22 +472,22 @@ export default function SlotBookingPage({ onBack }) {
                   </div>
                 </div>
 
-                <div className="mt-12 space-y-4">
+                <div className="mt-10 md:mt-12 space-y-4">
                   {isProcessing && (
                     <div className="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${uploadProgress}%` }}
-                        className="h-full bg-blue-500"
+                        className="h-full bg-gradient-to-r from-blue-500 to-emerald-500"
                       />
                     </div>
                   )}
                   <button
                     onClick={handleSubmit}
                     disabled={!transactionId || !screenshot || isProcessing}
-                    className="w-full bg-white text-black py-6 rounded-2xl font-black uppercase tracking-[0.4em] flex items-center justify-center gap-4 hover:bg-white/90 disabled:opacity-50 transition-all active:scale-95"
+                    className="w-full bg-white text-black py-6 md:py-7 rounded-3xl font-black uppercase tracking-[0.4em] text-[11px] flex items-center justify-center gap-4 hover:bg-white/90 disabled:opacity-30 transition-all active:scale-95 shadow-2xl shadow-white/10"
                   >
-                    {isProcessing ? <Loader2 className="animate-spin" size={24} /> : <>Complete Reservation <Check size={20} /></>}
+                    {isProcessing ? <Loader2 className="animate-spin" size={20} /> : <>Complete Reservation <Check size={18} /></>}
                   </button>
                 </div>
               </div>
