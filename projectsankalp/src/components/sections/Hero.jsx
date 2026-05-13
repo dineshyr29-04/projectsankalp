@@ -19,6 +19,7 @@ export default function Hero() {
   const sponsors = [
     { name: "Yenepoya University", logo: "/ysetlogo.png" },
     { name: "NSS Unit", logo: "/nsslogo.png" },
+    { name:"Ministry of Youth Affairs and Sports", logo:"/MYAA.png"},
   ];
 
   return (
