@@ -100,7 +100,7 @@ export default function HeroTimer() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.8, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-      className="mt-16 md:mt-10 relative"
+      className="relative"
     >
       <GlassFilter />
       
@@ -113,13 +113,13 @@ export default function HeroTimer() {
         }}
       />
       
-      <div className="relative z-10 px-8 md:px-16 py-10 flex items-center justify-center gap-6 md:gap-14">
+      <div className="relative z-10 px-8 md:px-16 py-6 md:py-8 flex items-center justify-center gap-6 md:gap-14">
         <TimeUnit value={timeLeft.days} label="Days" />
-        <div className="h-12 w-px bg-slate-900/10 hidden md:block mt-[-20px]" />
+        <div className="h-10 w-px bg-slate-900/10 hidden md:block" />
         <TimeUnit value={timeLeft.hours} label="Hours" />
-        <div className="h-12 w-px bg-slate-900/10 hidden md:block mt-[-20px]" />
+        <div className="h-10 w-px bg-slate-900/10 hidden md:block" />
         <TimeUnit value={timeLeft.minutes} label="Minutes" />
-        <div className="h-12 w-px bg-slate-900/10 hidden md:block mt-[-20px]" />
+        <div className="h-10 w-px bg-slate-900/10 hidden md:block" />
         <TimeUnit value={timeLeft.seconds} label="Seconds" />
       </div>
     </motion.div>

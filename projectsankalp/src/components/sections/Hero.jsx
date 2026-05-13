@@ -55,41 +55,42 @@ export default function Hero() {
         />
       </div>
       {/* Main Content - Centered with Navbar Offset */}
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 pt-[-40px] pb-12">
-        <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto flex flex-col items-center justify-center gap-8 md:gap-12">
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 py-12 md:py-20">
+        <Container className="w-full px-4 sm:px-10 lg:px-20 mx-auto flex flex-col items-center justify-center gap-12 md:gap-16">
           {/* Main Content Stack */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col items-center space-y-6 md:space-y-8 w-full text-center"
+            className="flex flex-col items-center w-full text-center"
           >
-            {/* AUDIT FIX: Clear primary date & prize pool info */}
+            {/* Heading Group */}
+            <div className="flex flex-col items-center w-full gap-8 md:gap-12">
+              <div className="flex flex-col items-center">
+                <h1 className="text-6xl sm:text-8xl md:text-[100px] lg:text-[140px] font-serif font-black text-slate-900 leading-[0.75] tracking-[0.1em] uppercase italic">
+                  PROJECT
+                </h1>
 
-            {/* Heading - Wide & Impactful */}
-            <div className="flex flex-col items-center w-full mt-[30px] md:mt-[0px]">
-              <h1 className="mt-10 text-6xl italic font-light sm:text-8xl md:text-[90px] lg:text-[130px] sm:mt-[100px] font-serif font-black text-slate-900 leading-[0.8] tracking-[0.1em] uppercase">
-                PROJECT
-              </h1>
+                {/* Pill Badge - Centered between heading words */}
+                <div className="flex items-center justify-center gap-4 my-6 md:my-8">
+                  <span className="h-px w-10 bg-gradient-to-r from-transparent via-slate-300 to-transparent"></span>
+                  <span className="text-[11px] md:text-[14px] font-semibold uppercase tracking-[0.4em] text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600">
+                    Code4Change
+                  </span>
+                  <span className="h-px w-10 bg-gradient-to-r from-transparent via-slate-300 to-transparent"></span>
+                </div>
 
-              {/* Pill Badge - Centered between heading words */}
-              <div className="flex items-center justify-center gap-4 my-4 md:my-6">
-                <span className="h-px w-10 bg-gradient-to-r from-transparent via-slate-400 to-transparent"></span>
-                <span className="text-[11px] font-normal italic md:text-[14px] font-semibold uppercase tracking-[0.35em] text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600">
-                  Code4Change
-                </span>
-                <span className="h-px w-10 bg-gradient-to-r from-transparent via-slate-400 to-transparent"></span>
+                <h1 className="text-5xl sm:text-6xl md:text-[100px] lg:text-[140px] font-serif font-black text-slate-900 leading-[0.75] tracking-[0.15em] uppercase italic">
+                  SANKALP
+                </h1>
               </div>
-              <h1 className="text-5xl font-light italic sm:text-6xl md:text-[90px] lg:text-[130px] font-serif font-black text-slate-900 leading-[0.8] tracking-[0.15em] uppercase italic">
-                SANKALP
-              </h1>
               
-              {/* HERO TIMER - Centered under title */}
+              {/* HERO TIMER - Focal point under title */}
               <HeroTimer />
             </div>
 
-            {/* CTA Group */}
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full md:w-auto px-6 md:px-0 mt-3 sm:mt-[120px] mt-[10px]">
+            {/* CTA Group - Logical action unit */}
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full md:w-auto px-6 md:px-0 mt-12 md:mt-16">
               <motion.button
                 whileHover={{
                   boxShadow: "0 25px 50px rgba(16, 185, 129, 0.4)",
