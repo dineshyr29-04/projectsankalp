@@ -151,7 +151,8 @@ export default function BookingStatusPage({ slots, onBack, onDelete }) {
                       </span>
                       {slot.teamId ? (
                         <div className="flex flex-col">
-                          <span className="text-xs font-black tracking-wide truncate max-w-[120px]">TEAM: {slot.teamId}</span>
+                          <span className="text-xs font-black tracking-wide truncate max-w-[150px] uppercase text-emerald-400">{slot.teamId}</span>
+                          <span className="text-[10px] font-bold text-slate-400 truncate max-w-[150px]">{slot.teamName}</span>
                         </div>
                       ) : (
                         <span className="text-[10px] font-bold uppercase tracking-widest opacity-40">Vacant Bay</span>

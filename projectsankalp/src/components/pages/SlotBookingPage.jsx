@@ -92,14 +92,22 @@ export default function SlotBookingPage({ onBack }) {
   const fetchSlots = async () => {
     try {
       const slotsData = {};
+      const allRegs = await getDocs(collection(db, "registrations"));
+      const regsByDomain = {};
+      
+      allRegs.docs.forEach(doc => {
+        const d = doc.data().selectedDomain;
+        regsByDomain[d] = (regsByDomain[d] || 0) + 1;
+      });
+
       for (const domain of DOMAINS) {
-        const q = query(collection(db, "registrations"), where("selectedDomain", "==", domain.id));
-        const snap = await getDocs(q);
-        slotsData[domain.id] = domain.slotsTotal - snap.size;
+        slotsData[domain.id] = domain.slotsTotal - (regsByDomain[domain.id] || 0);
       }
       setDomainSlots(slotsData);
+      return allRegs.size; // Return total for ID generation
     } catch (err) {
       console.error("Error fetching slots:", err);
+      return 0;
     }
   };
 
@@ -109,7 +117,7 @@ export default function SlotBookingPage({ onBack }) {
     setError("");
 
     try {
-      // Check if the team name has already registered in the 'registrations' collection
+      // Check if the team name has already registered
       const q = query(
         collection(db, "registrations"), 
         where("teamName", "==", teamInput.trim())
@@ -117,21 +125,25 @@ export default function SlotBookingPage({ onBack }) {
       const snap = await getDocs(q);
 
       if (!snap.empty) {
-        setError("This team has already reserved a slot.");
+        setError("This team name has already been claimed.");
         setIsProcessing(false);
         return;
       }
 
-      // If not registered, set the team data using their input and proceed
+      // Generate the next C4C ID
+      const totalCount = await fetchSlots();
+      const nextIdNumber = (totalCount + 1).toString().padStart(2, '0');
+      const generatedId = `C4C-${nextIdNumber}`;
+
       setVerifiedTeam({
         teamName: teamInput.trim(),
-        teamId: teamInput.trim().toUpperCase().replace(/\s+/g, '-'),
-        captainName: "Unknown", // No longer pulled from a master list
+        teamId: generatedId,
+        captainName: "New Entry",
         institute: "Participant" 
       });
       setStep("DOMAIN");
     } catch (err) {
-      setError("Communication error with registry terminal.");
+      setError("System terminal offline. Check connection.");
       console.error(err);
     } finally {
       setIsProcessing(false);
@@ -153,59 +165,50 @@ export default function SlotBookingPage({ onBack }) {
     setError("");
 
     try {
-      // 1. Upload to Firebase Storage
-      const storageRef = ref(storage, `paymentProofs/${verifiedTeam.teamId}/${Date.now()}_${screenshot.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, screenshot);
+      // 1. Convert Image to Base64 (Bypasses CORS issue)
+      const reader = new FileReader();
+      reader.readAsDataURL(screenshot);
+      reader.onload = async () => {
+        const base64Image = reader.result;
 
-      uploadTask.on('state_changed', 
-        (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setUploadProgress(progress);
-        }, 
-        (error) => {
-          setError("Upload failed. Please try again.");
-          setIsProcessing(false);
-        }, 
-        async () => {
-          const url = await getDownloadURL(uploadTask.snapshot.ref);
-          setScreenshotUrl(url);
+        // 2. Send EVERYTHING to Google Sheets (Webapp handles Drive upload)
+        const registrationData = {
+          teamId: verifiedTeam.teamId,
+          teamName: verifiedTeam.teamName,
+          selectedDomain: selectedDomain.id,
+          transactionId,
+          paymentStatus: "PENDING",
+          image: base64Image, // Base64 string
+          timestamp: new Date().toISOString()
+        };
 
-          // 2. Save to Firestore
-          const registrationData = {
-            teamId: verifiedTeam.teamId,
-            teamName: verifiedTeam.teamName,
-            selectedDomain: selectedDomain.id,
-            transactionId,
-            screenshotUrl: url,
-            paymentStatus: "PENDING",
-            createdAt: serverTimestamp()
-          };
+        if (GOOGLE_SHEETS_WEBHOOK) {
+          try {
+            const response = await fetch(GOOGLE_SHEETS_WEBHOOK, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(registrationData)
+            });
 
-          await addDoc(collection(db, "registrations"), registrationData);
-
-          // 3. Send to Google Sheets (if webhook provided)
-          if (GOOGLE_SHEETS_WEBHOOK) {
-            try {
-              await fetch(GOOGLE_SHEETS_WEBHOOK, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  ...registrationData,
-                  timestamp: new Date().toISOString()
-                })
-              });
-            } catch (sheetErr) {
-              console.warn("Sheets integration failed, but registration saved.");
-            }
+            // Note: with no-cors, we can't read the response, but we assume success if no error thrown
+          } catch (sheetErr) {
+            console.error("Sheet sync failed:", sheetErr);
           }
-
-          setStep("SUCCESS");
-          setIsProcessing(false);
         }
-      );
+
+        // 3. Save to Firestore (Record of Truth)
+        await addDoc(collection(db, "registrations"), {
+          ...registrationData,
+          image: "Stored in Drive/Sheets", // Don't store massive base64 in Firestore
+          createdAt: serverTimestamp()
+        });
+
+        setStep("SUCCESS");
+        setIsProcessing(false);
+      };
     } catch (err) {
-      setError("System failure during finalization.");
+      setError("Critical failure during finalization.");
       setIsProcessing(false);
     }
   };
@@ -216,7 +219,7 @@ export default function SlotBookingPage({ onBack }) {
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 blur-[150px] rounded-full animate-pulse" />
         <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-emerald-600/10 blur-[150px] rounded-full animate-pulse" />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+        <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
       </div>
 
       <Container className="relative z-10 pt-24 pb-20 mx-auto px-6">
@@ -249,13 +252,11 @@ export default function SlotBookingPage({ onBack }) {
               className="flex flex-col items-center max-w-2xl mx-auto py-12"
             >
               <motion.div 
-                animate={{ 
-                  boxShadow: ["0 0 0px rgba(59, 130, 246, 0)", "0 0 40px rgba(59, 130, 246, 0.4)", "0 0 0px rgba(59, 130, 246, 0)"] 
-                }}
+                
                 transition={{ duration: 3, repeat: Infinity }}
-                className="w-24 h-24 rounded-[32px] bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center mb-12 relative rotate-12 group-hover:rotate-0 transition-transform duration-500"
+                className="w-24 h-24 rounded-[32px] flex items-center justify-center mb-12 relative rotate-12 group-hover:rotate-0 transition-transform duration-500"
               >
-                <Lock className="text-white" size={40} />
+                
               </motion.div>
 
               <h1 className="text-5xl md:text-7xl font-serif font-black tracking-tight text-center mb-4 italic">
@@ -487,12 +488,12 @@ export default function SlotBookingPage({ onBack }) {
 
               <div className="grid grid-cols-2 gap-4 text-left mb-16">
                 <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                  <span className="block text-[9px] font-black uppercase tracking-widest text-white/30 mb-2">Operation Mode</span>
-                  <span className="text-sm font-black uppercase tracking-widest text-emerald-500">Live & Reserved</span>
+                  <span className="block text-[9px] font-black uppercase tracking-widest text-white/30 mb-2">Operation ID</span>
+                  <span className="text-sm font-black uppercase tracking-widest text-emerald-500">{verifiedTeam?.teamId}</span>
                 </div>
                 <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                  <span className="block text-[9px] font-black uppercase tracking-widest text-white/30 mb-2">Verification</span>
-                  <span className="text-sm font-black uppercase tracking-widest text-blue-500">In Progress</span>
+                  <span className="block text-[9px] font-black uppercase tracking-widest text-white/30 mb-2">Sector</span>
+                  <span className="text-sm font-black uppercase tracking-widest text-blue-500">{selectedDomain?.title}</span>
                 </div>
               </div>
 

@@ -100,24 +100,26 @@ function App() {
     const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
     if (!db || !projectId || projectId === "your_project_id") return;
 
-    const q = query(collection(db, "bookings"));
+    const q = query(collection(db, "registrations"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const bookings = snapshot.docs.map(doc => ({ ...doc.data(), _id: doc.id }));
+      const regs = snapshot.docs.map(doc => ({ ...doc.data(), _id: doc.id }));
       
-      // Reset to empty first, then fill from DB
       const freshSlots = {
-        women: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
-        health: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
-        climate: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
+        women: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
+        health: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
+        climate: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
       };
 
-      bookings.forEach(booking => {
-        const sector = freshSlots[booking.domainId];
+      regs.forEach((reg, index) => {
+        const sector = freshSlots[reg.selectedDomain];
         if (sector) {
-          const slot = sector.find(s => s.id === booking.slotId);
+          // Find the first empty slot for this domain in the local manifest
+          const slot = sector.find(s => !s.teamId);
           if (slot) {
-            slot.teamId = booking.teamId;
-            slot.docId = booking._id; // Store Firestore ID for easy deletion
+            slot.teamId = reg.teamId;
+            slot.teamName = reg.teamName;
+            slot.docId = reg._id;
+            slot.transactionId = reg.transactionId;
           }
         }
       });
@@ -154,52 +156,21 @@ function App() {
   };
 
   const handleDeleteBooking = async (domainId, slotId, docId) => {
-    // Confirmation for safety
-    if (!window.confirm(`Are you sure you want to delete the booking for Team ${slotId} in the ${domainId} sector?`)) {
+    if (!window.confirm("Are you sure you want to delete this registration? This will free up a slot.")) {
       return;
     }
-
-    console.log("Attempting deletion:", { domainId, slotId, docId });
 
     try {
       const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
       if (db && projectId && projectId !== "your_project_id") {
         if (docId) {
-          // Direct document deletion
-          const docRef = doc(db, "bookings", docId);
+          const docRef = doc(db, "registrations", docId);
           await deleteDoc(docRef);
-          console.log("Deletion successful via docId");
-        } else {
-          // Fallback: Query for the document
-          console.log("No docId found, querying database...");
-          const q = query(
-            collection(db, "bookings"), 
-            where("domainId", "==", domainId), 
-            where("slotId", "==", slotId)
-          );
-          const snapshot = await getDocs(q);
-          
-          if (snapshot.empty) {
-            console.warn("No matching document found to delete.");
-            return;
-          }
-
-          const deletePromises = snapshot.docs.map(document => deleteDoc(document.ref));
-          await Promise.all(deletePromises);
-          console.log("Deletion successful via query");
         }
-      } else {
-        // Local state fallback
-        setGlobalSlots(prev => ({
-          ...prev,
-          [domainId]: prev[domainId].map(slot => 
-            slot.id === slotId ? { ...slot, teamId: null } : slot
-          )
-        }));
       }
     } catch (error) {
       console.error("Deletion failed:", error);
-      alert("System Error: Could not remove allocation. Please check your connection.");
+      alert("System Error: Could not remove registration.");
     }
   };
 
