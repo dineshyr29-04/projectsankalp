@@ -68,7 +68,7 @@ const DOMAINS = [
 ];
 
 const REGISTRATION_FEE = "₹800";
-const GOOGLE_SHEETS_WEBHOOK = "https://script.google.com/macros/s/AKfycbzyXATn_PKJCxOyIR3kmYLIRIhjwljY94_wAyWrqX23urpsktDTK4Qnb9WClDkmQx03kQ/exec"; // USER NEEDS TO PROVIDE THIS
+const GOOGLE_SHEETS_WEBHOOK = "https://script.google.com/macros/s/AKfycbwLiaraM-0tX6TiM87UG_3ZfLCDM3DhKRxrv1U5YVDYDtlUYab5loFwNm_1baiONPJ_JQ/exec"; // USER NEEDS TO PROVIDE THIS
 
 export default function SlotBookingPage({ onBack }) {
   const [step, setStep] = useState("VERIFY"); // VERIFY, DOMAIN, PAYMENT, SUCCESS
@@ -156,6 +156,44 @@ export default function SlotBookingPage({ onBack }) {
     }
   };
 
+  const compressImage = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 1200;
+          const MAX_HEIGHT = 1200;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Compress to 70% quality JPEG
+          resolve(canvas.toDataURL('image/jpeg', 0.7));
+        };
+      };
+    });
+  };
+
   const handleSubmit = async () => {
     if (!transactionId || !screenshot) {
       setError("Please provide both transaction ID and payment proof.");
@@ -166,13 +204,8 @@ export default function SlotBookingPage({ onBack }) {
     setError("");
 
     try {
-      // 1. Read file as Base64 with Promise
-      const base64Image = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(screenshot);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-      });
+      // 1. Compress & Convert Image (Drastically speeds up upload)
+      const base64Image = await compressImage(screenshot);
 
       const registrationData = {
         teamId: verifiedTeam.teamId,
@@ -184,35 +217,27 @@ export default function SlotBookingPage({ onBack }) {
         timestamp: new Date().toISOString()
       };
 
-      // 2. Send to Google Sheets (Parallel attempt)
-      let sheetSyncStatus = "SKIP";
-      if (GOOGLE_SHEETS_WEBHOOK) {
-        try {
-          await fetch(GOOGLE_SHEETS_WEBHOOK, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(registrationData)
-          });
-          sheetSyncStatus = "SUCCESS";
-        } catch (sheetErr) {
-          console.warn("Sheet sync failed, continuing to Firestore...", sheetErr);
-          sheetSyncStatus = "FAIL";
-        }
-      }
-
-      // 3. Save to Firestore (Primary Record)
+      // 2. Save to Firestore immediately (Primary Record)
       await addDoc(collection(db, "registrations"), {
         ...registrationData,
-        image: "Stored in Drive/Sheets", // Keep Firestore document size small
-        sheetSync: sheetSyncStatus,
+        image: "Stored in Drive/Sheets", 
         createdAt: serverTimestamp()
       });
+
+      // 3. Send to Google Sheets (Background sync)
+      if (GOOGLE_SHEETS_WEBHOOK) {
+        fetch(GOOGLE_SHEETS_WEBHOOK, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(registrationData)
+        }).catch(err => console.error("Sheet sync background failed:", err));
+      }
 
       setStep("SUCCESS");
     } catch (err) {
       console.error("Submission Error:", err);
-      setError(`Submission failed: ${err.message || "Unknown Error"}. Please check your connection or Firestore rules.`);
+      setError(`Submission failed: ${err.message || "Unknown Error"}.`);
     } finally {
       setIsProcessing(false);
     }
