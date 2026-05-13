@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Container from "../core/Container";
 import TeamShowcase from "../ui/TeamShowcase";
 
@@ -50,10 +51,14 @@ const SECTIONS = [
 ];
 
 export default function TeamPage() {
+  const [activeSection, setActiveSection] = useState(SECTIONS[0].title);
+
+  const activeData = SECTIONS.find(s => s.title === activeSection)?.data || [];
+
   return (
     <div className="bg-white min-h-screen relative font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-32">
       {/* Hero Section */}
-      <section className="relative pt-40 pb-20 z-10 border-b border-slate-100">
+      <section className="relative pt-40 pb-16 z-10 border-b border-slate-100">
         <Container>
           <div className="max-w-5xl">
             <div className="flex items-center gap-4 mb-10">
@@ -75,38 +80,67 @@ export default function TeamPage() {
         </Container>
       </section>
 
-      {/* Dynamic Team Sections */}
-      <section className="relative z-10 py-12 md:py-20">
+      {/* Navigation Toggler */}
+      <section className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100 py-4">
         <Container>
-          <div className="space-y-32">
-            {SECTIONS.map((section, idx) => (
-              <motion.div 
-                key={section.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-col gap-8"
-              >
-                {/* Section Header */}
-                <div className="flex items-center gap-6 border-b border-slate-100 pb-6 w-full max-w-5xl mx-auto">
-                  <span className="text-slate-300 font-serif text-3xl md:text-5xl italic font-black">
-                    0{idx + 1}
-                  </span>
-                  <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tight">
-                    {section.title}
-                  </h2>
-                </div>
-
-                {/* Team Showcase Grid */}
-                <TeamShowcase members={section.data} />
-              </motion.div>
-            ))}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 hide-scrollbar w-full max-w-5xl mx-auto">
+            {SECTIONS.map((section) => {
+              const isActive = activeSection === section.title;
+              return (
+                <button
+                  key={section.title}
+                  onClick={() => setActiveSection(section.title)}
+                  className={`relative px-6 py-3 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap overflow-hidden ${
+                    isActive
+                      ? "text-white"
+                      : "text-slate-400 hover:text-slate-900 hover:bg-slate-50"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute inset-0 bg-slate-900 rounded-full -z-10"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                  {section.title}
+                </button>
+              );
+            })}
           </div>
         </Container>
       </section>
 
-      <div className="flex flex-col items-center gap-6 opacity-30 text-center mt-20">
+      {/* Dynamic Team Section */}
+      <section className="relative z-10 py-12 md:py-20 min-h-[600px]">
+        <Container>
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={activeSection}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col gap-8 w-full max-w-5xl mx-auto"
+            >
+              {/* Section Header */}
+              <div className="flex items-center gap-6 border-b border-slate-100 pb-6">
+                <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tight">
+                  {activeSection}
+                </h2>
+                <span className="text-slate-300 font-serif text-3xl md:text-5xl italic font-black ml-auto">
+                  0{SECTIONS.findIndex(s => s.title === activeSection) + 1}
+                </span>
+              </div>
+
+              {/* Team Showcase Grid */}
+              <TeamShowcase members={activeData} />
+            </motion.div>
+          </AnimatePresence>
+        </Container>
+      </section>
+
+      <div className="flex flex-col items-center gap-6 opacity-30 text-center mt-20 border-t border-slate-100 pt-10">
         <p className="text-[10px] font-black uppercase tracking-[0.5em]">Project Sankalp Team _ 2026</p>
       </div>
     </div>
