@@ -56,10 +56,10 @@ const RollingDigit = memo(({ digit }) => {
     <div
       className="
         relative
-        h-12
-        w-7
+        h-10
+        w-8
         overflow-hidden
-        rounded-xl
+        rounded-lg
         border border-black/[0.04]
         bg-white/20
         backdrop-blur-sm
@@ -78,9 +78,10 @@ const RollingDigit = memo(({ digit }) => {
           }}
           className="
             absolute
-            text-[30px]
-            font-black
-            tracking-[-0.06em]
+            text-[22px]
+            font-semibold
+            leading-none
+            tracking-[-0.02em]
             text-black/80
             tabular-nums
           "
@@ -105,7 +106,7 @@ const TimeUnit = memo(({ value, label }) => {
       <span className="text-[8px] font-semibold uppercase tracking-[0.28em] text-black/35">
         {label}
       </span>
-      <div className="flex items-center gap-[2px]">
+      <div className="flex items-center gap-[3px]">
         {value.split("").map((digit, idx) => (
           <RollingDigit key={`${label}-${idx}`} digit={digit} />
         ))}
@@ -175,22 +176,22 @@ export default function FloatingTimer() {
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         className="fixed right-6 top-1/2 z-[120] hidden -translate-y-1/2 lg:block"
       >
-        <div className="relative group p-4">
+        <div className="relative group p-3">
           {/* LIQUID GLASS POD */}
-          <div className="relative h-full w-full min-w-[80px]">
+          <div className="relative h-full w-full min-w-[72px]">
             {/* The multi-layered liquid glass shadow and texture */}
-            <div className="absolute inset-0 z-0 rounded-[34px] shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3px_rgba(0,0,0,0.9),inset_-3px_-3px_0.5px_-3px_rgba(0,0,0,0.85),inset_1px_1px_1px_-0.5px_rgba(0,0,0,0.6),inset_-1px_-1px_1px_-0.5px_rgba(0,0,0,0.6),inset_0_0_6px_6px_rgba(0,0,0,0.12),inset_0_0_2px_2px_rgba(0,0,0,0.06),0_0_12px_rgba(255,255,255,0.15)] transition-all dark:shadow-[0_0_8px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3.5px_rgba(255,255,255,0.09),inset_-3px_-3px_0.5px_-3.5px_rgba(255,255,255,0.85),inset_1px_1px_1px_-0.5px_rgba(255,255,255,0.6),inset_-1px_-1px_1px_-0.5px_rgba(255,255,255,0.6),inset_0_0_6px_6px_rgba(255,255,255,0.12),inset_0_0_2px_2px_rgba(255,255,255,0.06),0_0_12px_rgba(0,0,0,0.15)]" />
+            <div className="absolute inset-0 z-0 rounded-[28px] shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3px_rgba(0,0,0,0.9),inset_-3px_-3px_0.5px_-3px_rgba(0,0,0,0.85),inset_1px_1px_1px_-0.5px_rgba(0,0,0,0.6),inset_-1px_-1px_1px_-0.5px_rgba(0,0,0,0.6),inset_0_0_6px_6px_rgba(0,0,0,0.12),inset_0_0_2px_2px_rgba(0,0,0,0.06),0_0_12px_rgba(255,255,255,0.15)] transition-all dark:shadow-[0_0_8px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3.5px_rgba(255,255,255,0.09),inset_-3px_-3px_0.5px_-3.5px_rgba(255,255,255,0.85),inset_1px_1px_1px_-0.5px_rgba(255,255,255,0.6),inset_-1px_-1px_1px_-0.5px_rgba(255,255,255,0.6),inset_0_0_6px_6px_rgba(255,255,255,0.12),inset_0_0_2px_2px_rgba(255,255,255,0.06),0_0_12px_rgba(0,0,0,0.15)]" />
             
             {/* Liquid Distortion Layer */}
             <div
-              className="absolute inset-0 isolate -z-10 h-full w-full overflow-hidden rounded-[34px]"
+              className="absolute inset-0 isolate -z-10 h-full w-full overflow-hidden rounded-[28px]"
               style={{ backdropFilter: 'url("#container-glass")' }}
             />
 
             {/* Content Wrapper */}
-            <div className="relative z-10 flex flex-col items-center px-4 py-8">
+            <div className="relative z-10 flex flex-col items-center px-3 py-6">
               {/* live indicator */}
-              <div className="mb-8 flex flex-col items-center gap-2">
+              <div className="mb-6 flex flex-col items-center gap-2">
                 <div className="flex items-center gap-2">
                   <motion.div
                     animate={{ opacity: [0.35, 1, 0.35] }}
@@ -205,7 +206,7 @@ export default function FloatingTimer() {
               </div>
 
               {/* timer stack */}
-              <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-6">
                 <TimeUnit value={timeLeft.days} label="Days" />
                 <TimeUnit value={timeLeft.hours} label="Hrs" />
                 <TimeUnit value={timeLeft.minutes} label="Min" />
@@ -213,7 +214,7 @@ export default function FloatingTimer() {
               </div>
 
               {/* bottom label */}
-              <div className="mt-8 flex flex-col items-center border-t border-black/[0.04] pt-6 w-full">
+              <div className="mt-6 flex flex-col items-center border-t border-black/[0.04] pt-5 w-full">
                 <p className="text-center text-[8px] font-medium uppercase leading-relaxed tracking-[0.22em] text-black/40">
                   Registration<br />Active
                 </p>
