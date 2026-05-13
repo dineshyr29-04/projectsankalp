@@ -26,19 +26,35 @@ const FACULTY = [
   { id: 'f3', name: 'Ms. Priya Rao', role: 'Co-Convener', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80', social: { twitter: '#' } },
 ];
 
-const STUDENT_CORE = [
-  { id: 's1', name: 'Radesh Pai', role: 'Overall Coordinator', image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#' } },
-  { id: 's2', name: 'Dinesh', role: 'Tech Lead', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', social: { twitter: '#', linkedin: '#' } },
-  { id: 's3', name: 'Anita Desai', role: 'Design Lead', image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80', social: { behance: '#', linkedin: '#' } },
-  { id: 's4', name: 'Dhanush Shenoy', role: 'Logistics', image: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#' } },
-  { id: 's5', name: 'Arjun Mehta', role: 'Marketing Lead', image: 'https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
-  { id: 's6', name: 'Kavita Singh', role: 'Operations', image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
+const STUDENT_CONVENERS = [
+  { id: 's1', name: 'Radesh Pai', role: 'Student Convener', image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#', github: '#' } },
+  { id: 's2', name: 'Dinesh', role: 'Student Convener', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', social: { twitter: '#', linkedin: '#', github: '#' } },
 ];
 
-const VOLUNTEERS = [
-  { id: 'v1', name: 'Meera K.', role: 'Volunteer', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
-  { id: 'v2', name: 'Suresh G.', role: 'Volunteer', image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
-  { id: 'v3', name: 'Nina Patel', role: 'Volunteer', image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
+const HOSPITALITY = [
+  { id: 'h1', name: 'Arjun Mehta', role: 'Hospitality Lead', image: 'https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
+  { id: 'h2', name: 'Nina Patel', role: 'Hospitality Team', image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
+];
+
+const DISCIPLINARY = [
+  { id: 'd1', name: 'Suresh G.', role: 'Disciplinary Head', image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#' } },
+];
+
+const REGISTRATION = [
+  { id: 'r1', name: 'Kavita Singh', role: 'Registration Lead', image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
+];
+
+const MEDIA = [
+  { id: 'm1', name: 'Anita Desai', role: 'Media Lead', image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80', social: { behance: '#', linkedin: '#' } },
+  { id: 'm2', name: 'Meera K.', role: 'Media Team', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
+];
+
+const TECHNICAL = [
+  { id: 't1', name: 'Dhanush Shenoy', role: 'Technical Lead', image: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#', github: '#' } },
+];
+
+const WEBSITE = [
+  { id: 'w1', name: 'Vicky', role: 'Website Developer', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80', social: { github: '#', linkedin: '#' } },
 ];
 
 const SECTIONS = [
@@ -46,8 +62,13 @@ const SECTIONS = [
   { title: "Advisory", data: ADVISORY },
   { title: "Organizing Secretary", data: ORG_SECRETARY },
   { title: "Faculty Conveners", data: FACULTY },
-  { title: "Student Core Committee", data: STUDENT_CORE },
-  { title: "Volunteers", data: VOLUNTEERS },
+  { title: "Student Conveners", data: STUDENT_CONVENERS },
+  { title: "Hospitality Committee", data: HOSPITALITY },
+  { title: "Disciplinary Committee", data: DISCIPLINARY },
+  { title: "Registration Committee", data: REGISTRATION },
+  { title: "Media Committee", data: MEDIA },
+  { title: "Technical Committee", data: TECHNICAL },
+  { title: "Website Committee", data: WEBSITE },
 ];
 
 export default function TeamPage() {

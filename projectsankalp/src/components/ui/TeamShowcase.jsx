@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaLinkedinIn, FaTwitter, FaBehance, FaInstagram } from 'react-icons/fa';
+import { FaLinkedinIn, FaTwitter, FaBehance, FaInstagram, FaGithub } from 'react-icons/fa';
 import { cn } from '../../lib/utils';
 
 export default function TeamShowcase({ members }) {
@@ -109,7 +109,7 @@ function PhotoCard({ member, className, hoveredId, onHover }) {
 function MemberRow({ member, hoveredId, onHover }) {
   const isActive = hoveredId === member.id;
   const isDimmed = hoveredId !== null && !isActive;
-  const hasSocial = member.social?.twitter || member.social?.linkedin || member.social?.instagram || member.social?.behance;
+  const hasSocial = member.social?.twitter || member.social?.linkedin || member.social?.instagram || member.social?.behance || member.social?.github;
 
   return (
     <div
@@ -193,6 +193,18 @@ function MemberRow({ member, hoveredId, onHover }) {
                 title="Behance"
               >
                 <FaBehance size={12} />
+              </a>
+            )}
+            {member.social?.github && (
+              <a
+                href={member.social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="p-1 rounded text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all duration-150 hover:scale-110"
+                title="GitHub"
+              >
+                <FaGithub size={12} />
               </a>
             )}
           </div>
