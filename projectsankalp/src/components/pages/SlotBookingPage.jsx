@@ -67,8 +67,8 @@ const DOMAINS = [
   }
 ];
 
-const REGISTRATION_FEE = "₹350";
-const GOOGLE_SHEETS_WEBHOOK = ""; // USER NEEDS TO PROVIDE THIS
+const REGISTRATION_FEE = "₹800";
+const GOOGLE_SHEETS_WEBHOOK = "https://script.google.com/macros/s/AKfycbzyXATn_PKJCxOyIR3kmYLIRIhjwljY94_wAyWrqX23urpsktDTK4Qnb9WClDkmQx03kQ/exec"; // USER NEEDS TO PROVIDE THIS
 
 export default function SlotBookingPage({ onBack }) {
   const [step, setStep] = useState("VERIFY"); // VERIFY, DOMAIN, PAYMENT, SUCCESS
@@ -109,37 +109,29 @@ export default function SlotBookingPage({ onBack }) {
     setError("");
 
     try {
-      // 1. Check if team exists in 'teams' collection
-      const teamIdQuery = query(collection(db, "teams"), where("teamId", "==", teamInput.toUpperCase()));
-      const teamNameQuery = query(collection(db, "teams"), where("teamName", "==", teamInput));
-      
-      let teamSnap = await getDocs(teamIdQuery);
-      if (teamSnap.empty) {
-        teamSnap = await getDocs(teamNameQuery);
-      }
+      // Check if the team name has already registered in the 'registrations' collection
+      const q = query(
+        collection(db, "registrations"), 
+        where("teamName", "==", teamInput.trim())
+      );
+      const snap = await getDocs(q);
 
-      if (teamSnap.empty) {
-        setError("Team signature not found in central registry.");
-        setIsProcessing(false);
-        return;
-      }
-
-      const teamData = { id: teamSnap.docs[0].id, ...teamSnap.docs[0].data() };
-
-      // 2. Check if already registered
-      const regQuery = query(collection(db, "registrations"), where("teamId", "==", teamData.teamId));
-      const regSnap = await getDocs(regQuery);
-
-      if (!regSnap.empty) {
+      if (!snap.empty) {
         setError("This team has already reserved a slot.");
         setIsProcessing(false);
         return;
       }
 
-      setVerifiedTeam(teamData);
+      // If not registered, set the team data using their input and proceed
+      setVerifiedTeam({
+        teamName: teamInput.trim(),
+        teamId: teamInput.trim().toUpperCase().replace(/\s+/g, '-'),
+        captainName: "Unknown", // No longer pulled from a master list
+        institute: "Participant" 
+      });
       setStep("DOMAIN");
     } catch (err) {
-      setError("Communication error with central registry.");
+      setError("Communication error with registry terminal.");
       console.error(err);
     } finally {
       setIsProcessing(false);
@@ -257,29 +249,30 @@ export default function SlotBookingPage({ onBack }) {
               className="flex flex-col items-center max-w-2xl mx-auto py-12"
             >
               <motion.div 
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="w-24 h-24 rounded-full border-2 border-dashed border-white/20 flex items-center justify-center mb-12 relative"
+                animate={{ 
+                  boxShadow: ["0 0 0px rgba(59, 130, 246, 0)", "0 0 40px rgba(59, 130, 246, 0.4)", "0 0 0px rgba(59, 130, 246, 0)"] 
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="w-24 h-24 rounded-[32px] bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center mb-12 relative rotate-12 group-hover:rotate-0 transition-transform duration-500"
               >
-                <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full" />
-                <ShieldCheck className="text-white relative z-10" size={48} />
+                <Lock className="text-white" size={40} />
               </motion.div>
 
-              <h1 className="text-4xl md:text-6xl font-serif font-black tracking-tight text-center mb-4 italic">
-                Mission Access.
+              <h1 className="text-5xl md:text-7xl font-serif font-black tracking-tight text-center mb-4 italic">
+                Identity.
               </h1>
-              <p className="text-white/50 text-center mb-12 max-w-md font-medium leading-relaxed">
-                Enter your Team ID or Team Name to initiate the secure reservation protocol.
+              <p className="text-white/40 text-center mb-12 max-w-md font-medium leading-relaxed uppercase tracking-[0.2em] text-[10px]">
+                Verify your team signature to initiate reservation.
               </p>
 
               <div className="w-full relative group">
-                <div className="absolute inset-0 bg-blue-500/10 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-blue-500/10 blur-2xl opacity-0 group-focus-within:opacity-100 transition-opacity" />
                 <input
                   type="text"
-                  placeholder="TEAM ID / NAME"
+                  placeholder="TEAM NAME"
                   value={teamInput}
                   onChange={(e) => setTeamInput(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-xl text-center font-black tracking-widest uppercase focus:border-white/30 outline-none transition-all relative z-10"
+                  className="w-full bg-white/5 border border-white/10 rounded-3xl px-8 py-7 text-2xl text-center font-black tracking-widest uppercase focus:border-white/30 focus:bg-white/[0.08] outline-none transition-all relative z-10"
                 />
               </div>
 
@@ -287,7 +280,7 @@ export default function SlotBookingPage({ onBack }) {
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-2 mt-6 text-red-400 font-bold uppercase tracking-widest text-[10px]"
+                  className="flex items-center gap-2 mt-6 text-red-400 font-bold uppercase tracking-widest text-[10px] bg-red-400/10 px-4 py-2 rounded-full border border-red-400/20"
                 >
                   <X size={14} /> {error}
                 </motion.div>
@@ -296,9 +289,9 @@ export default function SlotBookingPage({ onBack }) {
               <button
                 onClick={handleVerify}
                 disabled={!teamInput || isProcessing}
-                className="w-full mt-8 bg-white text-black py-6 rounded-2xl font-black uppercase tracking-[0.4em] flex items-center justify-center gap-4 hover:bg-white/90 disabled:opacity-50 transition-all active:scale-95 shadow-[0_20px_50px_rgba(255,255,255,0.1)]"
+                className="w-full mt-8 bg-white text-black py-7 rounded-3xl font-black uppercase tracking-[0.5em] text-[11px] flex items-center justify-center gap-4 hover:bg-white/90 disabled:opacity-50 transition-all active:scale-95 shadow-[0_20px_50px_rgba(255,255,255,0.1)] group"
               >
-                {isProcessing ? <Loader2 className="animate-spin" size={24} /> : <>Initiate Protocol <ArrowRight size={20} /></>}
+                {isProcessing ? <Loader2 className="animate-spin" size={24} /> : <>Verify Team <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" /></>}
               </button>
             </motion.div>
           )}
