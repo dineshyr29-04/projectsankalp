@@ -104,57 +104,58 @@ const PrizeCard = ({ prize, index, isCenter }) => {
     <motion.div
       ref={cardRef}
       initial={{ opacity: 0, x: getInitialX(), y: 50, scale: 0.8 }}
-      whileInView={{ opacity: 1, x: 0, y: isCenter ? 0 : 20, scale: isCenter ? 1.15 : 0.9 }}
+      whileInView={{ opacity: 1, x: 0, y: isCenter ? 0 : 20, scale: isCenter ? 1.1 : 0.95 }}
       viewport={{ once: false, amount: 0.2 }}
       transition={{ type: "spring", bounce: 0.4, duration: 1.5, delay: index * 0.1 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ rotateX, rotateY, zIndex: isCenter ? 10 : 5 }}
-      className={`relative w-[280px] h-[280px] md:w-[320px] md:h-[320px] cursor-pointer group perspective-1000 mx-auto md:mx-0 flex-shrink-0`}
+      className={`relative w-[280px] h-[380px] md:w-[320px] md:h-[440px] cursor-pointer group perspective-1000 mx-auto md:mx-0 flex-shrink-0`}
     >
       {/* Dynamic Ground Shadow */}
       <motion.div 
-        className={`absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-8 blur-2xl rounded-full transition-opacity duration-500 ${theme.glow} opacity-0 group-hover:opacity-100`}
+        className={`absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-8 blur-2xl rounded-3xl transition-opacity duration-500 ${theme.glow} opacity-0 group-hover:opacity-100`}
       />
 
-      {/* Glass Body - Perfect Sphere */}
-      <div className={`relative w-full h-full rounded-full overflow-hidden shadow-2xl transition-all duration-300 group-hover:shadow-3xl group-hover:${theme.glow} border ${theme.border} bg-white/10 backdrop-blur-xl isolate`}>
+      {/* Glass Body - Monolith */}
+      <div className={`relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl transition-all duration-300 group-hover:shadow-3xl group-hover:${theme.glow} border ${theme.border} bg-white/20 backdrop-blur-xl isolate`}>
         
         {/* SVG Liquid Distortion */}
         <div 
-          className="absolute inset-0 -z-10 mix-blend-overlay opacity-50"
+          className="absolute inset-0 -z-10 mix-blend-overlay opacity-30"
           style={{ backdropFilter: 'url("#prize-glass")' }}
         />
 
         {/* Diagonal Light Sweep */}
         <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/40 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 w-[200%] h-[200%] -translate-x-1/2 -translate-y-1/2 group-hover:animate-sweep pointer-events-none" />
 
-        {/* Mouse Tracking Glare - Circular */}
+        {/* Mouse Tracking Glare */}
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/30 to-white/0 opacity-0 group-hover:opacity-100 pointer-events-none rounded-full"
+          className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/30 to-white/0 opacity-0 group-hover:opacity-100 pointer-events-none rounded-[2rem]"
           style={{ x: glareX, y: glareY }}
         />
 
-        {/* Spherical Inner Shadow for 3D Volume */}
-        <div className="absolute inset-0 rounded-full shadow-[inset_0_-20px_40px_rgba(0,0,0,0.05),inset_0_10px_20px_rgba(255,255,255,0.8)] pointer-events-none" />
+        {/* Inner Shadow for 3D Volume */}
+        <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_-20px_40px_rgba(0,0,0,0.02),inset_0_10px_20px_rgba(255,255,255,0.8)] pointer-events-none" />
 
-        {/* Content - Centered for Orb */}
-        <div className="absolute inset-0 p-8 flex flex-col justify-center items-center text-center gap-4">
-          <div className="space-y-2 mt-4">
-            <span className="inline-block px-4 py-1.5 rounded-full border border-white/40 bg-white/30 backdrop-blur-md text-[9px] font-black uppercase tracking-[0.3em] text-slate-800 shadow-sm">
+        {/* Content - Monolith layout */}
+        <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between text-left">
+          <div className="space-y-4">
+            <span className="inline-block px-4 py-1.5 rounded-full border border-white/60 bg-white/50 backdrop-blur-md text-[9px] font-black uppercase tracking-[0.3em] text-slate-800 shadow-sm">
               {prize.rank}
             </span>
-            <h3 className={`text-xl md:text-2xl font-serif font-black ${theme.text} italic pt-1`}>
-              {prize.material}
-            </h3>
+            <div className="w-8 h-1 bg-slate-300 rounded-full" />
           </div>
 
-          <div className="text-center relative">
-            {/* Ambient inner glow behind number */}
-            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-24 blur-3xl opacity-30 bg-gradient-to-r ${theme.base} -z-10`} />
+          <div className="relative">
+            {/* Ambient inner glow behind text */}
+            <div className={`absolute bottom-0 left-0 w-full h-32 blur-3xl opacity-30 bg-gradient-to-t ${theme.base} -z-10`} />
             
+            <h3 className={`text-xl md:text-3xl font-serif font-black ${theme.text} italic mb-2`}>
+              {prize.material}
+            </h3>
             <motion.div 
-              className="text-4xl md:text-5xl font-serif font-black text-slate-900 tracking-tighter"
+              className="text-5xl md:text-6xl font-serif font-black text-slate-900 tracking-tighter"
               style={{ translateZ: 50 }} // Creates depth effect
             >
               <CountUpAmount amountStr={prize.amount} inView={isInView} />
@@ -163,7 +164,7 @@ const PrizeCard = ({ prize, index, isCenter }) => {
         </div>
         
         {/* Intricate Border Highlight */}
-        <div className="absolute inset-0 rounded-full border-[3px] border-white/20 pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom right, black, transparent)' }} />
+        <div className="absolute inset-0 rounded-[2rem] border-[3px] border-white/30 pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom right, black, transparent)' }} />
       </div>
     </motion.div>
   );
