@@ -11,6 +11,7 @@ export default function Sponsors() {
     { src: "/IIC.png", alt: "IIC", title: "Institution's Innovation Council" },
     { src: "/yentech.png", alt: "/yentech.png", title: "Technical Club of YSET" },
     { src: "/MYAA.png", alt: "Ministry of Youth Affairs and Sports", title: "Ministry of Youth Affairs and Sports" },
+    {src: "/incubation-logo.png", alt: "Incubation Center", title: "Incubation Center"}
   ];
 
   return (
@@ -26,17 +27,7 @@ export default function Sponsors() {
 
       <Container className="relative z-10 px-6 sm:px-14 lg:px-20 mx-auto">
         <div className="flex flex-col items-center text-center mb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-slate-50 border border-slate-100 mb-8"
-          >
-            <Sparkles className="text-emerald-500 animate-pulse" size={14} />
-            <span className="text-slate-500 font-black uppercase tracking-[0.4em] text-[10px]">
-              Strategic Partners
-            </span>
-          </motion.div>
+          
 
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
