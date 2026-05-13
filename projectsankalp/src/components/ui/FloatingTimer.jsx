@@ -1,7 +1,95 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, memo, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { db } from "../../lib/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
+
+// ─────────────────────────────────────────────
+// SINGLE DIGIT
+// Only animates when its own value changes
+// ─────────────────────────────────────────────
+const RollingDigit = memo(({ digit }) => {
+  const prevDigit = useRef(digit);
+  const hasChanged = prevDigit.current !== digit;
+
+  useEffect(() => {
+    prevDigit.current = digit;
+  }, [digit]);
+
+  return (
+    <div
+      className="
+        relative
+        h-12
+        w-7
+        overflow-hidden
+        rounded-xl
+        border border-black/[0.04]
+        bg-white/[0.22]
+        backdrop-blur-md
+        flex items-center justify-center
+      "
+    >
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={digit}
+          initial={hasChanged ? { y: "100%", opacity: 0 } : false}
+          animate={{ y: "0%", opacity: 1 }}
+          exit={hasChanged ? { y: "-100%", opacity: 0 } : false}
+          transition={{
+            duration: hasChanged ? 0.38 : 0,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="
+            absolute
+            text-[30px]
+            font-black
+            tracking-[-0.06em]
+            text-black/80
+            tabular-nums
+          "
+          style={{
+            fontFeatureSettings: '"tnum"',
+          }}
+        >
+          {digit}
+        </motion.span>
+      </AnimatePresence>
+
+      {/* subtle glass reflection */}
+      <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/30 to-transparent pointer-events-none" />
+    </div>
+  );
+});
+
+// ─────────────────────────────────────────────
+// TIME UNIT
+// ─────────────────────────────────────────────
+const TimeUnit = memo(({ value, label }) => {
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <span
+        className="
+          text-[8px]
+          font-semibold
+          uppercase
+          tracking-[0.28em]
+          text-black/35
+        "
+      >
+        {label}
+      </span>
+
+      <div className="flex items-center gap-[2px]">
+        {value.split("").map((digit, idx) => (
+          <RollingDigit
+            key={`${label}-${idx}`}
+            digit={digit}
+          />
+        ))}
+      </div>
+    </div>
+  );
+});
 
 export default function FloatingTimer() {
   const [targetDate, setTargetDate] = useState(
@@ -9,6 +97,7 @@ export default function FloatingTimer() {
   );
 
   const [timeLeft, setTimeLeft] = useState({
+    days: "00",
     hours: "00",
     minutes: "00",
     seconds: "00",
@@ -22,15 +111,18 @@ export default function FloatingTimer() {
   useEffect(() => {
     if (!db) return;
 
-    const unsub = onSnapshot(doc(db, "settings", "timer"), (snap) => {
-      if (snap.exists()) {
-        const data = snap.data();
+    const unsub = onSnapshot(
+      doc(db, "settings", "timer"),
+      (snap) => {
+        if (snap.exists()) {
+          const data = snap.data();
 
-        if (data.targetTimestamp) {
-          setTargetDate(data.targetTimestamp.toDate());
+          if (data.targetTimestamp) {
+            setTargetDate(data.targetTimestamp.toDate());
+          }
         }
       }
-    });
+    );
 
     return () => unsub();
   }, []);
@@ -49,6 +141,7 @@ export default function FloatingTimer() {
         clearInterval(interval);
 
         setTimeLeft({
+          days: "00",
           hours: "00",
           minutes: "00",
           seconds: "00",
@@ -57,18 +150,43 @@ export default function FloatingTimer() {
         return;
       }
 
-      const totalHours = Math.floor(distance / (1000 * 60 * 60));
-
-      const minutes = Math.floor(
-        (distance % (1000 * 60 * 60)) / (1000 * 60)
+      const days = Math.floor(
+        distance / (1000 * 60 * 60 * 24)
       );
 
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) /
+          (1000 * 60 * 60)
+      );
 
-      setTimeLeft({
-        hours: String(totalHours).padStart(2, "0"),
-        minutes: String(minutes).padStart(2, "0"),
-        seconds: String(seconds).padStart(2, "0"),
+      const minutes = Math.floor(
+        (distance % (1000 * 60 * 60)) /
+          (1000 * 60)
+      );
+
+      const seconds = Math.floor(
+        (distance % (1000 * 60)) / 1000
+      );
+
+      setTimeLeft((prev) => {
+        const next = {
+          days: String(days).padStart(2, "0"),
+          hours: String(hours).padStart(2, "0"),
+          minutes: String(minutes).padStart(2, "0"),
+          seconds: String(seconds).padStart(2, "0"),
+        };
+
+        // prevents unnecessary rerenders
+        if (
+          prev.days === next.days &&
+          prev.hours === next.hours &&
+          prev.minutes === next.minutes &&
+          prev.seconds === next.seconds
+        ) {
+          return prev;
+        }
+
+        return next;
       });
     }, 1000);
 
@@ -79,10 +197,10 @@ export default function FloatingTimer() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
+      initial={{ opacity: 0, x: 24 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{
-        duration: 0.7,
+        duration: 0.9,
         ease: [0.16, 1, 0.3, 1],
       }}
       className="
@@ -95,214 +213,98 @@ export default function FloatingTimer() {
         lg:block
       "
     >
-      {/* OUTER SYSTEM */}
+      {/* GLASS POD */}
       <div
         className="
           relative
           overflow-hidden
-          rounded-[28px]
-          border
-          border-white/10
-          bg-zinc-950/80
-          backdrop-blur-xl
+          rounded-[34px]
+          border border-white/30
+          bg-white/18
+          backdrop-blur-[28px]
+          shadow-[0_8px_40px_rgba(0,0,0,0.08)]
         "
-        style={{
-          boxShadow:
-            "0 10px 40px rgba(0,0,0,0.18)",
-        }}
       >
-        {/* subtle noise */}
-        <div className="absolute inset-0 opacity-[0.03] mix-blend-soft-light">
+        {/* noise texture */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
           <div
             className="h-full w-full"
             style={{
               backgroundImage:
-                "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-              backgroundSize: "22px 22px",
+                "radial-gradient(circle at 1px 1px, rgba(0,0,0,0.18) 1px, transparent 0)",
+              backgroundSize: "18px 18px",
             }}
           />
         </div>
 
-        {/* top signal line */}
-        <div className="absolute left-0 top-0 h-full w-[2px] bg-white/10">
-          <motion.div
-            animate={{
-              y: ["0%", "100%", "0%"],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="
-              absolute
-              left-0
-              top-0
-              h-16
-              w-full
-              bg-white/40
-            "
-          />
-        </div>
+        {/* glass highlight */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/30 to-transparent pointer-events-none" />
+
+        {/* side light */}
+        <div className="absolute right-0 top-0 h-full w-px bg-black/[0.04]" />
 
         {/* content */}
-        <div className="relative flex flex-col items-center px-5 py-6">
+        <div className="relative flex flex-col items-center px-4 py-7">
 
-          {/* label */}
-          <div className="mb-8 flex flex-col items-center">
-            <div className="mb-3 flex items-center gap-2">
+          {/* live indicator */}
+          <div className="mb-8 flex flex-col items-center gap-2">
+            <div className="flex items-center gap-2">
               <motion.div
                 animate={{
-                  opacity: [0.4, 1, 0.4],
+                  opacity: [0.35, 1, 0.35],
                 }}
                 transition={{
-                  duration: 2,
+                  duration: 2.4,
                   repeat: Infinity,
                 }}
-                className="h-2 w-2 rounded-full bg-emerald-400"
+                className="
+                  h-2
+                  w-2
+                  rounded-full
+                  bg-emerald-500
+                "
               />
 
               <span
                 className="
-                  text-[10px]
-                  font-medium
-                  tracking-[0.22em]
-                  text-zinc-500
+                  text-[9px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.24em]
+                  text-black/35
                 "
               >
-                LIVE
+                Live
               </span>
             </div>
 
-            <div className="h-px w-10 bg-white/10" />
+            <div className="h-px w-8 bg-black/[0.06]" />
           </div>
 
-          {/* TIMER */}
-          <div className="space-y-5">
-
-            {/* HOURS */}
-            <div className="flex flex-col items-center">
-              <span
-                className="
-                  text-[11px]
-                  uppercase
-                  tracking-[0.18em]
-                  text-zinc-500
-                  mb-2
-                "
-              >
-                Hours
-              </span>
-
-              <motion.span
-                key={timeLeft.hours}
-                initial={{ opacity: 0.5, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25 }}
-                className="
-                  text-5xl
-                  leading-none
-                  font-semibold
-                  tracking-[-0.08em]
-                  text-white
-                  tabular-nums
-                "
-                style={{
-                  fontFeatureSettings: '"tnum"',
-                }}
-              >
-                {timeLeft.hours}
-              </motion.span>
-            </div>
-
-            <div className="h-px w-full bg-white/5" />
-
-            {/* MINUTES */}
-            <div className="flex flex-col items-center">
-              <span
-                className="
-                  text-[11px]
-                  uppercase
-                  tracking-[0.18em]
-                  text-zinc-500
-                  mb-2
-                "
-              >
-                Minutes
-              </span>
-
-              <motion.span
-                key={timeLeft.minutes}
-                initial={{ opacity: 0.5, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25 }}
-                className="
-                  text-5xl
-                  leading-none
-                  font-semibold
-                  tracking-[-0.08em]
-                  text-white
-                  tabular-nums
-                "
-                style={{
-                  fontFeatureSettings: '"tnum"',
-                }}
-              >
-                {timeLeft.minutes}
-              </motion.span>
-            </div>
-
-            <div className="h-px w-full bg-white/5" />
-
-            {/* SECONDS */}
-            <div className="flex flex-col items-center">
-              <span
-                className="
-                  text-[11px]
-                  uppercase
-                  tracking-[0.18em]
-                  text-zinc-500
-                  mb-2
-                "
-              >
-                Seconds
-              </span>
-
-              <motion.span
-                key={timeLeft.seconds}
-                initial={{ opacity: 0.5, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25 }}
-                className="
-                  text-5xl
-                  leading-none
-                  font-semibold
-                  tracking-[-0.08em]
-                  text-white
-                  tabular-nums
-                "
-                style={{
-                  fontFeatureSettings: '"tnum"',
-                }}
-              >
-                {timeLeft.seconds}
-              </motion.span>
-            </div>
+          {/* timer stack */}
+          <div className="flex flex-col gap-7">
+            <TimeUnit value={timeLeft.days} label="Days" />
+            <TimeUnit value={timeLeft.hours} label="Hrs" />
+            <TimeUnit value={timeLeft.minutes} label="Min" />
+            <TimeUnit value={timeLeft.seconds} label="Sec" />
           </div>
 
-          {/* bottom meta */}
-          <div className="mt-8 border-t border-white/5 pt-5 text-center">
+          {/* bottom */}
+          <div className="mt-8 flex flex-col items-center border-t border-black/[0.04] pt-5 w-full">
             <p
               className="
-                text-[10px]
+                text-center
+                text-[8px]
+                font-medium
+                uppercase
                 leading-relaxed
-                tracking-[0.16em]
-                text-zinc-500
+                tracking-[0.22em]
+                text-black/30
               "
             >
-              REGISTRATION
+              Registration
               <br />
-              WINDOW ACTIVE
+              Active
             </p>
           </div>
         </div>
