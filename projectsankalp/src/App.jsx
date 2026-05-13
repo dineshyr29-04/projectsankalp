@@ -14,7 +14,6 @@ import FAQ from "./components/sections/FAQ";
 import Sponsors from "./components/sections/Sponsors";
 import { ArrowUp } from "lucide-react";
 import TimerPage from "./components/pages/TimerPage";
-import FloatingTimer from "./components/ui/FloatingTimer";
 import Loader from "./components/ui/loader-11";
 import StagesPage from "./components/pages/StagesPage";
 import SlotBookingPage from "./components/pages/SlotBookingPage";
@@ -295,7 +294,6 @@ function App() {
               currentView={currentView}
               onNavigate={navigate}
             />
-            <FloatingTimer />
             <BackToTop />
 
             <main className="flex-grow">

@@ -4,6 +4,7 @@ import Container from "../core/Container";
 import Grainient from "../Grainient";
 import { siteConfig } from "../../config/site";
 import { Calendar, ChevronRight, Zap, Award, Shield } from "lucide-react";
+import HeroTimer from "../ui/HeroTimer";
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -82,10 +83,13 @@ export default function Hero() {
               <h1 className="text-5xl font-light italic sm:text-6xl md:text-[90px] lg:text-[130px] font-serif font-black text-slate-900 leading-[0.8] tracking-[0.15em] uppercase italic">
                 SANKALP
               </h1>
+              
+              {/* HERO TIMER - Centered under title */}
+              <HeroTimer />
             </div>
 
             {/* CTA Group */}
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full md:w-auto px-6 md:px-0 mt-3 sm:mt-[120px] mt-[100px]">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full md:w-auto px-6 md:px-0 mt-3 sm:mt-[120px] mt-[10px]">
               <motion.button
                 whileHover={{
                   boxShadow: "0 25px 50px rgba(16, 185, 129, 0.4)",
