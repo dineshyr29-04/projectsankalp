@@ -1,170 +1,46 @@
-import { motion, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useRef } from "react";
 import Section from "../core/Section";
 import Container from "../core/Container";
 import { siteConfig } from "../../config/site";
 
-// ── LIQUID GLASS FILTER ──
-const GlassFilter = () => (
-  <svg className="hidden">
-    <defs>
-      <filter id="prize-glass" x="-20%" y="-20%" width="140%" height="140%" colorInterpolationFilters="sRGB">
-        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="1" result="turbulence" />
-        <feGaussianBlur in="turbulence" stdDeviation="3" result="blurredNoise" />
-        <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="15" xChannelSelector="R" yChannelSelector="B" result="displaced" />
-        <feGaussianBlur in="displaced" stdDeviation="1" result="finalBlur" />
-        <feComposite in="finalBlur" in2="finalBlur" operator="over" />
-      </filter>
-    </defs>
-  </svg>
-);
-
-// ── COUNT UP ANIMATION ──
-const CountUpAmount = ({ amountStr, inView }) => {
-  const [count, setCount] = useState(0);
-  const numericValue = parseInt(amountStr.replace(/[^0-9]/g, ""));
-  const prefix = amountStr.replace(/[0-9,].*/, "");
-
-  useEffect(() => {
-    if (!inView) {
-      setCount(0);
-      return;
-    }
-    
-    let start = 0;
-    const duration = 1500; // ms
-    const increment = numericValue / (duration / 16);
-    
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= numericValue) {
-        setCount(numericValue);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
-
-    return () => clearInterval(timer);
-  }, [inView, numericValue]);
-
-  return (
-    <span className="tabular-nums">
-      {prefix}{count.toLocaleString("en-IN")}
-    </span>
-  );
-};
-
-// ── 3D GLASS CARD COMPONENT ──
+// ── MINIMAL 3D CARD COMPONENT ──
 const PrizeCard = ({ prize, index, isCenter }) => {
-  const cardRef = useRef(null);
-  const isInView = useInView(cardRef, { once: false, margin: "-10%" });
-  
-  // 3D Magnetic Hover State
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springConfig = { damping: 20, stiffness: 150, mass: 0.5 };
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [15, -15]), springConfig);
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-15, 15]), springConfig);
-  
-  // Glare effect
-  const glareX = useSpring(useTransform(x, [-0.5, 0.5], [100, -100]), springConfig);
-  const glareY = useSpring(useTransform(y, [-0.5, 0.5], [100, -100]), springConfig);
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) / rect.width);
-    y.set((e.clientY - centerY) / rect.height);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   // Color mappings
   const colors = {
-    Gold: { base: "from-amber-200 to-yellow-600", border: "border-yellow-400/30", glow: "shadow-yellow-500/20", text: "text-amber-500" },
-    Silver: { base: "from-slate-200 to-slate-500", border: "border-slate-300/30", glow: "shadow-slate-400/20", text: "text-slate-500" },
-    Bronze: { base: "from-orange-200 to-amber-700", border: "border-orange-400/30", glow: "shadow-orange-500/20", text: "text-orange-600" }
+    Gold: { base: "from-amber-200 to-yellow-600", border: "border-amber-200", glow: "hover:shadow-amber-500/20", text: "text-amber-500", bg: "from-amber-50/80" },
+    Silver: { base: "from-slate-200 to-slate-500", border: "border-slate-200", glow: "hover:shadow-slate-400/20", text: "text-slate-500", bg: "from-slate-50/80" },
+    Bronze: { base: "from-orange-200 to-amber-700", border: "border-orange-200", glow: "hover:shadow-orange-500/20", text: "text-orange-600", bg: "from-orange-50/80" }
   };
   const theme = colors[prize.material] || colors.Gold;
 
-  // Deck deal animation parameters
-  const getInitialX = () => {
-    if (index === 0) return 100; // Right card comes from center
-    if (index === 2) return -100; // Left card comes from center
-    return 0; // Center card stays center
-  };
-
   return (
     <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, x: getInitialX(), y: 50, scale: 0.8 }}
-      whileInView={{ opacity: 1, x: 0, y: isCenter ? 0 : 20, scale: isCenter ? 1.1 : 0.95 }}
-      viewport={{ once: false, amount: 0.2 }}
-      transition={{ type: "spring", bounce: 0.4, duration: 1.5, delay: index * 0.1 }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, zIndex: isCenter ? 10 : 5 }}
-      className={`relative w-[280px] h-[380px] md:w-[320px] md:h-[440px] cursor-pointer group perspective-1000 mx-auto md:mx-0 flex-shrink-0`}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+      className={`relative w-full max-w-[340px] md:w-[320px] p-10 rounded-[2rem] bg-white border ${theme.border} shadow-xl ${theme.glow} transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between overflow-hidden mx-auto ${isCenter ? 'md:-translate-y-4 md:hover:-translate-y-6 z-10' : 'z-0'}`}
     >
-      {/* Dynamic Ground Shadow */}
-      <motion.div 
-        className={`absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-8 blur-2xl rounded-3xl transition-opacity duration-500 ${theme.glow} opacity-0 group-hover:opacity-100`}
-      />
+      {/* Decorative gradient blur in background */}
+      <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${theme.base} opacity-[0.08] rounded-bl-full -z-10`} />
+      
+      {/* Subtle bottom gradient for depth */}
+      <div className={`absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t ${theme.bg} to-transparent -z-10`} />
 
-      {/* Glass Body - Monolith */}
-      <div className={`relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl transition-all duration-300 group-hover:shadow-3xl group-hover:${theme.glow} border ${theme.border} bg-white/20 backdrop-blur-xl isolate`}>
-        
-        {/* SVG Liquid Distortion */}
-        <div 
-          className="absolute inset-0 -z-10 mix-blend-overlay opacity-30"
-          style={{ backdropFilter: 'url("#prize-glass")' }}
-        />
+      <div className="space-y-6">
+        <span className={`inline-block px-4 py-1.5 rounded-full border ${theme.border} bg-white text-[10px] font-black uppercase tracking-[0.3em] ${theme.text} shadow-sm`}>
+          {prize.rank}
+        </span>
+        <h3 className={`text-3xl font-serif font-black ${theme.text}`}>
+          {prize.material}
+        </h3>
+      </div>
 
-        {/* Diagonal Light Sweep */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/40 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 w-[200%] h-[200%] -translate-x-1/2 -translate-y-1/2 group-hover:animate-sweep pointer-events-none" />
-
-        {/* Mouse Tracking Glare */}
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/30 to-white/0 opacity-0 group-hover:opacity-100 pointer-events-none rounded-[2rem]"
-          style={{ x: glareX, y: glareY }}
-        />
-
-        {/* Inner Shadow for 3D Volume */}
-        <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_-20px_40px_rgba(0,0,0,0.02),inset_0_10px_20px_rgba(255,255,255,0.8)] pointer-events-none" />
-
-        {/* Content - Monolith layout */}
-        <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between text-left">
-          <div className="space-y-4">
-            <span className="inline-block px-4 py-1.5 rounded-full border border-white/60 bg-white/50 backdrop-blur-md text-[9px] font-black uppercase tracking-[0.3em] text-slate-800 shadow-sm">
-              {prize.rank}
-            </span>
-            <div className="w-8 h-1 bg-slate-300 rounded-full" />
-          </div>
-
-          <div className="relative">
-            {/* Ambient inner glow behind text */}
-            <div className={`absolute bottom-0 left-0 w-full h-32 blur-3xl opacity-30 bg-gradient-to-t ${theme.base} -z-10`} />
-            
-            <h3 className={`text-xl md:text-3xl font-serif font-black ${theme.text} italic mb-2`}>
-              {prize.material}
-            </h3>
-            <motion.div 
-              className="text-5xl md:text-6xl font-serif font-black text-slate-900 tracking-tighter"
-              style={{ translateZ: 50 }} // Creates depth effect
-            >
-              <CountUpAmount amountStr={prize.amount} inView={isInView} />
-            </motion.div>
-          </div>
+      <div className="mt-16 relative">
+        <div className="text-5xl font-serif font-black text-slate-900 tracking-tighter tabular-nums">
+          {prize.amount}
         </div>
-        
-        {/* Intricate Border Highlight */}
-        <div className="absolute inset-0 rounded-[2rem] border-[3px] border-white/30 pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom right, black, transparent)' }} />
       </div>
     </motion.div>
   );
@@ -183,15 +59,14 @@ export default function Prizes() {
 
   return (
     <Section id="prizes" className="relative bg-slate-50 py-24 md:py-40 overflow-hidden" ref={containerRef}>
-      <GlassFilter />
       
-      {/* Background Ambience */}
+      {/* Background Ambience - Minimal */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(59,130,246,0.03)_0%,transparent_70%)]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(59,130,246,0.02)_0%,transparent_70%)]" />
       </div>
 
       <Container className="relative z-10 px-4 sm:px-10 lg:px-20 mx-auto">
-        <header className="text-center mb-24 md:mb-40">
+        <header className="text-center mb-20 md:mb-32">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -214,7 +89,7 @@ export default function Prizes() {
           </motion.h2>
         </header>
 
-        <div className="flex flex-col md:flex-row justify-center items-center md:items-stretch gap-8 md:gap-4 lg:gap-8 mx-auto perspective-1000">
+        <div className="flex flex-col md:flex-row justify-center items-center md:items-stretch gap-8 lg:gap-10 mx-auto">
           {orderedPrizes.map((prize, index) => (
             <PrizeCard 
               key={prize.rank} 
