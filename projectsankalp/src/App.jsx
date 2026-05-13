@@ -9,12 +9,11 @@ import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Process from "./components/sections/Process";
 import EventDetails from "./components/sections/EventDetails";
-import Tracks from "./components/sections/Tracks";
 import Prizes from "./components/sections/Prizes";
 import FAQ from "./components/sections/FAQ";
 import Sponsors from "./components/sections/Sponsors";
 import { ArrowUp } from "lucide-react";
-import TracksPage from "./components/pages/TracksPage";
+import TimerPage from "./components/pages/TimerPage";
 import Loader from "./components/ui/loader-11";
 import StagesPage from "./components/pages/StagesPage";
 import SlotBookingPage from "./components/pages/SlotBookingPage";
@@ -67,7 +66,7 @@ function App() {
   useEffect(() => {
     // Handle initial load slug
     const path = window.location.pathname.slice(1);
-    const validViews = ["landing", "tracks", "winners", "team", "stages", "booking", "status"];
+    const validViews = ["landing", "tracks", "winners", "team", "stages", "booking", "status", "timer"];
     if (validViews.includes(path)) {
       setCurrentView(path);
     } else if (path === "") {
@@ -211,9 +210,9 @@ function App() {
       setCurrentView("winners");
     }
 
-    // Check for tracks slug
-    if (window.location.pathname === "/tracks") {
-      setCurrentView("tracks-page");
+    // Check for timer slug
+    if (window.location.pathname === "/timer") {
+      setCurrentView("timer");
     }
 
     // Check for team slug (hidden)
@@ -311,7 +310,6 @@ function App() {
                     <About />
                     <Process />
                     <EventDetails />
-                    <Tracks onKnowMore={() => navigate("tracks-page")} />
                     <Prizes />
                     <Sponsors />
                     <FAQ />
@@ -319,15 +317,15 @@ function App() {
                   </motion.div>
                 )}
 
-                {currentView === "tracks-page" && (
+                {currentView === "timer" && (
                   <motion.div
-                    key="tracks-page"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    key="timer"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <TracksPage onBack={() => navigate("landing")} />
+                    <TimerPage onBack={() => navigate("landing")} />
                   </motion.div>
                 )}
 

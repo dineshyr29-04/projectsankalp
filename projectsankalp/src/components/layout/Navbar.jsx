@@ -10,7 +10,9 @@ import {
   Zap, 
   Trophy, 
   HelpCircle,
-  ArrowLeft
+  ArrowLeft,
+  Timer,
+  Clock
 } from "lucide-react";
 
 export default function Navbar({ onNavigate, currentView }) {
@@ -27,6 +29,7 @@ export default function Navbar({ onNavigate, currentView }) {
       case "prizes": Icon = Trophy; break;
       case "faq": Icon = HelpCircle; break;
       case "booking": Icon = Clock; break;
+      case "timer": Icon = Timer; break;
     }
     return {
       ...item,
@@ -39,6 +42,12 @@ export default function Navbar({ onNavigate, currentView }) {
     if (!isLanding) {
       e.preventDefault();
       onNavigate?.("landing");
+      return;
+    }
+
+    if (href === "/timer") {
+      e.preventDefault();
+      onNavigate?.("timer");
       return;
     }
 
