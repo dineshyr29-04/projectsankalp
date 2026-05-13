@@ -64,7 +64,7 @@ export default function About() {
 
             <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-black mb-6 md:mb-8 leading-[1.1] tracking-tight text-slate-900">
               Build the Future <br />
-              <span className="text-[#22C55E] italic text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 ">With Purpose.</span>
+              <span className="text-[#22C55E] italic  ">With Purpose.</span>
             </h2>
             <p className="text-sm md:text-base lg:text-lg text-[#484848] leading-relaxed mb-8 md:mb-10 max-w-xl font-medium border-l border-slate-100 pl-6 md:pl-8">
               Project Sankalp is a premier 24-hour hackathon designed to empower

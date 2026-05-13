@@ -63,7 +63,7 @@ export default function Process() {
 
           <h2 className="text-5xl md:text-8xl font-serif font-black mb-10 text-slate-900 tracking-tight leading-[0.9]">
             How Project Sankalp <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 ">Moves.</span>
+            <span className="text-[blue] italic ">Moves.</span>
           </h2>
 
           <p className="text-slate-600 text-lg font-medium border-l border-slate-100 pl-8 max-w-2xl">

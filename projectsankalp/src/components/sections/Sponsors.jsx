@@ -35,7 +35,7 @@ export default function Sponsors() {
             className="text-6xl md:text-8xl font-serif font-black text-slate-900 tracking-tighter leading-[0.9] mb-12"
           >
             Supported <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic">By Pioneers.</span>
+            <span className="text-emerald-600 italic ">By Pioneers.</span>
           </motion.h2>
 
           <motion.p

@@ -53,7 +53,7 @@ export default function Prizes() {
             viewport={{ once: true }}
             className="text-3xl md:text-6xl font-serif font-black text-slate-900 tracking-tighter leading-tight"
           >
-            The Future, <span className="italic text-green-400">Engraved.</span>
+            The Future, <span className="italic text-blue-600">Engraved.</span>
           </motion.h2>
         </header>
 
