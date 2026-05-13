@@ -18,6 +18,7 @@ import Loader from "./components/ui/loader-11";
 import StagesPage from "./components/pages/StagesPage";
 import SlotBookingPage from "./components/pages/SlotBookingPage";
 import BookingStatusPage from "./components/pages/BookingStatusPage";
+import TeamPage from "./components/pages/TeamPage"
 import { db } from "./lib/firebase";
 import { collection, onSnapshot, addDoc, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 
