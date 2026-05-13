@@ -61,12 +61,12 @@ export default function Sponsors() {
         </div>
 
         {/* Infinite Logo Loop Integration */}
-        <div className="relative py-12 md:py-20 mb-20 bg-slate-50/30 rounded-[40px] border border-slate-100 overflow-hidden">
+        <div className="relative py-12 md:py-20 mb-20 bg-slate-50/30 overflow-hidden">
           <LogoLoop
             logos={sponsors}
             speed={80}
             direction="left"
-            logoHeight={64}
+            logoHeight={90}
             gap={80}
             hoverSpeed={10}
             scaleOnHover
