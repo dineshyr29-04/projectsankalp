@@ -365,7 +365,6 @@ function App() {
                     <StagesPage onBack={() => navigate("landing")} />
                   </motion.div>
                 )}
-
                 {currentView === "booking" && (
                   <motion.div
                     key="booking"
@@ -375,8 +374,6 @@ function App() {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                   >
                     <SlotBookingPage 
-                      slots={globalSlots}
-                      onBook={handleBookSlot}
                       onBack={() => navigate("landing")} 
                     />
                   </motion.div>
