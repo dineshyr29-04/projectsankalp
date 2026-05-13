@@ -15,7 +15,8 @@ const fadeUp = {
 };
 
 export default function TimerPage({ onBack }) {
-  const [targetDate, setTargetDate] = useState(new Date("2026-05-24T09:00:00"));
+  // Aiming for 25th May 2026, 11:00 AM IST (End of Hacking)
+  const [targetDate, setTargetDate] = useState(new Date("2026-05-25T11:00:00+05:30"));
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,

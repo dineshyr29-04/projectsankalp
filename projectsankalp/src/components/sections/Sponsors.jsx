@@ -7,11 +7,11 @@ import LogoLoop from "../ui/LogoLoop";
 export default function Sponsors() {
   const sponsors = [
     { src: "/nsslogo.png", alt: "NSS Unit", title: "NSS Unit" },
-    { src: "/ysetlogo.png", alt: "Yenepoya University", title: "Yenepoya University" },
     { src: "/IIC.png", alt: "IIC", title: "Institution's Innovation Council" },
-    { src: "/yentech.png", alt: "/yentech.png", title: "Technical Club of YSET" },
+    { src: "/yenepoya-logo.png", alt: "/yentech.png", title: "Technical Club of YSET" },
     { src: "/MYAA.png", alt: "Ministry of Youth Affairs and Sports", title: "Ministry of Youth Affairs and Sports" },
-    {src: "/incubation-logo.png", alt: "Incubation Center", title: "Incubation Center"}
+    {src: "/incubation-logo.png", alt: "Incubation Center", title: "Incubation Center"},
+    {src:"yset-logo.png", alt: "Yenepoya Institute of Technology", title: "Yenepoya Institute of Technology"}
   ];
 
   return (
@@ -27,8 +27,6 @@ export default function Sponsors() {
 
       <Container className="relative z-10 px-6 sm:px-14 lg:px-20 mx-auto">
         <div className="flex flex-col items-center text-center mb-24">
-          
-
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
