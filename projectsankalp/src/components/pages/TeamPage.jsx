@@ -58,26 +58,60 @@ const WEBSITE = [
 ];
 
 const SECTIONS = [
-  { title: "Patron", data: PATRONS },
-  { title: "Advisory", data: ADVISORY },
-  { title: "Organizing Secretary", data: ORG_SECRETARY },
-  { title: "Faculty Conveners", data: FACULTY },
-  { title: "Student Conveners", data: STUDENT_CONVENERS },
-  { title: "Hospitality Committee", data: HOSPITALITY },
-  { title: "Disciplinary Committee", data: DISCIPLINARY },
-  { title: "Registration Committee", data: REGISTRATION },
-  { title: "Media Committee", data: MEDIA },
-  { title: "Technical Committee", data: TECHNICAL },
-  { title: "Website Committee", data: WEBSITE },
+  { title: "Patron", type: "single", data: PATRONS },
+  { title: "Advisory", type: "single", data: ADVISORY },
+  { title: "Organizing Secretary", type: "single", data: ORG_SECRETARY },
+  { title: "Faculty Conveners", type: "single", data: FACULTY },
+  { 
+    title: "Student Committees", 
+    type: "grouped", 
+    groups: [
+      { title: "Student Conveners", data: STUDENT_CONVENERS },
+      { title: "Technical", data: TECHNICAL },
+      { title: "Website", data: WEBSITE },
+      { title: "Registration", data: REGISTRATION },
+      { title: "Media", data: MEDIA },
+      { title: "Hospitality", data: HOSPITALITY },
+      { title: "Disciplinary", data: DISCIPLINARY },
+    ]
+  },
 ];
 
 export default function TeamPage() {
   const [activeSection, setActiveSection] = useState(SECTIONS[0].title);
+  const [activeSubSection, setActiveSubSection] = useState("Student Conveners");
 
-  const activeData = SECTIONS.find(s => s.title === activeSection)?.data || [];
+  const currentSection = SECTIONS.find(s => s.title === activeSection);
+  const isGrouped = currentSection?.type === "grouped";
+  
+  // Determine which data to show
+  let activeData = [];
+  let displayTitle = activeSection;
+
+  if (isGrouped) {
+    const subGroup = currentSection.groups.find(g => g.title === activeSubSection) || currentSection.groups[0];
+    activeData = subGroup.data;
+    displayTitle = `${activeSection} — ${subGroup.title}`;
+  } else {
+    activeData = currentSection?.data || [];
+  }
+
+  // Dynamic background for active section
+  const sectionColors = {
+    "Patron": "from-slate-50 to-white",
+    "Advisory": "from-emerald-50/50 to-white",
+    "Organizing Secretary": "from-blue-50/50 to-white",
+    "Faculty Conveners": "from-indigo-50/50 to-white",
+    "Student Committees": "from-violet-50/50 to-white",
+  };
+  const currentBg = sectionColors[activeSection] || "from-slate-50 to-white";
 
   return (
-    <div className="bg-white min-h-screen relative font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-32">
+    <div className="bg-white min-h-screen relative font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-32 transition-colors duration-1000">
+      
+      {/* Background Gradient Animation */}
+      <div className={`absolute inset-0 bg-gradient-to-b ${currentBg} opacity-60 pointer-events-none transition-all duration-1000`} />
+
       {/* Hero Section */}
       <section className="relative pt-40 pb-16 z-10 border-b border-slate-100">
         <Container>
@@ -101,8 +135,8 @@ export default function TeamPage() {
         </Container>
       </section>
 
-      {/* Navigation Toggler */}
-      <section className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100 py-4">
+      {/* Primary Navigation Toggler */}
+      <section className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100 py-4 transition-all duration-500">
         <Container>
           <div className="flex items-center gap-2 overflow-x-auto pb-2 hide-scrollbar w-full max-w-5xl mx-auto">
             {SECTIONS.map((section) => {
@@ -110,16 +144,21 @@ export default function TeamPage() {
               return (
                 <button
                   key={section.title}
-                  onClick={() => setActiveSection(section.title)}
+                  onClick={() => {
+                    setActiveSection(section.title);
+                    if (section.type === "grouped") {
+                      setActiveSubSection(section.groups[0].title); // Reset sub-nav to first option
+                    }
+                  }}
                   className={`relative px-6 py-3 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap overflow-hidden ${
                     isActive
-                      ? "text-white"
+                      ? "text-white shadow-lg shadow-slate-900/20"
                       : "text-slate-400 hover:text-slate-900 hover:bg-slate-50"
                   }`}
                 >
                   {isActive && (
                     <motion.div
-                      layoutId="activeTab"
+                      layoutId="activePrimaryTab"
                       className="absolute inset-0 bg-slate-900 rounded-full -z-10"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
@@ -132,22 +171,62 @@ export default function TeamPage() {
         </Container>
       </section>
 
+      {/* Secondary Navigation Toggler (Only for grouped sections) */}
+      <AnimatePresence>
+        {isGrouped && (
+          <motion.section 
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="sticky top-[73px] sm:top-[77px] z-40 bg-slate-50/90 backdrop-blur-md border-b border-slate-200 py-3 shadow-inner overflow-hidden"
+          >
+            <Container>
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 hide-scrollbar w-full max-w-5xl mx-auto">
+                {currentSection.groups.map((group) => {
+                  const isActive = activeSubSection === group.title;
+                  return (
+                    <button
+                      key={group.title}
+                      onClick={() => setActiveSubSection(group.title)}
+                      className={`relative px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap overflow-hidden border ${
+                        isActive
+                          ? "text-slate-900 border-slate-300 bg-white shadow-sm"
+                          : "text-slate-400 border-transparent hover:text-slate-700 hover:bg-white/50"
+                      }`}
+                    >
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeSecondaryTab"
+                          className="absolute inset-0 border-2 border-slate-900 rounded-full pointer-events-none"
+                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                        />
+                      )}
+                      {group.title}
+                    </button>
+                  );
+                })}
+              </div>
+            </Container>
+          </motion.section>
+        )}
+      </AnimatePresence>
+
       {/* Dynamic Team Section */}
       <section className="relative z-10 py-12 md:py-20 min-h-[600px]">
         <Container>
           <AnimatePresence mode="wait">
             <motion.div 
-              key={activeSection}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              key={`${activeSection}-${activeSubSection}`}
+              initial={{ opacity: 0, y: 15, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -15, scale: 0.98 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col gap-8 w-full max-w-5xl mx-auto"
             >
               {/* Section Header */}
-              <div className="flex items-center gap-6 border-b border-slate-100 pb-6">
-                <h2 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tight">
-                  {activeSection}
+              <div className="flex items-center gap-6 border-b border-slate-200/60 pb-6">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 uppercase tracking-tight">
+                  {displayTitle}
                 </h2>
                 <span className="text-slate-300 font-serif text-3xl md:text-5xl italic font-black ml-auto">
                   0{SECTIONS.findIndex(s => s.title === activeSection) + 1}
@@ -161,7 +240,7 @@ export default function TeamPage() {
         </Container>
       </section>
 
-      <div className="flex flex-col items-center gap-6 opacity-30 text-center mt-20 border-t border-slate-100 pt-10">
+      <div className="flex flex-col items-center gap-6 opacity-30 text-center mt-20 border-t border-slate-100 pt-10 relative z-10">
         <p className="text-[10px] font-black uppercase tracking-[0.5em]">Project Sankalp Team _ 2026</p>
       </div>
     </div>
