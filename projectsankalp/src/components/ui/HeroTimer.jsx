@@ -28,7 +28,7 @@ const RollingDigit = memo(({ digit }) => {
   }, [digit]);
 
   return (
-    <div className="relative h-13 w-7 sm:h-14 sm:w-8 md:h-16 md:w-10 overflow-hidden flex justify-center items-center bg-white/10 rounded-lg md:rounded-xl border border-white/20 mx-[2px] md:mx-[2px] shadow-sm">
+    <div className="relative h-13 w-7 sm:h-14 sm:w-8 md:h-16 md:w-10 overflow-hidden flex justify-center items-center mx-[2px] md:mx-[2px]">
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={digit}
@@ -36,12 +36,11 @@ const RollingDigit = memo(({ digit }) => {
           animate={{ y: "0%", opacity: 1 }}
           exit={hasChanged ? { y: "-100%", opacity: 0 } : false}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute text-2xl sm:text-3xl md:text-5xl font-serif font-black text-slate-900 tabular-nums"
+          className="absolute text-2xl sm:text-3xl md:text-5xl font-serif font-black text-slate-900"
         >
           {digit}
         </motion.span>
       </AnimatePresence>
-      <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/40 to-transparent pointer-events-none" />
     </div>
   );
 });
