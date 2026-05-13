@@ -4,59 +4,40 @@ import { db } from "../../lib/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 
 // ─────────────────────────────────────────────
-// GLASS FILTER COMPONENT
-// This creates the liquid distortion effect
+// LIQUID GLASS FILTER
+// This creates the intense liquid distortion effect
 // ─────────────────────────────────────────────
-const GlassFilter = () => (
-  <svg style={{ display: "none" }}>
-    <filter
-      id="glass-distortion"
-      x="0%"
-      y="0%"
-      width="100%"
-      height="100%"
-      filterUnits="objectBoundingBox"
-    >
-      <feTurbulence
-        type="fractalNoise"
-        baseFrequency="0.001 0.005"
-        numOctaves="1"
-        seed="17"
-        result="turbulence"
-      />
-      <feComponentTransfer in="turbulence" result="mapped">
-        <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
-        <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
-        <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
-      </feComponentTransfer>
-      <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
-      <feSpecularLighting
-        in="softMap"
-        surfaceScale="5"
-        specularConstant="1"
-        specularExponent="100"
-        lightingColor="white"
-        result="specLight"
+const LiquidGlassFilter = () => (
+  <svg className="hidden">
+    <defs>
+      <filter
+        id="container-glass"
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+        colorInterpolationFilters="sRGB"
       >
-        <fePointLight x="-200" y="-200" z="300" />
-      </feSpecularLighting>
-      <feComposite
-        in="specLight"
-        operator="arithmetic"
-        k1="0"
-        k2="1"
-        k3="1"
-        k4="0"
-        result="litImage"
-      />
-      <feDisplacementMap
-        in="SourceGraphic"
-        in2="softMap"
-        scale="20"
-        xChannelSelector="R"
-        yChannelSelector="G"
-      />
-    </filter>
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.05 0.05"
+          numOctaves="1"
+          seed="1"
+          result="turbulence"
+        />
+        <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise" />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="blurredNoise"
+          scale="70"
+          xChannelSelector="R"
+          yChannelSelector="B"
+          result="displaced"
+        />
+        <feGaussianBlur in="displaced" stdDeviation="4" result="finalBlur" />
+        <feComposite in="finalBlur" in2="finalBlur" operator="over" />
+      </filter>
+    </defs>
   </svg>
 );
 
@@ -187,86 +168,56 @@ export default function FloatingTimer() {
 
   return (
     <>
-      <GlassFilter />
+      <LiquidGlassFilter />
       <motion.div
         initial={{ opacity: 0, x: 24 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         className="fixed right-6 top-1/2 z-[120] hidden -translate-y-1/2 lg:block"
       >
-        {/* LIQUID GLASS POD */}
-        <div
-          className="relative overflow-hidden rounded-[34px] p-[2px]"
-          style={{
-            boxShadow: "0 6px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.05)",
-          }}
-        >
-          {/* Glass Distortion Layer */}
-          <div
-            className="absolute inset-0 z-0 overflow-hidden rounded-[34px]"
-            style={{
-              backdropFilter: "blur(4px)",
-              filter: "url(#glass-distortion)",
-              background: "rgba(255, 255, 255, 0.15)",
-              isolation: "isolate",
-            }}
-          />
-          
-          {/* Secondary Shine Layer */}
-          <div
-            className="absolute inset-0 z-10 rounded-[34px]"
-            style={{ background: "rgba(255, 255, 255, 0.1)" }}
-          />
+        <div className="relative group p-4">
+          {/* LIQUID GLASS POD */}
+          <div className="relative h-full w-full min-w-[80px]">
+            {/* The multi-layered liquid glass shadow and texture */}
+            <div className="absolute inset-0 z-0 rounded-[34px] shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3px_rgba(0,0,0,0.9),inset_-3px_-3px_0.5px_-3px_rgba(0,0,0,0.85),inset_1px_1px_1px_-0.5px_rgba(0,0,0,0.6),inset_-1px_-1px_1px_-0.5px_rgba(0,0,0,0.6),inset_0_0_6px_6px_rgba(0,0,0,0.12),inset_0_0_2px_2px_rgba(0,0,0,0.06),0_0_12px_rgba(255,255,255,0.15)] transition-all dark:shadow-[0_0_8px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3.5px_rgba(255,255,255,0.09),inset_-3px_-3px_0.5px_-3.5px_rgba(255,255,255,0.85),inset_1px_1px_1px_-0.5px_rgba(255,255,255,0.6),inset_-1px_-1px_1px_-0.5px_rgba(255,255,255,0.6),inset_0_0_6px_6px_rgba(255,255,255,0.12),inset_0_0_2px_2px_rgba(255,255,255,0.06),0_0_12px_rgba(0,0,0,0.15)]" />
+            
+            {/* Liquid Distortion Layer */}
+            <div
+              className="absolute inset-0 isolate -z-10 h-full w-full overflow-hidden rounded-[34px]"
+              style={{ backdropFilter: 'url("#container-glass")' }}
+            />
 
-          {/* Internal Border Highlight */}
-          <div
-            className="absolute inset-0 z-20 rounded-[34px] overflow-hidden"
-            style={{
-              boxShadow: "inset 2px 2px 1px 0 rgba(255, 255, 255, 0.4), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.1)",
-            }}
-          />
-
-          {/* Content Container */}
-          <div className="relative z-30 flex flex-col items-center px-4 py-7 bg-white/10 backdrop-blur-sm rounded-[34px]">
-            {/* noise texture overlay */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none rounded-[34px] overflow-hidden">
-              <div
-                className="h-full w-full"
-                style={{
-                  backgroundImage: "radial-gradient(circle at 1px 1px, black 1px, transparent 0)",
-                  backgroundSize: "20px 20px",
-                }}
-              />
-            </div>
-
-            {/* live indicator */}
-            <div className="mb-8 flex flex-col items-center gap-2">
-              <div className="flex items-center gap-2">
-                <motion.div
-                  animate={{ opacity: [0.35, 1, 0.35] }}
-                  transition={{ duration: 2.4, repeat: Infinity }}
-                  className="h-2 w-2 rounded-full bg-emerald-500"
-                />
-                <span className="text-[9px] font-semibold uppercase tracking-[0.24em] text-black/40">
-                  Live
-                </span>
+            {/* Content Wrapper */}
+            <div className="relative z-10 flex flex-col items-center px-4 py-8">
+              {/* live indicator */}
+              <div className="mb-8 flex flex-col items-center gap-2">
+                <div className="flex items-center gap-2">
+                  <motion.div
+                    animate={{ opacity: [0.35, 1, 0.35] }}
+                    transition={{ duration: 2.4, repeat: Infinity }}
+                    className="h-2 w-2 rounded-full bg-emerald-500"
+                  />
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.24em] text-black/40">
+                    Live
+                  </span>
+                </div>
+                <div className="h-px w-8 bg-black/[0.06]" />
               </div>
-              <div className="h-px w-8 bg-black/[0.06]" />
-            </div>
 
-            {/* timer stack */}
-            <div className="flex flex-col gap-7">
-              <TimeUnit value={timeLeft.days} label="Days" />
-              <TimeUnit value={timeLeft.hours} label="Hrs" />
-              <TimeUnit value={timeLeft.minutes} label="Min" />
-              <TimeUnit value={timeLeft.seconds} label="Sec" />
-            </div>
+              {/* timer stack */}
+              <div className="flex flex-col gap-8">
+                <TimeUnit value={timeLeft.days} label="Days" />
+                <TimeUnit value={timeLeft.hours} label="Hrs" />
+                <TimeUnit value={timeLeft.minutes} label="Min" />
+                <TimeUnit value={timeLeft.seconds} label="Sec" />
+              </div>
 
-            {/* bottom label */}
-            <div className="mt-8 flex flex-col items-center border-t border-black/[0.04] pt-5 w-full">
-              <p className="text-center text-[8px] font-medium uppercase leading-relaxed tracking-[0.22em] text-black/40">
-                Registration<br />Active
-              </p>
+              {/* bottom label */}
+              <div className="mt-8 flex flex-col items-center border-t border-black/[0.04] pt-6 w-full">
+                <p className="text-center text-[8px] font-medium uppercase leading-relaxed tracking-[0.22em] text-black/40">
+                  Registration<br />Active
+                </p>
+              </div>
             </div>
           </div>
         </div>

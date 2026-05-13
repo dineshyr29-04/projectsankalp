@@ -97,19 +97,6 @@ export default function TimerPage({ onBack }) {
         {/* ── Header ── */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-24">
           <div className="space-y-8">
-            <motion.button
-              onClick={onBack}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="flex items-center gap-3 text-slate-400 hover:text-slate-900 transition-colors group"
-            >
-              <div className="w-10 h-10 rounded-xl border border-slate-200 flex items-center justify-center bg-slate-50 group-hover:border-slate-300 group-hover:bg-slate-100 transition-all">
-                <ArrowLeft size={16} />
-              </div>
-              <span className="text-[10px] font-black uppercase tracking-[0.4em]">Exit Timer</span>
-            </motion.button>
-
             <div className="space-y-4">
               <motion.div
                 variants={fadeUp}
@@ -164,27 +151,7 @@ export default function TimerPage({ onBack }) {
           </div>
         </div>
 
-        {/* ── Footer Info ── */}
-        <div className="mt-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            { icon: Zap, label: "Efficiency", value: "Real-time Sync" },
-            { icon: Clock, label: "Precision", value: "Multi-Device" },
-            { icon: Trophy, label: "Goal", value: "Project Finish" }
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              custom={i + 6}
-              className="group p-8 rounded-[32px] border border-slate-100 hover:border-emerald-200 hover:bg-emerald-50/30 transition-all duration-500"
-            >
-              <item.icon className="text-slate-300 group-hover:text-emerald-500 transition-colors mb-6" size={20} />
-              <p className="text-[9px] font-black uppercase tracking-[0.4em] text-slate-400 mb-2">{item.label}</p>
-              <p className="text-lg font-bold text-slate-900">{item.value}</p>
-            </motion.div>
-          ))}
-        </div>
+        
       </Container>
     </div>
   );
