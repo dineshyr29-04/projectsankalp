@@ -5,26 +5,8 @@ import TeamShowcase from "../ui/TeamShowcase";
 
 // --- TEAM DATA ---
 
-const PATRONS = [
-  { id: 'p1', name: 'Dr. Arthur Mitchell', role: 'Chief Patron', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#' } },
-  { id: 'p2', name: 'Eleanor Vance', role: 'Patron', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80', social: { twitter: '#' } },
-];
 
-const ADVISORY = [
-  { id: 'a1', name: 'Prof. Robert Chang', role: 'Head of Advisory', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#' } },
-  { id: 'a2', name: 'Dr. Sarah Jenkins', role: 'Advisory Board', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80', social: { twitter: '#' } },
-  { id: 'a3', name: 'Dr. William Chen', role: 'Advisory Board', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#' } },
-];
 
-const ORG_SECRETARY = [
-  { id: 'o1', name: 'Michael Sterling', role: 'Organizing Secretary', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#', twitter: '#' } },
-];
-
-const FACULTY = [
-  { id: 'f1', name: 'Dr. Ashwini Shetty', role: 'Convener', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#' } },
-  { id: 'f2', name: 'Mr. Rahul V.', role: 'Co-Convener', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#' } },
-  { id: 'f3', name: 'Ms. Priya Rao', role: 'Co-Convener', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80', social: { twitter: '#' } },
-];
 
 const STUDENT_CONVENERS = [
   { id: 's1', name: 'Radesh Pai', role: 'Student Convener', image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#', github: '#' } },
@@ -58,51 +40,33 @@ const WEBSITE = [
 ];
 
 const SECTIONS = [
-  { title: "Patron", type: "single", data: PATRONS },
-  { title: "Advisory", type: "single", data: ADVISORY },
-  { title: "Organizing Secretary", type: "single", data: ORG_SECRETARY },
-  { title: "Faculty Conveners", type: "single", data: FACULTY },
-  { 
-    title: "Student Committees", 
-    type: "grouped", 
-    groups: [
-      { title: "Student Conveners", data: STUDENT_CONVENERS },
-      { title: "Technical", data: TECHNICAL },
-      { title: "Website", data: WEBSITE },
-      { title: "Registration", data: REGISTRATION },
-      { title: "Media", data: MEDIA },
-      { title: "Hospitality", data: HOSPITALITY },
-      { title: "Disciplinary", data: DISCIPLINARY },
-    ]
-  },
+  { title: "Student Conveners", data: STUDENT_CONVENERS },
+  { title: "Technical", data: TECHNICAL },
+  { title: "Website", data: WEBSITE },
+  { title: "Registration", data: REGISTRATION },
+  { title: "Media", data: MEDIA },
+  { title: "Hospitality", data: HOSPITALITY },
+  { title: "Disciplinary", data: DISCIPLINARY },
 ];
 
 export default function TeamPage() {
   const [activeSection, setActiveSection] = useState(SECTIONS[0].title);
-  const [activeSubSection, setActiveSubSection] = useState("Student Conveners");
 
   const currentSection = SECTIONS.find(s => s.title === activeSection);
-  const isGrouped = currentSection?.type === "grouped";
   
   // Determine which data to show
-  let activeData = [];
-  let displayTitle = activeSection;
-
-  if (isGrouped) {
-    const subGroup = currentSection.groups.find(g => g.title === activeSubSection) || currentSection.groups[0];
-    activeData = subGroup.data;
-    displayTitle = `${activeSection} — ${subGroup.title}`;
-  } else {
-    activeData = currentSection?.data || [];
-  }
+  const activeData = currentSection?.data || [];
+  const displayTitle = activeSection;
 
   // Dynamic background for active section
   const sectionColors = {
-    "Patron": "from-slate-50 to-white",
-    "Advisory": "from-emerald-50/50 to-white",
-    "Organizing Secretary": "from-blue-50/50 to-white",
-    "Faculty Conveners": "from-indigo-50/50 to-white",
-    "Student Committees": "from-violet-50/50 to-white",
+    "Student Conveners": "from-slate-50 to-white",
+    "Technical": "from-emerald-50/50 to-white",
+    "Website": "from-blue-50/50 to-white",
+    "Registration": "from-indigo-50/50 to-white",
+    "Media": "from-violet-50/50 to-white",
+    "Hospitality": "from-amber-50/50 to-white",
+    "Disciplinary": "from-rose-50/50 to-white",
   };
   const currentBg = sectionColors[activeSection] || "from-slate-50 to-white";
 
@@ -115,7 +79,7 @@ export default function TeamPage() {
       {/* Hero Section */}
       <section className="relative pt-40 pb-16 z-10 border-b border-slate-100">
         <Container>
-          <div className="max-w-5xl">
+          <div className="">
             <div className="flex items-center gap-4 mb-10">
               <div className="w-12 h-1 bg-slate-900" />
               <span className="text-slate-900 font-black uppercase tracking-[0.5em] text-[10px]">
@@ -144,13 +108,8 @@ export default function TeamPage() {
               return (
                 <button
                   key={section.title}
-                  onClick={() => {
-                    setActiveSection(section.title);
-                    if (section.type === "grouped") {
-                      setActiveSubSection(section.groups[0].title); // Reset sub-nav to first option
-                    }
-                  }}
-                  className={`relative px-6 py-3 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap overflow-hidden ${
+                  onClick={() => setActiveSection(section.title)}
+                  className={`relative px-4 py-3 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap overflow-hidden ${
                     isActive
                       ? "text-white shadow-lg shadow-slate-900/20"
                       : "text-slate-400 hover:text-slate-900 hover:bg-slate-50"
@@ -171,52 +130,12 @@ export default function TeamPage() {
         </Container>
       </section>
 
-      {/* Secondary Navigation Toggler (Only for grouped sections) */}
-      <AnimatePresence>
-        {isGrouped && (
-          <motion.section 
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="sticky top-[73px] sm:top-[77px] z-40 bg-slate-50/90 backdrop-blur-md border-b border-slate-200 py-3 shadow-inner overflow-hidden"
-          >
-            <Container>
-              <div className="flex items-center gap-2 overflow-x-auto pb-1 hide-scrollbar w-full max-w-5xl mx-auto">
-                {currentSection.groups.map((group) => {
-                  const isActive = activeSubSection === group.title;
-                  return (
-                    <button
-                      key={group.title}
-                      onClick={() => setActiveSubSection(group.title)}
-                      className={`relative px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap overflow-hidden border ${
-                        isActive
-                          ? "text-slate-900 border-slate-300 bg-white shadow-sm"
-                          : "text-slate-400 border-transparent hover:text-slate-700 hover:bg-white/50"
-                      }`}
-                    >
-                      {isActive && (
-                        <motion.div
-                          layoutId="activeSecondaryTab"
-                          className="absolute inset-0 border-2 border-slate-900 rounded-full pointer-events-none"
-                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                        />
-                      )}
-                      {group.title}
-                    </button>
-                  );
-                })}
-              </div>
-            </Container>
-          </motion.section>
-        )}
-      </AnimatePresence>
-
       {/* Dynamic Team Section */}
       <section className="relative z-10 py-12 md:py-20 min-h-[600px]">
         <Container>
           <AnimatePresence mode="wait">
             <motion.div 
-              key={`${activeSection}-${activeSubSection}`}
+              key={activeSection}
               initial={{ opacity: 0, y: 15, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -15, scale: 0.98 }}
