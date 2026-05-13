@@ -68,7 +68,7 @@ const DOMAINS = [
 ];
 
 const REGISTRATION_FEE = "₹800";
-const GOOGLE_SHEETS_WEBHOOK = "https://script.google.com/macros/s/AKfycbwLiaraM-0tX6TiM87UG_3ZfLCDM3DhKRxrv1U5YVDYDtlUYab5loFwNm_1baiONPJ_JQ/exec"; // USER NEEDS TO PROVIDE THIS
+const GOOGLE_SHEETS_WEBHOOK = import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK;
 
 export default function SlotBookingPage({ onBack }) {
   const [step, setStep] = useState("VERIFY"); // VERIFY, DOMAIN, PAYMENT, SUCCESS
@@ -130,9 +130,17 @@ export default function SlotBookingPage({ onBack }) {
         return;
       }
 
-      // Generate the next C4C ID
-      const totalCount = await fetchSlots();
-      const nextIdNumber = (totalCount + 1).toString().padStart(2, '0');
+      // Generate the next C4C ID safely (Find highest existing and increment)
+      const allRegs = await getDocs(collection(db, "registrations"));
+      let maxNum = 0;
+      allRegs.docs.forEach(doc => {
+        const id = doc.data().teamId;
+        if (id && id.startsWith("C4C-")) {
+          const num = parseInt(id.split("-")[1]);
+          if (num > maxNum) maxNum = num;
+        }
+      });
+      const nextIdNumber = (maxNum + 1).toString().padStart(2, '0');
       const generatedId = `C4C-${nextIdNumber}`;
 
       setVerifiedTeam({
