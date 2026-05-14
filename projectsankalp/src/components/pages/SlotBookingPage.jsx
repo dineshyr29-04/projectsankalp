@@ -211,9 +211,9 @@ export default function SlotBookingPage({ onBack }) {
     setUploadProgress(10);
 
     try {
-      // 1. Aggressively Compress Image
+      // 1. Compress Image (Make it small enough for Firestore - ~100KB)
       const base64Image = await compressImage(screenshot);
-      setUploadProgress(40);
+      setUploadProgress(50);
 
       const payload = {
         teamId: verifiedTeam.teamId,
@@ -221,47 +221,31 @@ export default function SlotBookingPage({ onBack }) {
         selectedDomain: selectedDomain.id,
         transactionId: transactionId,
         paymentStatus: "PENDING",
-        imageData: base64Image,
-        fileName: `${verifiedTeam.teamId}_payment.jpg`,
+        imageUrl: base64Image, // Store directly in Firestore
         timestamp: new Date().toLocaleString()
       };
 
-      // 2. Save to Firestore (Primary Record)
+      // 2. Save to Firestore (Primary "In-House" Storage)
       await addDoc(collection(db, "registrations"), {
-        teamId: payload.teamId,
-        teamName: payload.teamName,
-        selectedDomain: payload.selectedDomain,
-        transactionId: payload.transactionId,
-        paymentStatus: "PENDING",
+        ...payload,
         createdAt: serverTimestamp()
       });
-      setUploadProgress(60);
+      setUploadProgress(80);
 
-      // 3. Send to Google Sheets (Reliable No-CORS submission)
+      // 3. Optional Background Sync to Sheets (Silent failure)
       if (GOOGLE_SHEETS_WEBHOOK) {
-        console.log("🚀 Initiating Google Sync to:", GOOGLE_SHEETS_WEBHOOK);
-        
-        // We use URLSearchParams to send data as 'form-encoded'
-        // This is the most bulletproof way for Apps Script to receive large data without CORS
-        const params = new URLSearchParams();
-        params.append("payload", JSON.stringify(payload));
-
-        await fetch(GOOGLE_SHEETS_WEBHOOK, {
-          method: "POST",
-          mode: "no-cors",
-          body: params
-        });
-        
-        console.log("✅ Google Sync Signal Sent (Opaque)");
-      } else {
-        console.warn("⚠️ Google Sheets Webhook URL is missing in .env");
+        try {
+          const params = new URLSearchParams();
+          params.append("payload", JSON.stringify({ ...payload, imageData: "Stored in Firebase" }));
+          fetch(GOOGLE_SHEETS_WEBHOOK, { method: "POST", mode: "no-cors", body: params });
+        } catch (e) { console.warn("Sheet sync skipped"); }
       }
       setUploadProgress(100);
 
       setStep("SUCCESS");
     } catch (err) {
       console.error("Submission Error:", err);
-      setError(`Terminal Error: ${err.message || "Connection Interrupted"}. Please try again.`);
+      setError(`System Error: ${err.message || "Connection Interrupted"}. Please try again.`);
     } finally {
       setIsProcessing(false);
     }

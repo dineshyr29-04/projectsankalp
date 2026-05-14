@@ -1,19 +1,16 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Users, 
   ChevronLeft, 
   Globe, 
   Heart, 
   Leaf,
   Activity,
-  UserCheck,
   LayoutGrid,
   Trash2,
   X
 } from "lucide-react";
 import Container from "../core/Container";
-import Footer from "../layout/Footer";
 
 const DOMAINS = [
   { 
@@ -41,6 +38,7 @@ const DOMAINS = [
 
 export default function BookingStatusPage({ slots, onBack, onDelete }) {
   const [time, setTime] = React.useState(new Date());
+  const [selectedImage, setSelectedImage] = React.useState(null);
 
   React.useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -52,8 +50,48 @@ export default function BookingStatusPage({ slots, onBack, onDelete }) {
   const bookedCount = Object.values(slots).flat().filter(s => s.teamId).length;
   const occupancy = Math.round((bookedCount / totalSlots) * 100);
 
+  // CSV Export Logic
+  const exportToCSV = () => {
+    const allBookings = Object.entries(slots).flatMap(([domainId, domainSlots]) => 
+      domainSlots.filter(s => s.teamId).map(s => ({
+        timestamp: new Date().toLocaleDateString(),
+        teamId: s.teamId,
+        teamName: s.teamName,
+        sector: domainId,
+        transactionId: s.transactionId || "N/A",
+        imageUrl: s.imageUrl || "No Photo",
+        status: "PENDING"
+      }))
+    );
+
+    if (allBookings.length === 0) return alert("No bookings to export.");
+
+    // Using the ="..." format prevents Excel from converting long numbers to scientific notation (like 1.2E+11)
+    const headers = ["Timestamp", "Team ID", "Team Name", "Sector", "Transaction ID", "Image Link", "Status"];
+    const rows = allBookings.map(b => [
+      b.timestamp, 
+      b.teamId, 
+      b.teamName, 
+      b.sector, 
+      `="${b.transactionId}"`, // Force Excel to treat as text
+      b.imageUrl, 
+      b.status
+    ]);
+    
+    const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `Sankalp_Manifest_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 pb-20 overflow-hidden">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 pb-20">
       {/* Dynamic Background */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
         <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-blue-100 blur-[150px] rounded-full" />
@@ -61,16 +99,28 @@ export default function BookingStatusPage({ slots, onBack, onDelete }) {
       </div>
 
       <Container className="relative z-10 pt-32 px-6 mx-auto max-w-7xl">
-        {/* Navigation - High End Floating Back Button */}
-        <motion.button
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          onClick={onBack}
-          className="fixed top-8 left-8 z-50 flex items-center gap-3 bg-white/80 backdrop-blur-md border border-slate-200 px-6 py-3 rounded-full shadow-lg hover:bg-slate-900 hover:text-white transition-all group active:scale-95"
-        >
-          <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em]">Exit Manifest</span>
-        </motion.button>
+        {/* Navigation */}
+        <div className="fixed top-8 left-8 right-8 z-50 flex justify-between items-center">
+          <motion.button
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            onClick={onBack}
+            className="flex items-center gap-3 bg-white/80 backdrop-blur-md border border-slate-200 px-6 py-3 rounded-full shadow-lg hover:bg-slate-900 hover:text-white transition-all group active:scale-95"
+          >
+            <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Exit Manifest</span>
+          </motion.button>
+
+          <motion.button
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            onClick={exportToCSV}
+            className="flex items-center gap-3 bg-emerald-500 text-white px-6 py-3 rounded-full shadow-lg hover:bg-emerald-600 transition-all active:scale-95 group"
+          >
+            <LayoutGrid size={16} />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Export to Excel</span>
+          </motion.button>
+        </div>
 
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-20">
@@ -91,20 +141,12 @@ export default function BookingStatusPage({ slots, onBack, onDelete }) {
               </div>
             </div>
             <div className="h-12 w-[1px] bg-slate-800" />
-            <div className="hidden sm:block">
+            <div>
               <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">System Pulse</span>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-mono font-bold tracking-tighter text-slate-200">
                   {time.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                 </span>
-              </div>
-            </div>
-            <div className="h-12 w-[1px] bg-slate-800 hidden sm:block" />
-            <div>
-              <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Allocated</span>
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-black">{bookedCount}</span>
-                <span className="text-slate-500 text-xs font-bold">/ 30</span>
               </div>
             </div>
           </div>
@@ -127,7 +169,7 @@ export default function BookingStatusPage({ slots, onBack, onDelete }) {
                   <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Status</span>
                   <div className="flex items-center justify-end gap-2">
                     <div className={`w-2 h-2 rounded-full ${domain.accent} animate-pulse`} />
-                    <span className="text-[10px] font-bold uppercase tracking-widest">Sector Active</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Active</span>
                   </div>
                 </div>
               </div>
@@ -151,37 +193,82 @@ export default function BookingStatusPage({ slots, onBack, onDelete }) {
                       </span>
                       {slot.teamId ? (
                         <div className="flex flex-col">
-                          <span className="text-xs font-black tracking-wide truncate max-w-[150px] uppercase text-emerald-400">{slot.teamId}</span>
-                          <span className="text-[10px] font-bold text-slate-400 truncate max-w-[150px]">{slot.teamName}</span>
+                          <span className="text-xs font-black tracking-wide truncate max-w-[100px] uppercase text-emerald-400">{slot.teamId}</span>
+                          <span className="text-[10px] font-bold text-slate-400 truncate max-w-[100px]">{slot.teamName}</span>
                         </div>
                       ) : (
-                        <span className="text-[10px] font-bold uppercase tracking-widest opacity-40">Vacant Bay</span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest opacity-40">Vacant</span>
                       )}
                     </div>
-                    {slot.teamId ? (
-                      <button
-                        onClick={() => onDelete(domain.id, slot.id, slot.docId)}
-                        className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center hover:bg-red-500 transition-all group/trash"
-                        title="Delete Allocation"
-                      >
-                        <Trash2 size={12} className="text-red-400 group-hover/trash:text-white" />
-                      </button>
-                    ) : (
-                      <LayoutGrid size={14} className="opacity-20" />
+                    
+                    {slot.teamId && (
+                      <div className="flex items-center gap-2">
+                        {/* View Photo Button */}
+                        <button
+                          onClick={() => {
+                            // Find the full document data to get the image
+                            // In this simple manifest, we might need to fetch the full data or ensure it's passed
+                            // For now, if slot.imageUrl exists (which it will after our update)
+                            if (slot.imageUrl) setSelectedImage(slot.imageUrl);
+                            else alert("Photo not synced yet.");
+                          }}
+                          className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center hover:bg-blue-500 transition-all group/eye"
+                          title="View Payment Proof"
+                        >
+                          <Activity size={12} className="text-blue-400 group-hover:text-white" />
+                        </button>
+
+                        <button
+                          onClick={() => onDelete(domain.id, slot.id, slot.docId)}
+                          className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center hover:bg-red-500 transition-all group/trash"
+                        >
+                          <Trash2 size={12} className="text-red-400 group-hover/trash:text-white" />
+                        </button>
+                      </div>
                     )}
                   </div>
                 ))}
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-slate-50 text-center">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300 italic">Sector Data Secure</p>
               </div>
             </motion.div>
           ))}
         </div>
       </Container>
-      
-      
+
+      {/* Image Preview Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedImage(null)}
+              className="absolute inset-0 bg-black/90 backdrop-blur-xl"
+            />
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative max-w-2xl w-full bg-white rounded-[48px] overflow-hidden shadow-2xl"
+            >
+              <button 
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-6 right-6 z-10 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+              >
+                <X size={20} />
+              </button>
+              <img 
+                src={selectedImage} 
+                alt="Payment Proof" 
+                className="w-full h-auto max-h-[80vh] object-contain bg-slate-100"
+              />
+              <div className="p-8 text-center bg-white border-t border-slate-100">
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Payment Verification Document</span>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

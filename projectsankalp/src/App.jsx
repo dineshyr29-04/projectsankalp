@@ -110,7 +110,7 @@ function App() {
         climate: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
       };
 
-      regs.forEach((reg, index) => {
+      regs.forEach((reg) => {
         const sector = freshSlots[reg.selectedDomain];
         if (sector) {
           // Find the first empty slot for this domain in the local manifest
@@ -120,6 +120,7 @@ function App() {
             slot.teamName = reg.teamName;
             slot.docId = reg._id;
             slot.transactionId = reg.transactionId;
+            slot.imageUrl = reg.imageUrl; // CRITICAL: Map the photo URL
           }
         }
       });
