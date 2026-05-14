@@ -162,9 +162,7 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
   const occupancy = propOccupancy || Math.round((bookedCount / 30) * 100);
 
   return (
-      
-        
-        <div className="min-h-screen bg-[#FDFDFD] text-slate-900 pb-20 overflow-x-hidden select-none">
+      <div className="min-h-screen bg-[#FDFDFD] text-slate-900 pb-20 overflow-x-hidden select-none">
       
       {/* ── STICKY CONTROL HUB ── */}
       <div className="sticky top-0 z-[70] bg-white/90 backdrop-blur-2xl border-b border-slate-200/50 px-3 py-3 md:py-4">
