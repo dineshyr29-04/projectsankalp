@@ -68,9 +68,12 @@ function App() {
   useEffect(() => {
     // Handle initial load slug
     const path = window.location.pathname.slice(1);
-    const validViews = ["landing", "winners", "team", "stages", "Slot-Registry-Secure", "X-99-Terminal-Admin", "timer"];
-    if (validViews.includes(path)) {
-      setCurrentView(path);
+    const validViews = ["landing", "winners", "team", "stages", "booking", "terminal", "timer"];
+    const normalizedPath = path.toLowerCase();
+    const matchedView = validViews.find(v => v.toLowerCase() === normalizedPath);
+
+    if (matchedView) {
+      setCurrentView(matchedView);
     } else if (path === "") {
       setCurrentView("landing");
     }
@@ -191,13 +194,13 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 900);
 
-    const path = window.location.pathname.slice(1);
+    const path = window.location.pathname.slice(1).toLowerCase();
     if (path === "winners") setCurrentView("winners");
-    if (path === "timer") setCurrentView("timer");
-    if (path === "team") setCurrentView("team");
-    if (path === "stages") setCurrentView("stages");
-    if (path === "Slot-Registry-Secure") setCurrentView("Slot-Registry-Secure");
-    if (path === "X-99-Terminal-Admin") setCurrentView("X-99-Terminal-Admin");
+    else if (path === "timer") setCurrentView("timer");
+    else if (path === "team") setCurrentView("team");
+    else if (path === "stages") setCurrentView("stages");
+    else if (path === "booking") setCurrentView("booking");
+    else if (path === "terminal") setCurrentView("terminal");
 
     return () => clearTimeout(timer);
   }, []);
@@ -328,7 +331,7 @@ function App() {
                     <StagesPage onBack={() => navigate("landing")} />
                   </motion.div>
                 )}
-                {currentView === "Slot-Registry-Secure" && (
+                {currentView === "booking" && (
                   <motion.div
                     key="booking"
                     initial={{ opacity: 0, scale: 1.1 }}
@@ -342,9 +345,9 @@ function App() {
                   </motion.div>
                 )}
 
-                {currentView === "X-99-Terminal-Admin" && (
+                {currentView === "terminal" && (
                   <motion.div
-                    key="status"
+                    key="terminal"
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -50 }}

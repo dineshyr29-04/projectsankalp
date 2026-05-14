@@ -42,9 +42,9 @@ export default function Navbar({ onNavigate, currentView }) {
       return;
     }
 
-    if (href === "/Slot-Registry-Secure") {
+    if (href === "/booking") {
       e.preventDefault();
-      onNavigate?.("Slot-Registry-Secure");
+      onNavigate?.("booking");
       return;
     }
 

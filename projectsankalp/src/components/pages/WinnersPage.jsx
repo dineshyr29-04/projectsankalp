@@ -300,7 +300,7 @@ export default function WinnersPage({ onNavigate }) {
                   whileInView="visible"
                   viewport={{ once: true, margin: "-50px" }}
                   custom={index % 6}
-                  onClick={() => onNavigate?.("Slot-Registry-Secure")}
+                  onClick={() => onNavigate?.("booking")}
                   className="group relative cursor-pointer"
                 >
                   <div className="absolute -inset-2 bg-gradient-to-br from-emerald-500/10 to-blue-500/10 rounded-[32px] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
