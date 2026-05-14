@@ -67,7 +67,7 @@ export default function Navbar({ onNavigate, currentView }) {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             onClick={() => onNavigate?.("landing")}
-            className="flex items-center gap-3 text-white px-6 py-4 rounded-2xl shadow-2xl hover:bg-slate-800 transition-all active:scale-95 group mb-4"
+            className="f"
           >
           </motion.button>
         ) : (
