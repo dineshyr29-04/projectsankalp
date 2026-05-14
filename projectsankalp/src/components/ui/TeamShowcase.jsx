@@ -16,7 +16,7 @@ export default function TeamShowcase({ members }) {
   return (
     <div className="w-full max-w-5xl mx-auto py-4 md:py-8 font-sans">
       {/* ── MOBILE VIEW: High-Impact Cards ── */}
-      <div className="flex flex-col gap-12 md:hidden">
+      <div className="flex flex-col gap-16 md:hidden px-4">
         {members.map((member, index) => (
           <motion.div
             key={member.id}
@@ -26,36 +26,33 @@ export default function TeamShowcase({ members }) {
             transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="group relative"
           >
-            {/* Background Number */}
-            <span className="absolute -top-6 -left-2 text-[80px] font-black text-slate-100/50 -z-10 select-none">
+            {/* Background Number: Clipped to avoid overflow */}
+            <span className="absolute -top-10 -left-4 text-[100px] font-black text-slate-100/60 -z-10 select-none pointer-events-none">
               {String(index + 1).padStart(2, '0')}
             </span>
 
             <div className="flex flex-col gap-6">
               {/* Image Container */}
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl shadow-2xl shadow-slate-200">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl shadow-2xl shadow-slate-200">
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700"
                 />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-80" />
                 
-                {/* Social Links on Image (Mobile) */}
-                <div className="absolute bottom-4 right-4 flex gap-2">
-                  <SocialIcons member={member} light />
+                {/* Social Links: Larger for mobile */}
+                <div className="absolute bottom-6 left-6 flex gap-3">
+                  <SocialIcons member={member} light size={18} />
                 </div>
               </div>
 
               {/* Info Area */}
-              <div className="px-2">
-                <div className="flex items-end justify-between mb-1">
-                  <h3 className="text-3xl font-black text-slate-900 tracking-tighter leading-none">
-                    {member.name}
-                  </h3>
-                </div>
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
+              <div className="px-1">
+                <h3 className="text-4xl font-black text-slate-900 tracking-tighter leading-none mb-2">
+                  {member.name}
+                </h3>
+                <p className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-400">
                   {member.role}
                 </p>
               </div>
@@ -119,12 +116,12 @@ export default function TeamShowcase({ members }) {
   );
 }
 
-function SocialIcons({ member, light = false }) {
+function SocialIcons({ member, light = false, size = 14 }) {
   const hasSocial = member.social?.twitter || member.social?.linkedin || member.social?.instagram || member.social?.behance || member.social?.github;
   if (!hasSocial) return null;
 
   const iconClass = cn(
-    "p-2 rounded-full backdrop-blur-md transition-all duration-300 hover:scale-110",
+    "p-2.5 rounded-full backdrop-blur-md transition-all duration-300 hover:scale-110",
     light 
       ? "bg-white/10 text-white hover:bg-white/20" 
       : "bg-slate-100 text-slate-400 hover:text-slate-900 hover:bg-slate-200"
@@ -133,23 +130,24 @@ function SocialIcons({ member, light = false }) {
   return (
     <div className="flex items-center gap-2">
       {member.social?.linkedin && (
-        <a href={member.social.linkedin} target="_blank" rel="noopener" className={iconClass}><FaLinkedinIn size={14} /></a>
+        <a href={member.social.linkedin} target="_blank" rel="noopener" className={iconClass}><FaLinkedinIn size={size} /></a>
       )}
       {member.social?.github && (
-        <a href={member.social.github} target="_blank" rel="noopener" className={iconClass}><FaGithub size={14} /></a>
+        <a href={member.social.github} target="_blank" rel="noopener" className={iconClass}><FaGithub size={size} /></a>
       )}
       {member.social?.instagram && (
-        <a href={member.social.instagram} target="_blank" rel="noopener" className={iconClass}><FaInstagram size={14} /></a>
+        <a href={member.social.instagram} target="_blank" rel="noopener" className={iconClass}><FaInstagram size={size} /></a>
       )}
       {member.social?.twitter && (
-        <a href={member.social.twitter} target="_blank" rel="noopener" className={iconClass}><FaTwitter size={14} /></a>
+        <a href={member.social.twitter} target="_blank" rel="noopener" className={iconClass}><FaTwitter size={size} /></a>
       )}
       {member.social?.behance && (
-        <a href={member.social.behance} target="_blank" rel="noopener" className={iconClass}><FaBehance size={14} /></a>
+        <a href={member.social.behance} target="_blank" rel="noopener" className={iconClass}><FaBehance size={size} /></a>
       )}
     </div>
   );
 }
+
 
 function PhotoCard({ member, className, hoveredId, onHover }) {
   const isActive = hoveredId === member.id;

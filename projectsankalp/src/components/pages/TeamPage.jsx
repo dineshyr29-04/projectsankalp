@@ -1,12 +1,9 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Container from "../core/Container";
 import TeamShowcase from "../ui/TeamShowcase";
 
 // --- TEAM DATA ---
-
-
-
 
 const STUDENT_CONVENERS = [
   { id: 's1', name: 'Radesh Pai', role: 'Student Convener', image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#', github: '#' } },
@@ -51,14 +48,23 @@ const SECTIONS = [
 
 export default function TeamPage() {
   const [activeSection, setActiveSection] = useState(SECTIONS[0].title);
+  const scrollContainerRef = useRef(null);
 
   const currentSection = SECTIONS.find(s => s.title === activeSection);
-  
-  // Determine which data to show
   const activeData = currentSection?.data || [];
-  const displayTitle = activeSection;
 
-  // Dynamic background for active section
+  // Perfect Toggle: Scroll active tab into view
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      const activeButton = scrollContainerRef.current.querySelector(`[data-active="true"]`);
+      if (activeButton) {
+        const container = scrollContainerRef.current;
+        const scrollLeft = activeButton.offsetLeft - (container.offsetWidth / 2) + (activeButton.offsetWidth / 2);
+        container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+      }
+    }
+  }, [activeSection]);
+
   const sectionColors = {
     "Student Conveners": "from-slate-50 to-white",
     "Technical": "from-emerald-50/50 to-white",
@@ -73,19 +79,18 @@ export default function TeamPage() {
   return (
     <div className="bg-white min-h-screen relative font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-32 transition-colors duration-1000 overflow-x-hidden">
       
-      {/* Background Gradient Animation */}
       <div className={`absolute inset-0 bg-gradient-to-b ${currentBg} opacity-60 pointer-events-none transition-all duration-1000`} />
 
       {/* Hero Section */}
-      <section className="relative pt-32 md:pt-40 pb-16 z-10 border-b border-slate-100">
+      <section className="relative pt-24 md:pt-40 pb-16 z-10 border-b border-slate-100">
         <Container>
-          <div className="max-w-4xl">
+          <div className="max-w-4xl px-2 sm:px-0">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               className="flex items-center gap-4 mb-6 md:mb-10"
             >
-              <div className="w-8 md:w-12 h-1 bg-slate-900" />
+              <div className="w-8 h-1 bg-slate-900" />
               <span className="text-slate-900 font-black uppercase tracking-[0.5em] text-[10px]">
                 The Collective
               </span>
@@ -95,7 +100,7 @@ export default function TeamPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-5xl sm:text-6xl md:text-8xl lg:text-[110px] font-serif font-black text-slate-900 leading-[0.85] tracking-tighter mb-8 md:mb-10"
+              className="text-[40px] sm:text-6xl md:text-8xl lg:text-[110px] font-serif font-black text-slate-900 leading-[0.9] tracking-tighter mb-8"
             >
               Meet the <br />
               <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-500">Crew.</span>
@@ -105,7 +110,7 @@ export default function TeamPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-slate-500 text-lg md:text-2xl max-w-2xl font-medium border-l-4 border-slate-100 pl-6 md:pl-8"
+              className="text-slate-500 text-base md:text-2xl max-w-2xl font-medium border-l-4 border-slate-100 pl-6"
             >
               The brilliant minds tracing our path. Explore the specialized
               nodes that form our collective intelligence.
@@ -114,35 +119,37 @@ export default function TeamPage() {
         </Container>
       </section>
 
-      {/* Sticky Navigation */}
-      <section className="sticky top-0 z-50 bg-white/70 backdrop-blur-2xl border-b border-slate-100 py-3 md:py-4 transition-all duration-500">
-        <Container>
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 hide-scrollbar w-full max-w-5xl mx-auto px-1">
-            {SECTIONS.map((section) => {
-              const isActive = activeSection === section.title;
-              return (
-                <button
-                  key={section.title}
-                  onClick={() => setActiveSection(section.title)}
-                  className={`relative px-4 py-2.5 md:px-5 md:py-3 rounded-full text-[9px] md:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap overflow-hidden ${
-                    isActive
-                      ? "text-white"
-                      : "text-slate-400 hover:text-slate-900 hover:bg-slate-50"
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="activePrimaryTab"
-                      className="absolute inset-0 bg-slate-900 rounded-full -z-10 shadow-lg shadow-slate-900/20"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                  {section.title}
-                </button>
-              );
-            })}
-          </div>
-        </Container>
+      {/* Perfect Toggle Navigation */}
+      <section className="sticky top-0 z-50 bg-white/80 backdrop-blur-2xl border-b border-slate-100 py-3 transition-all duration-500">
+        <div 
+          ref={scrollContainerRef}
+          className="flex items-center gap-3 overflow-x-auto px-6 hide-scrollbar w-full max-w-5xl mx-auto scroll-smooth snap-x"
+        >
+          {SECTIONS.map((section) => {
+            const isActive = activeSection === section.title;
+            return (
+              <button
+                key={section.title}
+                data-active={isActive}
+                onClick={() => setActiveSection(section.title)}
+                className={`relative px-5 py-2.5 rounded-full text-[11px] md:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap snap-center ${
+                  isActive
+                    ? "text-white"
+                    : "text-slate-400 hover:text-slate-900"
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activePrimaryTab"
+                    className="absolute inset-0 bg-slate-900 rounded-full -z-10 shadow-lg shadow-slate-900/20"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                {section.title}
+              </button>
+            );
+          })}
+        </div>
       </section>
 
       {/* Team Content */}
@@ -157,27 +164,24 @@ export default function TeamPage() {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col gap-10 md:gap-16 w-full max-w-5xl mx-auto"
             >
-              {/* Section Title with Index */}
-              <div className="flex items-end justify-between border-b border-slate-200/60 pb-8 px-2 md:px-0">
-                <div className="flex flex-col gap-2">
-                  <span className="text-blue-600 font-black text-[10px] uppercase tracking-[0.4em]">Section</span>
-                  <h2 className="text-3xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter">
-                    {displayTitle}
+              <div className="flex items-end justify-between border-b border-slate-200/60 pb-8 px-4 sm:px-0">
+                <div className="flex flex-col gap-1">
+                  <span className="text-blue-600 font-black text-[9px] uppercase tracking-[0.4em]">Section</span>
+                  <h2 className="text-2xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter">
+                    {activeSection}
                   </h2>
                 </div>
-                <span className="text-slate-200 font-serif text-6xl md:text-8xl italic font-black leading-none translate-y-2 md:translate-y-4">
+                <span className="text-slate-100 font-serif text-5xl md:text-8xl italic font-black leading-none translate-y-3">
                   0{SECTIONS.findIndex(s => s.title === activeSection) + 1}
                 </span>
               </div>
 
-              {/* Team Showcase */}
               <TeamShowcase members={activeData} />
             </motion.div>
           </AnimatePresence>
         </Container>
       </section>
 
-      {/* Footer Branding */}
       <footer className="relative z-10 py-20 border-t border-slate-100 bg-slate-50/30">
         <Container>
           <div className="flex flex-col items-center gap-6 text-center">
@@ -185,15 +189,11 @@ export default function TeamPage() {
             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400">
               Project Sankalp Team _ 2026
             </p>
-            <div className="flex gap-4 mt-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse delay-75" />
-              <div className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse delay-150" />
-            </div>
           </div>
         </Container>
       </footer>
     </div>
   );
 }
+
 

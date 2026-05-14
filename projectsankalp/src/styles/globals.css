@@ -76,6 +76,15 @@ html.lenis body {
     writing-mode: vertical-rl;
     text-orientation: mixed;
   }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @keyframes spin-slow {
