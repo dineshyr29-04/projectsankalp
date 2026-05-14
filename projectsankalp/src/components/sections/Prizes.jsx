@@ -247,14 +247,15 @@ export default function Prizes() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-16 md:mt-24"
         >
-          <button className="relative group overflow-hidden rounded-full p-[2px]">
-            <span className="absolute inset-0 bg-gradient-to-r from-blue-300 via-blue-600 to-blue-300 opacity-70 group-hover:opacity-100 animate-[spin_3s_linear_infinite]" />
-            <div className="relative px-6 md:px-10 py-3 md:py-4 bg-white rounded-full transition-all duration-300 group-hover:bg-slate-50 overflow-hidden shadow-lg">
-              <span className="text-[10px] md:text-sm font-bold uppercase tracking-[0.2em] text-blue-600">
+          <button 
+            onClick={() => window.open('https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755', '_blank', 'noopener,noreferrer')}
+            className="relative group overflow-hidden rounded-full p-[2px] cursor-pointer hover:scale-105 transition-all duration-300"
+          >
+            <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] aspect-square animate-[spin_3s_linear_infinite] bg-gradient-to-r from-blue-300 via-blue-600 to-blue-300 opacity-70 group-hover:opacity-100" />
+            <div className="relative h-full w-full px-6 md:px-10 py-3 md:py-4 bg-white rounded-full transition-colors duration-300 group-hover:bg-blue-600 overflow-hidden shadow-lg flex items-center justify-center">
+              <span className="text-[10px] md:text-sm font-bold uppercase tracking-[0.2em] text-blue-600 transition-colors duration-300 group-hover:text-white">
                 Join Now — Win Big
               </span>
-              {/* Shimmer effect */}
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-blue-500/10 to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
             </div>
           </button>
         </motion.div>
