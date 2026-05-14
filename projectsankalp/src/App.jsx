@@ -20,7 +20,7 @@ import SlotBookingPage from "./components/pages/SlotBookingPage";
 import BookingStatusPage from "./components/pages/BookingStatusPage";
 import TeamPage from "./components/pages/TeamPage"
 import { db } from "./lib/firebase";
-import { collection, onSnapshot, addDoc, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, onSnapshot, addDoc, query, where, getDocs, deleteDoc, doc, updateDoc, serverTimestamp } from "firebase/firestore";
 
 // AUDIT FIX: Simple, premium Back to Top button
 const BackToTop = () => {

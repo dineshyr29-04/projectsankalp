@@ -141,6 +141,9 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
         setConfirmedTeam({ ...matchingSlot, alreadyIn: true });
       }
       if (window.navigator.vibrate) window.navigator.vibrate(100);
+    } else {
+      // TICKET NOT FOUND
+      setScanError("INVALID_TICKET");
     }
 
     setIsScanning(false);
@@ -332,14 +335,16 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
         )}
       </AnimatePresence>
 
-      {/* Camera Error Message */}
+      {/* Error Message */}
       <AnimatePresence>
         {scanError && (
           <motion.div initial={{ y: 100 }} animate={{ y: 0 }} exit={{ y: 100 }} className="fixed bottom-8 left-4 right-4 z-[110] bg-red-500 text-white p-4 rounded-2xl shadow-2xl flex items-center gap-4">
             <AlertCircle size={24} />
-            <div>
-              <p className="font-black uppercase tracking-widest text-[10px]">Security Alert</p>
-              <p className="text-[10px] font-bold opacity-80">Camera access failed.</p>
+            <div className="flex-1">
+              <p className="font-black uppercase tracking-widest text-[10px]">Verification Failed</p>
+              <p className="text-[10px] font-bold opacity-80">
+                {scanError === "INVALID_TICKET" ? "This QR code does not match any registered team." : "Camera access failed or was denied."}
+              </p>
             </div>
             <button onClick={() => setScanError(null)} className="ml-auto bg-white/20 p-2 rounded-xl"><X size={16} /></button>
           </motion.div>
