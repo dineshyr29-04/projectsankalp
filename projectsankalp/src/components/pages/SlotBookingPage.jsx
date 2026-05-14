@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { QRCodeSVG } from "qrcode.react";
+import { toPng } from "html-to-image";
 import { 
   ShieldCheck, 
   Globe, 
@@ -16,6 +18,8 @@ import {
   X,
   CreditCard,
   QrCode,
+  Download,
+  AlertTriangle,
   Image as ImageIcon
 } from "lucide-react";
 import { db, storage } from "../../lib/firebase";
@@ -83,6 +87,28 @@ export default function SlotBookingPage({ onBack }) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState("");
   const [domainSlots, setDomainSlots] = useState({});
+  const ticketRef = useRef(null);
+
+  const handleDownloadTicket = async () => {
+    if (ticketRef.current === null) return;
+    
+    try {
+      const dataUrl = await toPng(ticketRef.current, { 
+        cacheBust: true,
+        backgroundColor: '#111',
+        style: {
+          borderRadius: '48px'
+        }
+      });
+      const link = document.createElement('a');
+      link.download = `SANKALP_TICKET_${verifiedTeam?.teamId || 'ENTRY'}.png`;
+      link.href = dataUrl;
+      link.click();
+    } catch (err) {
+      console.error('Download failed', err);
+      alert('Failed to generate ticket. Please take a manual screenshot.');
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -531,43 +557,81 @@ export default function SlotBookingPage({ onBack }) {
           {step === "SUCCESS" && (
             <motion.div
               key="success"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="max-w-2xl mx-auto text-center py-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="max-w-xl mx-auto text-center"
             >
-              <div className="relative mb-12">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                  className="w-32 h-32 bg-emerald-500 rounded-[40px] flex items-center justify-center mx-auto shadow-[0_20px_60px_rgba(16,185,129,0.3)] relative z-10"
-                >
-                  <CheckCircle2 className="text-white" size={64} />
-                </motion.div>
-                <div className="absolute inset-0 bg-emerald-500/20 blur-3xl rounded-full scale-150" />
+              {/* SUCCESS TICKET CARD */}
+              <div 
+                ref={ticketRef}
+                className="bg-[#111] border border-white/10 rounded-[48px] p-10 mb-10 shadow-2xl relative overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-blue-500" />
+                
+                <div className="mb-10 relative">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="w-20 h-20 bg-emerald-500 rounded-[32px] flex items-center justify-center mx-auto shadow-2xl relative z-10"
+                  >
+                    <CheckCircle2 className="text-white" size={40} />
+                  </motion.div>
+                </div>
+
+                <h1 className="text-4xl md:text-5xl font-serif font-black tracking-tighter italic mb-4 text-white">Manifest Secured.</h1>
+                <p className="text-white/40 text-[10px] font-black uppercase tracking-widest mb-10">Mission Identity Locked</p>
+
+                <div className="bg-white/5 border border-white/10 rounded-[32px] p-8 mb-8 flex flex-col items-center">
+                  <div className="p-4 bg-white rounded-2xl mb-6">
+                    <QRCodeSVG 
+                      value={`TEAM:${verifiedTeam?.teamId}|DOMAIN:${selectedDomain?.id}|TX:${transactionId}`}
+                      size={150}
+                      level="H"
+                    />
+                  </div>
+                  <div className="w-full flex justify-between items-center text-left">
+                    <div>
+                      <span className="block text-[8px] font-black uppercase tracking-widest text-white/30 mb-1">TEAM ID</span>
+                      <span className="text-lg font-black tracking-widest text-emerald-400 uppercase">{verifiedTeam?.teamId}</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="block text-[8px] font-black uppercase tracking-widest text-white/30 mb-1">SECTOR</span>
+                      <span className="text-[10px] font-black tracking-widest text-blue-400 uppercase">{selectedDomain?.title}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-left border-t border-white/5 pt-6">
+                  <p className="text-[8px] text-white/20 font-bold uppercase tracking-widest text-center">
+                    Project Sankalp 2026 // Registry Confirmed
+                  </p>
+                </div>
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-serif font-black tracking-tighter italic mb-6">Reservation Secured.</h1>
-              <p className="text-white/50 font-medium text-lg leading-relaxed mb-12 max-w-md mx-auto">
-                Your deployment in the <span className="text-white font-bold">{selectedDomain?.title}</span> sector has been initiated. Mission credentials sent to registry.
-              </p>
-
-              <div className="grid grid-cols-2 gap-4 text-left mb-16">
-                <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                  <span className="block text-[9px] font-black uppercase tracking-widest text-white/30 mb-2">Operation ID</span>
-                  <span className="text-sm font-black uppercase tracking-widest text-emerald-500">{verifiedTeam?.teamId}</span>
+              {/* DOWNLOAD PROMPT & WARNING */}
+              <div className="bg-red-500/10 border border-red-500/20 rounded-[32px] p-8 mb-10">
+                <div className="flex items-center justify-center gap-3 mb-3 text-red-500">
+                  <AlertTriangle size={20} />
+                  <h3 className="text-[10px] font-black uppercase tracking-widest">Entry Requirement</h3>
                 </div>
-                <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                  <span className="block text-[9px] font-black uppercase tracking-widest text-white/30 mb-2">Sector</span>
-                  <span className="text-sm font-black uppercase tracking-widest text-blue-500">{selectedDomain?.title}</span>
-                </div>
+                <p className="text-red-400 font-bold text-xs leading-relaxed mb-8">
+                  IT IS MANDATORY TO DOWNLOAD THIS RECEIPT. YOU MUST PRESENT THIS QR CODE AT THE ENTRY GATE.
+                </p>
+                
+                <button
+                  onClick={handleDownloadTicket}
+                  className="w-full bg-white text-black py-6 rounded-2xl font-black uppercase tracking-[0.3em] text-[10px] flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-95 transition-all shadow-2xl"
+                >
+                  <Download size={16} />
+                  Download Entry Receipt
+                </button>
               </div>
 
               <button
                 onClick={onBack}
-                className="bg-white text-black px-14 py-6 rounded-2xl font-black uppercase tracking-[0.4em] hover:bg-white/90 transition-all active:scale-95 shadow-2xl shadow-white/10"
+                className="text-white/20 hover:text-white font-black uppercase tracking-[0.4em] text-[9px] transition-colors"
               >
-                Return to Command Hub
+                Return to Hub
               </button>
             </motion.div>
           )}
