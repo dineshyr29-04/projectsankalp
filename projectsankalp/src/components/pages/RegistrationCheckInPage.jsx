@@ -45,7 +45,11 @@ export default function RegistrationCheckInPage({ slots, onBack, onCheckIn, onDe
         .slice(0, MAX_TEAMS_PER_DOMAIN) // Limit to 10 per domain
         .map(team => ({
           ...team,
-          domain
+          domain,
+          checkedIn: team.checkedIn || false,
+          checkInTime: team.checkInTime || null,
+          paymentVerified: team.paymentVerified || false,
+          paymentDate: team.paymentDate || null
         }));
     });
     setRegistrationData(data);
@@ -317,9 +321,15 @@ export default function RegistrationCheckInPage({ slots, onBack, onCheckIn, onDe
 
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center justify-between text-[10px] font-bold">
-                    <span className="text-slate-500">Status</span>
+                    <span className="text-slate-500">Check-in Status</span>
                     <span className={team.checkedIn ? "text-emerald-600 font-black" : "text-orange-600 font-black"}>
                       {team.checkedIn ? "✓ Checked In" : "○ Pending"}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-[10px] font-bold">
+                    <span className="text-slate-500">Payment Status</span>
+                    <span className={team.paymentVerified ? "text-emerald-600 font-black" : "text-orange-600 font-black"}>
+                      {team.paymentVerified ? "✓ Verified" : "○ Pending"}
                     </span>
                   </div>
                   {team.checkInTime && (

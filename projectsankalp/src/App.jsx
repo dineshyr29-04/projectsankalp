@@ -10,6 +10,7 @@ import About from "./components/sections/About";
 import Process from "./components/sections/Process";
 import EventDetails from "./components/sections/EventDetails";
 import Prizes from "./components/sections/Prizes";
+import Domains from "./components/sections/Domains";
 import FAQ from "./components/sections/FAQ";
 import Sponsors from "./components/sections/Sponsors";
 import { ArrowUp } from "lucide-react";
@@ -151,7 +152,13 @@ function App() {
 
   const handleUpdatePayment = async (docId, updates) => {
     try {
-      await updateDoc(doc(db, "registrations", docId), updates);
+      const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
+      if (db && projectId && projectId !== "your_project_id" && docId) {
+        await updateDoc(doc(db, "registrations", docId), {
+          ...updates,
+          lastUpdated: serverTimestamp()
+        });
+      }
     } catch (err) {
       console.error("Payment update failed:", err);
     }
@@ -290,8 +297,10 @@ function App() {
                     <Process />
                     <EventDetails />
                     <Prizes />
+                    <Domains />
                     <Sponsors />
                     <FAQ />
+
                     <Footer />
                   </motion.div>
                 )}
