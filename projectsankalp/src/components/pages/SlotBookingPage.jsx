@@ -173,59 +173,49 @@ export default function SlotBookingPage({ onBack }) {
     
     setIsProcessing(true);
     setError("");
-    setUploadProgress(0);
+    setUploadProgress(10);
 
     try {
-      // 1. Upload Screenshot to Firebase Storage
-      const storageRef = ref(storage, `payments/${verifiedTeam.teamId}_${Date.now()}_${screenshot.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, screenshot);
+      // 1. Aggressively Compress Image
+      const base64Image = await compressImage(screenshot);
+      setUploadProgress(40);
 
-      // Monitor progress
-      const imageUrl = await new Promise((resolve, reject) => {
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setUploadProgress(progress);
-          },
-          (error) => {
-            console.error("Storage upload failed:", error);
-            reject(error);
-          },
-          async () => {
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            resolve(downloadURL);
-          }
-        );
-      });
-
-      const registrationData = {
+      const payload = {
         teamId: verifiedTeam.teamId,
         teamName: verifiedTeam.teamName,
         selectedDomain: selectedDomain.id,
-        transactionId,
+        transactionId: transactionId,
         paymentStatus: "PENDING",
-        imageUrl: imageUrl, // Real URL instead of massive base64
+        imageData: base64Image,
+        fileName: `${verifiedTeam.teamId}_payment.jpg`,
         timestamp: new Date().toLocaleString()
       };
 
       // 2. Save to Firestore (Primary Record)
       await addDoc(collection(db, "registrations"), {
-        ...registrationData,
+        teamId: payload.teamId,
+        teamName: payload.teamName,
+        selectedDomain: payload.selectedDomain,
+        transactionId: payload.transactionId,
+        paymentStatus: "PENDING",
         createdAt: serverTimestamp()
       });
+      setUploadProgress(60);
 
-      // 3. Send to Google Sheets (Reliable sync)
+      // 3. Send to Google Sheets (Reliable No-CORS submission)
       if (GOOGLE_SHEETS_WEBHOOK) {
-        // We use a simple query string or a clean POST for Apps Script
-        // To avoid CORS issues with 'no-cors', we send as a plain text string if needed
+        // We use text/plain for the body to ensure no-cors compatibility
+        // Apps Script parses this easily via e.postData.contents
         await fetch(GOOGLE_SHEETS_WEBHOOK, {
           method: "POST",
           mode: "no-cors",
-          headers: { "Content-Type": "text/plain" }, // Standard for Apps Script no-cors
-          body: JSON.stringify(registrationData)
+          headers: {
+            "Content-Type": "text/plain",
+          },
+          body: JSON.stringify(payload)
         });
       }
+      setUploadProgress(100);
 
       setStep("SUCCESS");
     } catch (err) {
