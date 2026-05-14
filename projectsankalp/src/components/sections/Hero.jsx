@@ -25,7 +25,7 @@ export default function Hero() {
     <section
       id="hero"
       ref={containerRef}
-      className="relative min-h-screen flex flex-col bg-white overflow-hidden pt-5"
+      className="relative min-h-screen flex flex-col bg-white overflow-hidden pt-20 sm:pt-24 md:pt-12 lg:pt-5"
     >
       {/* ── Grainient Animated Background ── */}
       <div className="absolute inset-0 z-0">
@@ -65,22 +65,22 @@ export default function Hero() {
             className="flex flex-col items-center w-full text-center"
           >
             {/* Heading Group */}
-            <div className="flex flex-col items-center w-full gap-8 md:gap-12">
+            <div className="flex flex-col items-center w-full gap-4 sm:gap-6 md:gap-12">
               <div className="flex flex-col items-center">
-                <h1 className="text-6xl sm:text-8xl md:text-[100px] lg:text-[140px] font-serif font-black text-slate-900 leading-[0.85] md:leading-[0.75] tracking-[0.05em] md:tracking-[0.1em] uppercase italic">
+                <h1 className="text-5xl sm:text-7xl md:text-[100px] lg:text-[140px] font-serif font-black text-slate-900 leading-[0.8] md:leading-[0.75] tracking-[0.05em] md:tracking-[0.1em] uppercase italic">
                   PROJECT
                 </h1>
 
                 {/* Pill Badge - Centered between heading words */}
-                <div className="flex items-center justify-center gap-4 md:gap-4 my-6 md:my-8">
-                  <span className="h-px w-8 md:w-10 bg-gradient-to-r from-transparent via-slate-300 to-transparent"></span>
-                  <span className="text-[10px] md:text-[14px] font-semibold uppercase tracking-[0.3em] md:tracking-[0.4em] text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600">
+                <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4 my-4 sm:my-5 md:my-8">
+                  <span className="h-px w-6 sm:w-8 md:w-10 bg-gradient-to-r from-transparent via-slate-300 to-transparent"></span>
+                  <span className="text-[8px] sm:text-[10px] md:text-[14px] font-semibold uppercase tracking-[0.2em] sm:tracking-[0.3em] md:tracking-[0.4em] text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600">
                     Code4Change
                   </span>
-                  <span className="h-px w-8 md:w-10 bg-gradient-to-r from-transparent via-slate-300 to-transparent"></span>
+                  <span className="h-px w-6 sm:w-8 md:w-10 bg-gradient-to-r from-transparent via-slate-300 to-transparent"></span>
                 </div>
 
-                <h1 className="text-5xl sm:text-6xl md:text-[100px] lg:text-[140px] font-serif font-black text-slate-900 leading-[0.85] md:leading-[0.75] tracking-[0.1em] md:tracking-[0.15em] uppercase italic">
+                <h1 className="text-4xl sm:text-6xl md:text-[100px] lg:text-[140px] font-serif font-black text-slate-900 leading-[0.8] md:leading-[0.75] tracking-[0.1em] md:tracking-[0.15em] uppercase italic">
                   SANKALP
                 </h1>
               </div>

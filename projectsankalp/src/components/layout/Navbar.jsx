@@ -89,24 +89,25 @@ export default function Navbar({ onNavigate, currentView }) {
               </motion.div>
             </motion.button>
 
-            {/* The Drawer (Straight Line Items) */}
+            {/* The Individual Drawer Items */}
             <AnimatePresence>
               {isOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -20, height: 0 }}
-                  animate={{ opacity: 1, y: 0, height: "auto" }}
-                  exit={{ opacity: 0, y: -20, height: 0 }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex flex-col items-center gap-3 bg-white/80 backdrop-blur-2xl p-2 rounded-[28px] border border-slate-100 shadow-2xl overflow-hidden"
-                >
+                <div className="flex flex-col items-center gap-3">
                   {menuItems.map((item, index) => (
                     <motion.button
                       key={item.name}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.05 }}
+                      initial={{ opacity: 0, y: -20, scale: 0.8 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -20, scale: 0.8 }}
+                      transition={{ 
+                        duration: 0.4, 
+                        delay: index * 0.05,
+                        ease: [0.16, 1, 0.3, 1] 
+                      }}
+                      whileHover={{ scale: 1.1, backgroundColor: "#0f172a", color: "#fff" }}
+                      whileTap={{ scale: 0.9 }}
                       onClick={(e) => handleItemClick(e, item.href)}
-                      className="group relative flex items-center justify-center w-12 h-12 rounded-2xl hover:bg-slate-900 hover:text-white text-slate-400 transition-all duration-300"
+                      className="group relative flex items-center justify-center w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-xl border border-slate-100 text-slate-400 shadow-xl transition-all duration-300"
                     >
                       <item.icon size={20} />
                       
@@ -116,7 +117,7 @@ export default function Navbar({ onNavigate, currentView }) {
                       </div>
                     </motion.button>
                   ))}
-                </motion.div>
+                </div>
               )}
             </AnimatePresence>
           </div>

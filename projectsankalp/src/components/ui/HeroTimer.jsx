@@ -119,20 +119,20 @@ export default function HeroTimer() {
       
       {/* Liquid Glass Background Pill */}
       <div 
-        className="absolute inset-0 z-0 rounded-[32px] md:rounded-[48px] shadow-[0_10px_40px_rgba(0,0,0,0.04),inset_2px_2px_2px_rgba(255,255,255,0.5),inset_-2px_-2px_2px_rgba(0,0,0,0.05)]"
+        className="absolute inset-0 z-0 rounded-2xl sm:rounded-3xl md:rounded-[48px] shadow-[0_10px_40px_rgba(0,0,0,0.04),inset_2px_2px_2px_rgba(255,255,255,0.5),inset_-2px_-2px_2px_rgba(0,0,0,0.05)]"
         style={{ 
           backdropFilter: 'url("#hero-glass-liquid")',
           background: 'rgba(255,255,255,0.15)'
         }}
       />
       
-      <div className="relative z-10 px-6 md:px-16 py-6 md:py-8 flex items-center justify-center gap-4 md:gap-14">
+      <div className="relative z-10 px-4 sm:px-8 md:px-16 py-4 sm:py-6 md:py-8 flex items-center justify-center gap-2 sm:gap-3 md:gap-14">
         <TimeUnit value={timeLeft.days} label="Days" />
-        <div className="h-8 md:h-10 w-px bg-slate-900/10" />
+        <div className="h-6 sm:h-7 md:h-10 w-px bg-slate-900/10" />
         <TimeUnit value={timeLeft.hours} label="Hours" />
-        <div className="h-8 md:h-10 w-px bg-slate-900/10" />
+        <div className="h-6 sm:h-7 md:h-10 w-px bg-slate-900/10" />
         <TimeUnit value={timeLeft.minutes} label="Minutes" />
-        <div className="h-8 md:h-10 w-px bg-slate-900/10" />
+        <div className="h-6 sm:h-7 md:h-10 w-px bg-slate-900/10" />
         <TimeUnit value={timeLeft.seconds} label="Seconds" />
       </div>
     </motion.div>
