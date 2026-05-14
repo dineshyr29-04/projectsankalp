@@ -149,6 +149,14 @@ function App() {
     }
   };
 
+  const handleUpdatePayment = async (docId, updates) => {
+    try {
+      await updateDoc(doc(db, "registrations", docId), updates);
+    } catch (err) {
+      console.error("Payment update failed:", err);
+    }
+  };
+
   const handleBookSlot = async (domainId, slotId, teamId) => {
     // 1. Update Firestore (Truth)
     try {
@@ -203,6 +211,8 @@ function App() {
     else if (path === "stages") setCurrentView("stages");
     else if (path === "booking") setCurrentView("booking");
     else if (path === "terminal") setCurrentView("terminal");
+    else if (path === "payment") setCurrentView("payment");
+    else if (path === "registration") setCurrentView("registration");
 
     return () => clearTimeout(timer);
   }, []);
@@ -358,6 +368,42 @@ function App() {
                     <BookingStatusPage 
                       slots={globalSlots}
                       onBack={() => navigate("landing")} 
+                      onDelete={handleDeleteBooking}
+                      onCheckIn={handleCheckIn}
+                      onNavigate={navigate}
+                    />
+                  </motion.div>
+                )}
+
+                {currentView === "payment" && (
+                  <motion.div
+                    key="payment"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -50 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                  >
+                    <PaymentVerificationPage 
+                      slots={globalSlots}
+                      onBack={() => navigate("terminal")} 
+                      onDelete={handleDeleteBooking}
+                      onCheckIn={handleCheckIn}
+                      onUpdate={handleUpdatePayment}
+                    />
+                  </motion.div>
+                )}
+
+                {currentView === "registration" && (
+                  <motion.div
+                    key="registration"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -50 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                  >
+                    <RegistrationCheckInPage 
+                      slots={globalSlots}
+                      onBack={() => navigate("terminal")} 
                       onDelete={handleDeleteBooking}
                       onCheckIn={handleCheckIn}
                     />

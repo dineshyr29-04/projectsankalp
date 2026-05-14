@@ -27,7 +27,7 @@ const DOMAINS = [
   { id: "climate", title: "Climate Action", icon: Leaf, color: "text-teal-500", accent: "bg-teal-500", glow: "shadow-teal-500/20" }
 ];
 
-export default function BookingStatusPage({ slots, occupancy: propOccupancy, onBack, onDelete, onCheckIn }) {
+export default function BookingStatusPage({ slots, occupancy: propOccupancy, onBack, onDelete, onCheckIn, onNavigate }) {
   const [time, setTime] = useState(new Date());
   const [selectedImage, setSelectedImage] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
@@ -239,6 +239,41 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
               <span className="text-[10px] md:text-xs font-black tracking-widest uppercase">Operational</span>
             </div>
           </div>
+        </div>
+
+        {/* NAVIGATION SECTION */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <motion.button
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => onNavigate && onNavigate("payment")}
+            className="group relative overflow-hidden p-8 rounded-[40px] bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-2xl shadow-blue-500/20 border border-blue-400/50"
+          >
+            <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
+            <div className="relative z-10 text-left">
+              <h3 className="text-2xl font-black uppercase tracking-tight mb-2">Payment Verification</h3>
+              <p className="text-[12px] font-bold text-blue-100 mb-4">Check & verify team payments with image proof</p>
+              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-blue-200">
+                <span>→ Verify Payments</span>
+              </div>
+            </div>
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => onNavigate && onNavigate("registration")}
+            className="group relative overflow-hidden p-8 rounded-[40px] bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-2xl shadow-emerald-500/20 border border-emerald-400/50"
+          >
+            <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
+            <div className="relative z-10 text-left">
+              <h3 className="text-2xl font-black uppercase tracking-tight mb-2">Registration Check-In</h3>
+              <p className="text-[12px] font-bold text-emerald-100 mb-4">Scan QR codes for auto check-in (Max 10/domain)</p>
+              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-emerald-200">
+                <span>→ Start Check-In</span>
+              </div>
+            </div>
+          </motion.button>
         </div>
 
         {/* MANIFEST LISTS */}
