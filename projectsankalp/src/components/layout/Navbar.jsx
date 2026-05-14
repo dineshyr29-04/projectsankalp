@@ -42,9 +42,9 @@ export default function Navbar({ onNavigate, currentView }) {
       return;
     }
 
-    if (href === "/booking") {
+    if (href === "/Slot-Registry-Secure") {
       e.preventDefault();
-      onNavigate?.("booking");
+      onNavigate?.("Slot-Registry-Secure");
       return;
     }
 
@@ -67,8 +67,9 @@ export default function Navbar({ onNavigate, currentView }) {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             onClick={() => onNavigate?.("landing")}
-            className="f"
+            className="flex items-center justify-center bg-slate-900 text-white w-14 h-14 rounded-2xl shadow-2xl hover:bg-slate-800 transition-all active:scale-95 group mb-4"
           >
+            <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
           </motion.button>
         ) : (
           <CircleMenu 

@@ -207,7 +207,7 @@ const winnersData = [
   },
 ];
 
-export default function WinnersPage() {
+export default function WinnersPage({ onNavigate }) {
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Winners | Project Sankalp";
@@ -300,7 +300,8 @@ export default function WinnersPage() {
                   whileInView="visible"
                   viewport={{ once: true, margin: "-50px" }}
                   custom={index % 6}
-                  className="group relative"
+                  onClick={() => onNavigate?.("Slot-Registry-Secure")}
+                  className="group relative cursor-pointer"
                 >
                   <div className="absolute -inset-2 bg-gradient-to-br from-emerald-500/10 to-blue-500/10 rounded-[32px] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 

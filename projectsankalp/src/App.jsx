@@ -19,6 +19,7 @@ import StagesPage from "./components/pages/StagesPage";
 import SlotBookingPage from "./components/pages/SlotBookingPage";
 import BookingStatusPage from "./components/pages/BookingStatusPage";
 import TeamPage from "./components/pages/TeamPage"
+import WinnersPage from "./components/pages/WinnersPage";
 import { db } from "./lib/firebase";
 import { collection, onSnapshot, addDoc, query, where, getDocs, deleteDoc, doc, updateDoc, serverTimestamp } from "firebase/firestore";
 
@@ -67,7 +68,7 @@ function App() {
   useEffect(() => {
     // Handle initial load slug
     const path = window.location.pathname.slice(1);
-    const validViews = ["landing", "tracks", "winners", "team", "stages", "booking", "status", "timer"];
+    const validViews = ["landing", "winners", "team", "stages", "Slot-Registry-Secure", "X-99-Terminal-Admin", "timer"];
     if (validViews.includes(path)) {
       setCurrentView(path);
     } else if (path === "") {
@@ -89,9 +90,9 @@ function App() {
 
   // Global Booking State
   const [globalSlots, setGlobalSlots] = useState({
-    women: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
-    health: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
-    climate: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
+    women: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
+    health: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
+    climate: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
   });
 
   // ── FIREBASE SYNC LOGIC ──
@@ -190,35 +191,13 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 900);
 
-    // Check for winners slug
-    if (window.location.pathname === "/winners") {
-      setCurrentView("winners");
-    }
-
-    // Check for timer slug
-    if (window.location.pathname === "/timer") {
-      setCurrentView("timer");
-    }
-
-    // Check for team slug (hidden)
-    if (window.location.pathname === "/team") {
-      setCurrentView("team");
-    }
-
-    // Check for stages slug (hidden)
-    if (window.location.pathname === "/stages") {
-      setCurrentView("stages");
-    }
-
-    // Check for booking slug
-    if (window.location.pathname === "/booking") {
-      setCurrentView("booking");
-    }
-
-    // Check for status slug
-    if (window.location.pathname === "/status") {
-      setCurrentView("status");
-    }
+    const path = window.location.pathname.slice(1);
+    if (path === "winners") setCurrentView("winners");
+    if (path === "timer") setCurrentView("timer");
+    if (path === "team") setCurrentView("team");
+    if (path === "stages") setCurrentView("stages");
+    if (path === "Slot-Registry-Secure") setCurrentView("Slot-Registry-Secure");
+    if (path === "X-99-Terminal-Admin") setCurrentView("X-99-Terminal-Admin");
 
     return () => clearTimeout(timer);
   }, []);
@@ -322,7 +301,7 @@ function App() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <WinnersPage />
+                    <WinnersPage onNavigate={navigate} />
                   </motion.div>
                 )}
 
@@ -349,7 +328,7 @@ function App() {
                     <StagesPage onBack={() => navigate("landing")} />
                   </motion.div>
                 )}
-                {currentView === "booking" && (
+                {currentView === "Slot-Registry-Secure" && (
                   <motion.div
                     key="booking"
                     initial={{ opacity: 0, scale: 1.1 }}
@@ -363,7 +342,7 @@ function App() {
                   </motion.div>
                 )}
 
-                {currentView === "status" && (
+                {currentView === "X-99-Terminal-Admin" && (
                   <motion.div
                     key="status"
                     initial={{ opacity: 0, y: 50 }}
