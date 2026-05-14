@@ -239,16 +239,22 @@ export default function SlotBookingPage({ onBack }) {
 
       // 3. Send to Google Sheets (Reliable No-CORS submission)
       if (GOOGLE_SHEETS_WEBHOOK) {
-        // We use text/plain for the body to ensure no-cors compatibility
-        // Apps Script parses this easily via e.postData.contents
+        console.log("🚀 Initiating Google Sync to:", GOOGLE_SHEETS_WEBHOOK);
+        
+        // We use URLSearchParams to send data as 'form-encoded'
+        // This is the most bulletproof way for Apps Script to receive large data without CORS
+        const params = new URLSearchParams();
+        params.append("payload", JSON.stringify(payload));
+
         await fetch(GOOGLE_SHEETS_WEBHOOK, {
           method: "POST",
           mode: "no-cors",
-          headers: {
-            "Content-Type": "text/plain",
-          },
-          body: JSON.stringify(payload)
+          body: params
         });
+        
+        console.log("✅ Google Sync Signal Sent (Opaque)");
+      } else {
+        console.warn("⚠️ Google Sheets Webhook URL is missing in .env");
       }
       setUploadProgress(100);
 
