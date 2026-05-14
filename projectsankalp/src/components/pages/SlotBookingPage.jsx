@@ -584,7 +584,7 @@ export default function SlotBookingPage({ onBack }) {
                 <div className="bg-white/5 border border-white/10 rounded-[32px] p-8 mb-8 flex flex-col items-center">
                   <div className="p-4 bg-white rounded-2xl mb-6">
                     <QRCodeSVG 
-                      value={`TEAM:${verifiedTeam?.teamId}|DOMAIN:${selectedDomain?.id}|TX:${transactionId}`}
+                      value={`${window.location.origin}/status?teamId=${verifiedTeam?.teamId}`}
                       size={150}
                       level="H"
                     />
