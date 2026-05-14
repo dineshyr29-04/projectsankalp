@@ -8,7 +8,8 @@ import {
   Activity,
   LayoutGrid,
   Trash2,
-  X
+  X,
+  Zap
 } from "lucide-react";
 import Container from "../core/Container";
 
