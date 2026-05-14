@@ -18,6 +18,8 @@ import Loader from "./components/ui/loader-11";
 import StagesPage from "./components/pages/StagesPage";
 import SlotBookingPage from "./components/pages/SlotBookingPage";
 import BookingStatusPage from "./components/pages/BookingStatusPage";
+import PaymentVerificationPage from "./components/pages/PaymentVerificationPage";
+import RegistrationCheckInPage from "./components/pages/RegistrationCheckInPage";
 import TeamPage from "./components/pages/TeamPage"
 import WinnersPage from "./components/pages/WinnersPage";
 import { db } from "./lib/firebase";
@@ -68,7 +70,7 @@ function App() {
   useEffect(() => {
     // Handle initial load slug
     const path = window.location.pathname.slice(1);
-    const validViews = ["landing", "winners", "team", "stages", "booking", "terminal", "timer"];
+    const validViews = ["landing", "winners", "team", "stages", "booking", "terminal", "timer", "payment", "registration"];
     const normalizedPath = path.toLowerCase();
     const matchedView = validViews.find(v => v.toLowerCase() === normalizedPath);
 

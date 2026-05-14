@@ -166,7 +166,7 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
       
       {/* ── STICKY CONTROL HUB ── */}
       <div className="sticky top-0 z-[70] bg-white/90 backdrop-blur-2xl border-b border-slate-200/50 px-3 py-3 md:py-4">
-        <div className="w-full flex items-center gap-3">
+        <div className="w-full flex items-center gap-3 mb-4">
           <motion.button whileTap={{ scale: 0.9 }} onClick={onBack} className="w-10 h-10 md:w-12 md:h-12 bg-slate-900 text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shrink-0">
             <ChevronLeft size={20} />
           </motion.button>
@@ -175,7 +175,7 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
             <SearchIcon size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
             <input 
               type="text"
-              placeholder="SEARCH MANIFEST..."
+              placeholder="Search Team ID / Name..."
               value={highlightId}
               onChange={(e) => setHighlightId(e.target.value.toUpperCase())}
               className="w-full bg-slate-100/50 border-none rounded-xl py-3 pl-11 pr-4 text-[10px] md:text-xs font-black tracking-widest uppercase focus:ring-2 focus:ring-emerald-500/20 transition-all shadow-inner"
@@ -188,6 +188,35 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
           <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }} onClick={() => setIsScanning(true)} className="w-12 h-12 bg-emerald-500 text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-xl shadow-emerald-500/20 shrink-0">
             <Scan size={22} />
           </motion.button>
+        </div>
+
+        {/* ADVANCED FILTER BAR */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div>
+            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1">Filter by Status</label>
+            <select className="w-full bg-slate-100/50 border-none rounded-lg py-2 px-3 text-[10px] font-bold focus:ring-2 focus:ring-emerald-500/20">
+              <option value="">All Status</option>
+              <option value="checked">Checked In</option>
+              <option value="pending">Pending</option>
+            </select>
+          </div>
+          <div>
+            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1">Filter by Domain</label>
+            <select className="w-full bg-slate-100/50 border-none rounded-lg py-2 px-3 text-[10px] font-bold focus:ring-2 focus:ring-emerald-500/20">
+              <option value="">All Domains</option>
+              <option value="women">Women's Entrepreneurship</option>
+              <option value="health">Health & Wellness</option>
+              <option value="climate">Climate Action</option>
+            </select>
+          </div>
+          <div>
+            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1">Sort by</label>
+            <select className="w-full bg-slate-100/50 border-none rounded-lg py-2 px-3 text-[10px] font-bold focus:ring-2 focus:ring-emerald-500/20">
+              <option value="name">Team Name</option>
+              <option value="id">Team ID</option>
+              <option value="time">Check-in Time</option>
+            </select>
+          </div>
         </div>
       </div>
 
