@@ -11,7 +11,10 @@ import {
   X,
   Zap,
   Camera,
-  Search as SearchIcon
+  Search as SearchIcon,
+  UserCheck,
+  Clock,
+  ShieldCheck
 } from "lucide-react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import Container from "../core/Container";
@@ -40,7 +43,7 @@ const DOMAINS = [
   }
 ];
 
-export default function BookingStatusPage({ slots, occupancy: propOccupancy, onBack, onDelete }) {
+export default function BookingStatusPage({ slots, occupancy: propOccupancy, onBack, onDelete, onCheckIn }) {
   const [time, setTime] = useState(new Date());
   const [selectedImage, setSelectedImage] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
@@ -64,36 +67,60 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
   // QR Scanner Logic
   useEffect(() => {
     let scanner = null;
-    if (isScanning) {
-      scanner = new Html5QrcodeScanner("reader", { 
-        fps: 10, 
-        qrbox: { width: 250, height: 250 },
-        rememberLastUsedCamera: true
-      });
+    let timeoutId = null;
 
-      scanner.render((result) => {
-        // Expected format: http://domain.com/status?teamId=C4C-XX
+    if (isScanning) {
+      // Small delay to ensure the modal DOM is fully ready
+      timeoutId = setTimeout(() => {
         try {
-          const url = new URL(result);
-          const scannedId = url.searchParams.get("teamId");
-          if (scannedId) {
-            setHighlightId(scannedId);
-            setIsScanning(false);
-            scanner.clear();
-          }
-        } catch (e) {
-          // If not a URL, just try to use the raw text as ID
-          setHighlightId(result);
-          setIsScanning(false);
-          scanner.clear();
+          scanner = new Html5QrcodeScanner("reader", { 
+            fps: 10, 
+            qrbox: { width: 250, height: 250 },
+            rememberLastUsedCamera: true,
+            aspectRatio: 1.0
+          });
+
+          scanner.render((result) => {
+            try {
+              let scannedId = result;
+              if (result.includes("teamId=")) {
+                const url = new URL(result);
+                scannedId = url.searchParams.get("teamId") || result;
+              }
+              
+              const upperId = scannedId.toUpperCase();
+              setHighlightId(upperId);
+
+              // Auto Check-in Logic for Admin Scanner
+              // Flatten slots to find the docId for this teamId
+              const allSlots = Object.values(slots).flat();
+              const matchingSlot = allSlots.find(s => s.teamId?.toUpperCase() === upperId);
+              
+              if (matchingSlot && matchingSlot.docId && !matchingSlot.checkedIn) {
+                onCheckIn(matchingSlot.docId, true);
+              }
+
+              setIsScanning(false);
+              scanner.clear();
+            } catch (e) {
+              console.error("Auto check-in failed:", e);
+              setIsScanning(false);
+              scanner.clear();
+            }
+          }, (err) => {
+            // Scanner searching...
+          });
+        } catch (err) {
+          console.error("Scanner init failed:", err);
         }
-      }, (err) => {
-        // Silent error for scanning
-      });
+      }, 300);
     }
 
     return () => {
-      if (scanner) scanner.clear();
+      if (timeoutId) clearTimeout(timeoutId);
+      if (scanner) {
+        try { scanner.clear(); } catch(e) {}
+      }
     };
   }, [isScanning]);
 
@@ -150,7 +177,7 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
 
       <Container className="relative z-10 pt-32 px-6 mx-auto max-w-7xl">
         {/* Navigation */}
-        <div className="fixed top-8 left-8 right-8 z-50 flex justify-between items-center px-4">
+        <div className="fixed top-8 left-8 right-8 z-50 flex flex-col md:flex-row justify-between items-center gap-4 px-4">
           <motion.button
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -160,6 +187,32 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
             <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
             <span className="text-[10px] font-black uppercase tracking-[0.2em]">Exit Manifest</span>
           </motion.button>
+
+          {/* MANUAL SEARCH BAR - EASIER WAY */}
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex-1 max-w-md w-full relative group"
+          >
+            <div className="absolute inset-y-0 left-6 flex items-center text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <SearchIcon size={18} />
+            </div>
+            <input 
+              type="text"
+              placeholder="SEARCH TEAM ID / NAME..."
+              value={highlightId}
+              onChange={(e) => setHighlightId(e.target.value.toUpperCase())}
+              className="w-full bg-white/80 backdrop-blur-md border border-slate-200 rounded-full py-3 pl-14 pr-6 text-xs font-black tracking-widest uppercase focus:outline-none focus:border-emerald-500/50 transition-all shadow-lg placeholder:text-slate-300"
+            />
+            {highlightId && (
+              <button 
+                onClick={() => setHighlightId("")}
+                className="absolute inset-y-0 right-6 flex items-center text-slate-300 hover:text-red-500"
+              >
+                <X size={16} />
+              </button>
+            )}
+          </motion.div>
 
           <div className="flex gap-4">
             <motion.button
@@ -191,26 +244,9 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
             <p className="text-slate-500 mt-4 text-lg font-medium max-w-xl italic">
               Synchronized registry of all orbital docking bays across mission sectors.
             </p>
-            {highlightId && (
-              <div className="mt-8 flex items-center gap-4 bg-emerald-50 border border-emerald-100 p-4 rounded-2xl animate-in fade-in slide-in-from-left-4">
-                <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg">
-                  <SearchIcon size={20} />
-                </div>
-                <div>
-                  <span className="block text-[10px] font-black uppercase tracking-widest text-emerald-600">Active Filter</span>
-                  <span className="text-sm font-bold text-slate-900">Highlighting: <span className="text-emerald-600 uppercase">{highlightId}</span></span>
-                </div>
-                <button 
-                  onClick={() => setHighlightId("")}
-                  className="ml-auto text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors"
-                >
-                  Clear
-                </button>
-              </div>
-            )}
           </div>
           
-          {/* Stats card stays same */}
+          {/* Real-time Stats Card */}
           <div className="bg-slate-900 text-white p-8 rounded-[40px] shadow-2xl flex items-center gap-12 border border-slate-800/50">
             <div>
               <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Occupancy</span>
@@ -256,26 +292,43 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
                     <div 
                       key={slot.id}
                       className={`
-                        flex items-center justify-between p-5 rounded-3xl border transition-all duration-500
+                        flex items-center justify-between p-5 rounded-3xl border transition-all duration-500 relative overflow-hidden
                         ${isHighlighted 
                           ? "bg-emerald-500 border-emerald-400 text-white scale-105 shadow-[0_20px_50px_rgba(16,185,129,0.3)] ring-4 ring-emerald-500/20" 
-                          : slot.teamId 
-                            ? "bg-slate-900 border-slate-800 text-white shadow-lg ring-1 ring-slate-800" 
-                            : "bg-slate-50 border-slate-100 text-slate-400 border-dashed"
+                          : slot.checkedIn
+                            ? "bg-emerald-50 border-emerald-200 text-emerald-900 shadow-sm"
+                            : slot.teamId 
+                              ? "bg-slate-900 border-slate-800 text-white shadow-lg ring-1 ring-slate-800" 
+                              : "bg-slate-50 border-slate-100 text-slate-400 border-dashed"
                         }
                       `}
                     >
-                      <div className="flex items-center gap-4">
-                        <span className={`text-[10px] font-black tracking-widest uppercase ${slot.teamId || isHighlighted ? "text-emerald-200" : "text-slate-300"}`}>
+                      {/* Check-in Glow Effect */}
+                      {slot.checkedIn && (
+                        <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-500/10 blur-2xl rounded-full translate-x-1/2 -translate-y-1/2" />
+                      )}
+
+                      <div className="flex items-center gap-4 relative z-10">
+                        <span className={`text-[10px] font-black tracking-widest uppercase ${slot.checkedIn ? "text-emerald-500" : slot.teamId || isHighlighted ? "text-emerald-200" : "text-slate-300"}`}>
                           #{String(slot.id).padStart(2, '0')}
                         </span>
                         {slot.teamId ? (
                           <div className="flex flex-col gap-0.5">
-                            <span className={`text-xs font-black tracking-wide uppercase leading-none ${isHighlighted ? "text-white" : "text-emerald-400"}`}>{slot.teamId}</span>
-                            <span className={`text-xs font-bold truncate max-w-[110px] ${isHighlighted ? "text-emerald-100" : "text-white"}`}>{slot.teamName}</span>
+                            <div className="flex items-center gap-2">
+                              <span className={`text-xs font-black tracking-wide uppercase leading-none ${slot.checkedIn ? "text-emerald-600" : isHighlighted ? "text-white" : "text-emerald-400"}`}>{slot.teamId}</span>
+                              {slot.checkedIn && (
+                                <span className="bg-emerald-500 text-white text-[7px] font-black px-1.5 py-0.5 rounded-full tracking-widest uppercase flex items-center gap-1 shadow-sm">
+                                  <ShieldCheck size={8} /> Verified
+                                </span>
+                              )}
+                            </div>
+                            <span className={`text-xs font-bold truncate max-w-[110px] ${slot.checkedIn ? "text-slate-900" : isHighlighted ? "text-emerald-100" : "text-white"}`}>{slot.teamName}</span>
+                            
                             <div className="flex items-center gap-1.5 mt-1 opacity-60">
-                              <Zap size={8} className={isHighlighted ? "text-white" : "text-emerald-400"} />
-                              <span className={`text-[8px] font-mono tracking-wider font-bold ${isHighlighted ? "text-emerald-50" : "text-slate-400"}`}>{slot.transactionId}</span>
+                              {slot.checkedIn ? <Clock size={8} className="text-emerald-600" /> : <Zap size={8} className={isHighlighted ? "text-white" : "text-emerald-400"} />}
+                              <span className={`text-[8px] font-mono tracking-wider font-bold ${slot.checkedIn ? "text-emerald-600" : isHighlighted ? "text-emerald-50" : "text-slate-400"}`}>
+                                {slot.checkedIn ? "ARRIVED" : slot.transactionId}
+                              </span>
                             </div>
                           </div>
                         ) : (
@@ -284,23 +337,41 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
                       </div>
                       
                       {slot.teamId && (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 relative z-10">
+                          {/* Check-in Action Button */}
+                          <button
+                            onClick={() => onCheckIn(slot.docId, !slot.checkedIn)}
+                            className={`
+                              w-10 h-10 rounded-2xl flex items-center justify-center transition-all hover:scale-105 active:scale-95
+                              ${slot.checkedIn 
+                                ? "bg-emerald-500 text-white shadow-lg" 
+                                : isHighlighted
+                                  ? "bg-white/20 hover:bg-white text-emerald-500"
+                                  : "bg-white/5 hover:bg-emerald-500 text-slate-400 hover:text-white"
+                              }
+                            `}
+                            title={slot.checkedIn ? "Unverify Arrival" : "Confirm Arrival"}
+                          >
+                            <UserCheck size={16} className={slot.checkedIn ? "animate-bounce" : ""} />
+                          </button>
+
+                          {/* View Photo Button */}
                           <button
                             onClick={() => {
                               if (slot.imageUrl) setSelectedImage(slot.imageUrl);
                               else alert("Sync Pending...");
                             }}
-                            className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all group/eye hover:scale-105 active:scale-95 ${isHighlighted ? "bg-white/20 hover:bg-white/30" : "bg-white/5 hover:bg-emerald-500"}`}
+                            className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all group/eye hover:scale-105 active:scale-95 ${slot.checkedIn ? "bg-emerald-100 text-emerald-600 hover:bg-emerald-200" : isHighlighted ? "bg-white/20 hover:bg-white/30 text-white" : "bg-white/5 hover:bg-emerald-500 text-slate-400 hover:text-white"}`}
                             title="View Verification"
                           >
-                            <Activity size={14} className={isHighlighted ? "text-white" : "text-slate-400 group-hover/eye:text-white"} />
+                            <Activity size={14} />
                           </button>
 
                           <button
                             onClick={() => onDelete(domain.id, slot.id, slot.docId)}
-                            className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all group/trash hover:scale-105 active:scale-95 ${isHighlighted ? "bg-white/10 hover:bg-red-500" : "bg-red-500/10 hover:bg-red-500"}`}
+                            className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all group/trash hover:scale-105 active:scale-95 ${slot.checkedIn ? "bg-red-100 text-red-500 hover:bg-red-500 hover:text-white" : isHighlighted ? "bg-white/10 hover:bg-red-500 text-white" : "bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white"}`}
                           >
-                            <Trash2 size={14} className={isHighlighted ? "text-white" : "text-red-400 group-hover/trash:text-white"} />
+                            <Trash2 size={14} />
                           </button>
                         </div>
                       )}

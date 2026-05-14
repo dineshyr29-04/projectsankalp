@@ -120,7 +120,8 @@ function App() {
             slot.teamName = reg.teamName;
             slot.docId = reg._id;
             slot.transactionId = reg.transactionId;
-            slot.imageUrl = reg.imageUrl; // CRITICAL: Map the photo URL
+            slot.imageUrl = reg.imageUrl;
+            slot.checkedIn = reg.checkedIn || false; // Track attendance
           }
         }
       });
@@ -130,6 +131,17 @@ function App() {
 
     return () => unsubscribe();
   }, []);
+
+  const handleCheckIn = async (docId, status) => {
+    try {
+      await updateDoc(doc(db, "registrations", docId), {
+        checkedIn: status,
+        checkInTime: status ? serverTimestamp() : null
+      });
+    } catch (err) {
+      console.error("Check-in failed:", err);
+    }
+  };
 
   const handleBookSlot = async (domainId, slotId, teamId) => {
     // 1. Update Firestore (Truth)
@@ -363,6 +375,7 @@ function App() {
                       slots={globalSlots}
                       onBack={() => navigate("landing")} 
                       onDelete={handleDeleteBooking}
+                      onCheckIn={handleCheckIn}
                     />
                   </motion.div>
                 )}
