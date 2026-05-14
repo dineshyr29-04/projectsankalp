@@ -67,10 +67,8 @@ export default function Navbar({ onNavigate, currentView }) {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             onClick={() => onNavigate?.("landing")}
-            className="flex items-center gap-3 bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl hover:bg-slate-800 transition-all active:scale-95 group mb-4"
+            className="flex items-center gap-3 text-white px-6 py-4 rounded-2xl shadow-2xl hover:bg-slate-800 transition-all active:scale-95 group mb-4"
           >
-            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em]">Back to Hub</span>
           </motion.button>
         ) : (
           <CircleMenu 
