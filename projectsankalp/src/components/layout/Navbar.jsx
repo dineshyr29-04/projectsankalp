@@ -24,6 +24,7 @@ export default function Navbar({ onNavigate, currentView }) {
     { name: "Venue", href: "#venue", icon: MapPin },
     { name: "Tracks", href: "#tracks", icon: Zap },
     { name: "Prizes", href: "#prizes", icon: Trophy },
+    { name: "Domains", href: "#domains", icon: Trophy },
     { name: "FAQ", href: "#faq", icon: HelpCircle },
   ];
 
