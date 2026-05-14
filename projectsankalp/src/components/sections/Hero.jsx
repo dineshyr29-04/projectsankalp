@@ -17,9 +17,10 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const sponsors = [
+    { name:"Ministry of Youth Affairs and Sports", logo:"/MYAA.png"},
     { name: "Yenepoya University", logo: "/ysetlogo.png" },
     { name: "NSS Unit", logo: "/nsslogo.png" },
-    { name:"Ministry of Youth Affairs and Sports", logo:"/MYAA.png"},
+    
   ];
 
   return (
