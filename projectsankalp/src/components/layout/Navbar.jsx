@@ -64,9 +64,8 @@ export default function Navbar({ onNavigate, currentView }) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => onNavigate?.("landing")}
-            className="flex items-center justify-center bg-slate-900 text-white w-14 h-14 rounded-2xl shadow-2xl hover:bg-slate-800 transition-all active:scale-95 group"
+            className="flex"
           >
-            <ArrowLeft size={22} className="group-hover:-translate-x-1 transition-transform" />
           </motion.button>
         ) : (
           <div className="flex flex-col items-center gap-4">
@@ -131,9 +130,8 @@ export default function Navbar({ onNavigate, currentView }) {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             onClick={() => onNavigate?.("landing")}
-            className="flex items-center justify-center bg-slate-900 text-white w-12 h-12 rounded-xl shadow-xl"
+            className="flex items-center justify-center bg-transparent text-white w-12 h-12 rounded-xl shadow-xl"
           >
-            <ArrowLeft size={18} />
           </motion.button>
         ) : (
           <CircleMenu 
