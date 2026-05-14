@@ -164,43 +164,6 @@ export default function SlotBookingPage({ onBack }) {
     }
   };
 
-  const compressImage = (file) => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (event) => {
-        const img = new Image();
-        img.src = event.target.result;
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const MAX_WIDTH = 1200;
-          const MAX_HEIGHT = 1200;
-          let width = img.width;
-          let height = img.height;
-
-          if (width > height) {
-            if (width > MAX_WIDTH) {
-              height *= MAX_WIDTH / width;
-              width = MAX_WIDTH;
-            }
-          } else {
-            if (height > MAX_HEIGHT) {
-              width *= MAX_HEIGHT / height;
-              height = MAX_HEIGHT;
-            }
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          
-          // Compress to 70% quality JPEG
-          resolve(canvas.toDataURL('image/jpeg', 0.7));
-        };
-      };
-    });
-  };
 
   const handleSubmit = async () => {
     if (!transactionId || !screenshot) {
@@ -210,10 +173,31 @@ export default function SlotBookingPage({ onBack }) {
     
     setIsProcessing(true);
     setError("");
+    setUploadProgress(0);
 
     try {
-      // 1. Compress & Convert Image (Drastically speeds up upload)
-      const base64Image = await compressImage(screenshot);
+      // 1. Upload Screenshot to Firebase Storage
+      const storageRef = ref(storage, `payments/${verifiedTeam.teamId}_${Date.now()}_${screenshot.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, screenshot);
+
+      // Monitor progress
+      const imageUrl = await new Promise((resolve, reject) => {
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setUploadProgress(progress);
+          },
+          (error) => {
+            console.error("Storage upload failed:", error);
+            reject(error);
+          },
+          async () => {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            resolve(downloadURL);
+          }
+        );
+      });
 
       const registrationData = {
         teamId: verifiedTeam.teamId,
@@ -221,31 +205,32 @@ export default function SlotBookingPage({ onBack }) {
         selectedDomain: selectedDomain.id,
         transactionId,
         paymentStatus: "PENDING",
-        image: base64Image,
-        timestamp: new Date().toISOString()
+        imageUrl: imageUrl, // Real URL instead of massive base64
+        timestamp: new Date().toLocaleString()
       };
 
-      // 2. Save to Firestore immediately (Primary Record)
+      // 2. Save to Firestore (Primary Record)
       await addDoc(collection(db, "registrations"), {
         ...registrationData,
-        image: "Stored in Drive/Sheets", 
         createdAt: serverTimestamp()
       });
 
-      // 3. Send to Google Sheets (Background sync)
+      // 3. Send to Google Sheets (Reliable sync)
       if (GOOGLE_SHEETS_WEBHOOK) {
-        fetch(GOOGLE_SHEETS_WEBHOOK, {
+        // We use a simple query string or a clean POST for Apps Script
+        // To avoid CORS issues with 'no-cors', we send as a plain text string if needed
+        await fetch(GOOGLE_SHEETS_WEBHOOK, {
           method: "POST",
           mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "text/plain" }, // Standard for Apps Script no-cors
           body: JSON.stringify(registrationData)
-        }).catch(err => console.error("Sheet sync background failed:", err));
+        });
       }
 
       setStep("SUCCESS");
     } catch (err) {
       console.error("Submission Error:", err);
-      setError(`Submission failed: ${err.message || "Unknown Error"}.`);
+      setError(`Terminal Error: ${err.message || "Connection Interrupted"}. Please try again.`);
     } finally {
       setIsProcessing(false);
     }
