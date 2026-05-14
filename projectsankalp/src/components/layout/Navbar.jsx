@@ -55,50 +55,70 @@ export default function Navbar({ onNavigate, currentView }) {
   return (
     <div className="fixed top-6 left-6 md:top-8 md:left-8 z-[100] pointer-events-none">
       
-      {/* ── DESKTOP: PERMANENT MAGNETIC COMMAND RAIL ── */}
-      <div className="hidden md:flex flex-col items-center pointer-events-auto gap-6 py-8 px-3 bg-white/40 backdrop-blur-3xl rounded-[40px] border border-white/50 shadow-[0_20px_80px_rgba(0,0,0,0.05)]">
+      {/* ── DESKTOP: VERTICAL DRAWER RAIL ── */}
+      <div className="hidden md:flex flex-col items-center pointer-events-auto gap-4">
         {!isLanding ? (
           <motion.button
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            whileHover={{ scale: 1.1, backgroundColor: "#0f172a", color: "#fff" }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => onNavigate?.("landing")}
-            className="flex items-center justify-center bg-white/80 text-slate-900 w-12 h-12 rounded-2xl shadow-xl hover:shadow-2xl transition-all group"
+            className="flex items-center justify-center bg-slate-900 text-white w-14 h-14 rounded-2xl shadow-2xl hover:bg-slate-800 transition-all active:scale-95 group"
           >
-            <ArrowLeft size={20} strokeWidth={2.5} />
+            <ArrowLeft size={22} className="group-hover:-translate-x-1 transition-transform" />
           </motion.button>
         ) : (
-          <div className="flex flex-col items-center gap-5">
-            {menuItems.map((item, index) => (
-              <motion.button
-                key={item.name}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.08 }}
-                whileHover={{ 
-                  scale: 1.15,
-                  y: -2,
-                  backgroundColor: "#0f172a",
-                  color: "#fff",
-                  boxShadow: "0 20px 40px rgba(15, 23, 42, 0.2)"
-                }}
-                whileTap={{ scale: 0.9 }}
-                onClick={(e) => handleItemClick(e, item.href)}
-                className="group relative flex items-center justify-center w-12 h-12 rounded-2xl bg-white/80 text-slate-400 border border-slate-100/50 transition-all duration-300 shadow-sm"
+          <div className="flex flex-col items-center gap-4">
+            {/* Drawer Trigger */}
+            <motion.button
+              onClick={() => setIsOpen(!isOpen)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`flex items-center justify-center w-14 h-14 rounded-2xl shadow-xl transition-all duration-500 border ${
+                isOpen 
+                  ? "bg-emerald-500 border-emerald-400 text-white" 
+                  : "bg-white/90 backdrop-blur-xl border-slate-100 text-slate-900"
+              }`}
+            >
+              <motion.div
+                animate={{ rotate: isOpen ? 90 : 0 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <item.icon size={18} strokeWidth={2.2} />
-                
-                {/* Premium Tooltip */}
-                <div className="absolute left-16 px-4 py-2 bg-slate-900 text-white text-[9px] font-black uppercase tracking-[0.25em] rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all -translate-x-3 group-hover:translate-x-0 whitespace-nowrap shadow-2xl z-50">
-                  <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-slate-900 rotate-45" />
-                  {item.name}
-                </div>
+                {isOpen ? <X size={22} strokeWidth={3} /> : <Menu size={22} strokeWidth={3} />}
+              </motion.div>
+            </motion.button>
 
-                {/* Vertical Accent */}
-                <div className="absolute -left-3 w-1 h-0 group-hover:h-5 bg-slate-900 rounded-full transition-all duration-500 opacity-0 group-hover:opacity-100" />
-              </motion.button>
-            ))}
+            {/* The Drawer (Straight Line Items) */}
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20, height: 0 }}
+                  animate={{ opacity: 1, y: 0, height: "auto" }}
+                  exit={{ opacity: 0, y: -20, height: 0 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex flex-col items-center gap-3 bg-white/80 backdrop-blur-2xl p-2 rounded-[28px] border border-slate-100 shadow-2xl overflow-hidden"
+                >
+                  {menuItems.map((item, index) => (
+                    <motion.button
+                      key={item.name}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.05 }}
+                      onClick={(e) => handleItemClick(e, item.href)}
+                      className="group relative flex items-center justify-center w-12 h-12 rounded-2xl hover:bg-slate-900 hover:text-white text-slate-400 transition-all duration-300"
+                    >
+                      <item.icon size={20} />
+                      
+                      {/* Tooltip Label */}
+                      <div className="absolute left-16 px-4 py-2 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all -translate-x-2 group-hover:translate-x-0 whitespace-nowrap shadow-xl">
+                        {item.name}
+                      </div>
+                    </motion.button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         )}
       </div>
