@@ -32,10 +32,10 @@ export default function Sponsors() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-6xl md:text-8xl font-serif font-black text-slate-900 tracking-tighter leading-[0.9] mb-12"
+            className="text-6xl md:text-8xl font-serif font-black text-slate-900 tracking-tighter leading-[1.1] mb-24"
           >
             Supported <br />
-            <span className="text-emerald-600 italic ">By Pioneers.</span>
+            <span className="text-emerald-600 italic mt-10">By Pioneers.</span>
           </motion.h2>
 
           <motion.p

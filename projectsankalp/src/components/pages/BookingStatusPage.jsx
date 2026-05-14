@@ -166,7 +166,7 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
       
       {/* ── STICKY CONTROL HUB ── */}
       <div className="sticky top-0 z-[70] bg-white/90 backdrop-blur-2xl border-b border-slate-200/50 px-3 py-3 md:py-4">
-        <div className="max-w-7xl mx-auto flex items-center gap-3">
+        <div className="w-full flex items-center gap-3">
           <motion.button whileTap={{ scale: 0.9 }} onClick={onBack} className="w-10 h-10 md:w-12 md:h-12 bg-slate-900 text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shrink-0">
             <ChevronLeft size={20} />
           </motion.button>
@@ -191,7 +191,7 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
         </div>
       </div>
 
-      <Container className="px-4 md:px-8 mx-auto max-w-7xl pt-8">
+      <Container full className="pt-8">
         {/* STATS SECTION */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-12">
           <div className="col-span-2 bg-slate-900 text-white p-6 md:p-8 rounded-[32px] md:rounded-[48px] shadow-2xl relative overflow-hidden group">
