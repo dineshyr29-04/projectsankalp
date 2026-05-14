@@ -1,79 +1,155 @@
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaLinkedinIn, FaTwitter, FaBehance, FaInstagram, FaGithub } from 'react-icons/fa';
 import { cn } from '../../lib/utils';
 
 export default function TeamShowcase({ members }) {
   const [hoveredId, setHoveredId] = useState(null);
 
-  // If no members are provided, don't render or handle it gracefully
   if (!members || members.length === 0) return null;
 
+  // Split members for desktop masonry view
   const col1 = members.filter((_, i) => i % 3 === 0);
   const col2 = members.filter((_, i) => i % 3 === 1);
   const col3 = members.filter((_, i) => i % 3 === 2);
 
   return (
-    <div className="flex flex-col md:flex-row items-start gap-8 md:gap-10 lg:gap-14 select-none w-full max-w-5xl mx-auto py-8 px-4 md:px-6 font-sans">
-      {/* ── Left: photo grid ── */}
-      <div className="flex gap-2 md:gap-3 flex-shrink-0 overflow-x-auto pb-1 md:pb-0">
-        {/* Column 1 */}
-        <div className="flex flex-col gap-2 md:gap-3">
-          {col1.map((member) => (
-            <PhotoCard
-              key={member.id}
-              member={member}
-              className="w-[110px] h-[120px] sm:w-[130px] sm:h-[140px] md:w-[155px] md:h-[165px]"
-              hoveredId={hoveredId}
-              onHover={setHoveredId}
-            />
-          ))}
-        </div>
+    <div className="w-full max-w-5xl mx-auto py-4 md:py-8 font-sans">
+      {/* ── MOBILE VIEW: High-Impact Cards ── */}
+      <div className="flex flex-col gap-12 md:hidden">
+        {members.map((member, index) => (
+          <motion.div
+            key={member.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative"
+          >
+            {/* Background Number */}
+            <span className="absolute -top-6 -left-2 text-[80px] font-black text-slate-100/50 -z-10 select-none">
+              {String(index + 1).padStart(2, '0')}
+            </span>
 
-        {/* Column 2 */}
-        <div className="flex flex-col gap-2 md:gap-3 mt-[48px] sm:mt-[56px] md:mt-[68px]">
-          {col2.map((member) => (
-            <PhotoCard
-              key={member.id}
-              member={member}
-              className="w-[122px] h-[132px] sm:w-[145px] sm:h-[155px] md:w-[172px] md:h-[182px]"
-              hoveredId={hoveredId}
-              onHover={setHoveredId}
-            />
-          ))}
-        </div>
+            <div className="flex flex-col gap-6">
+              {/* Image Container */}
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl shadow-2xl shadow-slate-200">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60" />
+                
+                {/* Social Links on Image (Mobile) */}
+                <div className="absolute bottom-4 right-4 flex gap-2">
+                  <SocialIcons member={member} light />
+                </div>
+              </div>
 
-        {/* Column 3 */}
-        <div className="flex flex-col gap-2 md:gap-3 mt-[22px] sm:mt-[26px] md:mt-[32px]">
-          {col3.map((member) => (
-            <PhotoCard
-              key={member.id}
-              member={member}
-              className="w-[115px] h-[125px] sm:w-[136px] sm:h-[146px] md:w-[162px] md:h-[172px]"
-              hoveredId={hoveredId}
-              onHover={setHoveredId}
-            />
-          ))}
-        </div>
+              {/* Info Area */}
+              <div className="px-2">
+                <div className="flex items-end justify-between mb-1">
+                  <h3 className="text-3xl font-black text-slate-900 tracking-tighter leading-none">
+                    {member.name}
+                  </h3>
+                </div>
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
+                  {member.role}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
-      {/* ── Right: member name list ── */}
-      <div className="flex flex-col sm:grid sm:grid-cols-2 md:flex md:flex-col gap-4 md:gap-5 pt-0 md:pt-2 flex-1 w-full">
-        {members.map((member) => (
-          <MemberRow
-            key={member.id}
-            member={member}
-            hoveredId={hoveredId}
-            onHover={setHoveredId}
-          />
-        ))}
+      {/* ── DESKTOP VIEW: Sophisticated Gallery ── */}
+      <div className="hidden md:flex items-start gap-10 lg:gap-14 select-none">
+        {/* Photo Grid */}
+        <div className="flex gap-3 flex-shrink-0">
+          <div className="flex flex-col gap-3">
+            {col1.map((member) => (
+              <PhotoCard
+                key={member.id}
+                member={member}
+                className="w-[155px] h-[165px]"
+                hoveredId={hoveredId}
+                onHover={setHoveredId}
+              />
+            ))}
+          </div>
+          <div className="flex flex-col gap-3 mt-[68px]">
+            {col2.map((member) => (
+              <PhotoCard
+                key={member.id}
+                member={member}
+                className="w-[172px] h-[182px]"
+                hoveredId={hoveredId}
+                onHover={setHoveredId}
+              />
+            ))}
+          </div>
+          <div className="flex flex-col gap-3 mt-[32px]">
+            {col3.map((member) => (
+              <PhotoCard
+                key={member.id}
+                member={member}
+                className="w-[162px] h-[172px]"
+                hoveredId={hoveredId}
+                onHover={setHoveredId}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Member Name List */}
+        <div className="flex flex-col gap-5 pt-2 flex-1">
+          {members.map((member) => (
+            <MemberRow
+              key={member.id}
+              member={member}
+              hoveredId={hoveredId}
+              onHover={setHoveredId}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
-/* ─────────────────────────────────────────
-   Photo card 
-───────────────────────────────────────── */
+function SocialIcons({ member, light = false }) {
+  const hasSocial = member.social?.twitter || member.social?.linkedin || member.social?.instagram || member.social?.behance || member.social?.github;
+  if (!hasSocial) return null;
+
+  const iconClass = cn(
+    "p-2 rounded-full backdrop-blur-md transition-all duration-300 hover:scale-110",
+    light 
+      ? "bg-white/10 text-white hover:bg-white/20" 
+      : "bg-slate-100 text-slate-400 hover:text-slate-900 hover:bg-slate-200"
+  );
+
+  return (
+    <div className="flex items-center gap-2">
+      {member.social?.linkedin && (
+        <a href={member.social.linkedin} target="_blank" rel="noopener" className={iconClass}><FaLinkedinIn size={14} /></a>
+      )}
+      {member.social?.github && (
+        <a href={member.social.github} target="_blank" rel="noopener" className={iconClass}><FaGithub size={14} /></a>
+      )}
+      {member.social?.instagram && (
+        <a href={member.social.instagram} target="_blank" rel="noopener" className={iconClass}><FaInstagram size={14} /></a>
+      )}
+      {member.social?.twitter && (
+        <a href={member.social.twitter} target="_blank" rel="noopener" className={iconClass}><FaTwitter size={14} /></a>
+      )}
+      {member.social?.behance && (
+        <a href={member.social.behance} target="_blank" rel="noopener" className={iconClass}><FaBehance size={14} /></a>
+      )}
+    </div>
+  );
+}
 
 function PhotoCard({ member, className, hoveredId, onHover }) {
   const isActive = hoveredId === member.id;
@@ -82,9 +158,10 @@ function PhotoCard({ member, className, hoveredId, onHover }) {
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-opacity duration-400 bg-slate-100',
+        'overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-all duration-500 bg-slate-100 shadow-sm',
         className,
-        isDimmed ? 'opacity-40' : 'opacity-100',
+        isDimmed ? 'opacity-40 grayscale' : 'opacity-100 grayscale-0',
+        isActive ? 'ring-2 ring-slate-900 ring-offset-2 scale-[1.02]' : '',
       )}
       onMouseEnter={() => onHover(member.id)}
       onMouseLeave={() => onHover(null)}
@@ -93,128 +170,62 @@ function PhotoCard({ member, className, hoveredId, onHover }) {
         src={member.image}
         alt={member.name}
         loading="lazy"
-        className="w-full h-full object-cover transition-[filter] duration-500"
-        style={{
-          filter: isActive ? 'grayscale(0) brightness(1)' : 'grayscale(1) brightness(0.77)',
-        }}
+        className="w-full h-full object-cover transition-transform duration-700"
+        style={{ transform: isActive ? 'scale(1.1)' : 'scale(1)' }}
       />
     </div>
   );
 }
 
-/* ─────────────────────────────────────────
-   Member name section
-───────────────────────────────────────── */
-
 function MemberRow({ member, hoveredId, onHover }) {
   const isActive = hoveredId === member.id;
   const isDimmed = hoveredId !== null && !isActive;
-  const hasSocial = member.social?.twitter || member.social?.linkedin || member.social?.instagram || member.social?.behance || member.social?.github;
 
   return (
     <div
       className={cn(
-        'cursor-pointer transition-opacity duration-300',
-        isDimmed ? 'opacity-40' : 'opacity-100',
+        'cursor-pointer transition-all duration-300 group',
+        isDimmed ? 'opacity-30' : 'opacity-100',
       )}
       onMouseEnter={() => onHover(member.id)}
       onMouseLeave={() => onHover(null)}
     >
-      {/* Name + social */}
-      <div className="flex items-center gap-2.5">
-        <span
-          className={cn(
-            'w-4 h-3 rounded-[5px] flex-shrink-0 transition-all duration-300',
-            isActive ? 'bg-slate-900 w-5' : 'bg-slate-300',
-          )}
+      <div className="flex items-center gap-4">
+        <motion.div
+          animate={{ 
+            width: isActive ? 40 : 12,
+            backgroundColor: isActive ? "#0f172a" : "#cbd5e1"
+          }}
+          className="h-[2px] rounded-full transition-all"
         />
-        <span
-          className={cn(
-            'text-base md:text-[18px] font-semibold leading-none tracking-tight transition-colors duration-300',
-            isActive ? 'text-slate-900' : 'text-slate-500',
-          )}
-        >
-          {member.name}
-        </span>
-
-        {/* Social icons */}
-        {hasSocial && (
-          <div
-            className={cn(
-              'flex items-center gap-1.5 ml-0.5 transition-all duration-200',
-              isActive
-                ? 'opacity-100 translate-x-0'
-                : 'opacity-0 -translate-x-2 pointer-events-none',
-            )}
-          >
-            {member.social?.twitter && (
-              <a
-                href={member.social.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="p-1 rounded text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all duration-150 hover:scale-110"
-                title="X / Twitter"
+        <div className="flex flex-col">
+          <span className={cn(
+            'text-2xl font-black tracking-tighter transition-colors duration-300',
+            isActive ? 'text-slate-900' : 'text-slate-400'
+          )}>
+            {member.name}
+          </span>
+          <AnimatePresence>
+            {isActive && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden"
               >
-                <FaTwitter size={12} />
-              </a>
+                <div className="flex items-center gap-4 mt-2">
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+                    {member.role}
+                  </p>
+                  <div className="h-px w-8 bg-slate-200" />
+                  <SocialIcons member={member} />
+                </div>
+              </motion.div>
             )}
-            {member.social?.linkedin && (
-              <a
-                href={member.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="p-1 rounded text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all duration-150 hover:scale-110"
-                title="LinkedIn"
-              >
-                <FaLinkedinIn size={12} />
-              </a>
-            )}
-            {member.social?.instagram && (
-              <a
-                href={member.social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="p-1 rounded text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all duration-150 hover:scale-110"
-                title="Instagram"
-              >
-                <FaInstagram size={12} />
-              </a>
-            )}
-            {member.social?.behance && (
-              <a
-                href={member.social.behance}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="p-1 rounded text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all duration-150 hover:scale-110"
-                title="Behance"
-              >
-                <FaBehance size={12} />
-              </a>
-            )}
-            {member.social?.github && (
-              <a
-                href={member.social.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="p-1 rounded text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all duration-150 hover:scale-110"
-                title="GitHub"
-              >
-                <FaGithub size={12} />
-              </a>
-            )}
-          </div>
-        )}
+          </AnimatePresence>
+        </div>
       </div>
-
-      {/* Role */}
-      <p className="mt-1.5 pl-[27px] text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-        {member.role}
-      </p>
     </div>
   );
 }
+
