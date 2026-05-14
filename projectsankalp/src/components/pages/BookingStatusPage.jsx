@@ -121,28 +121,37 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
   };
 
   const handleScanSuccess = (result) => {
-    let scannedId = result;
-    if (result.includes("teamId=")) {
-      const url = new URL(result);
-      scannedId = url.searchParams.get("teamId") || result;
-    }
-    
-    const upperId = scannedId.toUpperCase();
-    setHighlightId(upperId);
-
-    const allSlots = Object.values(slots).flat();
-    const matchingSlot = allSlots.find(s => s.teamId?.toUpperCase() === upperId);
-    
-    if (matchingSlot && matchingSlot.docId) {
-      if (!matchingSlot.checkedIn) {
-        onCheckIn(matchingSlot.docId, true);
-        setConfirmedTeam(matchingSlot);
-      } else {
-        setConfirmedTeam({ ...matchingSlot, alreadyIn: true });
+    try {
+      let scannedId = result;
+      // Handle URL deep links like ?teamId=C4C-01
+      if (result.includes("teamId=")) {
+        const url = new URL(result);
+        scannedId = url.searchParams.get("teamId") || result;
       }
-      if (window.navigator.vibrate) window.navigator.vibrate(100);
-    } else {
-      // TICKET NOT FOUND
+      
+      const cleanId = scannedId.trim().toUpperCase();
+      setHighlightId(cleanId);
+
+      // Flatten slots and ensure we have data
+      const allSlots = Object.values(slots).flat().filter(s => s.teamId);
+      const matchingSlot = allSlots.find(s => 
+        s.teamId.trim().toUpperCase() === cleanId || 
+        s.transactionId?.trim().toUpperCase() === cleanId
+      );
+      
+      if (matchingSlot && matchingSlot.docId) {
+        if (!matchingSlot.checkedIn) {
+          onCheckIn(matchingSlot.docId, true);
+          setConfirmedTeam(matchingSlot);
+        } else {
+          setConfirmedTeam({ ...matchingSlot, alreadyIn: true });
+        }
+        if (window.navigator.vibrate) window.navigator.vibrate(100);
+      } else {
+        setScanError("INVALID_TICKET");
+      }
+    } catch (e) {
+      console.error("Scan processing failed:", e);
       setScanError("INVALID_TICKET");
     }
 
@@ -153,7 +162,9 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
   const occupancy = propOccupancy || Math.round((bookedCount / 30) * 100);
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] text-slate-900 pb-20 overflow-x-hidden select-none">
+      
+        
+        <div className="min-h-screen bg-[#FDFDFD] text-slate-900 pb-20 overflow-x-hidden select-none">
       
       {/* ── STICKY CONTROL HUB ── */}
       <div className="sticky top-0 z-[70] bg-white/90 backdrop-blur-2xl border-b border-slate-200/50 px-3 py-3 md:py-4">
@@ -270,7 +281,7 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
         </div>
       </Container>
 
-      {/* CONFIRMATION MODAL */}
+      {/* ── CONFIRMATION MODAL ── */}
       <AnimatePresence>
         {confirmedTeam && (
           <div className="fixed inset-0 z-[120] flex items-center justify-center p-6">
@@ -280,23 +291,34 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
               <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 text-emerald-500 shadow-inner">
                 <CheckCircle2 size={40} className="animate-bounce" />
               </div>
-              <h3 className="text-2xl font-black tracking-tight text-slate-900 uppercase mb-2">
-                {confirmedTeam.alreadyIn ? "Already Verified" : "Team Confirmed"}
+              <h3 className="text-2xl font-black tracking-tight text-slate-900 uppercase mb-1">
+                {confirmedTeam.alreadyIn ? "Status: Verified" : "Verification OK"}
               </h3>
-              <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.3em] mb-6">Entry Authorized</p>
+              <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.3em] mb-6">Manifest Synchronized</p>
               
               <div className="bg-slate-50 p-6 rounded-[32px] mb-8 border border-slate-100">
-                <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Participant Identity</span>
+                <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Participant Record</span>
                 <span className="block text-xl font-black text-slate-900 mb-0.5">{confirmedTeam.teamId}</span>
                 <span className="block text-xs font-bold text-slate-500 italic">{confirmedTeam.teamName}</span>
               </div>
 
-              <button 
-                onClick={() => setConfirmedTeam(null)}
-                className="w-full bg-slate-900 text-white py-4 rounded-[24px] text-[10px] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-slate-800 transition-all active:scale-95"
-              >
-                Continue Mission
-              </button>
+              <div className="space-y-3">
+                <button 
+                  onClick={() => setConfirmedTeam(null)}
+                  className="w-full bg-slate-900 text-white py-4 rounded-[24px] text-[10px] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-slate-800 transition-all active:scale-95 flex items-center justify-center gap-2"
+                >
+                  Confirm & Continue
+                </button>
+                <button 
+                  onClick={() => {
+                    setConfirmedTeam(null);
+                    setHighlightId("");
+                  }}
+                  className="w-full text-slate-400 py-2 text-[8px] font-black uppercase tracking-widest hover:text-emerald-500 transition-colors"
+                >
+                  Return to Manifest View
+                </button>
+              </div>
             </motion.div>
           </div>
         )}
