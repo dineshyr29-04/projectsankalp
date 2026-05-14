@@ -2,8 +2,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Container from "../core/Container";
 import Grainient from "../Grainient";
-import { siteConfig } from "../../config/site";
-import { Calendar, ChevronRight, Zap, Award, Shield } from "lucide-react";
 import HeroTimer from "../ui/HeroTimer";
 
 export default function Hero() {
