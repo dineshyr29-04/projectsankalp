@@ -338,7 +338,7 @@ export default function BookingStatusPage({
                                 {slot.checkedIn && (
                                   <div className="flex items-center gap-2 bg-white text-slate-950 px-3 py-1.5 rounded-xl shadow-xl">
                                     <UserCheck size={12} strokeWidth={3} />
-                                    <span className="text-[10px] font-black uppercase tracking-widest">IN TERMINAL</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest">PRESENT</span>
                                   </div>
                                 )}
                               </div>
