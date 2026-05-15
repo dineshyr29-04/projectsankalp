@@ -91,7 +91,7 @@ export default function Domains() {
                 <div
                   className={`absolute top-6 left-6 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm text-[9px] font-black uppercase tracking-widest ${domain.color} border border-white`}
                 >
-                  Sector {domain.id}
+                  Track {domain.id}
                 </div>
               </div>
 
