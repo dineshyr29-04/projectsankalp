@@ -334,6 +334,12 @@ export default function BookingStatusPage({
                               <p className="text-[11px] font-black text-white/60 uppercase tracking-[0.2em] italic font-serif">
                                 {slot.teamId}
                               </p>
+                              {slot.timestamp && (
+                                <div className="flex items-center gap-1.5 mt-2 opacity-40">
+                                  <Clock size={10} />
+                                  <span className="text-[8px] font-black uppercase tracking-widest">{slot.timestamp}</span>
+                                </div>
+                              )}
 
                               {!slot.paymentVerified && (
                                 <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-orange-500/10 border border-orange-500/20">

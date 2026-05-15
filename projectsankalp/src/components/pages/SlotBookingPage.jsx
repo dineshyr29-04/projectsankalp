@@ -360,11 +360,20 @@ export default function SlotBookingPage({ onBack }) {
               <div className="w-full flex flex-col md:flex-row gap-8 items-stretch">
                 {/* QR Container - Left Side */}
                 <div className="flex-[1.2] bg-white rounded-[48px] p-10 flex flex-col items-center justify-center shadow-[0_32px_64px_-12px_rgba(255,255,255,0.1)] border border-white/20">
-                  <div className="w-full max-w-[280px] aspect-square bg-slate-50 rounded-[32px] p-6 mb-8 border border-slate-100 shadow-inner">
-                    <img
-                      src="/payment_qr.png"
-                      alt="Payment QR"
-                      className="w-full h-full object-contain"
+                  <div className="w-full max-w-[280px] aspect-square bg-white rounded-[32px] p-6 mb-8 border border-slate-100 shadow-inner flex items-center justify-center">
+                    <QRCodeSVG
+                      value={`upi://pay?pa=projectsankalp@okaxis&pn=Project%20Sankalp&am=800&cu=INR`}
+                      size={240}
+                      level="H"
+                      includeMargin={false}
+                      imageSettings={{
+                        src: "/favicon.ico",
+                        x: undefined,
+                        y: undefined,
+                        height: 40,
+                        width: 40,
+                        excavate: true,
+                      }}
                     />
                   </div>
                   <div className="text-center">

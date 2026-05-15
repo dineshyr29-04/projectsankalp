@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import Lenis from "lenis";
@@ -14,16 +14,18 @@ import Domains from "./components/sections/Domains";
 import FAQ from "./components/sections/FAQ";
 import Sponsors from "./components/sections/Sponsors";
 import { ArrowUp } from "lucide-react";
-import TimerPage from "./components/pages/TimerPage";
 import Loader from "./components/ui/loader-11";
-import StagesPage from "./components/pages/StagesPage";
-import SlotBookingPage from "./components/pages/SlotBookingPage";
-import BookingStatusPage from "./components/pages/BookingStatusPage";
-import PaymentVerificationPage from "./components/pages/PaymentVerificationPage";
-import RegistrationCheckInPage from "./components/pages/RegistrationCheckInPage";
-import TeamPage from "./components/pages/TeamPage";
-import WinnersPage from "./components/pages/WinnersPage";
-import AdminLoginPage from "./components/pages/AdminLoginPage";
+
+// Lazy Load Pages for Least Network Load
+const TimerPage = lazy(() => import("./components/pages/TimerPage"));
+const StagesPage = lazy(() => import("./components/pages/StagesPage"));
+const SlotBookingPage = lazy(() => import("./components/pages/SlotBookingPage"));
+const BookingStatusPage = lazy(() => import("./components/pages/BookingStatusPage"));
+const PaymentVerificationPage = lazy(() => import("./components/pages/PaymentVerificationPage"));
+const RegistrationCheckInPage = lazy(() => import("./components/pages/RegistrationCheckInPage"));
+const TeamPage = lazy(() => import("./components/pages/TeamPage"));
+const WinnersPage = lazy(() => import("./components/pages/WinnersPage"));
+const AdminLoginPage = lazy(() => import("./components/pages/AdminLoginPage"));
 import { db } from "./lib/firebase";
 import { startExportSync } from "./lib/exportSync";
 import {
@@ -176,6 +178,7 @@ function App() {
             slot.checkedIn = reg.checkedIn || false; // Track attendance
             slot.checkInTime = reg.checkInTime; // Track arrival time
             slot.paymentVerified = reg.paymentVerified || false; // Track verification
+            slot.timestamp = reg.timestamp; // Track when they registered/paid
           }
         }
       });
@@ -328,6 +331,7 @@ function App() {
             <BackToTop />
 
             <main className="flex-grow">
+              <Suspense fallback={<Loader />}>
               <AnimatePresence mode="wait">
                 {currentView === "landing" && (
                   <motion.div
@@ -458,6 +462,7 @@ function App() {
                   </motion.div>
                 )}
               </AnimatePresence>
+            </Suspense>
             </main>
           </motion.div>
         )}
