@@ -146,6 +146,7 @@ export default function SlotBookingPage({ onBack }) {
         selectedDomain: selectedDomain.id,
         transactionId: transactionId,
         paymentStatus: "PENDING",
+        paymentVerified: false,
         imageUrl: base64Image,
         timestamp: new Date().toLocaleString(),
       };
@@ -393,7 +394,7 @@ export default function SlotBookingPage({ onBack }) {
                       <img
                         src="/payment_qr.png"
                         alt="QR"
-                        className="w-90 h-100"
+                        className="w-80 h-100"
                       />
                     </div>
                     <div className="space-y-2">
@@ -489,9 +490,8 @@ export default function SlotBookingPage({ onBack }) {
                 <h1 className="text-6xl md:text-8xl font-serif font-black italic tracking-tighter leading-none mb-10">
                   We will inform you shortly.
                 </h1>
-                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 mb-20 leading-relaxed">
-                  Your identifier: {verifiedTeam?.teamId} <br />
-                  Registry synchronization in progress.
+                <p className="text-[15px] font-black uppercase tracking-[0.4em] text-slate-400 mb-20 leading-relaxed">
+                  Your Team ID: <span className="text-emerald-600    ">{verifiedTeam?.teamId} </span>
                 </p>
 
                 <button

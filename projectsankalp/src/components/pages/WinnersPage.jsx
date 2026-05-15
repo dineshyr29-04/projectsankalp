@@ -215,7 +215,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
 
   return (
     <div className="min-h-screen bg-[#FDFDFD] text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
-      {/* ── Background Elements ── */}
+      {/*  Background Elements  */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={{
@@ -244,8 +244,8 @@ export default function WinnersPage({ onNavigate, onBack }) {
       </div>
 
       <main className="relative z-10">
-        {/* ── Hero Section ── */}
-        <section className="pt-32 pb-20 md:pt-48 md:pb-32">
+        {/*  Hero Section  */}
+        <section className="pb-20 md:pb-32 md:pt-10">
           <Container>
             <div className="mb-12">
               <motion.button

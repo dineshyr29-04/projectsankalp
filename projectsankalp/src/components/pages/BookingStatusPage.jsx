@@ -394,6 +394,11 @@ export default function BookingStatusPage({
                             >
                               {slot.teamName}
                             </span>
+                            {!slot.paymentVerified && (
+                              <span className="text-[7px] font-black uppercase tracking-widest text-orange-400 mt-1 block">
+                                [ PENDING VERIFICATION ]
+                              </span>
+                            )}
                           </div>
                         ) : (
                           <span className="text-[10px] font-black uppercase tracking-widest opacity-10">

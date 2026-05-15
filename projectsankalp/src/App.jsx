@@ -169,8 +169,10 @@ function App() {
             slot.teamName = reg.teamName;
             slot.docId = reg._id;
             slot.transactionId = reg.transactionId;
+            slot.paymentStatus = reg.paymentStatus || "PENDING";
             slot.imageUrl = reg.imageUrl;
             slot.checkedIn = reg.checkedIn || false; // Track attendance
+            slot.paymentVerified = reg.paymentVerified || false; // Track verification
           }
         }
       });
