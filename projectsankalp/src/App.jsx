@@ -309,168 +309,149 @@ function App() {
     <div className="relative min-h-screen bg-white">
       <Analytics />
       <SpeedInsights />
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <motion.div
-            key="loader"
-            className="min-h-screen flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-          >
-            <Loader />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="app"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex flex-col min-h-screen"
-          >
-            {currentView !== "booking" && (
-              <Navbar currentView={currentView} onNavigate={navigate} />
-            )}
-            <BackToTop />
-
-            <main className="flex-grow">
-              <Suspense fallback={<div className="min-h-[80vh] flex items-center justify-center"><Loader /></div>}>
-              <AnimatePresence mode="wait">
-                {currentView === "landing" && (
-                  <motion.div
-                    key="landing"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <Hero onBookingClick={() => navigate("booking")} />
-                    <About />
-                    <Process />
-                    <EventDetails />
-                    <Prizes />
-                    <Domains />
-                    <Sponsors />
-                    <FAQ />
-
-                    <Footer />
-                  </motion.div>
-                )}
-
-                {currentView === "timer" && (
-                  <motion.div
-                    key="timer"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <TimerPage onBack={goBack} />
-                  </motion.div>
-                )}
-
-                {currentView === "winners" && (
-                  <motion.div
-                    key="winners"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <WinnersPage onNavigate={navigate} onBack={goBack} />
-                  </motion.div>
-                )}
-
-                {currentView === "team" && (
-                  <motion.div
-                    key="team"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <TeamPage onBack={goBack} />
-                  </motion.div>
-                )}
-
-                {currentView === "stages" && (
-                  <motion.div
-                    key="stages"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <StagesPage onBack={goBack} />
-                  </motion.div>
-                )}
-                {currentView === "booking" && (
-                  <motion.div
-                    key="booking"
-                    initial={{ opacity: 0, scale: 1.1 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  >
-                    <SlotBookingPage onBack={goBack} />
-                  </motion.div>
-                )}
-
-                {/* ── ADMINISTRATIVE TERMINALS (GATED) ── */}
-                {["terminal", "payment", "registration", "status"].includes(currentView) && (
-                  <motion.div
-                    key="admin-gate"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  >
-                    {!isAdminAuthenticated ? (
-                      <AdminLoginPage 
-                        onLogin={() => setIsAdminAuthenticated(true)} 
-                        onBack={goBack} 
-                      />
-                    ) : (
-                      <>
-                        {/* Render terminal if we are on terminal OR if we just logged in from admin-login */}
-                        {(currentView === "terminal" || currentView === "admin-login") && (
-                          <BookingStatusPage
-                            slots={globalSlots}
-                            onBack={goBack}
-                            onDelete={handleDeleteBooking}
-                            onCheckIn={handleCheckIn}
-                            onUpdatePayment={handleUpdatePayment}
-                            onNavigate={navigate}
-                          />
-                        )}
-                        {currentView === "payment" && (
-                          <PaymentVerificationPage
-                            slots={globalSlots}
-                            onBack={() => navigate("terminal")}
-                            onDelete={handleDeleteBooking}
-                            onCheckIn={handleCheckIn}
-                            onUpdate={handleUpdatePayment}
-                          />
-                        )}
-                        {currentView === "registration" && (
-                          <RegistrationCheckInPage
-                            slots={globalSlots}
-                            onBack={() => navigate("terminal")}
-                            onDelete={handleDeleteBooking}
-                            onCheckIn={handleCheckIn}
-                          />
-                        )}
-                        
-                      </>
-                    )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Suspense>
-            </main>
-          </motion.div>
+      <div className="flex flex-col min-h-screen">
+        {currentView !== "booking" && (
+          <Navbar currentView={currentView} onNavigate={navigate} />
         )}
-      </AnimatePresence>
+        <BackToTop />
+
+        <main className="flex-grow">
+          <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader /></div>}>
+            <AnimatePresence mode="wait">
+              {currentView === "landing" && (
+                <motion.div
+                  key="landing"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Hero onBookingClick={() => navigate("booking")} />
+                  <About />
+                  <Process />
+                  <EventDetails />
+                  <Prizes />
+                  <Domains />
+                  <Sponsors />
+                  <FAQ />
+
+                  <Footer />
+                </motion.div>
+              )}
+
+              {currentView === "timer" && (
+                <motion.div
+                  key="timer"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <TimerPage onBack={goBack} />
+                </motion.div>
+              )}
+
+              {currentView === "winners" && (
+                <motion.div
+                  key="winners"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <WinnersPage onNavigate={navigate} onBack={goBack} />
+                </motion.div>
+              )}
+
+              {currentView === "team" && (
+                <motion.div
+                  key="team"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <TeamPage onBack={goBack} />
+                </motion.div>
+              )}
+
+              {currentView === "stages" && (
+                <motion.div
+                  key="stages"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <StagesPage onBack={goBack} />
+                </motion.div>
+              )}
+              {currentView === "booking" && (
+                <motion.div
+                  key="booking"
+                  initial={{ opacity: 0, scale: 1.1 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                >
+                  <SlotBookingPage onBack={goBack} />
+                </motion.div>
+              )}
+
+              {/* ── ADMINISTRATIVE TERMINALS (GATED) ── */}
+              {["terminal", "payment", "registration", "status"].includes(currentView) && (
+                <motion.div
+                  key="admin-gate"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                >
+                  {!isAdminAuthenticated ? (
+                    <AdminLoginPage 
+                      onLogin={() => setIsAdminAuthenticated(true)} 
+                      onBack={goBack} 
+                    />
+                  ) : (
+                    <>
+                      {(currentView === "terminal" || currentView === "admin-login") && (
+                        <BookingStatusPage
+                          slots={globalSlots}
+                          onBack={goBack}
+                          onDelete={handleDeleteBooking}
+                          onCheckIn={handleCheckIn}
+                          onUpdatePayment={handleUpdatePayment}
+                          onNavigate={navigate}
+                        />
+                      )}
+                      {currentView === "payment" && (
+                        <PaymentVerificationPage
+                          slots={globalSlots}
+                          onBack={() => navigate("terminal")}
+                          onDelete={handleDeleteBooking}
+                          onCheckIn={handleCheckIn}
+                          onUpdate={handleUpdatePayment}
+                        />
+                      )}
+                      {currentView === "registration" && (
+                        <RegistrationCheckInPage
+                          slots={globalSlots}
+                          onBack={() => navigate("terminal")}
+                          onDelete={handleDeleteBooking}
+                          onCheckIn={handleCheckIn}
+                        />
+                      )}
+                      {currentView === "status" && (
+                        <StatusCheckPage onBack={goBack} />
+                      )}
+                    </>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </Suspense>
+        </main>
+      </div>
     </div>
   );
 }
