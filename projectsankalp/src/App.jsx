@@ -23,6 +23,7 @@ import PaymentVerificationPage from "./components/pages/PaymentVerificationPage"
 import RegistrationCheckInPage from "./components/pages/RegistrationCheckInPage";
 import TeamPage from "./components/pages/TeamPage";
 import WinnersPage from "./components/pages/WinnersPage";
+import AdminLoginPage from "./components/pages/AdminLoginPage";
 import { db } from "./lib/firebase";
 import { startExportSync } from "./lib/exportSync";
 import {
@@ -71,9 +72,19 @@ const BackToTop = () => {
 function App() {
   const [currentView, setCurrentView] = useState("landing");
   const [isLoading, setIsLoading] = useState(true);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
 
   // ── ROUTING LOGIC ──
   const navigate = (view) => {
+    const isAdminView = ["terminal", "payment", "registration"].includes(view);
+    
+    // Security Guard: No one passes without the Key
+    if (isAdminView && !isAdminAuthenticated) {
+      window.history.pushState({ view: "admin-login" }, "", "/admin-login");
+      setCurrentView("admin-login");
+      return;
+    }
+
     const slug = view === "landing" ? "/" : `/${view}`;
     window.history.pushState({ view }, "", slug);
     setCurrentView(view);
@@ -108,7 +119,13 @@ function App() {
     );
 
     if (matchedView) {
-      setCurrentView(matchedView);
+      // Security Check: If trying to access admin views directly, force login or redirect
+      const isAdminView = ["terminal", "payment", "registration"].includes(matchedView);
+      if (isAdminView && !isAdminAuthenticated) {
+        setCurrentView("admin-login");
+      } else {
+        setCurrentView(matchedView);
+      }
     } else if (path === "") {
       setCurrentView("landing");
     }
@@ -418,7 +435,26 @@ function App() {
                   </motion.div>
                 )}
 
-                {currentView === "terminal" && (
+                {/* ── ADMINISTRATIVE TERMINALS ── */}
+                {currentView === "admin-login" && (
+                  <motion.div
+                    key="admin-login"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -50 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                  >
+                    <AdminLoginPage 
+                      onLogin={() => {
+                        setIsAdminAuthenticated(true);
+                        navigate("terminal");
+                      }} 
+                      onBack={goBack} 
+                    />
+                  </motion.div>
+                )}
+
+                {currentView === "terminal" && isAdminAuthenticated && (
                   <motion.div
                     key="terminal"
                     initial={{ opacity: 0, y: 50 }}
@@ -437,7 +473,7 @@ function App() {
                   </motion.div>
                 )}
 
-                {currentView === "payment" && (
+                {currentView === "payment" && isAdminAuthenticated && (
                   <motion.div
                     key="payment"
                     initial={{ opacity: 0, y: 50 }}
@@ -455,7 +491,7 @@ function App() {
                   </motion.div>
                 )}
 
-                {currentView === "registration" && (
+                {currentView === "registration" && isAdminAuthenticated && (
                   <motion.div
                     key="registration"
                     initial={{ opacity: 0, y: 50 }}
