@@ -46,7 +46,7 @@ const SECTIONS = [
   { title: "Disciplinary", data: DISCIPLINARY },
 ];
 
-export default function TeamPage() {
+export default function TeamPage({ onBack }) {
   const [activeSection, setActiveSection] = useState(SECTIONS[0].title);
   const scrollContainerRef = useRef(null);
 
@@ -84,6 +84,16 @@ export default function TeamPage() {
       {/* Hero Section */}
       <section className="relative pt-24 md:pt-40 pb-16 z-10 border-b border-slate-100">
         <Container>
+          <div className="mb-10">
+            <motion.button 
+              whileTap={{ scale: 0.95 }}
+              onClick={onBack}
+              className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 hover:text-slate-900 transition-colors"
+            >
+              <span>←</span>
+              <span>[ BACK ]</span>
+            </motion.button>
+          </div>
           <div className="max-w-4xl px-2 sm:px-0">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}

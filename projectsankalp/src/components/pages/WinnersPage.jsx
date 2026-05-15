@@ -207,7 +207,7 @@ const winnersData = [
   },
 ];
 
-export default function WinnersPage({ onNavigate }) {
+export default function WinnersPage({ onNavigate, onBack }) {
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Winners | Project Sankalp";
@@ -247,6 +247,16 @@ export default function WinnersPage({ onNavigate }) {
         {/* ── Hero Section ── */}
         <section className="pt-32 pb-20 md:pt-48 md:pb-32">
           <Container>
+            <div className="mb-12">
+               <motion.button 
+                 whileTap={{ scale: 0.95 }}
+                 onClick={onBack}
+                 className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 hover:text-slate-900 transition-colors"
+               >
+                 <span>←</span>
+                 <span>[ BACK ]</span>
+               </motion.button>
+            </div>
             <div className="max-w-4xl mx-auto text-center">
               <motion.div
                 variants={fadeUp}

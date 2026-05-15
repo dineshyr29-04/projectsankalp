@@ -232,13 +232,6 @@ export default function BookingStatusPage({ slots, occupancy: propOccupancy, onB
             <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-1">Sync Time</span>
             <span className="text-xl md:text-2xl font-mono font-bold text-slate-900 leading-none">{time.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' })}</span>
           </div>
-          <div className="bg-emerald-500 text-white p-6 md:p-8 rounded-[32px] md:rounded-[48px] shadow-xl shadow-emerald-500/20 flex flex-col justify-between">
-            <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] text-emerald-100 mb-1">Status</span>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
-              <span className="text-[10px] md:text-xs font-black tracking-widest uppercase">Operational</span>
-            </div>
-          </div>
         </div>
 
         {/* NAVIGATION SECTION */}

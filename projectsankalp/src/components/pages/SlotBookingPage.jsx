@@ -155,6 +155,12 @@ export default function SlotBookingPage({ onBack }) {
     }
   };
 
+  const handleBack = () => {
+    if (step === "DOMAIN") setStep("VERIFY");
+    else if (step === "PAYMENT") setStep("DOMAIN");
+    else onBack();
+  };
+
   const handleDownloadTicket = async () => {
     if (ticketRef.current === null) return;
     try {
@@ -176,8 +182,12 @@ export default function SlotBookingPage({ onBack }) {
       <Container full className="relative z-10 px-6 md:px-12 mx-auto max-w-6xl">
         {/* Professional Nav */}
         <div className="fixed top-8 left-8 right-8 flex justify-between items-center z-50">
-          <button onClick={onBack} className="text-[10px] font-black tracking-[0.4em] uppercase border-b-2 border-slate-900 pb-1">
-            [ EXIT ]
+          <button 
+            onClick={handleBack} 
+            className="group flex items-center gap-3 text-[10px] font-black tracking-[0.4em] uppercase border-b-2 border-slate-900 pb-1 hover:border-emerald-500 transition-colors"
+          >
+            <span className="text-lg transition-transform group-hover:-translate-x-1">←</span>
+            <span>{step === "VERIFY" ? "[ EXIT ]" : "[ BACK ]"}</span>
           </button>
           <div className="flex items-center gap-6">
             <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">REGISTRATION PHASE</span>

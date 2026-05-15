@@ -69,6 +69,14 @@ function App() {
     window.scrollTo(0, 0);
   };
 
+  const goBack = () => {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      navigate("landing");
+    }
+  };
+
   useEffect(() => {
     // Handle initial load slug
     const path = window.location.pathname.slice(1);
@@ -321,7 +329,7 @@ function App() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <TimerPage onBack={() => navigate("landing")} />
+                    <TimerPage onBack={goBack} />
                   </motion.div>
                 )}
 
@@ -333,7 +341,7 @@ function App() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <WinnersPage onNavigate={navigate} />
+                    <WinnersPage onNavigate={navigate} onBack={goBack} />
                   </motion.div>
                 )}
 
@@ -345,7 +353,7 @@ function App() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <TeamPage />
+                    <TeamPage onBack={goBack} />
                   </motion.div>
                 )}
 
@@ -357,7 +365,7 @@ function App() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <StagesPage onBack={() => navigate("landing")} />
+                    <StagesPage onBack={goBack} />
                   </motion.div>
                 )}
                 {currentView === "booking" && (
@@ -369,7 +377,7 @@ function App() {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                   >
                     <SlotBookingPage 
-                      onBack={() => navigate("landing")} 
+                      onBack={goBack} 
                     />
                   </motion.div>
                 )}
@@ -384,7 +392,7 @@ function App() {
                   >
                     <BookingStatusPage 
                       slots={globalSlots}
-                      onBack={() => navigate("landing")} 
+                      onBack={goBack} 
                       onDelete={handleDeleteBooking}
                       onCheckIn={handleCheckIn}
                       onNavigate={navigate}
