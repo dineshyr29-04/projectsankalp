@@ -19,21 +19,21 @@ const DOMAINS = [
     title: "Women's Entrepreneurship",
     code: "01",
     description: "Empowering gender equality through financial tech systems.",
-    slotsTotal: 15
+    slotsTotal: 10
   },
   {
     id: "health",
     title: "Health & Sanitation",
     code: "02",
     description: "Innovating for public health and clean water infrastructure.",
-    slotsTotal: 15
+    slotsTotal: 10
   },
   {
     id: "climate",
     title: "Climate Action",
     code: "03",
     description: "Building a sustainable and green future for all humanity.",
-    slotsTotal: 15
+    slotsTotal: 10
   }
 ];
 
@@ -97,6 +97,64 @@ export default function SlotBookingPage({ onBack }) {
     }
   };
 
+  const compressImage = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 800;
+          let width = img.width;
+          let height = img.height;
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', 0.5));
+        };
+      };
+    });
+  };
+
+  const handleSubmit = async () => {
+    if (!transactionId || !screenshot) {
+      setError("DATA REQUIRED");
+      return;
+    }
+    setIsProcessing(true);
+    setError("");
+    setUploadProgress(10);
+    try {
+      const base64Image = await compressImage(screenshot);
+      setUploadProgress(50);
+      const teamNameLower = verifiedTeam.teamName.trim().toLowerCase();
+      const payload = {
+        teamId: verifiedTeam.teamId,
+        teamName: verifiedTeam.teamName,
+        teamNameLower,
+        selectedDomain: selectedDomain.id,
+        transactionId: transactionId,
+        paymentStatus: "PENDING",
+        imageUrl: base64Image,
+        timestamp: new Date().toLocaleString()
+      };
+      await addDoc(collection(db, "registrations"), { ...payload, createdAt: serverTimestamp() });
+      setUploadProgress(100);
+      setStep("SUCCESS");
+    } catch (err) {
+      setError("SUBMISSION ERROR");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   const handleDownloadTicket = async () => {
     if (ticketRef.current === null) return;
     try {
@@ -154,12 +212,9 @@ export default function SlotBookingPage({ onBack }) {
                     value={teamInput}
                     onChange={(e) => setTeamInput(e.target.value.toUpperCase())}
                     onKeyDown={(e) => e.key === 'Enter' && handleVerify()}
-                    className="w-full bg-transparent border-none text-4xl md:text-5xl font-serif font-black italic tracking-tight focus:outline-none placeholder:text-slate-100 uppercase"
+                    className="w-full bg-slate-50/50 border-2 border-slate-100 rounded-2xl px-10 py-12 text-3xl md:text-5xl font-serif font-black italic tracking-tight focus:outline-none focus:border-slate-900 focus:bg-white placeholder:text-slate-200 uppercase transition-all"
                     autoFocus
                   />
-                  <div className="h-[2px] w-full bg-slate-100 mt-4 relative">
-                    <motion.div animate={{ width: teamInput ? "100%" : "0%" }} className="absolute inset-y-0 left-0 bg-slate-900" />
-                  </div>
                 </div>
 
                 {error && <p className="mt-6 text-red-500 text-[10px] font-black uppercase tracking-widest">{error}</p>}
@@ -253,8 +308,8 @@ export default function SlotBookingPage({ onBack }) {
                   <h2 className="text-5xl md:text-7xl font-serif font-black italic tracking-tighter text-slate-900 mb-12 leading-none">Secure Pay.</h2>
                   
                   <div className="space-y-12">
-                    <div className="p-8 border-2 border-slate-900 inline-block bg-white">
-                      <img src="/payment_qr.png" alt="QR" className="w-48 h-48 grayscale" />
+                    <div className="p-12 inline-block bg-white">
+                      <img src="/payment_qr.png" alt="QR" className="w-90 h-100" />
                     </div>
                     <div className="space-y-2">
                        <span className="text-5xl font-serif font-black italic text-slate-900">{REGISTRATION_FEE}</span>
@@ -264,20 +319,20 @@ export default function SlotBookingPage({ onBack }) {
                 </div>
 
                 <div className="flex flex-col justify-end space-y-16">
-                  <div className="space-y-10">
+                  <div className="space-y-20">
                     <div className="relative">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">UTR TRANSACTION ID</label>
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-900 mb-4 block">UTR TRANSACTION ID</label>
                       <input 
                         type="text" 
                         placeholder="ENTER ID"
                         value={transactionId}
                         onChange={(e) => setTransactionId(e.target.value.toUpperCase())}
-                        className="w-full bg-transparent border-b-2 border-slate-100 py-4 text-2xl font-serif font-black italic tracking-widest focus:border-slate-900 outline-none transition-all uppercase placeholder:text-slate-100"
+                        className="w-full bg-slate-50/50 border-2 border-slate-100 rounded-2xl px-8 py-8 text-2xl font-serif font-black italic tracking-widest focus:border-slate-900 focus:bg-white outline-none transition-all uppercase placeholder:text-slate-100"
                       />
                     </div>
 
                     <div className="space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block">PAYMENT PROOF</label>
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-900 block">PAYMENT PROOF</label>
                       <label className="flex items-center gap-6 cursor-pointer group">
                         <div className="w-16 h-16 border-2 border-slate-100 flex items-center justify-center group-hover:border-slate-900 transition-all">
                           {screenshot ? <span className="text-emerald-500 font-bold">OK</span> : <span className="text-2xl font-serif font-black italic opacity-10">+</span>}

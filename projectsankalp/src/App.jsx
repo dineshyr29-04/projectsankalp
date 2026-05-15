@@ -282,10 +282,12 @@ function App() {
             animate={{ opacity: 1 }}
             className="flex flex-col min-h-screen"
           >
-            <Navbar
-              currentView={currentView}
-              onNavigate={navigate}
-            />
+            {currentView !== "booking" && (
+              <Navbar
+                currentView={currentView}
+                onNavigate={navigate}
+              />
+            )}
             <BackToTop />
 
             <main className="flex-grow">
