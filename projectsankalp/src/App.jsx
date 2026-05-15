@@ -76,17 +76,7 @@ function App() {
 
   // ── ROUTING LOGIC ──
   const navigate = (view) => {
-    const isAdminView = ["terminal", "payment", "registration"].includes(view);
     const slug = view === "landing" ? "/" : `/${view}`;
-    
-    // Security Guard: No one passes without the Key
-    // But we keep the SLUG of the target page
-    if (isAdminView && !isAdminAuthenticated) {
-      window.history.pushState({ view: "admin-login", targetView: view }, "", slug);
-      setCurrentView("admin-login");
-      return;
-    }
-
     window.history.pushState({ view }, "", slug);
     setCurrentView(view);
     window.scrollTo(0, 0);
@@ -120,14 +110,7 @@ function App() {
     );
 
     if (matchedView) {
-      // Security Check: If trying to access admin views directly, force login
-      const isAdminView = ["terminal", "payment", "registration"].includes(matchedView);
-      if (isAdminView && !isAdminAuthenticated) {
-        // We set the current view to admin-login but the URL is already what they typed
-        setCurrentView("admin-login");
-      } else {
-        setCurrentView(matchedView);
-      }
+      setCurrentView(matchedView);
     } else if (path === "") {
       setCurrentView("landing");
     }
@@ -143,7 +126,7 @@ function App() {
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, []);
+  }, [isAdminAuthenticated]);
 
   const [globalSlots, setGlobalSlots] = useState({
     women: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
@@ -427,7 +410,7 @@ function App() {
                 )}
 
                 {/* ── ADMINISTRATIVE TERMINALS (GATED) ── */}
-                {["terminal", "payment", "registration", "admin-login"].includes(currentView) && (
+                {["terminal", "payment", "registration"].includes(currentView) && (
                   <motion.div
                     key="admin-gate"
                     initial={{ opacity: 0, y: 20 }}
@@ -437,10 +420,7 @@ function App() {
                   >
                     {!isAdminAuthenticated ? (
                       <AdminLoginPage 
-                        onLogin={() => {
-                          setIsAdminAuthenticated(true);
-                          navigate("terminal");
-                        }} 
+                        onLogin={() => setIsAdminAuthenticated(true)} 
                         onBack={goBack} 
                       />
                     ) : (

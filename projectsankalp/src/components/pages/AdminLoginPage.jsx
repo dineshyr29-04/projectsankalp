@@ -13,6 +13,7 @@ export default function AdminLoginPage({ onLogin, onBack }) {
   const [isLocked, setIsLocked] = useState(false);
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     if (isLocked) return;
     setIsAuthenticating(true);
     
