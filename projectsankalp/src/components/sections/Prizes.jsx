@@ -222,7 +222,7 @@ export default function Prizes() {
             className="text-4xl md:text-7xl lg:text-8xl font-serif font-black tracking-tighter leading-[1.1] text-slate-900"
           >
             Claim Your <br className="hidden md:block" />
-            <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-500">Legacy.</span>
+            <span className="italic text-blue-600 pr-5">Legacy.</span>
           </motion.h2>
         </header>
 

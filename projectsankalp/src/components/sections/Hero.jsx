@@ -139,17 +139,18 @@ export default function Hero() {
               Presented By
             </span>
 
-            <div className="flex items-center gap-10 sm:gap-12 md:gap-24 px-8 md:px-16 py-6 md:py-5 bg-white/40 backdrop-blur-md border border-slate-100 rounded-3xl md:rounded-full shadow-lg shadow-slate-900/[0.02]">
+            <div className="flex flex-wrap items-center justify-center gap-12 sm:gap-16 md:gap-20 px-12 md:px-20 py-8 md:py-8 bg-white/40 backdrop-blur-2xl border border-slate-100 rounded-[40px] md:rounded-full shadow-xl shadow-slate-900/[0.03]">
               {sponsors.map((sponsor) => (
                 <motion.div
                   key={sponsor.name}
-                  className="flex flex-col items-center gap-3 transition-all duration-500 cursor-pointer"
+                  whileHover={{ y: -5 }}
+                  className="flex items-center justify-center"
                 >
-                  <div className="h-[60px] sm:h-[80px] md:h-[110px]">
+                  <div className="h-[50px] sm:h-[70px] md:h-[100px] flex items-center justify-center">
                     <img
                       src={sponsor.logo}
                       alt={sponsor.name}
-                      className="h-full w-auto object-contain transition-opacity hover:rotate-[3.5deg] hover:ease-in-out transition-transform duration-500 ease"
+                      className="h-full w-auto object-contain"
                     />
                   </div>
                 </motion.div>

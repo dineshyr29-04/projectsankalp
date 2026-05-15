@@ -11,7 +11,7 @@ export default function Domains() {
       title: "Women's Entrepreneurship",
       color: "text-blue-600",
       accent: "bg-blue-600",
-      src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
+      src: "image-women.png",
       description: "Championing gender equality by building tools for financial independence and micro-business scaling.",
       tags: ["Micro-Financing", "Skill Networks"],
     },
@@ -54,8 +54,8 @@ export default function Domains() {
           <div className="mb-8">
             <span className="text-emerald-600 font-black uppercase tracking-[0.5em] text-[10px]">Mission Directives</span>
           </div>
-          <h2 className="font-serif text-5xl md:text-6xl font-black tracking-tighter text-slate-900 leading-[0.9]">
-            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic">Sankalp</span> <br /> Domains.
+          <h2 className="font-serif text-5xl md:text-7xl font-black tracking-tighter text-slate-900 leading-[0.9] font-thin">
+            The <span className="text-emerald-600 italic pr-5">Sankalp</span> <br /> Domains.
           </h2>
           <p className="text-slate-500 mt-6 text-lg font-medium max-w-2xl leading-relaxed">
             Three critical sectors. Nine profound challenges. One goal: Technology for global human impact.
