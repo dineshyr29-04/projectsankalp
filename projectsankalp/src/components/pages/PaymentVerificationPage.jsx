@@ -120,8 +120,7 @@ export default function PaymentVerificationPage({
     };
     setPaymentData(updatedData);
 
-    // Callback to parent to update Firebase
-    if (onUpdate && team.docId)
+    if (onUpdate && team.docId) {
       onUpdate(team.docId, {
         paymentVerified: true,
         verifiedBy: "Admin",
@@ -130,9 +129,46 @@ export default function PaymentVerificationPage({
         paymentDate: team.paymentDate || now,
         paymentTime: team.paymentTime || now,
       });
+    }
 
     setSelectedTeam(null);
     setVerifyNotes("");
+  };
+
+  const handleUnverifyPayment = (team) => {
+    if (
+      !window.confirm(
+        "Are you sure you want to revoke verification for this team?",
+      )
+    )
+      return;
+
+    const updatedData = {
+      ...paymentData,
+      [team.domain]: paymentData[team.domain].map((t) =>
+        t.id === team.id
+          ? {
+              ...t,
+              paymentVerified: false,
+              verifiedBy: "",
+              verificationDate: null,
+              notes: "",
+            }
+          : t,
+      ),
+    };
+    setPaymentData(updatedData);
+
+    if (onUpdate && team.docId) {
+      onUpdate(team.docId, {
+        paymentVerified: false,
+        verifiedBy: "",
+        verificationDate: null,
+        notes: "",
+      });
+    }
+
+    setSelectedTeam(null);
   };
 
   const getDomainStats = () => {
@@ -380,7 +416,7 @@ export default function PaymentVerificationPage({
                         <div className="space-y-1.5 bg-white/60 p-2.5 rounded-[14px]">
                           {/* Transaction ID */}
                           <div className="flex items-start justify-between gap-1">
-                            <span className="text-[14px] font-black text-slate-400 uppercase tracking-widest italic">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest italic">
                               UTR ID
                             </span>
                             <span className="text-[14x] font-mono font-bold text-slate-700 text-right truncate">
@@ -390,7 +426,7 @@ export default function PaymentVerificationPage({
 
                           {/* Status */}
                           <div className="flex items-start justify-between gap-1">
-                            <span className="text-[14px] font-black text-slate-400 uppercase tracking-widest">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                               Status
                             </span>
                             <span
@@ -530,14 +566,25 @@ export default function PaymentVerificationPage({
               </div>
 
               <div className="space-y-3">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleVerifyPayment(selectedTeam)}
-                  className="w-full bg-emerald-500 text-white py-4 rounded-[24px] text-[10px] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-emerald-600 transition-all"
-                >
-                  Confirm & Mark Verified
-                </motion.button>
+                {!selectedTeam.paymentVerified ? (
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleVerifyPayment(selectedTeam)}
+                    className="w-full bg-emerald-500 text-white py-4 rounded-[24px] text-[10px] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-emerald-600 transition-all"
+                  >
+                    Confirm & Mark Verified
+                  </motion.button>
+                ) : (
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleUnverifyPayment(selectedTeam)}
+                    className="w-full bg-red-500 text-white py-4 rounded-[24px] text-[10px] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-red-600 transition-all"
+                  >
+                    Revoke Verification
+                  </motion.button>
+                )}
                 <button
                   onClick={() => setSelectedTeam(null)}
                   className="w-full text-slate-600 py-2 text-[8px] font-black uppercase tracking-widest hover:text-slate-900 transition-colors"

@@ -172,6 +172,7 @@ function App() {
             slot.paymentStatus = reg.paymentStatus || "PENDING";
             slot.imageUrl = reg.imageUrl;
             slot.checkedIn = reg.checkedIn || false; // Track attendance
+            slot.checkInTime = reg.checkInTime; // Track arrival time
             slot.paymentVerified = reg.paymentVerified || false; // Track verification
           }
         }

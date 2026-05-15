@@ -6,17 +6,16 @@ import {
   Heart,
   Leaf,
   Activity,
-  LayoutGrid,
   Trash2,
   X,
   Zap,
   Search as SearchIcon,
   UserCheck,
-  Clock,
   ShieldCheck,
   Scan,
   AlertCircle,
   CheckCircle2,
+  Download,
 } from "lucide-react";
 import { Html5Qrcode } from "html5-qrcode";
 import Container from "../core/Container";
@@ -65,6 +64,9 @@ export default function BookingStatusPage({
   const qrScannerRef = useRef(null);
   const lastScannedId = useRef(null);
   const lastScanTime = useRef(0);
+  const [statusFilter, setStatusFilter] = useState("");
+  const [domainFilter, setDomainFilter] = useState("");
+  const [sortBy, setSortBy] = useState("id");
 
   // Sync Timer
   useEffect(() => {
@@ -157,6 +159,44 @@ export default function BookingStatusPage({
     } catch (e) {}
   };
 
+  // ── FILTERING & SORTING LOGIC ──
+  const getFilteredSlots = (domainId) => {
+    let domainSlots = slots[domainId] || [];
+
+    // Filter by Search
+    if (highlightId) {
+      domainSlots = domainSlots.filter(
+        (s) =>
+          s.teamId?.toUpperCase().includes(highlightId) ||
+          s.teamName?.toUpperCase().includes(highlightId),
+      );
+    }
+
+    // Filter by Status
+    if (statusFilter === "verified") {
+      domainSlots = domainSlots.filter((s) => s.paymentVerified);
+    } else if (statusFilter === "pending") {
+      domainSlots = domainSlots.filter((s) => s.teamId && !s.paymentVerified);
+    } else if (statusFilter === "checked") {
+      domainSlots = domainSlots.filter((s) => s.checkedIn);
+    }
+
+    // Sort
+    return [...domainSlots].sort((a, b) => {
+      if (!a.teamId) return 1;
+      if (!b.teamId) return -1;
+
+      if (sortBy === "name") {
+        return a.teamName.localeCompare(b.teamName);
+      } else if (sortBy === "time") {
+        const timeA = a.checkInTime?.seconds || 0;
+        const timeB = b.checkInTime?.seconds || 0;
+        return timeB - timeA;
+      }
+      return a.teamId.localeCompare(b.teamId);
+    });
+  };
+
   const handleScanSuccess = (result) => {
     try {
       let scannedId = result;
@@ -238,83 +278,112 @@ export default function BookingStatusPage({
             )}
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setIsScanning(true)}
-            className="w-12 h-12 bg-emerald-500 text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-xl shadow-emerald-500/20 shrink-0"
-          >
-            <Scan size={22} />
-          </motion.button>
-        </div>
-        {/* Links Section*/}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          <motion.button
-            whileHover={{ scale: 1.02, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => onNavigate && onNavigate("payment")}
-            className="group relative overflow-hidden pl-6 rounded-[40px] bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-2xl shadow-blue-500/20 border border-blue-400/50"
-          >
-            <div className="absolute top-0 right-0 bg-white/10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
-            <div className="relative z-10 text-left flex flex-row gap-4">
-              <h3 className="text-xl font-black uppercase tracking-tight">
-                Payment Verification
-              </h3>
-              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-blue-200">
-                <span>→ Verify Payments</span>
-              </div>
-            </div>
-          </motion.button>
+          <div className="flex items-center gap-2">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => onNavigate && onNavigate("payment")}
+              className="h-10 md:h-12 px-3 md:px-5 bg-blue-500 text-white rounded-xl md:rounded-2xl text-[8px] md:text-[10px] font-black uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-blue-500/20"
+            >
+              <Zap size={14} />
+              <span className="hidden lg:inline">Payments</span>
+            </motion.button>
 
-          <motion.button
-            whileHover={{ scale: 1.02, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => onNavigate && onNavigate("registration")}
-            className="group relative overflow-hidden p-6 rounded-[40px] bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-2xl shadow-emerald-500/20 border border-emerald-400/50"
-          >
-            <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
-            <div className="relative z-10 text-left flex flex-row gap-4">
-              <h3 className="text-xl font-black uppercase tracking-tight">
-                Registration Check-In
-              </h3>
-              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-emerald-200">
-                <span>→ Start Check-In</span>
-              </div>
-            </div>
-          </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => onNavigate && onNavigate("registration")}
+              className="h-10 md:h-12 px-3 md:px-5 bg-emerald-500 text-white rounded-xl md:rounded-2xl text-[8px] md:text-[10px] font-black uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-emerald-500/20"
+            >
+              <UserCheck size={14} />
+              <span className="hidden lg:inline">Check-In</span>
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setIsScanning(true)}
+              className="w-10 h-10 md:w-12 md:h-12 bg-slate-900 text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-xl shrink-0"
+            >
+              <Scan size={18} />
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => {
+                const allTeams = Object.entries(slots).flatMap(
+                  ([domain, teams]) =>
+                    teams
+                      .filter((t) => t.teamId)
+                      .map((t) => ({ ...t, domain })),
+                );
+                import("../../utils/excelExport").then((m) =>
+                  m.exportRegistrationCheckIn(allTeams),
+                );
+              }}
+              className="w-10 h-10 md:w-12 md:h-12 bg-slate-100 text-slate-900 border border-slate-200 rounded-xl md:rounded-2xl flex items-center justify-center shadow-sm shrink-0"
+            >
+              <Download size={18} />
+            </motion.button>
+          </div>
         </div>
         {/* ADVANCED FILTER BAR */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div>
-            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1">
-              Filter by Status
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-1">
+          <div className="relative group">
+            <label className="text-[7px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-1 ml-1">
+              Mission Status
             </label>
-            <select className="w-full bg-slate-100/50 border-none rounded-lg py-2 px-3 text-[10px] font-bold focus:ring-2 focus:ring-emerald-500/20 ring-1 ring-slate-400 ">
-              <option value="">All Status</option>
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="w-full bg-slate-100/40 hover:bg-slate-100 border border-slate-200/50 rounded-xl py-2.5 px-3 text-[9px] font-black uppercase tracking-widest focus:ring-2 focus:ring-emerald-500/10 transition-all appearance-none cursor-pointer"
+            >
+              <option value="">All Teams</option>
+              <option value="verified">Payment Verified</option>
+              <option value="pending">Pending Admin</option>
               <option value="checked">Checked In</option>
-              <option value="pending">Pending</option>
             </select>
+            <div className="absolute right-3 bottom-2.5 pointer-events-none text-slate-400">
+              <ChevronLeft size={12} className="-rotate-90" />
+            </div>
           </div>
-          <div>
-            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1">
-              Filter by Domain
+
+          <div className="relative group">
+            <label className="text-[7px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-1 ml-1">
+              Technical Sector
             </label>
-            <select className="w-full bg-slate-100/50 border-none rounded-lg py-2 px-3 text-[10px] font-bold ring-1 ring-slate-400 focus:ring-2 focus:ring-emerald-500/20">
+            <select
+              value={domainFilter}
+              onChange={(e) => setDomainFilter(e.target.value)}
+              className="w-full bg-slate-100/40 hover:bg-slate-100 border border-slate-200/50 rounded-xl py-2.5 px-3 text-[9px] font-black uppercase tracking-widest focus:ring-2 focus:ring-emerald-500/10 transition-all appearance-none cursor-pointer"
+            >
               <option value="">All Domains</option>
-              <option value="women">Women's Entrepreneurship</option>
+              <option value="women">Women's Entr.</option>
               <option value="health">Health & Wellness</option>
               <option value="climate">Climate Action</option>
             </select>
+            <div className="absolute right-3 bottom-2.5 pointer-events-none text-slate-400">
+              <ChevronLeft size={12} className="-rotate-90" />
+            </div>
           </div>
-          <div>
-            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1 ">
-              Sort by
+
+          <div className="relative group">
+            <label className="text-[7px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-1 ml-1">
+              Sort Sequence
             </label>
-            <select className="w-full bg-slate-100/50 border-none rounded-lg py-2 px-3 text-[10px] font-bold focus:ring-2 focus:ring-emerald-500/20 ring-1 ring-slate-400 ">
-              <option value="name">Team Name</option>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="w-full bg-slate-100/40 hover:bg-slate-100 border border-slate-200/50 rounded-xl py-2.5 px-3 text-[9px] font-black uppercase tracking-widest focus:ring-2 focus:ring-emerald-500/10 transition-all appearance-none cursor-pointer"
+            >
               <option value="id">Team ID</option>
+              <option value="name">Alpha Name</option>
               <option value="time">Check-in Time</option>
             </select>
+            <div className="absolute right-3 bottom-2.5 pointer-events-none text-slate-400">
+              <ChevronLeft size={12} className="-rotate-90" />
+            </div>
           </div>
         </div>
       </div>
@@ -322,127 +391,136 @@ export default function BookingStatusPage({
       <Container full className="pt-8">
         {/* MANIFEST LISTS */}
         <div className="grid lg:grid-cols-3 gap-8 md:gap-12">
-          {DOMAINS.map((domain) => (
-            <div key={domain.id} className="flex flex-col min-w-0">
-              <div className="flex items-center justify-between px-4 mb-6">
-                <div className="min-w-0">
-                  <h3 className="text-xl font-black tracking-tight uppercase leading-none text-slate-900 truncate">
-                    {domain.title}
-                  </h3>
-                  <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest mt-1 block">
-                    Sector Registry
-                  </span>
-                </div>
-                <div
-                  className={`w-3 h-3 rounded-full ${domain.accent} animate-pulse shadow-sm shrink-0`}
-                />
-              </div>
-
-              <div className="space-y-3">
-                {slots[domain.id].map((slot) => {
-                  const isHighlighted =
-                    highlightId &&
-                    (slot.teamId?.toUpperCase() === highlightId.toUpperCase() ||
-                      slot.teamName
-                        ?.toUpperCase()
-                        .includes(highlightId.toUpperCase()));
-
-                  return (
+          {DOMAINS.filter((d) => !domainFilter || d.id === domainFilter).map(
+            (domain) => {
+              const domainSlots = getFilteredSlots(domain.id);
+              return (
+                <div key={domain.id} className="flex flex-col min-w-0">
+                  <div className="flex items-center justify-between px-4 mb-6">
+                    <div className="min-w-0">
+                      <h3 className="text-xl font-black tracking-tight uppercase leading-none text-slate-900 truncate">
+                        {domain.title}
+                      </h3>
+                      <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest mt-1 block">
+                        Sector Registry
+                      </span>
+                    </div>
                     <div
-                      key={slot.id}
-                      id={
-                        slot.teamId
-                          ? `slot-${slot.teamId.toUpperCase()}`
-                          : `slot-${slot.id}`
-                      }
-                      className={`
-                        flex items-center justify-between p-4 md:p-5 rounded-[24px] md:rounded-[36px] border transition-all duration-300 relative overflow-hidden
-                        ${
-                          isHighlighted
-                            ? "bg-emerald-500 border-emerald-400 text-white scale-[1.03] shadow-2xl z-10"
-                            : slot.checkedIn
-                              ? "bg-emerald-50/80 border-emerald-100 text-slate-900 shadow-sm"
-                              : slot.teamId
-                                ? "bg-slate-900 border-slate-800 text-white shadow-xl"
-                                : "bg-slate-50/50 border-slate-100 text-slate-300 border-dashed"
-                        }
-                      `}
-                    >
-                      <div className="flex items-center gap-4 flex-1 min-w-0">
-                        <span
-                          className={`text-[10px] font-mono font-black shrink-0 ${slot.checkedIn ? "text-emerald-500" : isHighlighted ? "text-emerald-200" : "text-slate-500"}`}
+                      className={`w-3 h-3 rounded-full ${domain.accent} animate-pulse shadow-sm shrink-0`}
+                    />
+                  </div>
+
+                  <div className="space-y-3">
+                    {domainSlots.map((slot) => {
+                      const isHighlighted =
+                        highlightId &&
+                        (slot.teamId?.toUpperCase() ===
+                          highlightId.toUpperCase() ||
+                          slot.teamName
+                            ?.toUpperCase()
+                            .includes(highlightId.toUpperCase()));
+
+                      return (
+                        <div
+                          key={`${domain.id}-${slot.id}`}
+                          id={
+                            slot.teamId
+                              ? `slot-${slot.teamId.toUpperCase()}`
+                              : `slot-${slot.id}`
+                          }
+                          className={`
+                            flex items-center justify-between p-4 md:p-5 rounded-[24px] md:rounded-[36px] border transition-all duration-300 relative overflow-hidden
+                            ${
+                              isHighlighted
+                                ? "bg-emerald-500 border-emerald-400 text-white scale-[1.03] shadow-2xl z-10"
+                                : slot.checkedIn
+                                  ? "bg-emerald-50/80 border-emerald-100 text-slate-900 shadow-sm"
+                                  : slot.teamId
+                                    ? "bg-slate-900 border-slate-800 text-white shadow-xl"
+                                    : "bg-slate-50/50 border-slate-100 text-slate-300 border-dashed"
+                            }
+                          `}
                         >
-                          #{String(slot.id).padStart(2, "0")}
-                        </span>
-                        {slot.teamId ? (
-                          <div className="flex flex-col min-w-0">
-                            <div className="flex items-center gap-1.5 mb-0.5 min-w-0">
-                              <span
-                                className={`text-[10px] md:text-[11px] font-black uppercase tracking-wider truncate ${slot.checkedIn ? "text-emerald-600" : isHighlighted ? "text-white" : "text-emerald-400"}`}
-                              >
-                                {slot.teamId}
-                              </span>
-                              {slot.checkedIn && (
-                                <ShieldCheck
-                                  size={10}
-                                  className="text-emerald-500 shrink-0"
-                                />
-                              )}
-                            </div>
+                          <div className="flex items-center gap-4 flex-1 min-w-0">
                             <span
-                              className={`text-[10px] md:text-[11px] font-bold truncate leading-none ${slot.checkedIn ? "text-slate-900" : "text-white/90"}`}
+                              className={`text-[10px] font-mono font-black shrink-0 ${slot.checkedIn ? "text-emerald-500" : isHighlighted ? "text-emerald-200" : "text-slate-500"}`}
                             >
-                              {slot.teamName}
+                              #{String(slot.id).padStart(2, "0")}
                             </span>
-                            {!slot.paymentVerified && (
-                              <span className="text-[7px] font-black uppercase tracking-widest text-orange-400 mt-1 block">
-                                [ PENDING VERIFICATION ]
+                            {slot.teamId ? (
+                              <div className="flex flex-col min-w-0">
+                                <div className="flex items-center gap-1.5 mb-0.5 min-w-0">
+                                  <span
+                                    className={`text-[10px] md:text-[11px] font-black uppercase tracking-wider truncate ${slot.checkedIn ? "text-emerald-600" : isHighlighted ? "text-white" : "text-emerald-400"}`}
+                                  >
+                                    {slot.teamId}
+                                  </span>
+                                  {slot.checkedIn && (
+                                    <ShieldCheck
+                                      size={10}
+                                      className="text-emerald-500 shrink-0"
+                                    />
+                                  )}
+                                </div>
+                                <span
+                                  className={`text-[10px] md:text-[11px] font-bold truncate leading-none ${slot.checkedIn ? "text-slate-900" : "text-white/90"}`}
+                                >
+                                  {slot.teamName}
+                                </span>
+                                {!slot.paymentVerified && (
+                                  <span className="text-[7px] font-black uppercase tracking-widest text-orange-400 mt-1 block">
+                                    [ PENDING VERIFICATION ]
+                                  </span>
+                                )}
+                              </div>
+                            ) : (
+                              <span className="text-[10px] font-black uppercase tracking-widest opacity-10">
+                                Standby
                               </span>
                             )}
                           </div>
-                        ) : (
-                          <span className="text-[10px] font-black uppercase tracking-widest opacity-10">
-                            Standby
-                          </span>
-                        )}
-                      </div>
-                      {slot.teamId && (
-                        <div className="flex items-center gap-1.5 shrink-0 ml-4">
-                          <button
-                            onClick={() =>
-                              onCheckIn(slot.docId, !slot.checkedIn)
-                            }
-                            className={`w-9 h-9 rounded-2xl flex items-center justify-center transition-all ${slot.checkedIn ? "bg-emerald-500 text-white shadow-lg" : "bg-white/10 hover:bg-emerald-500 text-white/40 hover:text-white"}`}
-                          >
-                            <UserCheck
-                              size={16}
-                              className={slot.checkedIn ? "animate-pulse" : ""}
-                            />
-                          </button>
-                          <button
-                            onClick={() =>
-                              slot.imageUrl && setSelectedImage(slot.imageUrl)
-                            }
-                            className={`w-9 h-9 rounded-2xl flex items-center justify-center transition-all ${slot.checkedIn ? "bg-emerald-100 text-emerald-600" : "bg-white/10 hover:bg-emerald-500 text-white/40 hover:text-white"}`}
-                          >
-                            <Activity size={16} />
-                          </button>
-                          <button
-                            onClick={() =>
-                              onDelete(domain.id, slot.id, slot.docId)
-                            }
-                            className="w-9 h-9 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all"
-                          >
-                            <Trash2 size={16} />
-                          </button>
+                          {slot.teamId && (
+                            <div className="flex items-center gap-1.5 shrink-0 ml-4">
+                              <button
+                                onClick={() =>
+                                  onCheckIn(slot.docId, !slot.checkedIn)
+                                }
+                                className={`w-9 h-9 rounded-2xl flex items-center justify-center transition-all ${slot.checkedIn ? "bg-emerald-500 text-white shadow-lg" : "bg-white/10 hover:bg-emerald-500 text-white/40 hover:text-white"}`}
+                              >
+                                <UserCheck
+                                  size={16}
+                                  className={
+                                    slot.checkedIn ? "animate-pulse" : ""
+                                  }
+                                />
+                              </button>
+                              <button
+                                onClick={() =>
+                                  slot.imageUrl &&
+                                  setSelectedImage(slot.imageUrl)
+                                }
+                                className={`w-9 h-9 rounded-2xl flex items-center justify-center transition-all ${slot.checkedIn ? "bg-emerald-100 text-emerald-600" : "bg-white/10 hover:bg-emerald-500 text-white/40 hover:text-white"}`}
+                              >
+                                <Activity size={16} />
+                              </button>
+                              <button
+                                onClick={() =>
+                                  onDelete(domain.id, slot.id, slot.docId)
+                                }
+                                className="w-9 h-9 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all"
+                              >
+                                <Trash2 size={16} />
+                              </button>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            },
+          )}
         </div>
       </Container>
 
@@ -469,8 +547,8 @@ export default function BookingStatusPage({
               </div>
               <h3 className="text-2xl font-black tracking-tight text-slate-900 uppercase mb-1">
                 {confirmedTeam.alreadyIn
-                  ? "Status: Verified"
-                  : "Verification OK"}
+                  ? "Already Checked In"
+                  : "Check-In Success"}
               </h3>
               <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.3em] mb-6">
                 Manifest Synchronized
