@@ -363,20 +363,20 @@ export default function RegistrationCheckInPage({
                 layout
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`p-6 rounded-[28px] border-2 transition-all ${
+                className={`p-6 rounded-[32px] border transition-all ${
                   team.checkedIn
-                    ? "bg-emerald-50 border-emerald-200 shadow-lg shadow-emerald-100"
-                    : "bg-slate-50 border-slate-200 hover:border-emerald-200"
+                    ? "bg-emerald-500/5 border-emerald-500/20 shadow-xl shadow-emerald-500/5"
+                    : "bg-white/5 border-white/5 hover:bg-white/10"
                 }`}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div
-                    className={`w-12 h-12 rounded-xl flex items-center justify-center ${team.checkedIn ? "bg-emerald-500" : "bg-slate-300"} text-white`}
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center ${team.checkedIn ? "bg-emerald-500 shadow-lg shadow-emerald-500/20" : "bg-white/10 border border-white/10"} text-white transition-all`}
                   >
                     {team.checkedIn ? (
                       <CheckCircle2 size={24} />
                     ) : (
-                      <Clock size={24} />
+                      <Clock size={24} className="text-white/20" />
                     )}
                   </div>
                   <motion.button
@@ -391,42 +391,42 @@ export default function RegistrationCheckInPage({
                   </motion.button>
                 </div>
 
-                <h3 className="text-lg font-black text-slate-900 uppercase mb-1">
+                <h3 className="text-xl font-black text-white uppercase mb-1">
                   {team.teamId}
                 </h3>
-                <p className="text-[10px] font-bold text-slate-600 mb-4 line-clamp-2">
+                <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-6 line-clamp-1">
                   {team.teamName}
                 </p>
 
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center justify-between text-[10px] font-bold">
-                    <span className="text-slate-500">Check-in Status</span>
+                <div className="space-y-3 mb-6 bg-white/5 p-4 rounded-[24px] border border-white/5">
+                  <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest">
+                    <span className="text-white/20">Check-in</span>
                     <span
                       className={
                         team.checkedIn
-                          ? "text-emerald-600 font-black"
-                          : "text-orange-600 font-black"
+                          ? "text-emerald-400"
+                          : "text-orange-400"
                       }
                     >
-                      {team.checkedIn ? "✓ Checked In" : "○ Pending"}
+                      {team.checkedIn ? "VERIFIED ✓" : "PENDING ○"}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between text-[10px] font-bold">
-                    <span className="text-slate-500">Payment Status</span>
+                  <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest">
+                    <span className="text-white/20">Payment</span>
                     <span
                       className={
                         team.paymentVerified
-                          ? "text-emerald-600 font-black"
-                          : "text-orange-600 font-black"
+                          ? "text-blue-400"
+                          : "text-orange-400"
                       }
                     >
-                      {team.paymentVerified ? "✓ Verified" : "○ Pending"}
+                      {team.paymentVerified ? "SECURE ✓" : "PENDING ○"}
                     </span>
                   </div>
                   {team.checkInTime && (
-                    <div className="flex items-center justify-between text-[10px] font-bold">
-                      <span className="text-slate-500">Check-in Time</span>
-                      <span className="text-slate-700">
+                    <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest pt-2 border-t border-white/5">
+                      <span className="text-white/20">Time</span>
+                      <span className="text-white/60">
                         {new Date(team.checkInTime).toLocaleTimeString()}
                       </span>
                     </div>

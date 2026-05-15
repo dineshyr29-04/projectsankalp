@@ -26,6 +26,7 @@ const RegistrationCheckInPage = lazy(() => import("./components/pages/Registrati
 const TeamPage = lazy(() => import("./components/pages/TeamPage"));
 const WinnersPage = lazy(() => import("./components/pages/WinnersPage"));
 const AdminLoginPage = lazy(() => import("./components/pages/AdminLoginPage"));
+const StatusCheckPage = lazy(() => import("./components/pages/StatusCheckPage"));
 import { db } from "./lib/firebase";
 import { startExportSync } from "./lib/exportSync";
 import {
@@ -39,6 +40,7 @@ import {
   doc,
   updateDoc,
   serverTimestamp,
+  orderBy,
 } from "firebase/firestore";
 
 // AUDIT FIX: Simple, premium Back to Top button
@@ -105,6 +107,7 @@ function App() {
       "timer",
       "payment",
       "registration",
+      "status",
     ];
     const normalizedPath = path.toLowerCase();
     const matchedView = validViews.find(
@@ -144,7 +147,7 @@ function App() {
     // Only attempt sync if a valid Project ID is provided in .env
     const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
     if (!db || !projectId || projectId === "your_project_id") return;
-    const q = query(collection(db, "registrations"));
+    const q = query(collection(db, "registrations"), orderBy("createdAt", "asc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const regs = snapshot.docs.map((doc) => ({ ...doc.data(), _id: doc.id }));
 
@@ -414,7 +417,7 @@ function App() {
                 )}
 
                 {/* ── ADMINISTRATIVE TERMINALS (GATED) ── */}
-                {["terminal", "payment", "registration"].includes(currentView) && (
+                {["terminal", "payment", "registration", "status"].includes(currentView) && (
                   <motion.div
                     key="admin-gate"
                     initial={{ opacity: 0, y: 20 }}
@@ -456,6 +459,9 @@ function App() {
                             onDelete={handleDeleteBooking}
                             onCheckIn={handleCheckIn}
                           />
+                        )}
+                        {currentView === "status" && (
+                          <StatusCheckPage onBack={goBack} />
                         )}
                       </>
                     )}

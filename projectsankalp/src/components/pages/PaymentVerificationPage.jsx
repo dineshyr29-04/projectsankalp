@@ -342,38 +342,39 @@ export default function PaymentVerificationPage({
                       </p>
                     </div>
                   ) : (
-                    domainTeams.map((team) => (
                       <motion.div
                         key={team.id}
                         layout
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className={`p-4 rounded-[20px] border-2 transition-all group hover:shadow-lg ${
+                        className={`p-5 rounded-[32px] border transition-all group hover:shadow-2xl ${
                           team.paymentVerified
-                            ? "bg-emerald-50 border-emerald-200"
-                            : "bg-orange-50 border-orange-200"
+                            ? "bg-emerald-500/5 border-emerald-500/20 shadow-lg shadow-emerald-500/5"
+                            : "bg-white/5 border-white/10 hover:border-orange-500/30"
                         }`}
                       >
                         {/* Team Header */}
                         <div className="flex items-start justify-between gap-2 mb-3">
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1">
+                            <div className="flex items-center gap-3 mb-2">
                               <div
-                                className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${team.paymentVerified ? "bg-emerald-500" : "bg-orange-500"} text-white`}
+                                className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${team.paymentVerified ? "bg-emerald-500 shadow-lg shadow-emerald-500/20" : "bg-white/10 border border-white/10"} text-white transition-all`}
                               >
                                 {team.paymentVerified ? (
-                                  <CheckCircle2 size={16} />
+                                  <ShieldCheck size={20} />
                                 ) : (
-                                  <Clock size={16} />
+                                  <Clock size={20} className="text-orange-500 animate-pulse" />
                                 )}
                               </div>
-                              <h4 className="text-[14px] font-black text-slate-900 uppercase truncate">
-                                {team.teamId}
-                              </h4>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="text-[16px] font-black text-white uppercase truncate leading-none mb-1">
+                                  {team.teamId}
+                                </h4>
+                                <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest line-clamp-1">
+                                  {team.teamName}
+                                </p>
+                              </div>
                             </div>
-                            <p className="text-[9px] font-bold text-slate-600 line-clamp-1">
-                              {team.teamName}
-                            </p>
                           </div>
 
                           {/* Quick Action Buttons */}
@@ -413,72 +414,50 @@ export default function PaymentVerificationPage({
                         </div>
 
                         {/* Payment Details */}
-                        <div className="space-y-1.5 bg-white/60 p-2.5 rounded-[14px]">
+                        <div className="space-y-3 bg-white/5 p-4 rounded-[24px] border border-white/5">
                           {/* Transaction ID */}
                           <div className="flex items-start justify-between gap-1">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest italic">
+                            <span className="text-[9px] font-black text-white/20 uppercase tracking-widest italic">
                               UTR ID
                             </span>
-                            <span className="text-[14x] font-mono font-bold text-slate-700 text-right truncate">
-                              {team.transactionId || "-"}
+                            <span className="text-xs font-mono font-bold text-white tracking-wider truncate">
+                              {team.transactionId || "NOT PROVIDED"}
                             </span>
                           </div>
 
-                          {/* Status */}
-                          <div className="flex items-start justify-between gap-1">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                              Status
+                          {/* Status - MAKE IT PROPER */}
+                          <div className="flex items-center justify-between gap-1 pt-3 border-t border-white/5">
+                            <span className="text-[9px] font-black text-white/20 uppercase tracking-widest">
+                              STATUS
                             </span>
-                            <span
-                              className={`text-[14px] font-black uppercase ${team.paymentVerified ? "text-emerald-600" : "text-orange-600"}`}
-                            >
-                              {team.paymentVerified
-                                ? "✓ Verified"
-                                : "○ Pending"}
-                            </span>
+                            <div className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${
+                              team.paymentVerified 
+                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30" 
+                              : "bg-orange-500/10 text-orange-400 border-orange-500/30"
+                            }`}>
+                              {team.paymentVerified ? "VERIFIED" : "PENDING VERIF."}
+                            </div>
                           </div>
 
-                          {/* Payment Date */}
-                          {team.paymentDate && (
-                            <div className="flex items-start justify-between gap-1">
-                              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
-                                Paid On
-                              </span>
-                              <span className="text-[9px] font-bold text-slate-700">
-                                {new Date(
-                                  team.paymentDate,
-                                ).toLocaleDateString()}
-                              </span>
-                            </div>
-                          )}
-
-                          {/* Payment Time */}
-                          {team.paymentTime && (
-                            <div className="flex items-start justify-between gap-1">
-                              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
-                                Time
-                              </span>
-                              <span className="text-[9px] font-mono text-slate-700">
-                                {new Date(
-                                  team.paymentTime,
-                                ).toLocaleTimeString()}
-                              </span>
-                            </div>
-                          )}
-
-                          {/* Verified Date */}
-                          {team.verificationDate && (
-                            <div className="flex items-start justify-between gap-1 pt-1 border-t border-slate-200">
-                              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
-                                Verified
-                              </span>
-                              <span className="text-[9px] font-bold text-emerald-600">
-                                {new Date(
-                                  team.verificationDate,
-                                ).toLocaleDateString()}
-                              </span>
-                            </div>
-                          )}
+                          {/* Meta Info */}
+                          <div className="grid grid-cols-2 gap-4 pt-3 border-t border-white/5">
+                            {team.paymentDate && (
+                              <div>
+                                <span className="block text-[8px] font-black text-white/20 uppercase tracking-widest mb-0.5">Paid On</span>
+                                <span className="text-[10px] font-bold text-white/60">
+                                  {new Date(team.paymentDate).toLocaleDateString()}
+                                </span>
+                              </div>
+                            )}
+                            {team.verificationDate && (
+                              <div className="text-right">
+                                <span className="block text-[8px] font-black text-white/20 uppercase tracking-widest mb-0.5">Verified</span>
+                                <span className="text-[10px] font-bold text-emerald-500">
+                                  {new Date(team.verificationDate).toLocaleDateString()}
+                                </span>
+                              </div>
+                            )}
+                          </div>
                         </div>
 
                         {/* Notes */}

@@ -268,25 +268,28 @@ export default function BookingStatusPage({
             return (
               <div key={domain.id} className="flex flex-col h-full">
                 {/* Sector Header */}
-                <div className="flex items-center justify-between mb-6 px-2">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-2 h-8 rounded-full ${domain.accent}`} />
+                <div className="flex items-center justify-between mb-8 px-2 border-b border-white/5 pb-4">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-3 h-10 rounded-full ${domain.accent} shadow-[0_0_15px_rgba(16,185,129,0.3)]`} />
                     <div>
-                      <h2 className="text-lg tracking-tight text-[#ffffff] uppercase italic font-serif">
+                      <h2 className="text-xl tracking-tight text-[#ffffff] uppercase italic font-serif leading-none">
                         {domain.title}
                       </h2>
-                      <span className="text-[9px] font-black text-white/20 uppercase tracking-[0.3em]">
+                      <span className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] mt-1 block">
                         {filteredSlots.length} Missions Active
                       </span>
                     </div>
                   </div>
-                  <Info size={16} className="text-white/10" />
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-xl border border-white/10">
+                     <Activity size={12} className="text-emerald-500 animate-pulse" />
+                     <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">LIVE</span>
+                  </div>
                 </div>
 
                 {/* Slot Grid/List */}
                 <div className="space-y-3">
                   {filteredSlots.length > 0 ? (
-                    filteredSlots.map((slot) => {
+                    filteredSlots.map((slot, index) => {
                       const isHighlighted = highlightId && (
                         slot.teamId?.toUpperCase().includes(highlightId) || 
                         slot.teamName?.toUpperCase().includes(highlightId) ||
@@ -306,45 +309,58 @@ export default function BookingStatusPage({
                           }`}
                         >
                           <div className="flex items-start justify-between">
+                            <div className="flex flex-col items-center mr-6 border-r border-white/5 pr-6">
+                              <span className="text-[8px] font-black text-white/20 uppercase tracking-widest mb-1">RANK</span>
+                              <span className="text-3xl font-black text-white/10 italic leading-none">#{index + 1}</span>
+                            </div>
                             <div className="flex-1 min-w-0">
-                              <div className="flex flex-wrap items-center gap-2 mb-2">
-                                <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
-                                  REGISTERED
-                                </span>
+                              <div className="flex flex-wrap items-center gap-3 mb-4">
+                                {/* PRIMARY REGISTRATION STATUS */}
+                                <div className="flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded-xl border border-emerald-500/20 shadow-sm">
+                                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                  <span className="text-[10px] font-black uppercase tracking-widest">REGISTERED</span>
+                                </div>
+
+                                {/* PAYMENT STATUS - MAKE IT PROPER */}
                                 {slot.paymentVerified ? (
-                                  <span className="text-[9px] font-black text-blue-400 uppercase tracking-widest bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-500/20 flex items-center gap-1">
-                                    <ShieldCheck size={10} />
-                                    VERIFIED
-                                  </span>
+                                  <div className="flex items-center gap-2 bg-blue-600 text-white px-3 py-1.5 rounded-xl shadow-lg shadow-blue-600/20">
+                                    <ShieldCheck size={12} strokeWidth={3} />
+                                    <span className="text-[10px] font-black uppercase tracking-widest">VERIFIED</span>
+                                  </div>
                                 ) : (
-                                  <span className="text-[9px] font-black text-orange-400 uppercase tracking-widest bg-orange-500/10 px-2 py-0.5 rounded-md border border-orange-500/20">
-                                    PENDING
-                                  </span>
+                                  <div className="flex items-center gap-2 bg-orange-500/10 text-orange-500 px-3 py-1.5 rounded-xl border border-orange-500/30">
+                                    <Clock size={12} />
+                                    <span className="text-[10px] font-black uppercase tracking-widest italic">AWAITING PAY.</span>
+                                  </div>
                                 )}
+
+                                {/* CHECK-IN STATUS */}
                                 {slot.checkedIn && (
-                                  <span className="text-[8px] font-black bg-emerald-500 text-white px-2 py-0.5 rounded-md uppercase tracking-widest">
-                                    In Terminal
+                                  <div className="flex items-center gap-2 bg-white text-slate-950 px-3 py-1.5 rounded-xl shadow-xl">
+                                    <UserCheck size={12} strokeWidth={3} />
+                                    <span className="text-[10px] font-black uppercase tracking-widest">IN TERMINAL</span>
+                                  </div>
+                                )}
+                              </div>
+                              
+                              <h3 className="text-xl font-black text-white uppercase tracking-tight truncate leading-tight mb-1">
+                                {slot.teamName}
+                              </h3>
+                              <div className="flex items-center gap-3">
+                                <p className="text-xs font-black text-white/60 uppercase tracking-[0.2em] italic font-serif">
+                                  {slot.teamId}
+                                </p>
+                                {slot.transactionId && (
+                                  <span className="text-[9px] font-mono text-white/20 bg-white/5 px-2 py-0.5 rounded border border-white/5 uppercase tracking-tighter">
+                                    UTR: {slot.transactionId}
                                   </span>
                                 )}
                               </div>
                               
-                              <h3 className="text-lg font-black text-white uppercase tracking-tight truncate leading-tight mb-1">
-                                {slot.teamName}
-                              </h3>
-                              <p className="text-[11px] font-black text-white/60 uppercase tracking-[0.2em] italic font-serif">
-                                {slot.teamId}
-                              </p>
                               {slot.timestamp && (
-                                <div className="flex items-center gap-1.5 mt-2 opacity-40">
-                                  <Clock size={10} />
+                                <div className="flex items-center gap-1.5 mt-3 text-white/30">
+                                  <Calendar size={10} />
                                   <span className="text-[8px] font-black uppercase tracking-widest">{slot.timestamp}</span>
-                                </div>
-                              )}
-
-                              {!slot.paymentVerified && (
-                                <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-orange-500/10 border border-orange-500/20">
-                                  <Activity size={12} className="text-orange-500 animate-pulse" />
-                                  <span className="text-[9px] font-black text-orange-400 uppercase tracking-widest">Awaiting Verification Signal</span>
                                 </div>
                               )}
                             </div>

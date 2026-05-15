@@ -86,7 +86,9 @@ export default function SlotBookingPage({ onBack }) {
         setIsProcessing(false);
         return;
       }
-      const generatedId = `C4C-${Date.now().toString().slice(-6)}`;
+      const allRegs = await getDocs(collection(db, "registrations"));
+      const nextNumber = allRegs.size + 1;
+      const generatedId = `TEAM-${String(nextNumber).padStart(3, '0')}`;
       setVerifiedTeam({ teamName: teamInput.trim(), teamId: generatedId });
       setStep("DOMAIN");
     } catch (err) {
