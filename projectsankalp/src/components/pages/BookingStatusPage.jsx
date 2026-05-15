@@ -272,7 +272,7 @@ export default function BookingStatusPage({
                   <div className="flex items-center gap-3">
                     <div className={`w-2 h-8 rounded-full ${domain.accent}`} />
                     <div>
-                      <h2 className="text-lg font-black tracking-tight text-white uppercase italic font-serif">
+                      <h2 className="text-lg tracking-tight text-[#ffffff] uppercase italic font-serif">
                         {domain.title}
                       </h2>
                       <span className="text-[9px] font-black text-white/20 uppercase tracking-[0.3em]">

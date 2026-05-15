@@ -317,7 +317,7 @@ export default function PaymentVerificationPage({
                 {/* Domain Header */}
                 <div className="flex items-center justify-between px-4 mb-6">
                   <div>
-                    <h3 className="text-lg font-black tracking-tight uppercase leading-none text-slate-900">
+                    <h3 className="text-lg tracking-tight uppercase leading-none text-[#ffffff]">
                       {domain.title}
                     </h3>
                     <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest mt-1 block">
