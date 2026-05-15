@@ -181,6 +181,11 @@ export default function BookingStatusPage({
       domainSlots = domainSlots.filter((s) => s.checkedIn);
     }
 
+    // Filter by Domain (Technical Sector)
+    if (domainFilter && domainFilter !== "") {
+      domainSlots = domainSlots.filter((s) => s.selectedDomain === domainFilter);
+    }
+
     // Sort
     return [...domainSlots].sort((a, b) => {
       if (!a.teamId) return 1;
