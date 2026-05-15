@@ -50,7 +50,7 @@ const GOOGLE_SHEETS_WEBHOOK = import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK;
 export default function SlotBookingPage({ onBack }) {
   const [step, setStep] = useState("VERIFY"); // VERIFY, DOMAIN, PAYMENT, SUCCESS
   const [teamInput, setTeamInput] = useState("");
-  const [verifiedTeam, setVerifiedTeam] = useState(null);
+  const [ verifiedTeam, setVerifiedTeam] = useState(null);
   const [selectedDomain, setSelectedDomain] = useState(null);
   const [transactionId, setTransactionId] = useState("");
   const [screenshot, setScreenshot] = useState(null);
@@ -87,7 +87,19 @@ export default function SlotBookingPage({ onBack }) {
         return;
       }
       const allRegs = await getDocs(collection(db, "registrations"));
-      const nextNumber = allRegs.size + 1;
+      
+      let maxNumber = 0;
+      allRegs.forEach((doc) => {
+        const teamId = doc.data().teamId;
+        if (teamId && teamId.startsWith("TEAM-")) {
+          const num = parseInt(teamId.split("-")[1]);
+          if (!isNaN(num) && num > maxNumber) {
+            maxNumber = num;
+          }
+        }
+      });
+
+      const nextNumber = maxNumber + 1;
       const generatedId = `TEAM-${String(nextNumber).padStart(3, '0')}`;
       setVerifiedTeam({ teamName: teamInput.trim(), teamId: generatedId });
       setStep("DOMAIN");
