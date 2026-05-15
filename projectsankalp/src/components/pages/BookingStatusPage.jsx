@@ -8,9 +8,8 @@ import {
   Activity,
   Trash2,
   X,
-  Zap,
-  Search as SearchIcon,
   UserCheck,
+  Search as SearchIcon,
   ShieldCheck,
   Scan,
   AlertCircle,
@@ -285,7 +284,6 @@ export default function BookingStatusPage({
               onClick={() => onNavigate && onNavigate("payment")}
               className="h-10 md:h-12 px-3 md:px-5 bg-blue-500 text-white rounded-xl md:rounded-2xl text-[8px] md:text-[10px] font-black uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-blue-500/20"
             >
-              <Zap size={14} />
               <span className="hidden lg:inline">Payments</span>
             </motion.button>
 
@@ -295,7 +293,6 @@ export default function BookingStatusPage({
               onClick={() => onNavigate && onNavigate("registration")}
               className="h-10 md:h-12 px-3 md:px-5 bg-emerald-500 text-white rounded-xl md:rounded-2xl text-[8px] md:text-[10px] font-black uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-emerald-500/20"
             >
-              <UserCheck size={14} />
               <span className="hidden lg:inline">Check-In</span>
             </motion.button>
 
