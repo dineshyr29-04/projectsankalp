@@ -85,11 +85,10 @@ const TimeUnit = ({ value, label }) => {
   );
 };
 
-const TIER_1_DATE = new Date("2026-05-15T23:59:59+05:30");
-const TIER_2_DATE = new Date("2026-05-17T23:59:59+05:30");
+const TARGET_DATE = new Date("2026-05-25T00:00:00+05:30");
 
 export default function HeroTimer() {
-  const [targetDate, setTargetDate] = useState(TIER_1_DATE);
+  const [targetDate, setTargetDate] = useState(TARGET_DATE);
   const [timeLeft, setTimeLeft] = useState({
     days: "00",
     hours: "00",
@@ -98,6 +97,7 @@ export default function HeroTimer() {
   });
   const [isFirebaseOverriding, setIsFirebaseOverriding] = useState(false);
 
+  /*
   useEffect(() => {
     if (!db) return;
     const unsub = onSnapshot(doc(db, "settings", "timer"), (snap) => {
@@ -111,21 +111,12 @@ export default function HeroTimer() {
     });
     return () => unsub();
   }, []);
+  */
 
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = targetDate.getTime() - now;
-
-      // Tier rollover logic: If tier 1 ends, automatically switch to tier 2
-      if (
-        distance <= 0 &&
-        !isFirebaseOverriding &&
-        targetDate.getTime() === TIER_1_DATE.getTime()
-      ) {
-        setTargetDate(TIER_2_DATE);
-        return;
-      }
 
       if (distance <= 0) {
         setTimeLeft({ days: "00", hours: "00", minutes: "00", seconds: "00" });
@@ -149,7 +140,7 @@ export default function HeroTimer() {
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [targetDate, isFirebaseOverriding]);
+  }, [targetDate]);
 
   return (
     <motion.div

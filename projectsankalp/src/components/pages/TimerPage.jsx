@@ -92,7 +92,7 @@ const TimeUnit = ({ value, label }) => {
 
 export default function TimerPage() {
   const [targetDate, setTargetDate] = useState(
-    new Date("2026-05-15T23:59:59+05:30"),
+    new Date("2026-05-25T00:00:00+05:30"),
   );
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -103,7 +103,8 @@ export default function TimerPage() {
   const [showControls, setShowControls] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
-  // ── FIREBASE SYNC ──
+  // ── FIREBASE SYNC (DISABLED TO PREVENT OVERRIDE) ──
+  /*
   useEffect(() => {
     if (!db) return;
     const unsub = onSnapshot(doc(db, "settings", "timer"), (doc) => {
@@ -116,6 +117,7 @@ export default function TimerPage() {
     });
     return () => unsub();
   }, []);
+  */
 
   // ── TIMER LOGIC ──
   useEffect(() => {
