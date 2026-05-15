@@ -26,7 +26,6 @@ const RegistrationCheckInPage = lazy(() => import("./components/pages/Registrati
 const TeamPage = lazy(() => import("./components/pages/TeamPage"));
 const WinnersPage = lazy(() => import("./components/pages/WinnersPage"));
 const AdminLoginPage = lazy(() => import("./components/pages/AdminLoginPage"));
-const StatusCheckPage = lazy(() => import("./components/pages/StatusCheckPage"));
 import { db } from "./lib/firebase";
 import { startExportSync } from "./lib/exportSync";
 import {
@@ -80,7 +79,10 @@ function App() {
 
   // ── ROUTING LOGIC ──
   const navigate = (view) => {
-    const slug = view === "landing" ? "/" : `/${view}`;
+    // Payment and Registration are now sub-views of Terminal
+    const isAdminSubView = ["payment", "registration"].includes(view);
+    const slug = view === "landing" ? "/" : (isAdminSubView ? "/terminal" : `/${view}`);
+    
     window.history.pushState({ view }, "", slug);
     setCurrentView(view);
     window.scrollTo(0, 0);
@@ -105,8 +107,6 @@ function App() {
       "booking",
       "terminal",
       "timer",
-      "payment",
-      "registration",
       "status",
     ];
     const normalizedPath = path.toLowerCase();
@@ -334,7 +334,7 @@ function App() {
             <BackToTop />
 
             <main className="flex-grow">
-              <Suspense fallback={<Loader />}>
+              <Suspense fallback={<div className="min-h-[80vh] flex items-center justify-center"><Loader /></div>}>
               <AnimatePresence mode="wait">
                 {currentView === "landing" && (
                   <motion.div
@@ -460,9 +460,7 @@ function App() {
                             onCheckIn={handleCheckIn}
                           />
                         )}
-                        {currentView === "status" && (
-                          <StatusCheckPage onBack={goBack} />
-                        )}
+                        
                       </>
                     )}
                   </motion.div>

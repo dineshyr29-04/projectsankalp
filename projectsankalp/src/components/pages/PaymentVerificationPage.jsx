@@ -342,6 +342,7 @@ export default function PaymentVerificationPage({
                       </p>
                     </div>
                   ) : (
+                    domainTeams.map((team) => (
                       <motion.div
                         key={team.id}
                         layout
@@ -476,7 +477,9 @@ export default function PaymentVerificationPage({
             );
           })}
         </div>
+
       </Container>
+      
 
       {/* VERIFICATION MODAL */}
       <AnimatePresence>
