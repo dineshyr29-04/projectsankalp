@@ -45,7 +45,6 @@ export default function SlotBookingPage({ onBack }) {
   const [teamInput, setTeamInput] = useState("");
   const [verifiedTeam, setVerifiedTeam] = useState(null);
   const [selectedDomain, setSelectedDomain] = useState(null);
-  const [isConfirming, setIsConfirming] = useState(false);
   const [transactionId, setTransactionId] = useState("");
   const [screenshot, setScreenshot] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -53,22 +52,6 @@ export default function SlotBookingPage({ onBack }) {
   const [error, setError] = useState("");
   const [domainSlots, setDomainSlots] = useState({});
   const ticketRef = useRef(null);
-
-  const handleDownloadTicket = async () => {
-    if (ticketRef.current === null) return;
-    try {
-      const dataUrl = await toPng(ticketRef.current, { 
-        cacheBust: true,
-        backgroundColor: '#050505',
-      });
-      const link = document.createElement('a');
-      link.download = `SANKALP_TICKET_${verifiedTeam?.teamId || 'ENTRY'}.png`;
-      link.href = dataUrl;
-      link.click();
-    } catch (err) {
-      console.error('Download failed', err);
-    }
-  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -100,7 +83,7 @@ export default function SlotBookingPage({ onBack }) {
       const q = query(collection(db, "registrations"), where("teamNameLower", "==", normalized));
       const snap = await getDocs(q);
       if (!snap.empty) {
-        setError("REGISTRY CONFLICT: NAME ALREADY CLAIMED");
+        setError("TEAM NAME ALREADY REGISTERED");
         setIsProcessing(false);
         return;
       }
@@ -108,88 +91,44 @@ export default function SlotBookingPage({ onBack }) {
       setVerifiedTeam({ teamName: teamInput.trim(), teamId: generatedId });
       setStep("DOMAIN");
     } catch (err) {
-      setError("SYSTEM OFFLINE");
+      setError("CONNECTION ERROR");
     } finally {
       setIsProcessing(false);
     }
   };
 
-  const compressImage = (file) => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (event) => {
-        const img = new Image();
-        img.src = event.target.result;
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const MAX_WIDTH = 800;
-          let width = img.width;
-          let height = img.height;
-          if (width > MAX_WIDTH) {
-            height *= MAX_WIDTH / width;
-            width = MAX_WIDTH;
-          }
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          resolve(canvas.toDataURL('image/jpeg', 0.5));
-        };
-      };
-    });
-  };
-
-  const handleSubmit = async () => {
-    if (!transactionId || !screenshot) {
-      setError("DATA REQUIRED");
-      return;
-    }
-    setIsProcessing(true);
-    setError("");
-    setUploadProgress(10);
+  const handleDownloadTicket = async () => {
+    if (ticketRef.current === null) return;
     try {
-      const base64Image = await compressImage(screenshot);
-      setUploadProgress(50);
-      const teamNameLower = verifiedTeam.teamName.trim().toLowerCase();
-      const payload = {
-        teamId: verifiedTeam.teamId,
-        teamName: verifiedTeam.teamName,
-        teamNameLower,
-        selectedDomain: selectedDomain.id,
-        transactionId: transactionId,
-        paymentStatus: "PENDING",
-        imageUrl: base64Image,
-        timestamp: new Date().toLocaleString()
-      };
-      await addDoc(collection(db, "registrations"), { ...payload, createdAt: serverTimestamp() });
-      setUploadProgress(100);
-      setStep("SUCCESS");
-    } catch (err) {
-      setError("SUBMISSION ERROR");
-    } finally {
-      setIsProcessing(false);
-    }
+      const dataUrl = await toPng(ticketRef.current, { cacheBust: true, backgroundColor: '#FFFFFF' });
+      const link = document.createElement('a');
+      link.download = `SANKALP_TICKET_${verifiedTeam?.teamId}.png`;
+      link.href = dataUrl;
+      link.click();
+    } catch (err) {}
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-white selection:text-black overflow-hidden relative">
-      {/* Background Atmosphere */}
-      <div className="fixed inset-0 z-0 opacity-20 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500/10 blur-[150px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-500/10 blur-[150px] rounded-full" />
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-slate-900 selection:text-white relative overflow-hidden">
+      {/* Professional Structural Grid */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)`, backgroundSize: '100px 100px' }} />
       </div>
 
-      <Container full className="relative z-10 px-8">
-        {/* Minimal Nav */}
-        <div className="fixed top-12 left-12 right-12 flex justify-between items-center z-50 mix-blend-difference">
-          <button onClick={() => onBack()} className="text-[10px] font-black tracking-[0.5em] uppercase opacity-40 hover:opacity-100 transition-opacity">
+      <Container full className="relative z-10 px-6 md:px-12 mx-auto max-w-6xl">
+        {/* Professional Nav */}
+        <div className="fixed top-8 left-8 right-8 flex justify-between items-center z-50">
+          <button onClick={onBack} className="text-[10px] font-black tracking-[0.4em] uppercase border-b-2 border-slate-900 pb-1">
             [ EXIT ]
           </button>
-          <div className="flex gap-4">
-             {["VERIFY", "DOMAIN", "PAYMENT", "SUCCESS"].map((s, idx) => (
-               <div key={s} className={`w-1 h-1 rounded-full ${step === s ? "bg-white" : "bg-white/10"}`} />
-             ))}
+          <div className="flex items-center gap-6">
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">REGISTRATION PHASE</span>
+            <div className="h-[2px] w-12 bg-slate-100 relative">
+               <motion.div 
+                 animate={{ width: step === "VERIFY" ? "25%" : step === "DOMAIN" ? "50%" : step === "PAYMENT" ? "75%" : "100%" }}
+                 className="absolute inset-y-0 left-0 bg-slate-900"
+               />
+            </div>
           </div>
         </div>
 
@@ -197,52 +136,44 @@ export default function SlotBookingPage({ onBack }) {
           {step === "VERIFY" && (
             <motion.div
               key="verify"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="min-h-screen flex flex-col justify-center max-w-5xl"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="min-h-screen flex flex-col justify-center pt-20"
             >
-              <div className="space-y-4 mb-20">
-                <span className="text-[10px] font-black uppercase tracking-[0.8em] text-white/20">REGISTRY INITIALIZATION</span>
-                <h1 className="text-[12vw] md:text-[8vw] font-serif font-black italic leading-[0.9] tracking-tighter">
-                  Who is <br /> Entering?
+              <div className="max-w-3xl">
+                <span className="text-[11px] font-black uppercase tracking-[0.6em] text-slate-300 mb-6 block">STEP_01 // IDENTITY</span>
+                <h1 className="text-5xl md:text-7xl font-serif font-black italic tracking-tighter text-slate-900 mb-12 leading-none">
+                  Registry <br /> Initialization.
                 </h1>
-              </div>
+                
+                <div className="relative pt-8">
+                  <input
+                    type="text"
+                    placeholder="ENTER TEAM NAME"
+                    value={teamInput}
+                    onChange={(e) => setTeamInput(e.target.value.toUpperCase())}
+                    onKeyDown={(e) => e.key === 'Enter' && handleVerify()}
+                    className="w-full bg-transparent border-none text-4xl md:text-5xl font-serif font-black italic tracking-tight focus:outline-none placeholder:text-slate-100 uppercase"
+                    autoFocus
+                  />
+                  <div className="h-[2px] w-full bg-slate-100 mt-4 relative">
+                    <motion.div animate={{ width: teamInput ? "100%" : "0%" }} className="absolute inset-y-0 left-0 bg-slate-900" />
+                  </div>
+                </div>
 
-              <div className="relative group">
-                <input
-                  type="text"
-                  placeholder="TEAM_NAME"
-                  value={teamInput}
-                  onChange={(e) => setTeamInput(e.target.value.toUpperCase())}
-                  onKeyDown={(e) => e.key === 'Enter' && handleVerify()}
-                  className="w-full bg-transparent border-none text-[8vw] md:text-[6vw] font-serif font-black italic tracking-tighter focus:outline-none placeholder:text-white/5 uppercase"
-                  autoFocus
-                />
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: "100%" }}
-                  className="h-[2px] bg-white/10 absolute bottom-0"
-                />
-                <motion.div 
-                  animate={{ width: teamInput ? "100%" : "0%" }}
-                  className="h-[2px] bg-white absolute bottom-0"
-                />
-              </div>
+                {error && <p className="mt-6 text-red-500 text-[10px] font-black uppercase tracking-widest">{error}</p>}
 
-              {error && <p className="mt-8 text-red-500 text-[10px] font-black tracking-widest uppercase">{error}</p>}
-
-              <div className="mt-20">
-                <button
-                  onClick={handleVerify}
-                  disabled={!teamInput || isProcessing}
-                  className="group flex items-center gap-8 text-[11px] font-black uppercase tracking-[0.6em] disabled:opacity-20"
-                >
-                  <span className="group-hover:translate-x-4 transition-transform duration-500">
-                    {isProcessing ? "PROCESSING..." : "CONTINUE TO SECTOR SELECTION"}
-                  </span>
-                  <span className="text-4xl group-hover:translate-x-8 transition-transform duration-500">→</span>
-                </button>
+                <div className="mt-16">
+                  <button
+                    onClick={handleVerify}
+                    disabled={!teamInput || isProcessing}
+                    className="group flex items-center gap-6 text-[11px] font-black uppercase tracking-[0.4em] disabled:opacity-20 hover:text-emerald-600 transition-colors"
+                  >
+                    <span>{isProcessing ? "PROCESSING..." : "CONTINUE TO SELECTION"}</span>
+                    <span className="text-3xl transition-transform group-hover:translate-x-2">→</span>
+                  </button>
+                </div>
               </div>
             </motion.div>
           )}
@@ -253,17 +184,21 @@ export default function SlotBookingPage({ onBack }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="min-h-screen pt-48 pb-20"
+              className="min-h-screen pt-48 pb-32"
             >
-              <div className="mb-32">
-                <span className="text-[10px] font-black uppercase tracking-[0.8em] text-white/20">DEPLOYMENT SECTORS</span>
-                <h2 className="text-7xl md:text-9xl font-serif font-black italic tracking-tighter leading-none mt-4">
-                  The Mission.
-                </h2>
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-24 border-b-2 border-slate-900 pb-12">
+                <div>
+                  <span className="text-[11px] font-black uppercase tracking-[0.6em] text-slate-300 mb-4 block">STEP_02 // DEPLOYMENT</span>
+                  <h2 className="text-5xl md:text-7xl font-serif font-black italic tracking-tighter leading-none">The Mission.</h2>
+                </div>
+                <div className="text-right">
+                  <span className="block text-[9px] font-black tracking-widest text-slate-300 uppercase mb-2">ACTIVE SESSION</span>
+                  <span className="text-2xl font-serif font-black italic">{verifiedTeam?.teamName}</span>
+                </div>
               </div>
 
-              <div className="space-y-0 border-t border-white/10">
-                {DOMAINS.map((domain, index) => {
+              <div className="space-y-0">
+                {DOMAINS.map((domain) => {
                   const slotsLeft = domainSlots[domain.id] ?? domain.slotsTotal;
                   const isFull = slotsLeft <= 0;
                   const isSelected = selectedDomain?.id === domain.id;
@@ -272,33 +207,33 @@ export default function SlotBookingPage({ onBack }) {
                     <button
                       key={domain.id}
                       onClick={() => !isFull && setSelectedDomain(domain)}
-                      className={`w-full group py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between border-b border-white/10 transition-all duration-700 relative overflow-hidden ${isFull ? "opacity-20" : "hover:bg-white hover:text-black"}`}
+                      className={`w-full text-left py-10 md:py-12 border-b border-slate-100 transition-all duration-500 flex flex-col md:flex-row md:items-center justify-between group ${isFull ? "opacity-20" : "hover:pl-4"}`}
                     >
-                      <div className="flex items-baseline gap-12 relative z-10">
-                        <span className="text-xl md:text-2xl font-serif font-black italic opacity-20 group-hover:opacity-100 transition-opacity">0{index + 1}</span>
-                        <h3 className="text-5xl md:text-7xl font-serif font-black italic tracking-tighter transition-all duration-500 group-hover:pl-8">
+                      <div className="flex items-baseline gap-10">
+                        <span className="text-xl font-serif font-black italic opacity-10 group-hover:opacity-100 transition-opacity">{domain.code}</span>
+                        <h3 className={`text-4xl md:text-5xl font-serif font-black italic tracking-tight transition-colors ${isSelected ? "text-emerald-600" : "text-slate-900"}`}>
                           {domain.title}
                         </h3>
                       </div>
                       
-                      <div className="mt-8 md:mt-0 flex flex-col items-start md:items-end gap-2 relative z-10">
-                        <span className="text-[9px] font-black tracking-[0.4em] uppercase opacity-40 group-hover:opacity-100 transition-opacity">
-                          {isFull ? "SECTOR_CAPACITY_REACHED" : `${slotsLeft} SLOTS_AVAILABLE`}
+                      <div className="mt-4 md:mt-0 flex items-center gap-8">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                          {isFull ? "CAPACITY FULL" : `${slotsLeft} SLOTS LEFT`}
                         </span>
-                        {isSelected && <span className="text-[10px] font-black uppercase tracking-widest bg-emerald-500 text-white px-4 py-1">[ SELECTED ]</span>}
+                        {isSelected && <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />}
                       </div>
                     </button>
                   );
                 })}
               </div>
 
-              <div className="mt-32 flex justify-center">
+              <div className="mt-24 flex justify-end">
                 <button
                   onClick={() => setStep("PAYMENT")}
                   disabled={!selectedDomain}
-                  className={`px-20 py-8 border-2 border-white font-black uppercase tracking-[0.6em] text-[12px] transition-all duration-700 ${selectedDomain ? "hover:bg-white hover:text-black" : "opacity-10 cursor-not-allowed"}`}
+                  className={`px-16 py-6 bg-slate-900 text-white font-black uppercase tracking-[0.4em] text-[11px] transition-all ${selectedDomain ? "hover:bg-emerald-600 shadow-xl" : "opacity-10"}`}
                 >
-                  INITIALIZE PAYMENT GATEWAY
+                  PROCEED TO VERIFICATION
                 </button>
               </div>
             </motion.div>
@@ -310,51 +245,48 @@ export default function SlotBookingPage({ onBack }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="min-h-screen flex flex-col justify-center"
+              className="min-h-screen pt-48 pb-32"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-20 md:gap-40 items-center">
-                <div className="space-y-12">
-                   <div>
-                     <span className="text-[10px] font-black uppercase tracking-[0.8em] text-white/20">CREDIT VERIFICATION</span>
-                     <h2 className="text-7xl md:text-9xl font-serif font-black italic tracking-tighter leading-none mt-4">
-                       Secure.
-                     </h2>
-                   </div>
-                   
-                   <div className="space-y-4">
-                     <p className="text-[14px] font-black uppercase tracking-[0.4em] leading-relaxed opacity-40">
-                       TRANSFER FEE OF <span className="text-white opacity-100">{REGISTRATION_FEE}</span> TO THE PROTOCOL ADDRESS. SCAN TO AUTHORIZE.
-                     </p>
-                     <div className="bg-white p-6 inline-block">
-                        <img src="/payment_qr.png" alt="QR" className="w-48 h-48 grayscale" />
-                     </div>
-                   </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-24">
+                <div>
+                  <span className="text-[11px] font-black uppercase tracking-[0.6em] text-slate-300 mb-6 block">STEP_03 // VERIFICATION</span>
+                  <h2 className="text-5xl md:text-7xl font-serif font-black italic tracking-tighter text-slate-900 mb-12 leading-none">Secure Pay.</h2>
+                  
+                  <div className="space-y-12">
+                    <div className="p-8 border-2 border-slate-900 inline-block bg-white">
+                      <img src="/payment_qr.png" alt="QR" className="w-48 h-48 grayscale" />
+                    </div>
+                    <div className="space-y-2">
+                       <span className="text-5xl font-serif font-black italic text-slate-900">{REGISTRATION_FEE}</span>
+                       <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">REGISTRATION FEE REQUIREMENT</p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-16">
-                  <div className="space-y-8">
-                    <div className="group relative">
-                      <label className="text-[10px] font-black uppercase tracking-[0.6em] text-white/20 mb-4 block">TRANSACTION_HASH</label>
+                <div className="flex flex-col justify-end space-y-16">
+                  <div className="space-y-10">
+                    <div className="relative">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">UTR TRANSACTION ID</label>
                       <input 
                         type="text" 
-                        placeholder="ENTER UTR ID"
+                        placeholder="ENTER ID"
                         value={transactionId}
                         onChange={(e) => setTransactionId(e.target.value.toUpperCase())}
-                        className="w-full bg-transparent border-b-2 border-white/10 py-6 text-3xl font-serif font-black italic tracking-widest focus:border-white outline-none transition-all uppercase placeholder:text-white/5"
+                        className="w-full bg-transparent border-b-2 border-slate-100 py-4 text-2xl font-serif font-black italic tracking-widest focus:border-slate-900 outline-none transition-all uppercase placeholder:text-slate-100"
                       />
                     </div>
 
-                    <div className="space-y-6">
-                      <label className="text-[10px] font-black uppercase tracking-[0.6em] text-white/20 block">PROOF_OF_TRANSFER</label>
-                      <label className="relative flex items-center gap-8 cursor-pointer group">
-                        <div className="w-20 h-20 border-2 border-white/10 flex items-center justify-center group-hover:border-white transition-all">
-                          {screenshot ? <span className="text-emerald-500 font-bold">✓</span> : <span className="text-2xl font-serif font-black italic opacity-20">+</span>}
+                    <div className="space-y-4">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block">PAYMENT PROOF</label>
+                      <label className="flex items-center gap-6 cursor-pointer group">
+                        <div className="w-16 h-16 border-2 border-slate-100 flex items-center justify-center group-hover:border-slate-900 transition-all">
+                          {screenshot ? <span className="text-emerald-500 font-bold">OK</span> : <span className="text-2xl font-serif font-black italic opacity-10">+</span>}
                         </div>
                         <div>
-                          <span className="block text-[11px] font-black uppercase tracking-[0.4em] mb-1">
-                            {screenshot ? screenshot.name : "ATTACH_SCREENSHOT"}
+                          <span className="block text-[11px] font-black uppercase tracking-widest">
+                            {screenshot ? screenshot.name : "ATTACH RECEIPT"}
                           </span>
-                          <span className="block text-[9px] font-bold text-white/20 uppercase tracking-widest">MAX_SIZE 5MB // JPEG_PNG</span>
+                          <span className="block text-[9px] font-bold text-slate-300 uppercase tracking-widest">MAX 5MB // PNG, JPG</span>
                         </div>
                         <input type="file" accept="image/*" className="hidden" onChange={(e) => setScreenshot(e.target.files[0])} />
                       </label>
@@ -364,11 +296,11 @@ export default function SlotBookingPage({ onBack }) {
                   <button
                     onClick={handleSubmit}
                     disabled={!transactionId || !screenshot || isProcessing}
-                    className="w-full py-10 bg-white text-black font-black uppercase tracking-[0.8em] text-[12px] hover:bg-emerald-500 transition-all duration-700 disabled:opacity-10"
+                    className="w-full py-8 bg-slate-900 text-white font-black uppercase tracking-[0.4em] text-[12px] hover:bg-emerald-600 transition-all disabled:opacity-10"
                   >
-                    {isProcessing ? `UPLOADING [ ${uploadProgress}% ]` : "FINALIZE RESERVATION"}
+                    {isProcessing ? "PROCESSING..." : "FINALIZE REGISTRATION"}
                   </button>
-                  {error && <p className="text-red-500 text-[10px] font-black tracking-widest uppercase text-center">{error}</p>}
+                  {error && <p className="text-red-500 text-[10px] font-black uppercase tracking-widest text-center">{error}</p>}
                 </div>
               </div>
             </motion.div>
@@ -381,48 +313,43 @@ export default function SlotBookingPage({ onBack }) {
               animate={{ opacity: 1 }}
               className="min-h-screen flex flex-col justify-center items-center text-center"
             >
-              <div ref={ticketRef} className="bg-[#050505] p-12 md:p-20 relative max-w-xl w-full border border-white/5">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-12 bg-white/20" />
-                
-                <div className="mb-16">
-                  <span className="text-[10px] font-black uppercase tracking-[0.8em] text-white/20 block mb-10">IDENTITY_VERIFIED</span>
-                  <h1 className="text-7xl md:text-9xl font-serif font-black italic tracking-tighter leading-none mb-6">Locked.</h1>
+              <div ref={ticketRef} className="bg-white border-8 border-slate-900 p-12 md:p-16 max-w-lg w-full relative">
+                <div className="mb-12">
+                  <span className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-300 block mb-6">ENTRY TOKEN SECURED</span>
+                  <h1 className="text-6xl md:text-7xl font-serif font-black italic tracking-tighter leading-none mb-4">Confirmed.</h1>
                 </div>
 
-                <div className="flex flex-col items-center gap-12">
-                   <div className="bg-white p-4">
+                <div className="flex flex-col items-center gap-10">
+                   <div className="p-4 border-2 border-slate-100">
                      <QRCodeSVG 
                         value={`${window.location.origin}/status?teamId=${verifiedTeam?.teamId}`}
-                        size={150}
+                        size={160}
                         level="H"
                       />
                    </div>
                    
-                   <div className="w-full flex justify-between border-t border-white/10 pt-12">
+                   <div className="w-full flex justify-between border-t-2 border-slate-900 pt-10">
                      <div className="text-left">
-                       <span className="block text-[8px] font-black uppercase tracking-[0.4em] text-white/20 mb-2">IDENTIFIER</span>
-                       <span className="text-3xl font-serif font-black italic tracking-widest">{verifiedTeam?.teamId}</span>
+                       <span className="block text-[9px] font-black uppercase tracking-[0.4em] text-slate-300 mb-2">IDENTIFIER</span>
+                       <span className="text-2xl font-serif font-black italic">{verifiedTeam?.teamId}</span>
                      </div>
                      <div className="text-right">
-                       <span className="block text-[8px] font-black uppercase tracking-[0.4em] text-white/20 mb-2">SECTOR</span>
-                       <span className="text-3xl font-serif font-black italic tracking-widest">{selectedDomain?.code}</span>
+                       <span className="block text-[9px] font-black uppercase tracking-[0.4em] text-slate-300 mb-2">SECTOR</span>
+                       <span className="text-2xl font-serif font-black italic">{selectedDomain?.code}</span>
                      </div>
                    </div>
                 </div>
               </div>
 
-              <div className="mt-20 space-y-8 max-w-sm">
-                <p className="text-[11px] font-black uppercase tracking-[0.4em] leading-relaxed opacity-40">
-                  RESERVATION COMPLETE. SAVE THIS TOKEN FOR MISSION ACCESS.
-                </p>
+              <div className="mt-16 space-y-6 max-w-xs w-full">
                 <button
                   onClick={handleDownloadTicket}
-                  className="w-full py-8 border-2 border-white font-black uppercase tracking-[0.4em] text-[11px] hover:bg-white hover:text-black transition-all duration-700"
+                  className="w-full py-6 bg-slate-900 text-white font-black uppercase tracking-[0.4em] text-[11px] hover:invert transition-all"
                 >
-                  DOWNLOAD ACCESS TOKEN
+                  DOWNLOAD TOKEN
                 </button>
-                <button onClick={onBack} className="block w-full text-[9px] font-black uppercase tracking-[0.8em] opacity-20 hover:opacity-100 transition-opacity">
-                  RETURN_TO_HUB
+                <button onClick={onBack} className="block w-full text-[9px] font-black uppercase tracking-[0.4em] text-slate-300 hover:text-slate-900 transition-colors">
+                  [ HUB ]
                 </button>
               </div>
             </motion.div>
