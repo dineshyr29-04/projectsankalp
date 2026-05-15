@@ -304,7 +304,7 @@ export default function SlotBookingPage({ onBack }) {
                 <h2 className="text-3xl font-serif font-black italic tracking-tight mb-2">
                   Select Domain
                 </h2>
-                <p className="text-white/40 text-[10px] font-black uppercase tracking-widest">
+                <p className="text-white/60 text-[11px] font-black uppercase tracking-widest">
                   Active Session: {verifiedTeam?.teamName}
                 </p>
               </div>
@@ -328,7 +328,7 @@ export default function SlotBookingPage({ onBack }) {
                         <Check size={14} />
                       </div>
                     )}
-                    <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em] mb-3 group-hover:text-emerald-500 transition-colors">
+                    <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.4em] mb-3 group-hover:text-emerald-500 transition-colors">
                       Track {domain.code}
                     </span>
                     <h3 className="text-2xl font-serif font-black italic tracking-tight uppercase group-hover:scale-105 transition-transform duration-500">
@@ -394,7 +394,7 @@ export default function SlotBookingPage({ onBack }) {
                 {/* Inputs Container - Right Side */}
                 <div className="flex-1 flex flex-col gap-4">
                   <div className="bg-white/5 border-2 border-white/10 rounded-[32px] p-8 text-center group focus-within:border-emerald-500 transition-all flex-1 flex flex-col justify-center">
-                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-4 block group-focus-within:text-emerald-500">
+                    <label className="text-[11px] font-black uppercase tracking-[0.4em] text-white/40 mb-4 block group-focus-within:text-emerald-500">
                       UTR Transaction ID (12 CHARS)
                     </label>
                     <input

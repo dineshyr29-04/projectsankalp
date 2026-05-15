@@ -122,11 +122,11 @@ export default function StagesPage({ onBack }) {
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white font-sans overflow-hidden">
+    <div className="min-h-screen bg-white text-slate-950 font-sans overflow-hidden">
       {/* Background Atmosphere */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/10 blur-[120px] rounded-full" />
-        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-emerald-500/10 blur-[120px] rounded-full" />
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-emerald-500/5 blur-[120px] rounded-full" />
       </div>
 
       <AnimatePresence>
@@ -166,7 +166,7 @@ export default function StagesPage({ onBack }) {
                 ease: [0.22, 1, 0.36, 1],
               }}
               style={{ willChange: "transform, opacity" }}
-              className="w-full max-w-4xl h-fit min-h-fit flex flex-col bg-slate-900 rounded-[40px] shadow-2xl border border-white/10 z-10 relative mb-20 overflow-hidden"
+              className="w-full max-w-4xl h-fit min-h-fit flex flex-col bg-white rounded-[40px] shadow-[0_32px_128px_-32px_rgba(0,0,0,0.1)] border border-slate-100 z-10 relative mb-20 overflow-hidden"
             >
               <motion.div
                 layoutId={`image-${active.title}-${id}`}

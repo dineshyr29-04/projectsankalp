@@ -107,6 +107,9 @@ export default function BookingStatusPage({
       return []; // Hide if it doesn't match global filter
     }
 
+    // NEW: Remove empty "Standby" slots since there is no limit
+    domainSlots = domainSlots.filter(s => s.teamId);
+
     // Sort
     return [...domainSlots].sort((a, b) => {
       if (!a.teamId) return 1;
@@ -304,12 +307,19 @@ export default function BookingStatusPage({
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2 mb-2">
-                                <span className="text-[9px] font-black text-white/20 uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded-md">
-                                  #{String(slot.id).padStart(2, "0")}
+                              <div className="flex flex-wrap items-center gap-2 mb-2">
+                                <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
+                                  REGISTERED
                                 </span>
-                                {slot.paymentVerified && (
-                                  <ShieldCheck size={12} className="text-blue-500" />
+                                {slot.paymentVerified ? (
+                                  <span className="text-[9px] font-black text-blue-400 uppercase tracking-widest bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-500/20 flex items-center gap-1">
+                                    <ShieldCheck size={10} />
+                                    VERIFIED
+                                  </span>
+                                ) : (
+                                  <span className="text-[9px] font-black text-orange-400 uppercase tracking-widest bg-orange-500/10 px-2 py-0.5 rounded-md border border-orange-500/20">
+                                    PENDING
+                                  </span>
                                 )}
                                 {slot.checkedIn && (
                                   <span className="text-[8px] font-black bg-emerald-500 text-white px-2 py-0.5 rounded-md uppercase tracking-widest">
@@ -318,17 +328,17 @@ export default function BookingStatusPage({
                                 )}
                               </div>
                               
-                              <h3 className="text-base font-black text-white uppercase tracking-tight truncate leading-tight">
+                              <h3 className="text-lg font-black text-white uppercase tracking-tight truncate leading-tight mb-1">
                                 {slot.teamName}
                               </h3>
-                              <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mt-1 italic font-serif">
+                              <p className="text-[11px] font-black text-white/60 uppercase tracking-[0.2em] italic font-serif">
                                 {slot.teamId}
                               </p>
 
                               {!slot.paymentVerified && (
-                                <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20">
-                                  <Activity size={10} className="text-orange-500 animate-pulse" />
-                                  <span className="text-[8px] font-black text-orange-400 uppercase tracking-widest">Awaiting Verification</span>
+                                <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-orange-500/10 border border-orange-500/20">
+                                  <Activity size={12} className="text-orange-500 animate-pulse" />
+                                  <span className="text-[9px] font-black text-orange-400 uppercase tracking-widest">Awaiting Verification Signal</span>
                                 </div>
                               )}
                             </div>
