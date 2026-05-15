@@ -311,20 +311,16 @@ export default function SlotBookingPage({ onBack }) {
 
               <div className="space-y-4">
                 {DOMAINS.map((domain) => {
-                  const slotsLeft = domainSlots[domain.id] ?? domain.slotsTotal;
-                  const isFull = slotsLeft <= 0;
                   const isSelected = selectedDomain?.id === domain.id;
 
                   return (
                     <button
                       key={domain.id}
-                      onClick={() => !isFull && setSelectedDomain(domain)}
+                      onClick={() => setSelectedDomain(domain)}
                     className={`w-full p-8 rounded-[32px] border-2 transition-all duration-500 flex flex-col items-center text-center group relative overflow-hidden ${
                       isSelected 
                       ? "bg-emerald-500/10 border-emerald-500" 
-                      : isFull 
-                        ? "bg-white/5 border-white/5 opacity-40 grayscale" 
-                        : "bg-white/5 border-white/5 hover:border-white/20"
+                      : "bg-white/5 border-white/5 hover:border-white/20"
                     }`}
                   >
                     {isSelected && (
@@ -338,15 +334,6 @@ export default function SlotBookingPage({ onBack }) {
                     <h3 className="text-2xl font-serif font-black italic tracking-tight uppercase group-hover:scale-105 transition-transform duration-500">
                       {domain.title}
                     </h3>
-                    {isFull && (
-                      <div className="mt-4 flex items-center gap-2">
-                        <div className="h-1 w-8 rounded-full bg-red-500/50" />
-                        <p className="text-[9px] font-black text-red-500 uppercase tracking-widest">
-                          MISSION CLOSED
-                        </p>
-                        <div className="h-1 w-8 rounded-full bg-red-500/50" />
-                      </div>
-                    )}
                   </button>
                   );
                 })}
