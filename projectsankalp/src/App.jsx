@@ -439,14 +439,14 @@ function App() {
                       <AdminLoginPage 
                         onLogin={() => {
                           setIsAdminAuthenticated(true);
-                          // Redirect to terminal after login
                           navigate("terminal");
                         }} 
                         onBack={goBack} 
                       />
                     ) : (
                       <>
-                        {currentView === "terminal" && (
+                        {/* Render terminal if we are on terminal OR if we just logged in from admin-login */}
+                        {(currentView === "terminal" || currentView === "admin-login") && (
                           <BookingStatusPage
                             slots={globalSlots}
                             onBack={goBack}

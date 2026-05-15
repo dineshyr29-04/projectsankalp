@@ -9,32 +9,43 @@ export default function AdminLoginPage({ onLogin, onBack }) {
   const [passphrase, setPassphrase] = useState("");
   const [error, setError] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [attempts, setAttempts] = useState(0);
+  const [isLocked, setIsLocked] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (isLocked) return;
     setIsAuthenticating(true);
     
     try {
-      // SECURE HANDSHAKE: Fetch from dedicated security document
       const authRef = doc(db, "config", "admin");
       const authSnap = await getDoc(authRef);
       
       let masterKey = import.meta.env.VITE_ADMIN_MASTER_KEY || "ADMIN123";
+      if (authSnap.exists()) masterKey = authSnap.data().masterKey;
       
-      if (authSnap.exists()) {
-        masterKey = authSnap.data().masterKey;
-      }
+      const enteredKey = passphrase.trim();
+      const actualKey = String(masterKey).trim();
       
-      if (passphrase === masterKey) {
+      if (enteredKey === actualKey && actualKey !== "") {
         onLogin();
       } else {
-        throw new Error("Invalid Key");
+        throw new Error("INVALID");
       }
     } catch (err) {
+      const newAttempts = attempts + 1;
+      setAttempts(newAttempts);
       setError(true);
       setPassphrase("");
       setIsAuthenticating(false);
-      // Reset error after animation
+
+      if (newAttempts >= 3) {
+        setIsLocked(true);
+        setTimeout(() => {
+          setIsLocked(false);
+          setAttempts(0);
+        }, 10000); // 10 second lockout
+      }
+      
       setTimeout(() => setError(false), 2000);
     }
   };
@@ -73,33 +84,38 @@ export default function AdminLoginPage({ onLogin, onBack }) {
           </div>
 
           <form onSubmit={handleSubmit} className="w-full space-y-4">
-            <div className="relative group">
+            <motion.div 
+              animate={error ? { x: [-10, 10, -10, 10, 0] } : {}}
+              className="relative group"
+            >
               <div className={`absolute inset-0 bg-emerald-500/20 blur-xl rounded-3xl transition-opacity duration-500 ${isAuthenticating ? "opacity-100" : "opacity-0"}`} />
-              <div className={`relative bg-white/5 border-2 rounded-[32px] p-2 transition-all duration-300 ${error ? "border-red-500" : "border-white/10 group-focus-within:border-emerald-500"}`}>
+              <div className={`relative bg-white/5 border-2 rounded-[32px] p-2 transition-all duration-300 ${isLocked ? "border-red-900 bg-red-950/20" : error ? "border-red-500" : "border-white/10 group-focus-within:border-emerald-500"}`}>
                 <div className="flex items-center">
-                  <div className="w-14 h-14 flex items-center justify-center text-white/20">
+                  <div className={`w-14 h-14 flex items-center justify-center ${isLocked ? "text-red-500" : "text-white/20"}`}>
                     <Lock size={20} />
                   </div>
                   <input
                     type="password"
-                    placeholder="ENTER MASTER KEY"
+                    placeholder={isLocked ? "TERMINAL LOCKED" : "ENTER MASTER KEY"}
                     value={passphrase}
                     onChange={(e) => setPassphrase(e.target.value)}
-                    disabled={isAuthenticating}
-                    className="flex-1 bg-transparent border-none text-white font-serif font-black italic tracking-[0.4em] focus:ring-0 outline-none text-lg placeholder:text-white/5 placeholder:font-sans placeholder:font-black placeholder:tracking-widest"
+                    disabled={isAuthenticating || isLocked}
+                    className="flex-1 bg-transparent border-none text-white font-serif font-black italic tracking-[0.4em] focus:ring-0 outline-none text-lg placeholder:text-white/5 placeholder:font-sans placeholder:font-black placeholder:tracking-widest disabled:opacity-50"
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            {error && (
+            {(error || isLocked) && (
               <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="flex items-center justify-center gap-2 text-red-500 text-[10px] font-black uppercase tracking-widest"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex flex-col items-center gap-2"
               >
-                <AlertCircle size={14} />
-                <span>Authentication Failed</span>
+                <div className="flex items-center gap-2 text-red-500 text-[10px] font-black uppercase tracking-widest bg-red-500/10 px-4 py-2 rounded-full border border-red-500/20">
+                  <AlertCircle size={14} />
+                  <span>{isLocked ? "Security Protocol: Terminal Locked (10s)" : `Unauthorized Access Attempt (${attempts}/3)`}</span>
+                </div>
               </motion.div>
             )}
 
