@@ -21,7 +21,7 @@ export default function AdminLoginPage({ onLogin, onBack }) {
       const authRef = doc(db, "config", "admin");
       const authSnap = await getDoc(authRef);
       
-      let masterKey = import.meta.env.VITE_ADMIN_MASTER_KEY || "ADMIN123";
+      let masterKey = import.meta.env.VITE_ADMIN_MASTER_KEY;
       if (authSnap.exists()) masterKey = authSnap.data().masterKey;
       
       const enteredKey = passphrase.trim();
@@ -66,11 +66,6 @@ export default function AdminLoginPage({ onLogin, onBack }) {
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col items-center"
         >
-          {/* Security Shield */}
-          <div className="w-24 h-24 bg-white/5 border border-white/10 rounded-[40px] flex items-center justify-center mb-10 shadow-2xl relative group overflow-hidden">
-            <div className="absolute inset-0 bg-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <Shield size={40} className={`transition-all duration-500 ${isAuthenticating ? "text-emerald-500 animate-pulse" : "text-white"}`} />
-          </div>
 
           <div className="text-center mb-12">
             <span className="text-[10px] font-black uppercase tracking-[0.6em] text-white/30 mb-4 block">
