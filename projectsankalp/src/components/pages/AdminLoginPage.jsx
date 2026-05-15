@@ -1,3 +1,6 @@
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Lock, Shield, ChevronRight, AlertCircle, Terminal, Activity } from "lucide-react";
 import Container from "../core/Container";
 import { db } from "../../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";

@@ -77,15 +77,16 @@ function App() {
   // ── ROUTING LOGIC ──
   const navigate = (view) => {
     const isAdminView = ["terminal", "payment", "registration"].includes(view);
+    const slug = view === "landing" ? "/" : `/${view}`;
     
     // Security Guard: No one passes without the Key
+    // But we keep the SLUG of the target page
     if (isAdminView && !isAdminAuthenticated) {
-      window.history.pushState({ view: "admin-login" }, "", "/admin-login");
+      window.history.pushState({ view: "admin-login", targetView: view }, "", slug);
       setCurrentView("admin-login");
       return;
     }
 
-    const slug = view === "landing" ? "/" : `/${view}`;
     window.history.pushState({ view }, "", slug);
     setCurrentView(view);
     window.scrollTo(0, 0);
@@ -119,9 +120,10 @@ function App() {
     );
 
     if (matchedView) {
-      // Security Check: If trying to access admin views directly, force login or redirect
+      // Security Check: If trying to access admin views directly, force login
       const isAdminView = ["terminal", "payment", "registration"].includes(matchedView);
       if (isAdminView && !isAdminAuthenticated) {
+        // We set the current view to admin-login but the URL is already what they typed
         setCurrentView("admin-login");
       } else {
         setCurrentView(matchedView);
@@ -282,17 +284,6 @@ function App() {
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 900);
-
-    const path = window.location.pathname.slice(1).toLowerCase();
-    if (path === "winners") setCurrentView("winners");
-    else if (path === "timer") setCurrentView("timer");
-    else if (path === "team") setCurrentView("team");
-    else if (path === "stages") setCurrentView("stages");
-    else if (path === "booking") setCurrentView("booking");
-    else if (path === "terminal") setCurrentView("terminal");
-    else if (path === "payment") setCurrentView("payment");
-    else if (path === "registration") setCurrentView("registration");
-
     return () => clearTimeout(timer);
   }, []);
 
@@ -435,76 +426,55 @@ function App() {
                   </motion.div>
                 )}
 
-                {/* ── ADMINISTRATIVE TERMINALS ── */}
-                {currentView === "admin-login" && (
+                {/* ── ADMINISTRATIVE TERMINALS (GATED) ── */}
+                {["terminal", "payment", "registration", "admin-login"].includes(currentView) && (
                   <motion.div
-                    key="admin-login"
-                    initial={{ opacity: 0, y: 50 }}
+                    key="admin-gate"
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -50 }}
+                    exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                   >
-                    <AdminLoginPage 
-                      onLogin={() => {
-                        setIsAdminAuthenticated(true);
-                        navigate("terminal");
-                      }} 
-                      onBack={goBack} 
-                    />
-                  </motion.div>
-                )}
-
-                {currentView === "terminal" && isAdminAuthenticated && (
-                  <motion.div
-                    key="terminal"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -50 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  >
-                    <BookingStatusPage
-                      slots={globalSlots}
-                      onBack={goBack}
-                      onDelete={handleDeleteBooking}
-                      onCheckIn={handleCheckIn}
-                      onUpdatePayment={handleUpdatePayment}
-                      onNavigate={navigate}
-                    />
-                  </motion.div>
-                )}
-
-                {currentView === "payment" && isAdminAuthenticated && (
-                  <motion.div
-                    key="payment"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -50 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  >
-                    <PaymentVerificationPage
-                      slots={globalSlots}
-                      onBack={() => navigate("terminal")}
-                      onDelete={handleDeleteBooking}
-                      onCheckIn={handleCheckIn}
-                      onUpdate={handleUpdatePayment}
-                    />
-                  </motion.div>
-                )}
-
-                {currentView === "registration" && isAdminAuthenticated && (
-                  <motion.div
-                    key="registration"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -50 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  >
-                    <RegistrationCheckInPage
-                      slots={globalSlots}
-                      onBack={() => navigate("terminal")}
-                      onDelete={handleDeleteBooking}
-                      onCheckIn={handleCheckIn}
-                    />
+                    {!isAdminAuthenticated ? (
+                      <AdminLoginPage 
+                        onLogin={() => {
+                          setIsAdminAuthenticated(true);
+                          // Redirect to terminal after login
+                          navigate("terminal");
+                        }} 
+                        onBack={goBack} 
+                      />
+                    ) : (
+                      <>
+                        {currentView === "terminal" && (
+                          <BookingStatusPage
+                            slots={globalSlots}
+                            onBack={goBack}
+                            onDelete={handleDeleteBooking}
+                            onCheckIn={handleCheckIn}
+                            onUpdatePayment={handleUpdatePayment}
+                            onNavigate={navigate}
+                          />
+                        )}
+                        {currentView === "payment" && (
+                          <PaymentVerificationPage
+                            slots={globalSlots}
+                            onBack={() => navigate("terminal")}
+                            onDelete={handleDeleteBooking}
+                            onCheckIn={handleCheckIn}
+                            onUpdate={handleUpdatePayment}
+                          />
+                        )}
+                        {currentView === "registration" && (
+                          <RegistrationCheckInPage
+                            slots={globalSlots}
+                            onBack={() => navigate("terminal")}
+                            onDelete={handleDeleteBooking}
+                            onCheckIn={handleCheckIn}
+                          />
+                        )}
+                      </>
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
