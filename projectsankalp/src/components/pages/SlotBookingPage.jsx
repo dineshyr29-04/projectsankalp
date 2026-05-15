@@ -482,61 +482,26 @@ export default function SlotBookingPage({ onBack }) {
               animate={{ opacity: 1 }}
               className="min-h-screen flex flex-col justify-center items-center text-center"
             >
-              <div
-                ref={ticketRef}
-                className="bg-white border-8 border-slate-900 p-12 md:p-16 max-w-lg w-full relative"
-              >
-                <div className="mb-12">
-                  <span className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-300 block mb-6">
-                    ENTRY TOKEN SECURED
-                  </span>
-                  <h1 className="text-6xl md:text-7xl font-serif font-black italic tracking-tighter leading-none mb-4">
-                    Confirmed.
-                  </h1>
-                </div>
+              <div className="max-w-2xl px-6">
+                <span className="text-[11px] font-black uppercase tracking-[0.6em] text-slate-300 block mb-8">
+                  MISSION REGISTRATION COMPLETE
+                </span>
+                <h1 className="text-6xl md:text-8xl font-serif font-black italic tracking-tighter leading-none mb-10">
+                  We will inform you shortly.
+                </h1>
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 mb-20 leading-relaxed">
+                  Your identifier: {verifiedTeam?.teamId} <br />
+                  Registry synchronization in progress.
+                </p>
 
-                <div className="flex flex-col items-center gap-10">
-                  <div className="p-4 border-2 border-slate-100">
-                    <QRCodeSVG
-                      value={`${window.location.origin}/status?teamId=${verifiedTeam?.teamId}`}
-                      size={160}
-                      level="H"
-                    />
-                  </div>
-
-                  <div className="w-full flex justify-between border-t-2 border-slate-900 pt-10">
-                    <div className="text-left">
-                      <span className="block text-[9px] font-black uppercase tracking-[0.4em] text-slate-300 mb-2">
-                        IDENTIFIER
-                      </span>
-                      <span className="text-2xl font-serif font-black italic">
-                        {verifiedTeam?.teamId}
-                      </span>
-                    </div>
-                    <div className="text-right">
-                      <span className="block text-[9px] font-black uppercase tracking-[0.4em] text-slate-300 mb-2">
-                        SECTOR
-                      </span>
-                      <span className="text-2xl font-serif font-black italic">
-                        {selectedDomain?.code}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-16 space-y-6 max-w-xs w-full">
-                <button
-                  onClick={handleDownloadTicket}
-                  className="w-full py-6 bg-slate-900 text-white font-black uppercase tracking-[0.4em] text-[11px] hover:invert transition-all"
-                >
-                  DOWNLOAD TOKEN
-                </button>
                 <button
                   onClick={onBack}
-                  className="block w-full text-[9px] font-black uppercase tracking-[0.4em] text-slate-300 hover:text-slate-900 transition-colors"
+                  className="group flex items-center gap-6 text-[11px] font-black uppercase tracking-[0.4em] hover:text-emerald-600 transition-colors mx-auto"
                 >
-                  [ HUB ]
+                  <span>RETURN TO HUB</span>
+                  <span className="text-3xl transition-transform group-hover:-translate-x-2">
+                    ←
+                  </span>
                 </button>
               </div>
             </motion.div>
