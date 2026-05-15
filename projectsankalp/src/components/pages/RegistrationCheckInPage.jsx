@@ -61,7 +61,7 @@ export default function RegistrationCheckInPage({
     const data = {};
     Object.entries(slots).forEach(([domain, teams]) => {
       data[domain] = teams
-        .filter((t) => t.teamId) // Only teams with IDs
+        .filter((t) => t.teamId && t.paymentVerified) // Only teams with IDs and verified payments
         .slice(0, MAX_TEAMS_PER_DOMAIN) // Limit to 10 per domain
         .map((team) => ({
           ...team,

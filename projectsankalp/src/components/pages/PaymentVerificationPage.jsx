@@ -201,14 +201,14 @@ export default function PaymentVerificationPage({
               placeholder="Search Team ID / Name..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-slate-100/50 border-none rounded-xl py-3 pl-11 pr-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all"
+              className="w-full bg-slate-100/50 border-none rounded-xl py-3 pl-11 pr-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all ring-1 ring-slate-900"
             />
           </div>
 
           <select
             value={filterDomain}
             onChange={(e) => setFilterDomain(e.target.value)}
-            className="bg-slate-100/50 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all"
+            className="bg-slate-100/50 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all  ring-1 ring-slate-900"
           >
             <option value="all">All Domains</option>
             {DOMAINS.map((d) => (
@@ -221,7 +221,7 @@ export default function PaymentVerificationPage({
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="bg-slate-100/50 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all"
+            className="bg-slate-100/50 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all  ring-1 ring-slate-900"
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
@@ -233,35 +233,35 @@ export default function PaymentVerificationPage({
       <Container full className="pt-8">
         {/* STATS SECTION */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 mb-12">
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-[32px] shadow-xl shadow-blue-500/20">
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-5 rounded-[32px] shadow-xl shadow-blue-500/20">
             <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-blue-100 mb-2">
               Total Teams
             </span>
-            <span className="text-4xl font-black tracking-tighter">
+            <span className="text-2xl font-black tracking-tighter">
               {totalStats.total}
             </span>
           </div>
-          <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white p-6 rounded-[32px] shadow-xl shadow-emerald-500/20">
+          <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white p-5 rounded-[32px] shadow-xl shadow-emerald-500/20">
             <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-emerald-100 mb-2">
               Verified
             </span>
-            <span className="text-4xl font-black tracking-tighter">
+            <span className="text-2xl font-black tracking-tighter">
               {totalStats.verified}
             </span>
           </div>
-          <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-6 rounded-[32px] shadow-xl shadow-orange-500/20">
+          <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-5 rounded-[32px] shadow-xl shadow-orange-500/20">
             <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-orange-100 mb-2">
               Pending
             </span>
-            <span className="text-4xl font-black tracking-tighter">
+            <span className="text-2xl font-black tracking-tighter">
               {totalStats.total - totalStats.verified}
             </span>
           </div>
-          <div className="bg-gradient-to-br from-slate-700 to-slate-800 text-white p-6 rounded-[32px] shadow-xl">
+          <div className="bg-gradient-to-br from-slate-700 to-slate-800 text-white p-5 rounded-[32px] shadow-xl">
             <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-slate-300 mb-2">
               Completion
             </span>
-            <span className="text-4xl font-black tracking-tighter">
+            <span className="text-2xl font-black tracking-tighter">
               {totalStats.total > 0
                 ? Math.round((totalStats.verified / totalStats.total) * 100)
                 : 0}
@@ -331,7 +331,7 @@ export default function PaymentVerificationPage({
                                   <Clock size={16} />
                                 )}
                               </div>
-                              <h4 className="text-[11px] font-black text-slate-900 uppercase truncate">
+                              <h4 className="text-[14px] font-black text-slate-900 uppercase truncate">
                                 {team.teamId}
                               </h4>
                             </div>
@@ -380,21 +380,21 @@ export default function PaymentVerificationPage({
                         <div className="space-y-1.5 bg-white/60 p-2.5 rounded-[14px]">
                           {/* Transaction ID */}
                           <div className="flex items-start justify-between gap-1">
-                            <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
-                              TXN ID
+                            <span className="text-[14px] font-black text-slate-400 uppercase tracking-widest italic">
+                              UTR ID
                             </span>
-                            <span className="text-[9px] font-mono font-bold text-slate-700 text-right truncate">
+                            <span className="text-[14x] font-mono font-bold text-slate-700 text-right truncate">
                               {team.transactionId || "-"}
                             </span>
                           </div>
 
                           {/* Status */}
                           <div className="flex items-start justify-between gap-1">
-                            <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
+                            <span className="text-[14px] font-black text-slate-400 uppercase tracking-widest">
                               Status
                             </span>
                             <span
-                              className={`text-[9px] font-black uppercase ${team.paymentVerified ? "text-emerald-600" : "text-orange-600"}`}
+                              className={`text-[14px] font-black uppercase ${team.paymentVerified ? "text-emerald-600" : "text-orange-600"}`}
                             >
                               {team.paymentVerified
                                 ? "✓ Verified"

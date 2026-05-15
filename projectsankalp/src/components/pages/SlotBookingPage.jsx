@@ -153,6 +153,20 @@ export default function SlotBookingPage({ onBack }) {
         ...payload,
         createdAt: serverTimestamp(),
       });
+
+      // SYNC TO GOOGLE SHEETS (WEBHOOK) - Appends to the master sheet
+      if (GOOGLE_SHEETS_WEBHOOK) {
+        fetch(GOOGLE_SHEETS_WEBHOOK, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...payload,
+            timestamp: new Date().toLocaleString(),
+          }),
+        }).catch((err) => console.error("Sheets Sync Failed:", err));
+      }
+
       setUploadProgress(100);
       setStep("SUCCESS");
     } catch (err) {

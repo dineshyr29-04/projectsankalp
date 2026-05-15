@@ -38,10 +38,7 @@ export const exportPaymentVerification = (
     { wch: 25 },
   ];
 
-  XLSX.writeFile(
-    workbook,
-    `${fileName}_${new Date().toISOString().split("T")[0]}.xlsx`,
-  );
+  XLSX.writeFile(workbook, `${fileName}.xlsx`);
 };
 
 /**
@@ -81,10 +78,7 @@ export const exportRegistrationCheckIn = (
     { wch: 20 },
   ];
 
-  XLSX.writeFile(
-    workbook,
-    `${fileName}_${new Date().toISOString().split("T")[0]}.xlsx`,
-  );
+  XLSX.writeFile(workbook, `${fileName}.xlsx`);
 };
 
 /**
@@ -100,10 +94,7 @@ export const exportMultipleSheets = (sheetsData, fileName = "export") => {
     XLSX.utils.book_append_sheet(workbook, worksheet, sheetName.slice(0, 31)); // Sheet names limited to 31 chars
   });
 
-  XLSX.writeFile(
-    workbook,
-    `${fileName}_${new Date().toISOString().split("T")[0]}.xlsx`,
-  );
+  XLSX.writeFile(workbook, `${fileName}.xlsx`);
 };
 
 /**
@@ -134,8 +125,5 @@ export const exportDomainSummary = (stats, fileName = "domain_summary") => {
     { wch: 14 },
   ];
 
-  XLSX.writeFile(
-    workbook,
-    `${fileName}_${new Date().toISOString().split("T")[0]}.xlsx`,
-  );
+  XLSX.writeFile(workbook, `${fileName}.xlsx`);
 };
