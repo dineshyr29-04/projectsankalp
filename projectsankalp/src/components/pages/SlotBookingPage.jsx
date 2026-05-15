@@ -142,6 +142,10 @@ export default function SlotBookingPage({ onBack }) {
       setError("DATA REQUIRED");
       return;
     }
+    if (transactionId.length !== 12) {
+      setError("UTR MUST BE EXACTLY 12 CHARACTERS");
+      return;
+    }
     setIsProcessing(true);
     setError("");
     setUploadProgress(10);
@@ -206,7 +210,7 @@ export default function SlotBookingPage({ onBack }) {
         />
       </div>
 
-      <Container className="relative z-10 w-full max-w-xl px-6 py-12 flex-1 flex flex-col">
+      <Container className={`relative z-10 w-full px-6 py-12 flex-1 flex flex-col transition-all duration-700 ${step === "PAYMENT" ? "max-w-5xl" : "max-w-2xl"}`}>
         {/* Navigation */}
         <div className="flex flex-col items-center mb-16 gap-6">
           <button
@@ -380,71 +384,79 @@ export default function SlotBookingPage({ onBack }) {
                 </p>
               </div>
 
-              {/* QR Container - Standard Centered Box */}
-              <div className="w-full bg-white rounded-[40px] p-8 mb-10 flex flex-col items-center shadow-2xl">
-                <div className="w-full max-w-[240px] aspect-square bg-slate-50 rounded-3xl p-4 mb-6 border border-slate-100">
-                  <img
-                    src="/payment_qr.png"
-                    alt="Payment QR"
-                    className="w-full h-full object-contain"
-                  />
+              <div className="w-full flex flex-col md:flex-row gap-8 items-stretch">
+                {/* QR Container - Left Side */}
+                <div className="flex-[1.2] bg-white rounded-[48px] p-10 flex flex-col items-center justify-center shadow-[0_32px_64px_-12px_rgba(255,255,255,0.1)] border border-white/20">
+                  <div className="w-full max-w-[280px] aspect-square bg-slate-50 rounded-[32px] p-6 mb-8 border border-slate-100 shadow-inner">
+                    <img
+                      src="/payment_qr.png"
+                      alt="Payment QR"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="text-center">
+                    <span className="text-5xl md:text-6xl font-serif font-black italic text-slate-950 mb-2 block tracking-tight">
+                      {REGISTRATION_FEE}
+                    </span>
+                    <p className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-400">
+                      MISSION ENTRY FEE
+                    </p>
+                  </div>
                 </div>
-                <span className="text-4xl font-serif font-black italic text-slate-950 mb-1">
-                  {REGISTRATION_FEE}
-                </span>
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
-                  Mission Registration Fee
-                </p>
+
+                {/* Inputs Container - Right Side */}
+                <div className="flex-1 flex flex-col gap-4">
+                  <div className="bg-white/5 border-2 border-white/10 rounded-[32px] p-8 text-center group focus-within:border-emerald-500 transition-all flex-1 flex flex-col justify-center">
+                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-4 block group-focus-within:text-emerald-500">
+                      UTR Transaction ID (12 CHARS)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="ENTER 12 DIGITS"
+                      value={transactionId}
+                      maxLength={12}
+                      onChange={(e) => setTransactionId(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''))}
+                      className="w-full bg-transparent border-none p-0 text-2xl md:text-3xl font-serif font-black italic tracking-[0.2em] focus:ring-0 outline-none uppercase placeholder:text-white/5 text-center"
+                    />
+                  </div>
+
+                  <div className="relative group flex-1">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      id="screenshot-upload"
+                      onChange={(e) => setScreenshot(e.target.files[0])}
+                    />
+                    <label 
+                      htmlFor="screenshot-upload"
+                      className={`w-full h-full flex flex-col items-center justify-center text-center p-8 rounded-[32px] border-2 border-dashed transition-all cursor-pointer ${
+                        screenshot 
+                        ? "bg-emerald-500/10 border-emerald-500 text-emerald-500" 
+                        : "bg-white/5 border-white/10 hover:border-white/30 text-white/40 hover:text-white"
+                      }`}
+                    >
+                      <div className={`w-12 h-12 rounded-[20px] flex items-center justify-center mb-4 ${screenshot ? "bg-emerald-500 text-white shadow-lg" : "bg-white/5 border border-white/10"}`}>
+                        <Upload size={20} />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <span className="text-[10px] font-black uppercase tracking-[0.3em]">
+                          {screenshot ? "FILE ATTACHED" : "UPLOAD PROOF"}
+                        </span>
+                        <span className="text-[8px] font-bold opacity-40 uppercase tracking-widest">
+                          {screenshot ? screenshot.name : "PNG, JPG // MAX 5MB"}
+                        </span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
               </div>
 
-              <div className="w-full space-y-4">
-                <div className="bg-white/5 border-2 border-white/10 rounded-[32px] p-8 text-center group focus-within:border-emerald-500 transition-all">
-                  <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-4 block group-focus-within:text-emerald-500">
-                    UTR Transaction ID
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="ENTER ID"
-                    value={transactionId}
-                    onChange={(e) => setTransactionId(e.target.value.toUpperCase())}
-                    className="w-full bg-transparent border-none p-0 text-3xl font-serif font-black italic tracking-[0.2em] focus:ring-0 outline-none uppercase placeholder:text-white/5 text-center"
-                  />
-                </div>
-
-                <div className="relative group">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    id="screenshot-upload"
-                    onChange={(e) => setScreenshot(e.target.files[0])}
-                  />
-                  <label 
-                    htmlFor="screenshot-upload"
-                    className={`w-full flex flex-col items-center text-center p-10 rounded-[32px] border-2 border-dashed transition-all cursor-pointer ${
-                      screenshot 
-                      ? "bg-emerald-500/10 border-emerald-500 text-emerald-500" 
-                      : "bg-white/5 border-white/10 hover:border-white/30 text-white/40 hover:text-white"
-                    }`}
-                  >
-                    <div className={`w-16 h-16 rounded-[24px] flex items-center justify-center mb-6 ${screenshot ? "bg-emerald-500 text-white shadow-lg" : "bg-white/5 border border-white/10"}`}>
-                      <Upload size={24} />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[11px] font-black uppercase tracking-[0.3em]">
-                        {screenshot ? "FILE ATTACHED" : "UPLOAD PROOF"}
-                      </span>
-                      <span className="text-[9px] font-bold opacity-40 uppercase tracking-widest">
-                        {screenshot ? screenshot.name : "PNG, JPG // MAX 5MB"}
-                      </span>
-                    </div>
-                  </label>
-                </div>
-
+              <div className="w-full max-w-xl mx-auto mt-12">
                 <button
                   onClick={handleSubmit}
                   disabled={!transactionId || !screenshot || isProcessing}
-                  className="w-full bg-white text-slate-950 py-6 rounded-2xl font-black uppercase tracking-[0.4em] text-[12px] hover:bg-emerald-500 hover:text-white transition-all disabled:opacity-10 mt-6"
+                  className="w-full bg-white text-slate-950 py-6 rounded-2xl font-black uppercase tracking-[0.4em] text-[12px] hover:bg-emerald-500 hover:text-white transition-all disabled:opacity-10"
                 >
                   {isProcessing ? "PROCESSING MISSION..." : "FINALIZE REGISTRATION"}
                 </button>
