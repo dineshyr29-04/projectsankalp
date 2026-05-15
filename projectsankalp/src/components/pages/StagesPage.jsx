@@ -122,11 +122,11 @@ export default function StagesPage({ onBack }) {
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans overflow-hidden">
+    <div className="min-h-screen bg-slate-950 text-white font-sans overflow-hidden">
       {/* Background Atmosphere */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-50 blur-[120px] rounded-full" />
-        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-emerald-50 blur-[120px] rounded-full" />
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/10 blur-[120px] rounded-full" />
+        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-emerald-500/10 blur-[120px] rounded-full" />
       </div>
 
       <AnimatePresence>
@@ -150,7 +150,7 @@ export default function StagesPage({ onBack }) {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="fixed top-8 right-8 flex items-center justify-center bg-white rounded-full h-14 w-14 shadow-2xl border border-slate-200 z-[130] hover:scale-110 active:scale-95 transition-all text-slate-900"
+              className="fixed top-8 right-8 flex items-center justify-center bg-white rounded-full h-14 w-14 shadow-2xl border border-white/10 z-[130] hover:scale-110 active:scale-95 transition-all text-slate-950"
               onClick={() => setActive(null)}
             >
               <X size={24} />
@@ -166,7 +166,7 @@ export default function StagesPage({ onBack }) {
                 ease: [0.22, 1, 0.36, 1],
               }}
               style={{ willChange: "transform, opacity" }}
-              className="w-full max-w-4xl h-fit min-h-fit flex flex-col bg-white dark:bg-neutral-900 rounded-[40px] shadow-2xl border border-slate-100 z-10 relative mb-20 overflow-hidden"
+              className="w-full max-w-4xl h-fit min-h-fit flex flex-col bg-slate-900 rounded-[40px] shadow-2xl border border-white/10 z-10 relative mb-20 overflow-hidden"
             >
               <motion.div
                 layoutId={`image-${active.title}-${id}`}
@@ -203,7 +203,7 @@ export default function StagesPage({ onBack }) {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.1 }}
-                      className="text-slate-500 font-medium leading-relaxed text-lg"
+                      className="text-white/40 font-medium leading-relaxed text-lg"
                     >
                       {active.description}
                     </motion.p>
@@ -219,7 +219,7 @@ export default function StagesPage({ onBack }) {
                         "_blank",
                       )
                     }
-                    className="whitespace-nowrap px-8 py-4 text-[10px] rounded-full font-black uppercase tracking-widest bg-slate-900 text-white hover:bg-emerald-600 transition-colors shadow-lg shadow-slate-900/20"
+                    className="whitespace-nowrap px-8 py-4 text-[10px] rounded-full font-black uppercase tracking-widest bg-white text-slate-950 hover:bg-emerald-600 hover:text-white transition-all shadow-lg"
                   >
                     Solve Now
                   </motion.button>
@@ -227,10 +227,10 @@ export default function StagesPage({ onBack }) {
 
                 <div className="space-y-10 pb-10">
                   <div className="flex items-center gap-4">
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 whitespace-nowrap">
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20 whitespace-nowrap">
                       Problem Statements
                     </span>
-                    <div className="h-px w-full bg-slate-100" />
+                    <div className="h-px w-full bg-white/10" />
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-6">
@@ -239,7 +239,7 @@ export default function StagesPage({ onBack }) {
                         key={ps.id}
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="p-8 rounded-[32px] bg-slate-50 border border-slate-100 group transition-all hover:border-emerald-200 hover:bg-emerald-50/30 hover:shadow-xl hover:shadow-emerald-500/5 flex flex-col justify-between"
+                        className="p-8 rounded-[32px] bg-white/5 border border-white/10 group transition-all hover:border-emerald-500/30 hover:bg-white/10 hover:shadow-xl hover:shadow-emerald-500/5 flex flex-col justify-between"
                       >
                         <div>
                           <span
@@ -247,7 +247,7 @@ export default function StagesPage({ onBack }) {
                           >
                             Objective {ps.id.split(" ").pop()}
                           </span>
-                          <p className="text-sm font-bold text-slate-700 group-hover:text-slate-900 leading-relaxed mb-8">
+                          <p className="text-sm font-bold text-white/70 group-hover:text-white leading-relaxed mb-8">
                             {ps.text}
                           </p>
                         </div>
@@ -276,14 +276,14 @@ export default function StagesPage({ onBack }) {
               Mission Directives
             </span>
           </motion.div>
-          <h1 className="font-serif text-6xl md:text-8xl font-black tracking-tighter text-slate-900 leading-[0.9]">
+          <h1 className="font-serif text-6xl md:text-8xl font-black tracking-tighter text-white leading-[0.9]">
             The{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 italic">
               Sankalp
             </span>{" "}
             <br /> Domains.
           </h1>
-          <p className="text-slate-500 mt-10 text-xl font-medium max-w-xl italic leading-relaxed">
+          <p className="text-white/40 mt-10 text-xl font-medium max-w-xl italic leading-relaxed">
             Three critical sectors. Nine profound challenges. One goal:
             Technology for global human impact.
           </p>
@@ -318,23 +318,23 @@ export default function StagesPage({ onBack }) {
               <div className="p-10">
                 <motion.h3
                   layoutId={`title-${domain.title}-${id}`}
-                  className="text-2xl font-black text-slate-900 mb-4 tracking-tight"
+                  className="text-2xl font-black text-white mb-4 tracking-tight"
                 >
                   {domain.title}
                 </motion.h3>
                 <motion.p
                   layoutId={`description-${domain.description}-${id}`}
-                  className="text-slate-500 text-sm font-medium mb-10 line-clamp-2 leading-relaxed"
+                  className="text-white/40 text-sm font-medium mb-10 line-clamp-2 leading-relaxed"
                 >
                   {domain.description}
                 </motion.p>
 
-                <div className="flex items-center justify-between pt-6 border-t border-slate-100">
+                <div className="flex items-center justify-between pt-6 border-t border-white/10">
                   <div className="flex gap-1">
                     {domain.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-[8px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 px-2 py-1 rounded-md"
+                        className="text-[8px] font-black uppercase tracking-widest text-white/30 bg-white/5 px-2 py-1 rounded-md"
                       >
                         {tag}
                       </span>
@@ -342,7 +342,7 @@ export default function StagesPage({ onBack }) {
                   </div>
                   <motion.button
                     layoutId={`button-${domain.title}-${id}`}
-                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-600 group-hover:translate-x-2 transition-transform"
+                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-400 group-hover:translate-x-2 transition-transform"
                   >
                     View Problems <ChevronRight size={14} />
                   </motion.button>
@@ -357,7 +357,7 @@ export default function StagesPage({ onBack }) {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[32px] border border-zinc-200 bg-white px-8 py-16 md:px-20 md:py-24 transition-colors duration-300 hover:border-zinc-300 xl:mb-32 pb-32"
+          className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/5 px-8 py-16 md:px-20 md:py-24 transition-colors duration-300 hover:border-white/20 xl:mb-32 pb-32"
         >
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-300 to-transparent" />
           <div className="relative z-10 flex flex-col gap-20 lg:flex-row lg:items-end lg:justify-between">
@@ -371,13 +371,13 @@ export default function StagesPage({ onBack }) {
                   Applications Open
                 </span>
               </div>
-              <h2 className="text-5xl lg:text-7xl font-semibold leading-[0.92] tracking-[-0.055em] text-zinc-950">
+              <h2 className="text-5xl lg:text-7xl font-semibold leading-[0.92] tracking-[-0.055em] text-white">
                 Build work that{" "}
                 <span className="block text-emerald-400">
                   actually matters.
                 </span>
               </h2>
-              <p className="mt-10 max-w-[36ch] text-[18px] leading-8 text-zinc-600">
+              <p className="mt-10 max-w-[36ch] text-[18px] leading-8 text-white/40">
                 Collaborate with ambitious builders, solve meaningful
                 challenges, and transform ideas into products with measurable
                 impact.
@@ -386,17 +386,17 @@ export default function StagesPage({ onBack }) {
             <div className="flex flex-col items-start gap-8 lg:items-end">
               <div className="flex items-center gap-10">
                 <div>
-                  <p className="text-3xl font-semibold tracking-tight text-zinc-950">
+                  <p className="text-3xl font-semibold tracking-tight text-white">
                     500+
                   </p>
-                  <p className="mt-1 text-[12px] text-zinc-400">Participants</p>
+                  <p className="mt-1 text-[12px] text-white/30">Participants</p>
                 </div>
-                <div className="h-10 w-px bg-zinc-200" />
+                <div className="h-10 w-px bg-white/10" />
                 <div>
-                  <p className="text-3xl font-semibold tracking-tight text-zinc-950">
+                  <p className="text-3xl font-semibold tracking-tight text-white">
                     48h
                   </p>
-                  <p className="mt-1 text-[12px] text-zinc-400">
+                  <p className="mt-1 text-[12px] text-white/30">
                     Innovation Sprint
                   </p>
                 </div>
@@ -408,7 +408,7 @@ export default function StagesPage({ onBack }) {
                     "_blank",
                   )
                 }
-                className="group inline-flex items-center gap-4 rounded-full border border-zinc-300 bg-zinc-950 px-8 py-4 text-[12px] font-medium tracking-wide text-white transition-all hover:bg-zinc-900 active:scale-[0.98]"
+                className="group inline-flex items-center gap-4 rounded-full border border-white/20 bg-white px-8 py-4 text-[12px] font-medium tracking-wide text-slate-950 transition-all hover:bg-emerald-600 hover:text-white active:scale-[0.98]"
               >
                 Start Your Mission
                 <ArrowUpRight

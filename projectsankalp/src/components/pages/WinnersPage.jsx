@@ -99,81 +99,81 @@ const winnersData = [
   },
   {
     id: "cc-013",
-    teamName: "Aero Dynamics",
-    college: "MIT Manipal",
-    state: "Karnataka",
-  },
-  {
-    id: "cc-014",
-    teamName: "Swift Solve",
-    college: "VIT Vellore",
-    state: "Tamil Nadu",
-  },
-  {
-    id: "cc-015",
-    teamName: "Terra Form",
-    college: "IIT Kharagpur",
+    teamName: "Mind Meld",
+    college: "Jadavpur University",
     state: "West Bengal",
   },
   {
-    id: "cc-016",
-    teamName: "Nova Knights",
-    college: "NIT Surathkal",
-    state: "Karnataka",
-  },
-  {
-    id: "cc-017",
-    teamName: "Spark Squad",
-    college: "IIT Hyderabad",
-    state: "Telangana",
-  },
-  {
-    id: "cc-018",
-    teamName: "Wind Walkers",
-    college: "NIT Warangal",
-    state: "Telangana",
-  },
-  {
-    id: "cc-019",
-    teamName: "Leaf Logic",
-    college: "BHU Varanasi",
-    state: "Uttar Pradesh",
-  },
-  {
-    id: "cc-020",
-    teamName: "Pulse Patrol",
-    college: "JIPMER Puducherry",
-    state: "Puducherry",
-  },
-  {
-    id: "cc-021",
-    teamName: "Ocean Optic",
-    college: "IIT Gandhinagar",
-    state: "Gujarat",
-  },
-  {
-    id: "cc-022",
-    teamName: "Cloud Cast",
-    college: "IIIT Hyderabad",
-    state: "Telangana",
-  },
-  {
-    id: "cc-023",
-    teamName: "Mind Meld",
-    college: "IIT Indore",
-    state: "Madhya Pradesh",
-  },
-  {
-    id: "cc-024",
-    teamName: "Iron Intel",
+    id: "cc-014",
+    teamName: "Future Flow",
     college: "NIT Rourkela",
     state: "Odisha",
   },
   {
+    id: "cc-015",
+    teamName: "Life Line",
+    college: "CMC Vellore",
+    state: "Tamil Nadu",
+  },
+  {
+    id: "cc-016",
+    teamName: "Ocean Optic",
+    college: "Andhra University",
+    state: "Andhra Pradesh",
+  },
+  {
+    id: "cc-017",
+    teamName: "Wind Walker",
+    college: "Anna University",
+    state: "Tamil Nadu",
+  },
+  {
+    id: "cc-018",
+    teamName: "Sun Stream",
+    college: "MNIT Jaipur",
+    state: "Rajasthan",
+  },
+  {
+    id: "cc-019",
+    teamName: "Earth Echo",
+    college: "VNIT Nagpur",
+    state: "Maharashtra",
+  },
+  {
+    id: "cc-020",
+    teamName: "Cloud Core",
+    college: "IIIT Hyderabad",
+    state: "Telangana",
+  },
+  {
+    id: "cc-021",
+    teamName: "Astro Aim",
+    college: "IIST Thiruvananthapuram",
+    state: "Kerala",
+  },
+  {
+    id: "cc-022",
+    teamName: "Pulse Point",
+    college: "KMC Manipal",
+    state: "Karnataka",
+  },
+  {
+    id: "cc-023",
+    teamName: "Leaf Logic",
+    college: "TNAU Coimbatore",
+    state: "Tamil Nadu",
+  },
+  {
+    id: "cc-024",
+    teamName: "Glow Grid",
+    college: "SVNIT Surat",
+    state: "Gujarat",
+  },
+  {
     id: "cc-025",
-    teamName: "Sun Stryke",
-    college: "IIT Bhubaneswar",
-    state: "Odisha",
+    teamName: "Pure Path",
+    college: "ISM Dhanbad",
+    state: "Jharkhand",
   },
   {
     id: "cc-026",
@@ -214,8 +214,8 @@ export default function WinnersPage({ onNavigate, onBack }) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
-      {/*  Background Elements  */}
+    <div className="min-h-screen bg-slate-950 text-white selection:bg-emerald-500/30 selection:text-emerald-200">
+      {/* Background Elements */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={{
@@ -244,115 +244,120 @@ export default function WinnersPage({ onNavigate, onBack }) {
       </div>
 
       <main className="relative z-10">
-        {/*  Hero Section  */}
+        {/* Hero Section */}
         <section className="pb-20 md:pb-32 md:pt-10">
           <Container>
             <div className="mb-12">
-              <motion.button
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={onBack}
-                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 hover:text-slate-900 transition-colors"
+                className="group flex items-center gap-3 text-[10px] font-black tracking-[0.4em] uppercase border-b-2 border-white pb-1 hover:border-emerald-500 transition-colors"
               >
-                <span>←</span>
-                <span>[ BACK ]</span>
-              </motion.button>
+                <span className="text-lg transition-transform group-hover:-translate-x-1">
+                  ←
+                </span>
+                <span>[ RETURN ]</span>
+              </button>
             </div>
-            <div className="max-w-4xl mx-auto text-center">
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
               <motion.div
-                variants={fadeUp}
                 initial="hidden"
                 animate="visible"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 mb-8"
+                variants={fadeUp}
+                custom={1}
               >
-                <Trophy size={14} className="animate-bounce" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em]">
-                  Hall of Fame
+                <span className="text-emerald-500 text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">
+                  Hall of Fame // 2024
                 </span>
+                <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase mb-6 text-white italic font-serif">
+                  The <br />
+                  <span className="text-emerald-500">Winners.</span>
+                </h1>
+                <p className="text-white/40 text-sm md:text-base font-medium max-w-md leading-relaxed uppercase tracking-wider">
+                  Celebrating the architects of change. These teams represent
+                  the pinnacle of innovation and social impact across our core
+                  mission domains.
+                </p>
               </motion.div>
 
-              <motion.h1
-                variants={fadeUp}
+              <motion.div
                 initial="hidden"
                 animate="visible"
-                custom={1}
-                className="text-5xl md:text-8xl font-serif font-black tracking-tight text-slate-900 mb-8 leading-[0.95]"
-              >
-                The Champions of <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-emerald-500 to-teal-500 italic">
-                  Sankalp 2024.
-                </span>
-              </motion.h1>
-
-              <motion.p
                 variants={fadeUp}
-                initial="hidden"
-                animate="visible"
                 custom={2}
-                className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed"
+                className="flex flex-col md:flex-row gap-8 lg:justify-end"
               >
-                Celebrating the brightest minds who rose to the challenge and
-                built solutions for a better tomorrow. Meet our top 30
-                finalists.
-              </motion.p>
+                <div className="flex flex-col">
+                  <span className="text-3xl md:text-5xl font-black text-white italic font-serif">
+                    30
+                  </span>
+                  <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest mt-1">
+                    Elite Teams
+                  </span>
+                </div>
+                <div className="w-[1px] h-12 bg-white/10 hidden md:block" />
+                <div className="flex flex-col">
+                  <span className="text-3xl md:text-5xl font-black text-white italic font-serif">
+                    $10K+
+                  </span>
+                  <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest mt-1">
+                    Prize Pool
+                  </span>
+                </div>
+              </motion.div>
             </div>
           </Container>
         </section>
 
-        {/* ── Winners Grid ── */}
+        {/* Winners Grid */}
         <section className="pb-32">
           <Container>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {winnersData.map((team, index) => (
+              {winnersData.map((team, i) => (
                 <motion.div
                   key={team.id}
-                  variants={fadeUp}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-50px" }}
-                  custom={index % 6}
-                  onClick={() => onNavigate?.("booking")}
-                  className="group relative cursor-pointer"
+                  variants={fadeUp}
+                  custom={i % 6}
                 >
-                  <div className="absolute -inset-2 bg-gradient-to-br from-emerald-500/10 to-blue-500/10 rounded-[32px] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative bg-white/5 border border-white/10 rounded-[32px] p-6 md:p-8 hover:bg-white/10 transition-all duration-500 group overflow-hidden">
+                    {/* Card Decoration */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-2xl rounded-full group-hover:bg-emerald-500/10 transition-colors" />
 
-                  <div className="relative h-full bg-white border border-slate-100 p-8 rounded-[28px] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 overflow-hidden">
-                    {/* ID Badge */}
-                    <div className="flex justify-between items-start mb-6">
-                      <div className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-100 text-[10px] font-black text-slate-400 tracking-widest uppercase">
-                        {team.id}
+                    <div className="flex items-start justify-between mb-8">
+                      <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:border-emerald-500/50 transition-colors">
+                        <Trophy
+                          size={24}
+                          className="text-emerald-500 group-hover:scale-110 transition-transform"
+                        />
                       </div>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-white/20 group-hover:text-emerald-500/50 transition-colors">
+                        ID: {team.id}
+                      </span>
                     </div>
 
-                    {/* Team Info */}
                     <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <Users
-                          size={18}
-                          className="text-emerald-500 mt-1 flex-shrink-0"
-                        />
-                        <h3 className="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
-                          {team.teamName}
-                        </h3>
-                      </div>
+                      <h3 className="text-2xl md:text-3xl font-black tracking-tight text-white uppercase italic font-serif leading-none">
+                        {team.teamName}
+                      </h3>
 
-                      <div className="space-y-2 pt-2 border-t border-slate-50">
-                        <div className="flex items-center gap-2 text-slate-500">
-                          <GraduationCap size={14} className="flex-shrink-0" />
-                          <span className="text-sm font-medium line-clamp-1">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-white/40">
+                          <GraduationCap size={14} className="shrink-0" />
+                          <span className="text-[10px] font-bold uppercase tracking-wider truncate">
                             {team.college}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 text-slate-400">
-                          <MapPin size={14} className="flex-shrink-0" />
-                          <span className="text-[11px] font-bold uppercase tracking-wider">
+                        <div className="flex items-center gap-2 text-white/40">
+                          <MapPin size={14} className="shrink-0" />
+                          <span className="text-[10px] font-bold uppercase tracking-wider">
                             {team.state}
                           </span>
                         </div>
                       </div>
                     </div>
-
-                    {/* Corner Decoration */}
-                    <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-slate-50 rounded-full group-hover:scale-150 transition-transform duration-700 opacity-50" />
                   </div>
                 </motion.div>
               ))}
@@ -360,7 +365,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
           </Container>
         </section>
 
-        {/* ── Congratulations Message ── */}
+        {/* Congratulations Message */}
         <section className="pb-40">
           <Container>
             <motion.div
@@ -368,10 +373,10 @@ export default function WinnersPage({ onNavigate, onBack }) {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative rounded-[48px] overflow-hidden bg-slate-900 p-12 md:p-24 text-center"
+              className="relative rounded-[48px] overflow-hidden bg-white/5 p-12 md:p-24 text-center border border-white/10"
             >
               {/* Background Glow */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-emerald-500/20 to-transparent pointer-events-none" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-emerald-500/10 to-transparent pointer-events-none" />
               <Sparkles
                 className="absolute top-10 left-10 text-emerald-500/20 animate-pulse"
                 size={40}
@@ -395,7 +400,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                   </span>
                 </h2>
 
-                <p className="text-slate-400 text-lg md:text-xl leading-relaxed">
+                <p className="text-white/40 text-lg md:text-xl leading-relaxed">
                   To all the winners and participants, your dedication and
                   innovation have set a new benchmark. Project Sankalp is proud
                   to be part of your journey. Keep building, keep inspiring, and
@@ -405,21 +410,21 @@ export default function WinnersPage({ onNavigate, onBack }) {
                 <div className="pt-8 flex flex-wrap justify-center gap-6">
                   <div className="flex flex-col items-center">
                     <span className="text-3xl font-black text-white">30</span>
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">
+                    <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">
                       Finalists
                     </span>
                   </div>
                   <div className="w-[1px] h-12 bg-white/10" />
                   <div className="flex flex-col items-center">
                     <span className="text-3xl font-black text-white">500+</span>
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">
+                    <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">
                       Submissions
                     </span>
                   </div>
                   <div className="w-[1px] h-12 bg-white/10" />
                   <div className="flex flex-col items-center">
                     <span className="text-3xl font-black text-white">15+</span>
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">
+                    <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">
                       States
                     </span>
                   </div>
@@ -428,9 +433,9 @@ export default function WinnersPage({ onNavigate, onBack }) {
             </motion.div>
           </Container>
         </section>
-
-        <Footer />
       </main>
+
+      <Footer />
     </div>
   );
 }

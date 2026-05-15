@@ -198,13 +198,13 @@ export default function SlotBookingPage({ onBack }) {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-slate-900 selection:text-white relative overflow-hidden">
+    <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-white selection:text-slate-950 relative overflow-hidden">
       {/* Professional Structural Grid */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: `linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(#FFF 1px, transparent 1px), linear-gradient(90deg, #FFF 1px, transparent 1px)`,
             backgroundSize: "100px 100px",
           }}
         />
@@ -215,7 +215,7 @@ export default function SlotBookingPage({ onBack }) {
         <div className="fixed top-8 left-8 right-8 flex justify-between items-center z-50">
           <button
             onClick={handleBack}
-            className="group flex items-center gap-3 text-[10px] font-black tracking-[0.4em] uppercase border-b-2 border-slate-900 pb-1 hover:border-emerald-500 transition-colors"
+            className="group flex items-center gap-3 text-[10px] font-black tracking-[0.4em] uppercase border-b-2 border-white pb-1 hover:border-emerald-500 transition-colors"
           >
             <span className="text-lg transition-transform group-hover:-translate-x-1">
               ←
@@ -238,7 +238,7 @@ export default function SlotBookingPage({ onBack }) {
                           ? "75%"
                           : "100%",
                 }}
-                className="absolute inset-y-0 left-0 bg-slate-900"
+                className="absolute inset-y-0 left-0 bg-white"
               />
             </div>
           </div>
@@ -257,7 +257,7 @@ export default function SlotBookingPage({ onBack }) {
                 <span className="text-[11px] font-black uppercase tracking-[0.6em] text-slate-300 mb-6 block">
                   STEP_01 // IDENTITY
                 </span>
-                <h1 className="text-5xl md:text-7xl font-serif font-black italic tracking-tighter text-slate-900 mb-12 leading-none">
+                <h1 className="text-5xl md:text-7xl font-serif font-black italic tracking-tighter text-white mb-12 leading-none">
                   Registry <br /> Initialization.
                 </h1>
 
@@ -268,7 +268,7 @@ export default function SlotBookingPage({ onBack }) {
                     value={teamInput}
                     onChange={(e) => setTeamInput(e.target.value.toUpperCase())}
                     onKeyDown={(e) => e.key === "Enter" && handleVerify()}
-                    className="w-full bg-slate-50/50 border-2 border-slate-100 rounded-2xl px-10 py-12 text-3xl md:text-5xl font-serif font-black italic tracking-tight focus:outline-none focus:border-slate-900 focus:bg-white placeholder:text-slate-200 uppercase transition-all"
+                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-10 py-12 text-3xl md:text-5xl font-serif font-black italic tracking-tight focus:outline-none focus:border-white focus:bg-white/10 placeholder:text-white/10 uppercase transition-all"
                     autoFocus
                   />
                 </div>
@@ -305,7 +305,7 @@ export default function SlotBookingPage({ onBack }) {
               exit={{ opacity: 0 }}
               className="min-h-screen pt-48 pb-32"
             >
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-24 border-b-2 border-slate-900 pb-12">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-24 border-b-2 border-white pb-12">
                 <div>
                   <span className="text-[11px] font-black uppercase tracking-[0.6em] text-slate-300 mb-4 block">
                     STEP_02 // DEPLOYMENT
@@ -334,14 +334,14 @@ export default function SlotBookingPage({ onBack }) {
                     <button
                       key={domain.id}
                       onClick={() => !isFull && setSelectedDomain(domain)}
-                      className={`w-full text-left py-10 md:py-12 border-b border-slate-100 transition-all duration-500 flex flex-col md:flex-row md:items-center justify-between group ${isFull ? "opacity-20" : "hover:pl-4"}`}
+                      className={`w-full text-left py-10 md:py-12 border-b border-white/5 transition-all duration-500 flex flex-col md:flex-row md:items-center justify-between group ${isFull ? "opacity-20" : "hover:pl-4"}`}
                     >
                       <div className="flex items-baseline gap-10">
                         <span className="text-xl font-serif font-black italic opacity-10 group-hover:opacity-100 transition-opacity">
                           {domain.code}
                         </span>
                         <h3
-                          className={`text-4xl md:text-5xl font-serif font-black italic tracking-tight transition-colors ${isSelected ? "text-emerald-600" : "text-slate-900"}`}
+                          className={`text-4xl md:text-5xl font-serif font-black italic tracking-tight transition-colors ${isSelected ? "text-emerald-600" : "text-white"}`}
                         >
                           {domain.title}
                         </h3>
@@ -364,7 +364,7 @@ export default function SlotBookingPage({ onBack }) {
                 <button
                   onClick={() => setStep("PAYMENT")}
                   disabled={!selectedDomain}
-                  className={`px-16 py-6 bg-slate-900 text-white font-black uppercase tracking-[0.4em] text-[11px] transition-all ${selectedDomain ? "hover:bg-emerald-600 shadow-xl" : "opacity-10"}`}
+                  className={`px-16 py-6 bg-white text-slate-950 font-black uppercase tracking-[0.4em] text-[11px] transition-all ${selectedDomain ? "hover:bg-emerald-600 hover:text-white shadow-xl" : "opacity-10"}`}
                 >
                   PROCEED TO VERIFICATION
                 </button>
@@ -385,7 +385,7 @@ export default function SlotBookingPage({ onBack }) {
                   <span className="text-[11px] font-black uppercase tracking-[0.6em] text-slate-300 mb-6 block">
                     STEP_03 // VERIFICATION
                   </span>
-                  <h2 className="text-5xl md:text-7xl font-serif font-black italic tracking-tighter text-slate-900 mb-12 leading-none">
+                  <h2 className="text-5xl md:text-7xl font-serif font-black italic tracking-tighter text-white mb-12 leading-none">
                     Secure Pay.
                   </h2>
 
@@ -398,7 +398,7 @@ export default function SlotBookingPage({ onBack }) {
                       />
                     </div>
                     <div className="space-y-2">
-                      <span className="text-5xl font-serif font-black italic text-slate-900">
+                      <span className="text-5xl font-serif font-black italic text-white">
                         {REGISTRATION_FEE}
                       </span>
                       <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">
@@ -411,7 +411,7 @@ export default function SlotBookingPage({ onBack }) {
                 <div className="flex flex-col justify-end space-y-16">
                   <div className="space-y-20">
                     <div className="relative">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-900 mb-4 block">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-white mb-4 block">
                         UTR TRANSACTION ID
                       </label>
                       <input
@@ -421,16 +421,16 @@ export default function SlotBookingPage({ onBack }) {
                         onChange={(e) =>
                           setTransactionId(e.target.value.toUpperCase())
                         }
-                        className="w-full bg-slate-50/50 border-2 border-slate-100 rounded-2xl px-8 py-8 text-2xl font-serif font-black italic tracking-widest focus:border-slate-900 focus:bg-white outline-none transition-all uppercase placeholder:text-slate-100"
+                        className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-8 py-8 text-2xl font-serif font-black italic tracking-widest focus:border-white focus:bg-white/10 outline-none transition-all uppercase placeholder:text-white/10"
                       />
                     </div>
 
                     <div className="space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-900 block">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-white block">
                         PAYMENT PROOF
                       </label>
                       <label className="flex items-center gap-6 cursor-pointer group">
-                        <div className="w-16 h-16 border-2 border-slate-100 flex items-center justify-center group-hover:border-slate-900 transition-all">
+                        <div className="w-16 h-16 border-2 border-white/10 flex items-center justify-center group-hover:border-white transition-all">
                           {screenshot ? (
                             <span className="text-emerald-500 font-bold">
                               OK
@@ -462,7 +462,7 @@ export default function SlotBookingPage({ onBack }) {
                   <button
                     onClick={handleSubmit}
                     disabled={!transactionId || !screenshot || isProcessing}
-                    className="w-full py-8 bg-slate-900 text-white font-black uppercase tracking-[0.4em] text-[12px] hover:bg-emerald-600 transition-all disabled:opacity-10"
+                    className="w-full py-8 bg-white text-slate-950 font-black uppercase tracking-[0.4em] text-[12px] hover:bg-emerald-600 hover:text-white transition-all disabled:opacity-10"
                   >
                     {isProcessing ? "PROCESSING..." : "FINALIZE REGISTRATION"}
                   </button>

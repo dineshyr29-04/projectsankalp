@@ -52,6 +52,7 @@ export default function BookingStatusPage({
   onBack,
   onDelete,
   onCheckIn,
+  onUpdatePayment,
   onNavigate,
 }) {
   const [time, setTime] = useState(new Date());
@@ -243,14 +244,14 @@ export default function BookingStatusPage({
   const occupancy = propOccupancy || Math.round((bookedCount / 30) * 100);
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] text-slate-900 pb-20 overflow-x-hidden select-none">
+    <div className="min-h-screen bg-slate-950 text-white pb-20 overflow-x-hidden select-none">
       {/* ── STICKY CONTROL HUB ── */}
-      <div className="sticky top-0 z-[70] bg-white/90 backdrop-blur-2xl border-b border-slate-200/50 px-3 py-3 md:py-4">
+      <div className="sticky top-0 z-[70] bg-slate-900/90 backdrop-blur-2xl border-b border-white/10 px-3 py-3 md:py-4">
         <div className="w-full flex items-center gap-3 mb-4">
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={onBack}
-            className="w-10 h-10 md:w-12 md:h-12 bg-slate-900 text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shrink-0"
+            className="w-10 h-10 md:w-12 md:h-12 bg-white text-slate-900 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shrink-0"
           >
             <ChevronLeft size={20} />
           </motion.button>
@@ -265,7 +266,7 @@ export default function BookingStatusPage({
               placeholder="Search Team ID / Name..."
               value={highlightId}
               onChange={(e) => setHighlightId(e.target.value.toUpperCase())}
-              className="w-full bg-slate-100/50 border-none rounded-xl py-3 pl-11 pr-4 text-[10px] md:text-xs font-black tracking-widest uppercase focus:ring-2 focus:ring-emerald-500/20 transition-all shadow-inner"
+              className="w-full bg-white/5 border-none rounded-xl py-3 pl-11 pr-4 text-[10px] md:text-xs font-black tracking-widest uppercase focus:ring-2 focus:ring-emerald-500/20 transition-all shadow-inner text-white placeholder:text-white/20"
             />
             {highlightId && (
               <button
@@ -300,10 +301,10 @@ export default function BookingStatusPage({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsScanning(true)}
-              className="w-10 h-10 md:w-12 md:h-12 bg-slate-900 text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-xl shrink-0"
-            >
-              <Scan size={18} />
-            </motion.button>
+              className="w-10 h-10 md:w-12 md:h-12 bg-white text-slate-900 rounded-xl md:rounded-2xl flex items-center justify-center shadow-xl shrink-0"
+          >
+            <Scan size={18} />
+          </motion.button>
 
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -319,7 +320,7 @@ export default function BookingStatusPage({
                   m.exportRegistrationCheckIn(allTeams),
                 );
               }}
-              className="w-10 h-10 md:w-12 md:h-12 bg-slate-100 text-slate-900 border border-slate-200 rounded-xl md:rounded-2xl flex items-center justify-center shadow-sm shrink-0"
+              className="w-10 h-10 md:w-12 md:h-12 bg-white/5 text-white border border-white/10 rounded-xl md:rounded-2xl flex items-center justify-center shadow-sm shrink-0"
             >
               <Download size={18} />
             </motion.button>
@@ -334,12 +335,12 @@ export default function BookingStatusPage({
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full bg-slate-100/40 hover:bg-slate-100 border border-slate-200/50 rounded-xl py-2.5 px-3 text-[9px] font-black uppercase tracking-widest focus:ring-2 focus:ring-emerald-500/10 transition-all appearance-none cursor-pointer"
+              className="w-full bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl py-2.5 px-3 text-[9px] font-black uppercase tracking-widest focus:ring-2 focus:ring-emerald-500/10 transition-all appearance-none cursor-pointer text-white"
             >
-              <option value="">All Teams</option>
-              <option value="verified">Payment Verified</option>
-              <option value="pending">Pending Admin</option>
-              <option value="checked">Checked In</option>
+              <option value="" className="bg-slate-900">All Teams</option>
+              <option value="verified" className="bg-slate-900">Payment Verified</option>
+              <option value="pending" className="bg-slate-900">Pending Admin</option>
+              <option value="checked" className="bg-slate-900">Checked In</option>
             </select>
             <div className="absolute right-3 bottom-2.5 pointer-events-none text-slate-400">
               <ChevronLeft size={12} className="-rotate-90" />
@@ -353,12 +354,12 @@ export default function BookingStatusPage({
             <select
               value={domainFilter}
               onChange={(e) => setDomainFilter(e.target.value)}
-              className="w-full bg-slate-100/40 hover:bg-slate-100 border border-slate-200/50 rounded-xl py-2.5 px-3 text-[9px] font-black uppercase tracking-widest focus:ring-2 focus:ring-emerald-500/10 transition-all appearance-none cursor-pointer"
+              className="w-full bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl py-2.5 px-3 text-[9px] font-black uppercase tracking-widest focus:ring-2 focus:ring-emerald-500/10 transition-all appearance-none cursor-pointer text-white"
             >
-              <option value="">All Domains</option>
-              <option value="women">Women's Entr.</option>
-              <option value="health">Health & Wellness</option>
-              <option value="climate">Climate Action</option>
+              <option value="" className="bg-slate-900">All Domains</option>
+              <option value="women" className="bg-slate-900">Women's Entr.</option>
+              <option value="health" className="bg-slate-900">Health & Wellness</option>
+              <option value="climate" className="bg-slate-900">Climate Action</option>
             </select>
             <div className="absolute right-3 bottom-2.5 pointer-events-none text-slate-400">
               <ChevronLeft size={12} className="-rotate-90" />
@@ -372,11 +373,11 @@ export default function BookingStatusPage({
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full bg-slate-100/40 hover:bg-slate-100 border border-slate-200/50 rounded-xl py-2.5 px-3 text-[9px] font-black uppercase tracking-widest focus:ring-2 focus:ring-emerald-500/10 transition-all appearance-none cursor-pointer"
+              className="w-full bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl py-2.5 px-3 text-[9px] font-black uppercase tracking-widest focus:ring-2 focus:ring-emerald-500/10 transition-all appearance-none cursor-pointer text-white"
             >
-              <option value="id">Team ID</option>
-              <option value="name">Alpha Name</option>
-              <option value="time">Check-in Time</option>
+              <option value="id" className="bg-slate-900">Team ID</option>
+              <option value="name" className="bg-slate-900">Alpha Name</option>
+              <option value="time" className="bg-slate-900">Check-in Time</option>
             </select>
             <div className="absolute right-3 bottom-2.5 pointer-events-none text-slate-400">
               <ChevronLeft size={12} className="-rotate-90" />
@@ -395,7 +396,7 @@ export default function BookingStatusPage({
                 <div key={domain.id} className="flex flex-col min-w-0">
                   <div className="flex items-center justify-between px-4 mb-6">
                     <div className="min-w-0">
-                      <h3 className="text-xl font-black tracking-tight uppercase leading-none text-slate-900 truncate">
+                      <h3 className="text-xl font-black tracking-tight uppercase leading-none text-white truncate">
                         {domain.title}
                       </h3>
                       <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest mt-1 block">
@@ -431,10 +432,10 @@ export default function BookingStatusPage({
                               isHighlighted
                                 ? "bg-emerald-500 border-emerald-400 text-white scale-[1.03] shadow-2xl z-10"
                                 : slot.checkedIn
-                                  ? "bg-emerald-50/80 border-emerald-100 text-slate-900 shadow-sm"
+                                  ? "bg-emerald-900/30 border-emerald-800 text-emerald-100 shadow-sm"
                                   : slot.teamId
-                                    ? "bg-slate-900 border-slate-800 text-white shadow-xl"
-                                    : "bg-slate-50/50 border-slate-100 text-slate-300 border-dashed"
+                                  ? "bg-white border-white/20 text-slate-950 shadow-xl"
+                                  : "bg-white/5 border-white/10 text-white/10 border-dashed"
                             }
                           `}
                         >
@@ -448,7 +449,7 @@ export default function BookingStatusPage({
                               <div className="flex flex-col min-w-0">
                                 <div className="flex items-center gap-1.5 mb-0.5 min-w-0">
                                   <span
-                                    className={`text-[10px] md:text-[11px] font-black uppercase tracking-wider truncate ${slot.checkedIn ? "text-emerald-600" : isHighlighted ? "text-white" : "text-emerald-400"}`}
+                                    className={`text-[10px] md:text-[11px] font-black uppercase tracking-wider truncate ${slot.checkedIn ? "text-emerald-600" : isHighlighted ? "text-white" : slot.teamId ? "text-emerald-600" : "text-emerald-400"}`}
                                   >
                                     {slot.teamId}
                                   </span>
@@ -460,7 +461,7 @@ export default function BookingStatusPage({
                                   )}
                                 </div>
                                 <span
-                                  className={`text-[10px] md:text-[11px] font-bold truncate leading-none ${slot.checkedIn ? "text-slate-900" : "text-white/90"}`}
+                                  className={`text-[10px] md:text-[11px] font-bold truncate leading-none ${slot.checkedIn ? "text-slate-900" : slot.teamId ? "text-slate-900" : "text-white/90"}`}
                                 >
                                   {slot.teamName}
                                 </span>
@@ -479,10 +480,33 @@ export default function BookingStatusPage({
                           {slot.teamId && (
                             <div className="flex items-center gap-1.5 shrink-0 ml-4">
                               <button
+                                onClick={() => {
+                                  if (
+                                    slot.paymentVerified &&
+                                    !window.confirm(
+                                      "Are you sure you want to REVOKE verification for this team?",
+                                    )
+                                  )
+                                    return;
+                                  onUpdatePayment(slot.docId, {
+                                    paymentVerified: !slot.paymentVerified,
+                                  });
+                                }}
+                                className={`w-9 h-9 rounded-2xl flex items-center justify-center transition-all ${slot.paymentVerified ? "bg-blue-500 text-white shadow-lg" : slot.teamId ? "bg-black/10 hover:bg-blue-500 text-black/40 hover:text-white" : "bg-white/10 hover:bg-blue-500 text-white/40 hover:text-white"}`}
+                                title={
+                                  slot.paymentVerified ? "Unverify" : "Verify"
+                                }
+                              >
+                                <ShieldCheck size={16} />
+                              </button>
+                              <button
                                 onClick={() =>
                                   onCheckIn(slot.docId, !slot.checkedIn)
                                 }
-                                className={`w-9 h-9 rounded-2xl flex items-center justify-center transition-all ${slot.checkedIn ? "bg-emerald-500 text-white shadow-lg" : "bg-white/10 hover:bg-emerald-500 text-white/40 hover:text-white"}`}
+                                className={`w-9 h-9 rounded-2xl flex items-center justify-center transition-all ${slot.checkedIn ? "bg-emerald-500 text-white shadow-lg" : slot.teamId ? "bg-black/10 hover:bg-emerald-500 text-black/40 hover:text-white" : "bg-white/10 hover:bg-emerald-500 text-white/40 hover:text-white"}`}
+                                title={
+                                  slot.checkedIn ? "Check-Out" : "Check-In"
+                                }
                               >
                                 <UserCheck
                                   size={16}
@@ -496,7 +520,7 @@ export default function BookingStatusPage({
                                   slot.imageUrl &&
                                   setSelectedImage(slot.imageUrl)
                                 }
-                                className={`w-9 h-9 rounded-2xl flex items-center justify-center transition-all ${slot.checkedIn ? "bg-emerald-100 text-emerald-600" : "bg-white/10 hover:bg-emerald-500 text-white/40 hover:text-white"}`}
+                                className={`w-9 h-9 rounded-2xl flex items-center justify-center transition-all ${slot.checkedIn ? "bg-emerald-100 text-emerald-600" : slot.teamId ? "bg-black/10 hover:bg-emerald-500 text-black/40 hover:text-white" : "bg-white/10 hover:bg-emerald-500 text-white/40 hover:text-white"}`}
                               >
                                 <Activity size={16} />
                               </button>

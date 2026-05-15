@@ -431,6 +431,7 @@ function App() {
                       onBack={goBack}
                       onDelete={handleDeleteBooking}
                       onCheckIn={handleCheckIn}
+                      onUpdatePayment={handleUpdatePayment}
                       onNavigate={navigate}
                     />
                   </motion.div>

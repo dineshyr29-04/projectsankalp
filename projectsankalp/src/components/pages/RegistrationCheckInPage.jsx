@@ -223,23 +223,23 @@ export default function RegistrationCheckInPage({
   const filteredTeams = getFilteredTeams();
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] text-slate-900 pb-20 overflow-x-hidden">
+    <div className="min-h-screen bg-slate-950 text-white pb-20 overflow-x-hidden">
       {/* STICKY HEADER */}
-      <div className="sticky top-0 z-[70] bg-white/90 backdrop-blur-2xl border-b border-slate-200/50 px-3 py-3 md:py-4">
+      <div className="sticky top-0 z-[70] bg-slate-900/90 backdrop-blur-2xl border-b border-white/10 px-3 py-3 md:py-4">
         <div className="w-full flex items-center gap-3 mb-4">
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={onBack}
-            className="w-10 h-10 md:w-12 md:h-12 bg-slate-900 text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shrink-0"
+            className="w-10 h-10 md:w-12 md:h-12 bg-white text-slate-950 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shrink-0"
           >
             <ChevronLeft size={20} />
           </motion.button>
 
           <div className="flex-1">
-            <h1 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tight">
+            <h1 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight">
               Registration Check-In
             </h1>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
+            <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em]">
               Auto Check-in Portal (Max 10/Domain)
             </p>
           </div>
@@ -275,14 +275,14 @@ export default function RegistrationCheckInPage({
               placeholder="Search Team ID / Name..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-slate-100/50 border-none rounded-xl py-3 pl-11 pr-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-emerald-500/20 transition-all"
+              className="w-full bg-white/5 border-none rounded-xl py-3 pl-11 pr-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-emerald-500/20 transition-all text-white placeholder:text-white/20"
             />
           </div>
 
           <select
             value={filterDomain}
             onChange={(e) => setFilterDomain(e.target.value)}
-            className="bg-slate-100/50 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-emerald-500/20 transition-all"
+            className="bg-white/5 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-emerald-500/20 transition-all text-white"
           >
             <option value="all">All Domains</option>
             {DOMAINS.map((d) => (
