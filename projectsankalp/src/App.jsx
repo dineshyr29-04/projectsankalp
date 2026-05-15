@@ -126,11 +126,10 @@ function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  // Global Booking State
   const [globalSlots, setGlobalSlots] = useState({
-    women: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
-    health: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
-    climate: Array.from({ length: 15 }, (_, i) => ({
+    women: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
+    health: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
+    climate: Array.from({ length: 10 }, (_, i) => ({
       id: i + 1,
       teamId: null,
     })),
@@ -146,15 +145,15 @@ function App() {
       const regs = snapshot.docs.map((doc) => ({ ...doc.data(), _id: doc.id }));
 
       const freshSlots = {
-        women: Array.from({ length: 15 }, (_, i) => ({
+        women: Array.from({ length: 10 }, (_, i) => ({
           id: i + 1,
           teamId: null,
         })),
-        health: Array.from({ length: 15 }, (_, i) => ({
+        health: Array.from({ length: 10 }, (_, i) => ({
           id: i + 1,
           teamId: null,
         })),
-        climate: Array.from({ length: 15 }, (_, i) => ({
+        climate: Array.from({ length: 10 }, (_, i) => ({
           id: i + 1,
           teamId: null,
         })),
