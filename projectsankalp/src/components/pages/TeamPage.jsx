@@ -6,34 +6,104 @@ import TeamShowcase from "../ui/TeamShowcase";
 // --- TEAM DATA ---
 
 const STUDENT_CONVENERS = [
-  { id: 's1', name: 'Radesh Pai', role: 'Student Convener', image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#', github: '#' } },
-  { id: 's2', name: 'Dinesh', role: 'Student Convener', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', social: { twitter: '#', linkedin: '#', github: '#' } },
+  {
+    id: "s1",
+    name: "Radesh Pai",
+    role: "Student Convener",
+    image:
+      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80",
+    social: { linkedin: "#", github: "#" },
+  },
+  {
+    id: "s2",
+    name: "Dinesh",
+    role: "Student Convener",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    social: { twitter: "#", linkedin: "#", github: "#" },
+  },
 ];
 
 const HOSPITALITY = [
-  { id: 'h1', name: 'Arjun Mehta', role: 'Hospitality Lead', image: 'https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
-  { id: 'h2', name: 'Nina Patel', role: 'Hospitality Team', image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
+  {
+    id: "h1",
+    name: "Arjun Mehta",
+    role: "Hospitality Lead",
+    image:
+      "https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&w=400&q=80",
+    social: { instagram: "#" },
+  },
+  {
+    id: "h2",
+    name: "Nina Patel",
+    role: "Hospitality Team",
+    image:
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+    social: { instagram: "#" },
+  },
 ];
 
 const DISCIPLINARY = [
-  { id: 'd1', name: 'Suresh G.', role: 'Disciplinary Head', image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#' } },
+  {
+    id: "d1",
+    name: "Suresh G.",
+    role: "Disciplinary Head",
+    image:
+      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80",
+    social: { linkedin: "#" },
+  },
 ];
 
 const REGISTRATION = [
-  { id: 'r1', name: 'Kavita Singh', role: 'Registration Lead', image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
+  {
+    id: "r1",
+    name: "Kavita Singh",
+    role: "Registration Lead",
+    image:
+      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80",
+    social: { instagram: "#" },
+  },
 ];
 
 const MEDIA = [
-  { id: 'm1', name: 'Anita Desai', role: 'Media Lead', image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80', social: { behance: '#', linkedin: '#' } },
-  { id: 'm2', name: 'Meera K.', role: 'Media Team', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80', social: { instagram: '#' } },
+  {
+    id: "m1",
+    name: "Anita Desai",
+    role: "Media Lead",
+    image:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
+    social: { behance: "#", linkedin: "#" },
+  },
+  {
+    id: "m2",
+    name: "Meera K.",
+    role: "Media Team",
+    image:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80",
+    social: { instagram: "#" },
+  },
 ];
 
 const TECHNICAL = [
-  { id: 't1', name: 'Dhanush Shenoy', role: 'Technical Lead', image: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&w=400&q=80', social: { linkedin: '#', github: '#' } },
+  {
+    id: "t1",
+    name: "Dhanush Shenoy",
+    role: "Technical Lead",
+    image:
+      "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&w=400&q=80",
+    social: { linkedin: "#", github: "#" },
+  },
 ];
 
 const WEBSITE = [
-  { id: 'w1', name: 'Vicky', role: 'Website Developer', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80', social: { github: '#', linkedin: '#' } },
+  {
+    id: "w1",
+    name: "Vicky",
+    role: "Website Developer",
+    image:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+    social: { github: "#", linkedin: "#" },
+  },
 ];
 
 const SECTIONS = [
@@ -50,42 +120,47 @@ export default function TeamPage({ onBack }) {
   const [activeSection, setActiveSection] = useState(SECTIONS[0].title);
   const scrollContainerRef = useRef(null);
 
-  const currentSection = SECTIONS.find(s => s.title === activeSection);
+  const currentSection = SECTIONS.find((s) => s.title === activeSection);
   const activeData = currentSection?.data || [];
 
   // Perfect Toggle: Scroll active tab into view
   useEffect(() => {
     if (scrollContainerRef.current) {
-      const activeButton = scrollContainerRef.current.querySelector(`[data-active="true"]`);
+      const activeButton =
+        scrollContainerRef.current.querySelector(`[data-active="true"]`);
       if (activeButton) {
         const container = scrollContainerRef.current;
-        const scrollLeft = activeButton.offsetLeft - (container.offsetWidth / 2) + (activeButton.offsetWidth / 2);
-        container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+        const scrollLeft =
+          activeButton.offsetLeft -
+          container.offsetWidth / 2 +
+          activeButton.offsetWidth / 2;
+        container.scrollTo({ left: scrollLeft, behavior: "smooth" });
       }
     }
   }, [activeSection]);
 
   const sectionColors = {
     "Student Conveners": "from-slate-50 to-white",
-    "Technical": "from-emerald-50/50 to-white",
-    "Website": "from-blue-50/50 to-white",
-    "Registration": "from-indigo-50/50 to-white",
-    "Media": "from-violet-50/50 to-white",
-    "Hospitality": "from-amber-50/50 to-white",
-    "Disciplinary": "from-rose-50/50 to-white",
+    Technical: "from-emerald-50/50 to-white",
+    Website: "from-blue-50/50 to-white",
+    Registration: "from-indigo-50/50 to-white",
+    Media: "from-violet-50/50 to-white",
+    Hospitality: "from-amber-50/50 to-white",
+    Disciplinary: "from-rose-50/50 to-white",
   };
   const currentBg = sectionColors[activeSection] || "from-slate-50 to-white";
 
   return (
     <div className="bg-white min-h-screen relative font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-32 transition-colors duration-1000 overflow-x-hidden">
-      
-      <div className={`absolute inset-0 bg-gradient-to-b ${currentBg} opacity-60 pointer-events-none transition-all duration-1000`} />
+      <div
+        className={`absolute inset-0 bg-gradient-to-b ${currentBg} opacity-60 pointer-events-none transition-all duration-1000`}
+      />
 
       {/* Hero Section */}
       <section className="relative pt-24 md:pt-40 pb-16 z-10 border-b border-slate-100">
         <Container>
           <div className="mb-10">
-            <motion.button 
+            <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={onBack}
               className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 hover:text-slate-900 transition-colors"
@@ -95,7 +170,7 @@ export default function TeamPage({ onBack }) {
             </motion.button>
           </div>
           <div className="max-w-4xl px-2 sm:px-0">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               className="flex items-center gap-4 mb-6 md:mb-10"
@@ -106,17 +181,19 @@ export default function TeamPage({ onBack }) {
               </span>
             </motion.div>
 
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-[40px] sm:text-6xl md:text-8xl lg:text-[110px] font-serif font-black text-slate-900 leading-[0.9] tracking-tighter mb-8"
             >
               Meet the <br />
-              <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-500">Crew.</span>
+              <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-500">
+                Crew.
+              </span>
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -131,7 +208,7 @@ export default function TeamPage({ onBack }) {
 
       {/* Perfect Toggle Navigation */}
       <section className="sticky top-0 z-50 bg-white/80 backdrop-blur-2xl border-b border-slate-100 py-3 transition-all duration-500">
-        <div 
+        <div
           ref={scrollContainerRef}
           className="flex items-center gap-3 overflow-x-auto px-6 hide-scrollbar w-full max-w-5xl mx-auto scroll-smooth snap-x"
         >
@@ -166,7 +243,7 @@ export default function TeamPage({ onBack }) {
       <section className="relative z-10 py-12 md:py-24 min-h-[600px]">
         <Container>
           <AnimatePresence mode="wait">
-            <motion.div 
+            <motion.div
               key={activeSection}
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -176,13 +253,15 @@ export default function TeamPage({ onBack }) {
             >
               <div className="flex items-end justify-between border-b border-slate-200/60 pb-8 px-4 sm:px-0">
                 <div className="flex flex-col gap-1">
-                  <span className="text-blue-600 font-black text-[9px] uppercase tracking-[0.4em]">Section</span>
+                  <span className="text-blue-600 font-black text-[9px] uppercase tracking-[0.4em]">
+                    Section
+                  </span>
                   <h2 className="text-2xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter">
                     {activeSection}
                   </h2>
                 </div>
                 <span className="text-slate-100 font-serif text-5xl md:text-8xl italic font-black leading-none translate-y-3">
-                  0{SECTIONS.findIndex(s => s.title === activeSection) + 1}
+                  0{SECTIONS.findIndex((s) => s.title === activeSection) + 1}
                 </span>
               </div>
 
@@ -205,5 +284,3 @@ export default function TeamPage({ onBack }) {
     </div>
   );
 }
-
-

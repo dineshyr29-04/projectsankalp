@@ -1,7 +1,13 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaLinkedinIn, FaTwitter, FaBehance, FaInstagram, FaGithub } from 'react-icons/fa';
-import { cn } from '../../lib/utils';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  FaLinkedinIn,
+  FaTwitter,
+  FaBehance,
+  FaInstagram,
+  FaGithub,
+} from "react-icons/fa";
+import { cn } from "../../lib/utils";
 
 export default function TeamShowcase({ members }) {
   const [hoveredId, setHoveredId] = useState(null);
@@ -23,12 +29,16 @@ export default function TeamShowcase({ members }) {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{
+              duration: 0.8,
+              delay: index * 0.1,
+              ease: [0.16, 1, 0.3, 1],
+            }}
             className="group relative"
           >
             {/* Background Number: Clipped to avoid overflow */}
             <span className="absolute -top-10 -left-4 text-[100px] font-black text-slate-100/60 -z-10 select-none pointer-events-none">
-              {String(index + 1).padStart(2, '0')}
+              {String(index + 1).padStart(2, "0")}
             </span>
 
             <div className="flex flex-col gap-6">
@@ -40,7 +50,7 @@ export default function TeamShowcase({ members }) {
                   className="w-full h-full object-cover transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-80" />
-                
+
                 {/* Social Links: Larger for mobile */}
                 <div className="absolute bottom-6 left-6 flex gap-3">
                   <SocialIcons member={member} light size={18} />
@@ -117,37 +127,76 @@ export default function TeamShowcase({ members }) {
 }
 
 function SocialIcons({ member, light = false, size = 14 }) {
-  const hasSocial = member.social?.twitter || member.social?.linkedin || member.social?.instagram || member.social?.behance || member.social?.github;
+  const hasSocial =
+    member.social?.twitter ||
+    member.social?.linkedin ||
+    member.social?.instagram ||
+    member.social?.behance ||
+    member.social?.github;
   if (!hasSocial) return null;
 
   const iconClass = cn(
     "p-2.5 rounded-full backdrop-blur-md transition-all duration-300 hover:scale-110",
-    light 
-      ? "bg-white/10 text-white hover:bg-white/20" 
-      : "bg-slate-100 text-slate-400 hover:text-slate-900 hover:bg-slate-200"
+    light
+      ? "bg-white/10 text-white hover:bg-white/20"
+      : "bg-slate-100 text-slate-400 hover:text-slate-900 hover:bg-slate-200",
   );
 
   return (
     <div className="flex items-center gap-2">
       {member.social?.linkedin && (
-        <a href={member.social.linkedin} target="_blank" rel="noopener" className={iconClass}><FaLinkedinIn size={size} /></a>
+        <a
+          href={member.social.linkedin}
+          target="_blank"
+          rel="noopener"
+          className={iconClass}
+        >
+          <FaLinkedinIn size={size} />
+        </a>
       )}
       {member.social?.github && (
-        <a href={member.social.github} target="_blank" rel="noopener" className={iconClass}><FaGithub size={size} /></a>
+        <a
+          href={member.social.github}
+          target="_blank"
+          rel="noopener"
+          className={iconClass}
+        >
+          <FaGithub size={size} />
+        </a>
       )}
       {member.social?.instagram && (
-        <a href={member.social.instagram} target="_blank" rel="noopener" className={iconClass}><FaInstagram size={size} /></a>
+        <a
+          href={member.social.instagram}
+          target="_blank"
+          rel="noopener"
+          className={iconClass}
+        >
+          <FaInstagram size={size} />
+        </a>
       )}
       {member.social?.twitter && (
-        <a href={member.social.twitter} target="_blank" rel="noopener" className={iconClass}><FaTwitter size={size} /></a>
+        <a
+          href={member.social.twitter}
+          target="_blank"
+          rel="noopener"
+          className={iconClass}
+        >
+          <FaTwitter size={size} />
+        </a>
       )}
       {member.social?.behance && (
-        <a href={member.social.behance} target="_blank" rel="noopener" className={iconClass}><FaBehance size={size} /></a>
+        <a
+          href={member.social.behance}
+          target="_blank"
+          rel="noopener"
+          className={iconClass}
+        >
+          <FaBehance size={size} />
+        </a>
       )}
     </div>
   );
 }
-
 
 function PhotoCard({ member, className, hoveredId, onHover }) {
   const isActive = hoveredId === member.id;
@@ -156,10 +205,10 @@ function PhotoCard({ member, className, hoveredId, onHover }) {
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-all duration-500 bg-slate-100 shadow-sm',
+        "overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-all duration-500 bg-slate-100 shadow-sm",
         className,
-        isDimmed ? 'opacity-40 grayscale' : 'opacity-100 grayscale-0',
-        isActive ? 'ring-2 ring-slate-900 ring-offset-2 scale-[1.02]' : '',
+        isDimmed ? "opacity-40 grayscale" : "opacity-100 grayscale-0",
+        isActive ? "ring-2 ring-slate-900 ring-offset-2 scale-[1.02]" : "",
       )}
       onMouseEnter={() => onHover(member.id)}
       onMouseLeave={() => onHover(null)}
@@ -169,7 +218,7 @@ function PhotoCard({ member, className, hoveredId, onHover }) {
         alt={member.name}
         loading="lazy"
         className="w-full h-full object-cover transition-transform duration-700"
-        style={{ transform: isActive ? 'scale(1.1)' : 'scale(1)' }}
+        style={{ transform: isActive ? "scale(1.1)" : "scale(1)" }}
       />
     </div>
   );
@@ -182,25 +231,27 @@ function MemberRow({ member, hoveredId, onHover }) {
   return (
     <div
       className={cn(
-        'cursor-pointer transition-all duration-300 group',
-        isDimmed ? 'opacity-30' : 'opacity-100',
+        "cursor-pointer transition-all duration-300 group",
+        isDimmed ? "opacity-30" : "opacity-100",
       )}
       onMouseEnter={() => onHover(member.id)}
       onMouseLeave={() => onHover(null)}
     >
       <div className="flex items-center gap-4">
         <motion.div
-          animate={{ 
+          animate={{
             width: isActive ? 40 : 12,
-            backgroundColor: isActive ? "#0f172a" : "#cbd5e1"
+            backgroundColor: isActive ? "#0f172a" : "#cbd5e1",
           }}
           className="h-[2px] rounded-full transition-all"
         />
         <div className="flex flex-col">
-          <span className={cn(
-            'text-2xl font-black tracking-tighter transition-colors duration-300',
-            isActive ? 'text-slate-900' : 'text-slate-400'
-          )}>
+          <span
+            className={cn(
+              "text-2xl font-black tracking-tighter transition-colors duration-300",
+              isActive ? "text-slate-900" : "text-slate-400",
+            )}
+          >
             {member.name}
           </span>
           <AnimatePresence>
@@ -226,4 +277,3 @@ function MemberRow({ member, hoveredId, onHover }) {
     </div>
   );
 }
-

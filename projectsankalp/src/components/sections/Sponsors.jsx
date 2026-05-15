@@ -8,10 +8,26 @@ export default function Sponsors() {
   const sponsors = [
     { src: "/nsslogo.png", alt: "NSS Unit", title: "NSS Unit" },
     { src: "/IIC.png", alt: "IIC", title: "Institution's Innovation Council" },
-    { src: "/yenepoya-logo.png", alt: "/yentech.png", title: "Technical Club of YSET" },
-    { src: "/MYAA.png", alt: "Ministry of Youth Affairs and Sports", title: "Ministry of Youth Affairs and Sports" },
-    {src: "/incubation-logo.png", alt: "Incubation Center", title: "Incubation Center"},
-    {src:"yset-logo.png", alt: "Yenepoya Institute of Technology", title: "Yenepoya Institute of Technology"}
+    {
+      src: "/yenepoya-logo.png",
+      alt: "/yentech.png",
+      title: "Technical Club of YSET",
+    },
+    {
+      src: "/MYAA.png",
+      alt: "Ministry of Youth Affairs and Sports",
+      title: "Ministry of Youth Affairs and Sports",
+    },
+    {
+      src: "/incubation-logo.png",
+      alt: "Incubation Center",
+      title: "Incubation Center",
+    },
+    {
+      src: "yset-logo.png",
+      alt: "Yenepoya Institute of Technology",
+      title: "Yenepoya Institute of Technology",
+    },
   ];
 
   return (
@@ -35,7 +51,9 @@ export default function Sponsors() {
             className="text-6xl md:text-8xl font-serif font-black text-slate-900 tracking-tighter leading-[1.1] mb-24"
           >
             Supported <br />
-            <span className="text-emerald-600 italic mt-10 inline-block">By Pioneers.</span>
+            <span className="text-emerald-600 italic mt-10 inline-block">
+              By Pioneers.
+            </span>
           </motion.h2>
 
           <motion.p
@@ -45,7 +63,8 @@ export default function Sponsors() {
             transition={{ delay: 0.2 }}
             className="max-w-2xl text-slate-600 text-lg font-medium border-l border-slate-100 pl-8"
           >
-            A collective of visionary institutions committed to fostering grassroots innovation.
+            A collective of visionary institutions committed to fostering
+            grassroots innovation.
           </motion.p>
         </div>
 
@@ -67,7 +86,7 @@ export default function Sponsors() {
 
         <div className="flex flex-col items-center gap-10">
           <div className="h-px w-24 bg-slate-200" />
-          
+
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -79,7 +98,8 @@ export default function Sponsors() {
                 Partner with us.
               </h3>
               <p className="text-sm text-slate-500 font-medium max-w-sm mx-auto leading-relaxed">
-                Empower the next generation of social innovators and showcase your organization's commitment to change.
+                Empower the next generation of social innovators and showcase
+                your organization's commitment to change.
               </p>
             </div>
 

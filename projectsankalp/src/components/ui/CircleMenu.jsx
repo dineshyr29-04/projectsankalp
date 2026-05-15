@@ -1,29 +1,29 @@
+"use client";
 
-'use client';
-
-import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
-import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 import { cn } from "../../utils/helpers";
 
 const CONSTANTS = {
   itemSize: 48,
   spacing: 70, // Slightly tighter spacing for vertical list
   openStagger: 0.1,
-  closeStagger: 0.1
+  closeStagger: 0.1,
 };
 
 const STYLES = {
   trigger: {
     container:
-      'rounded-2xl flex items-center bg-slate-900 text-white justify-center cursor-pointer outline-none ring-0 hover:brightness-125 transition-all duration-100 z-50 shadow-lg shadow-slate-900/20 active:scale-95',
-    active: 'bg-emerald-600'
+      "rounded-2xl flex items-center bg-slate-900 text-white justify-center cursor-pointer outline-none ring-0 hover:brightness-125 transition-all duration-100 z-50 shadow-lg shadow-slate-900/20 active:scale-95",
+    active: "bg-emerald-600",
   },
   item: {
     container:
-      'rounded-2xl flex items-center justify-center absolute bg-white border border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm active:scale-90 transition-transform outline-none',
-    label: 'text-[10px] font-black uppercase tracking-widest text-slate-900 absolute left-full ml-4 whitespace-nowrap bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-2xl border border-slate-100 transition-all shadow-sm pointer-events-none'
-  }
+      "rounded-2xl flex items-center justify-center absolute bg-white border border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm active:scale-90 transition-transform outline-none",
+    label:
+      "text-[10px] font-black uppercase tracking-widest text-slate-900 absolute left-full ml-4 whitespace-nowrap bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-2xl border border-slate-100 transition-all shadow-sm pointer-events-none",
+  },
 };
 
 // Calculate position based on layout
@@ -38,14 +38,23 @@ const getPoint = (i, n, spacing, isMobile) => {
     const angle = (i / (totalItems - 1)) * (Math.PI / 2);
     return {
       x: radius * Math.cos(angle),
-      y: radius * Math.sin(angle)
+      y: radius * Math.sin(angle),
     };
   }
   // Standard vertical dropdown for desktop
   return { x: 0, y: (i + 1) * spacing };
 };
 
-const MenuItem = ({ icon, label, href, index, totalItems, isOpen, onClick, isMobile }) => {
+const MenuItem = ({
+  icon,
+  label,
+  href,
+  index,
+  totalItems,
+  isOpen,
+  onClick,
+  isMobile,
+}) => {
   const { x, y } = getPoint(index, totalItems, CONSTANTS.spacing, isMobile);
   const [hovering, setHovering] = useState(false);
 
@@ -60,30 +69,33 @@ const MenuItem = ({ icon, label, href, index, totalItems, isOpen, onClick, isMob
       }}
       whileHover={{
         scale: 1.1,
-        transition: { duration: 0.1 }
+        transition: { duration: 0.1 },
       }}
       transition={{
-        delay: isOpen ? index * CONSTANTS.openStagger : (totalItems - index) * CONSTANTS.closeStagger,
-        type: 'spring',
+        delay: isOpen
+          ? index * CONSTANTS.openStagger
+          : (totalItems - index) * CONSTANTS.closeStagger,
+        type: "spring",
         stiffness: 300,
-        damping: 30
+        damping: 30,
       }}
       className="absolute group"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
-      <button 
+      <button
         type="button"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
           onClick(e, href);
         }}
-        className={cn(STYLES.item.container, isMobile ? "w-16 h-16" : "w-12 h-12")}
+        className={cn(
+          STYLES.item.container,
+          isMobile ? "w-16 h-16" : "w-12 h-12",
+        )}
       >
-        <div className={isMobile ? "scale-150" : "scale-100"}>
-          {icon}
-        </div>
+        <div className={isMobile ? "scale-150" : "scale-100"}>{icon}</div>
       </button>
     </motion.div>
   );
@@ -95,14 +107,15 @@ const MenuTrigger = ({
   itemsLength,
   closeAnimationCallback,
   openIcon,
-  closeIcon
+  closeIcon,
 }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const animate = useAnimationControls();
   const shakeAnimation = useAnimationControls();
 
-  const scaleTransition = Array.from({ length: Math.min(itemsLength, 4) })
-    .map((_, index) => 1 + (index + 1) * 0.1);
+  const scaleTransition = Array.from({ length: Math.min(itemsLength, 4) }).map(
+    (_, index) => 1 + (index + 1) * 0.1,
+  );
 
   const closeAnimation = async () => {
     setIsAnimating(true);
@@ -110,8 +123,8 @@ const MenuTrigger = ({
       translateX: [0, 2, -2, 0, 2, -2, 0],
       transition: {
         duration: 0.1,
-        ease: 'linear',
-      }
+        ease: "linear",
+      },
     });
 
     for (let i = 0; i < scaleTransition.length; i++) {
@@ -119,8 +132,8 @@ const MenuTrigger = ({
         scale: scaleTransition[i],
         transition: {
           duration: 0.05,
-          ease: 'linear'
-        }
+          ease: "linear",
+        },
       });
     }
 
@@ -129,8 +142,8 @@ const MenuTrigger = ({
       scale: 1,
       transition: {
         duration: 0.2,
-        type: 'spring'
-      }
+        type: "spring",
+      },
     });
     setIsAnimating(false);
   };
@@ -146,7 +159,10 @@ const MenuTrigger = ({
       setIsAnimating(true);
       setIsOpen(true);
       // Wait for items to finish staggered animation before allowing another click
-      setTimeout(() => setIsAnimating(false), (itemsLength * CONSTANTS.openStagger + 0.5) * 1000);
+      setTimeout(
+        () => setIsAnimating(false),
+        (itemsLength * CONSTANTS.openStagger + 0.5) * 1000,
+      );
     }
   };
 
@@ -155,10 +171,10 @@ const MenuTrigger = ({
       <motion.button
         animate={animate}
         className={cn(
-          STYLES.trigger.container, 
-          "w-12 h-12 md:w-14 md:h-14", 
+          STYLES.trigger.container,
+          "w-12 h-12 md:w-14 md:h-14",
           isOpen && STYLES.trigger.active,
-          isAnimating && "cursor-wait opacity-80"
+          isAnimating && "cursor-wait opacity-80",
         )}
         onClick={(e) => {
           e.preventDefault();
@@ -196,7 +212,7 @@ const CircleMenu = ({
   items,
   openIcon = <Menu size={20} />,
   closeIcon = <X size={20} />,
-  onItemClick
+  onItemClick,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -205,39 +221,39 @@ const CircleMenu = ({
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
 
     // Close menu on click outside and lock scroll on mobile
     const handleClickOutside = (e) => {
-      if (isOpen && !e.target.closest('.circle-menu-container')) {
+      if (isOpen && !e.target.closest(".circle-menu-container")) {
         setIsOpen(false);
         closeAnimationCallback();
       }
     };
 
     if (isOpen && isMobile) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      window.removeEventListener('resize', checkMobile);
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.body.style.overflow = 'unset';
+      window.removeEventListener("resize", checkMobile);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.body.style.overflow = "unset";
     };
   }, [isOpen, isMobile]);
 
   const closeAnimationCallback = async () => {
     await animate.start({
       x: -10,
-      transition: { duration: 0.1 }
+      transition: { duration: 0.1 },
     });
     await animate.start({
       x: 0,
-      transition: { duration: 0.2, type: 'spring' }
+      transition: { duration: 0.2, type: "spring" },
     });
   };
 
@@ -267,8 +283,8 @@ const CircleMenu = ({
       <motion.div
         animate={animate}
         className={cn(
-          'absolute top-0 left-0 flex items-center z-50',
-          isOpen ? 'pointer-events-auto' : 'pointer-events-none'
+          "absolute top-0 left-0 flex items-center z-50",
+          isOpen ? "pointer-events-auto" : "pointer-events-none",
         )}
       >
         {items.map((item, index) => {

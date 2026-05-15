@@ -1,11 +1,6 @@
 import Container from "../core/Container";
 import { siteConfig } from "../../config/site";
-import {
-  MapPin,
-  Mail,
-  Phone,
-  ArrowUpRight,
-} from "lucide-react";
+import { MapPin, Mail, Phone, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Footer() {
@@ -35,11 +30,15 @@ export default function Footer() {
             </div>
 
             <p className="text-sm text-white/50 leading-relaxed max-w-sm font-medium">
-              A premier social-impact hackathon solving global challenges through purposeful technology.
+              A premier social-impact hackathon solving global challenges
+              through purposeful technology.
             </p>
 
             <div className="flex items-start gap-4 text-white/40 group cursor-pointer hover:text-white transition-colors duration-500">
-              <MapPin size={16} className="text-emerald-500 mt-0.5 flex-shrink-0" />
+              <MapPin
+                size={16}
+                className="text-emerald-500 mt-0.5 flex-shrink-0"
+              />
               <p className="text-[11px] leading-relaxed font-medium">
                 Yenepoya University, Deralakatte, Mangalore 575018
               </p>
@@ -71,18 +70,16 @@ export default function Footer() {
               Partners
             </h4>
             <ul className="space-y-4">
-              {["NSS Unit", "YSET", "Yenepoya", "Research"].map(
-                (item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      className="text-xs text-white/50 hover:text-emerald-500 transition-all flex items-center gap-1.5 group font-black uppercase tracking-widest"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                ),
-              )}
+              {["NSS Unit", "YSET", "Yenepoya", "Research"].map((item) => (
+                <li key={item}>
+                  <a
+                    href="#"
+                    className="text-xs text-white/50 hover:text-emerald-500 transition-all flex items-center gap-1.5 group font-black uppercase tracking-widest"
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -119,7 +116,8 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
           <p className="text-[9px] text-white/20 uppercase tracking-[0.4em] font-black text-center md:text-left">
-            © 2026 Project Sankalp. <br className="md:hidden" /> All rights reserved.
+            © 2026 Project Sankalp. <br className="md:hidden" /> All rights
+            reserved.
           </p>
           <div className="flex items-center gap-3 text-[9px] uppercase tracking-[0.2em]">
             <span className="text-white/20 font-medium">Organized by</span>

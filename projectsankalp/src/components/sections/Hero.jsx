@@ -15,10 +15,9 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const sponsors = [
-    { name:"Ministry of Youth Affairs and Sports", logo:"/MYAA.png"},
+    { name: "Ministry of Youth Affairs and Sports", logo: "/MYAA.png" },
     { name: "Yenepoya University", logo: "/ysetlogo.png" },
     { name: "NSS Unit", logo: "/nsslogo.png" },
-    
   ];
 
   return (
@@ -84,7 +83,7 @@ export default function Hero() {
                   SANKALP
                 </h1>
               </div>
-              
+
               {/* HERO TIMER - Focal point under title */}
               <div className="scale-100 origin-center">
                 <HeroTimer />

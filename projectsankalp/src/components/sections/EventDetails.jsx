@@ -44,7 +44,9 @@ export default function EventDetails() {
 
               <h2 className="text-5xl md:text-7xl font-serif font-black text-slate-900 leading-[0.9] tracking-tight">
                 Where Innovation <br />
-                <span className="text-emerald-600 italic ">Takes Center Stage.</span>
+                <span className="text-emerald-600 italic ">
+                  Takes Center Stage.
+                </span>
               </h2>
             </motion.div>
 

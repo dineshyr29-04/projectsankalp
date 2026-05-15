@@ -10,10 +10,34 @@ import { doc, onSnapshot, setDoc, Timestamp } from "firebase/firestore";
 const GlassFilter = () => (
   <svg className="hidden">
     <defs>
-      <filter id="timer-glass-distortion" x="0%" y="0%" width="100%" height="100%" colorInterpolationFilters="sRGB">
-        <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" seed="1" result="turbulence" />
-        <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise" />
-        <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="50" xChannelSelector="R" yChannelSelector="B" result="displaced" />
+      <filter
+        id="timer-glass-distortion"
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+        colorInterpolationFilters="sRGB"
+      >
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.05 0.05"
+          numOctaves="1"
+          seed="1"
+          result="turbulence"
+        />
+        <feGaussianBlur
+          in="turbulence"
+          stdDeviation="2"
+          result="blurredNoise"
+        />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="blurredNoise"
+          scale="50"
+          xChannelSelector="R"
+          yChannelSelector="B"
+          result="displaced"
+        />
         <feGaussianBlur in="displaced" stdDeviation="2" result="finalBlur" />
         <feComposite in="finalBlur" in2="finalBlur" operator="over" />
       </filter>
@@ -67,8 +91,15 @@ const TimeUnit = ({ value, label }) => {
 };
 
 export default function TimerPage() {
-  const [targetDate, setTargetDate] = useState(new Date("2026-05-15T23:59:59+05:30"));
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [targetDate, setTargetDate] = useState(
+    new Date("2026-05-15T23:59:59+05:30"),
+  );
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
   const [showControls, setShowControls] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -100,7 +131,9 @@ export default function TimerPage() {
       } else {
         setTimeLeft({
           days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          hours: Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+          ),
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000),
         });
@@ -114,7 +147,7 @@ export default function TimerPage() {
     if (!db) return;
     try {
       await setDoc(doc(db, "settings", "timer"), {
-        targetTimestamp: Timestamp.fromDate(newDate)
+        targetTimestamp: Timestamp.fromDate(newDate),
       });
     } catch (e) {
       console.error("Error updating timer:", e);
@@ -124,14 +157,14 @@ export default function TimerPage() {
   return (
     <div className="fixed inset-0 z-[200] bg-black selection:bg-white/10 flex flex-col items-center justify-center overflow-hidden">
       <GlassFilter />
-      
+
       {/* ── Immersive Background ── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.15]"
-          style={{ 
+          style={{
             backdropFilter: 'url("#timer-glass-distortion")',
-            background: 'radial-gradient(circle at center, #111 0%, #000 100%)'
+            background: "radial-gradient(circle at center, #111 0%, #000 100%)",
           }}
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.03),transparent_70%)]" />
@@ -147,11 +180,15 @@ export default function TimerPage() {
         >
           <div className="flex items-center gap-3 mb-8">
             <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.5)] animate-pulse" />
-            <span className="text-white/20 font-black uppercase tracking-[1em] text-[10px]">Hacking in Progress</span>
+            <span className="text-white/20 font-black uppercase tracking-[1em] text-[10px]">
+              Hacking in Progress
+            </span>
           </div>
 
           <div className="flex flex-wrap justify-center gap-x-16 gap-y-12">
-            {timeLeft.days > 0 && <TimeUnit value={timeLeft.days} label="Days" />}
+            {timeLeft.days > 0 && (
+              <TimeUnit value={timeLeft.days} label="Days" />
+            )}
             <TimeUnit value={timeLeft.hours} label="Hours" />
             <TimeUnit value={timeLeft.minutes} label="Minutes" />
             <TimeUnit value={timeLeft.seconds} label="Seconds" />
@@ -166,7 +203,7 @@ export default function TimerPage() {
       </div>
 
       {/* ── Secret Controls ── */}
-      <div 
+      <div
         className="absolute bottom-8 right-8 z-50 group"
         onMouseEnter={() => setShowControls(true)}
         onMouseLeave={() => setShowControls(false)}
@@ -179,14 +216,20 @@ export default function TimerPage() {
               exit={{ opacity: 0, x: 20 }}
               className="flex items-center gap-3 mr-4"
             >
-              <button 
+              <button
                 onClick={() => setIsPaused(!isPaused)}
                 className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-all shadow-2xl backdrop-blur-xl"
               >
-                {isPaused ? <Play size={20} fill="currentColor" /> : <Pause size={20} fill="currentColor" />}
+                {isPaused ? (
+                  <Play size={20} fill="currentColor" />
+                ) : (
+                  <Pause size={20} fill="currentColor" />
+                )}
               </button>
-              <button 
-                onClick={() => updateRemoteTimer(new Date("2026-05-15T23:59:59+05:30"))}
+              <button
+                onClick={() =>
+                  updateRemoteTimer(new Date("2026-05-15T23:59:59+05:30"))
+                }
                 className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-all shadow-2xl backdrop-blur-xl"
               >
                 <RotateCcw size={20} />
@@ -194,9 +237,12 @@ export default function TimerPage() {
             </motion.div>
           )}
         </AnimatePresence>
-        
+
         <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/20 group-hover:text-white transition-all cursor-pointer backdrop-blur-xl">
-          <Settings size={20} className={showControls ? 'rotate-90 transition-transform' : ''} />
+          <Settings
+            size={20}
+            className={showControls ? "rotate-90 transition-transform" : ""}
+          />
         </div>
       </div>
     </div>

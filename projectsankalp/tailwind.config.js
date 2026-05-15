@@ -25,13 +25,17 @@ export default {
       },
       keyframes: {
         sweep: {
-          '0%': { transform: 'translateX(-100%) translateY(-100%) rotate(45deg)' },
-          '100%': { transform: 'translateX(100%) translateY(100%) rotate(45deg)' },
-        }
+          "0%": {
+            transform: "translateX(-100%) translateY(-100%) rotate(45deg)",
+          },
+          "100%": {
+            transform: "translateX(100%) translateY(100%) rotate(45deg)",
+          },
+        },
       },
       animation: {
-        sweep: 'sweep 1.5s ease-in-out infinite',
-      }
+        sweep: "sweep 1.5s ease-in-out infinite",
+      },
     },
   },
   plugins: [],

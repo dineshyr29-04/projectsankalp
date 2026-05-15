@@ -7,10 +7,34 @@ import { doc, onSnapshot } from "firebase/firestore";
 const GlassFilter = () => (
   <svg className="hidden">
     <defs>
-      <filter id="hero-glass-liquid" x="0%" y="0%" width="100%" height="100%" colorInterpolationFilters="sRGB">
-        <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" seed="1" result="turbulence" />
-        <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise" />
-        <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="30" xChannelSelector="R" yChannelSelector="B" result="displaced" />
+      <filter
+        id="hero-glass-liquid"
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+        colorInterpolationFilters="sRGB"
+      >
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.05 0.05"
+          numOctaves="1"
+          seed="1"
+          result="turbulence"
+        />
+        <feGaussianBlur
+          in="turbulence"
+          stdDeviation="2"
+          result="blurredNoise"
+        />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="blurredNoise"
+          scale="30"
+          xChannelSelector="R"
+          yChannelSelector="B"
+          result="displaced"
+        />
         <feGaussianBlur in="displaced" stdDeviation="2" result="finalBlur" />
         <feComposite in="finalBlur" in2="finalBlur" operator="over" />
       </filter>
@@ -66,7 +90,12 @@ const TIER_2_DATE = new Date("2026-05-17T23:59:59+05:30");
 
 export default function HeroTimer() {
   const [targetDate, setTargetDate] = useState(TIER_1_DATE);
-  const [timeLeft, setTimeLeft] = useState({ days: "00", hours: "00", minutes: "00", seconds: "00" });
+  const [timeLeft, setTimeLeft] = useState({
+    days: "00",
+    hours: "00",
+    minutes: "00",
+    seconds: "00",
+  });
   const [isFirebaseOverriding, setIsFirebaseOverriding] = useState(false);
 
   useEffect(() => {
@@ -89,7 +118,11 @@ export default function HeroTimer() {
       const distance = targetDate.getTime() - now;
 
       // Tier rollover logic: If tier 1 ends, automatically switch to tier 2
-      if (distance <= 0 && !isFirebaseOverriding && targetDate.getTime() === TIER_1_DATE.getTime()) {
+      if (
+        distance <= 0 &&
+        !isFirebaseOverriding &&
+        targetDate.getTime() === TIER_1_DATE.getTime()
+      ) {
         setTargetDate(TIER_2_DATE);
         return;
       }
@@ -98,10 +131,20 @@ export default function HeroTimer() {
         setTimeLeft({ days: "00", hours: "00", minutes: "00", seconds: "00" });
       } else {
         setTimeLeft({
-          days: String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, "0"),
-          hours: String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, "0"),
-          minutes: String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, "0"),
-          seconds: String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, "0"),
+          days: String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(
+            2,
+            "0",
+          ),
+          hours: String(
+            Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          ).padStart(2, "0"),
+          minutes: String(
+            Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          ).padStart(2, "0"),
+          seconds: String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(
+            2,
+            "0",
+          ),
         });
       }
     }, 1000);
@@ -116,16 +159,16 @@ export default function HeroTimer() {
       className="relative"
     >
       <GlassFilter />
-      
+
       {/* Liquid Glass Background Pill */}
-      <div 
+      <div
         className="absolute inset-0 z-0 rounded-2xl sm:rounded-3xl md:rounded-[48px] shadow-[0_10px_40px_rgba(0,0,0,0.04),inset_2px_2px_2px_rgba(255,255,255,0.5),inset_-2px_-2px_2px_rgba(0,0,0,0.05)]"
-        style={{ 
+        style={{
           backdropFilter: 'url("#hero-glass-liquid")',
-          background: 'rgba(255,255,255,0.15)'
+          background: "rgba(255,255,255,0.15)",
         }}
       />
-      
+
       <div className="relative z-10 px-4 sm:px-8 md:px-16 py-4 sm:py-6 md:py-8 flex items-center justify-center gap-2 sm:gap-3 md:gap-14">
         <TimeUnit value={timeLeft.days} label="Days" />
         <div className="h-6 sm:h-7 md:h-10 w-px bg-slate-900/10" />

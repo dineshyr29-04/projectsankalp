@@ -6,10 +6,10 @@ const Loader = () => {
     <div className="relative flex flex-col items-center justify-center gap-8 w-64 h-64">
       <div className="relative flex items-center justify-center w-20 h-20">
         {/* Soft Ambient Glow */}
-        <motion.div 
+        <motion.div
           animate={{ scale: [0.9, 1.2, 0.9], opacity: [0.3, 0.6, 0.3] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-[-50%] bg-emerald-400/20 rounded-full blur-2xl" 
+          className="absolute inset-[-50%] bg-emerald-400/20 rounded-full blur-2xl"
         />
 
         {/* Sleek Spinning Outer Ring */}
@@ -26,7 +26,7 @@ const Loader = () => {
           className="w-4 h-4 bg-emerald-500 rounded-full shadow-[0_0_12px_rgba(16,185,129,0.8)] z-10"
         />
       </div>
-      
+
       {/* Minimalist Loading Text */}
       <motion.div
         animate={{ opacity: [0.4, 1, 0.4] }}

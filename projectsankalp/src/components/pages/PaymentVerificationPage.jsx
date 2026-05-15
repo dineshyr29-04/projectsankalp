@@ -12,18 +12,41 @@ import {
   Filter,
   Eye,
   Check,
-  Trash2
+  Trash2,
 } from "lucide-react";
 import Container from "../core/Container";
-import { exportPaymentVerification, exportDomainSummary } from "../../utils/excelExport";
+import {
+  exportPaymentVerification,
+  exportDomainSummary,
+} from "../../utils/excelExport";
 
 const DOMAINS = [
-  { id: "women", title: "Women's Entrepreneurship", color: "text-blue-500", accent: "bg-blue-500" },
-  { id: "health", title: "Health & Wellness", color: "text-emerald-500", accent: "bg-emerald-500" },
-  { id: "climate", title: "Climate Action", color: "text-teal-500", accent: "bg-teal-500" }
+  {
+    id: "women",
+    title: "Women's Entrepreneurship",
+    color: "text-blue-500",
+    accent: "bg-blue-500",
+  },
+  {
+    id: "health",
+    title: "Health & Wellness",
+    color: "text-emerald-500",
+    accent: "bg-emerald-500",
+  },
+  {
+    id: "climate",
+    title: "Climate Action",
+    color: "text-teal-500",
+    accent: "bg-teal-500",
+  },
 ];
 
-export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDelete }) {
+export default function PaymentVerificationPage({
+  slots,
+  onBack,
+  onUpdate,
+  onDelete,
+}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterDomain, setFilterDomain] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
@@ -36,14 +59,14 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
   useEffect(() => {
     const data = {};
     Object.entries(slots).forEach(([domain, teams]) => {
-      data[domain] = teams.map(team => ({
+      data[domain] = teams.map((team) => ({
         ...team,
         paymentVerified: team.paymentVerified || false,
         paymentDate: team.paymentDate || null,
         paymentTime: team.paymentTime || null,
         verifiedBy: team.verifiedBy || "",
         verificationDate: team.verificationDate || null,
-        notes: team.notes || ""
+        notes: team.notes || "",
       }));
     });
     setPaymentData(data);
@@ -53,19 +76,20 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
   const getAllTeams = () => {
     let allTeams = [];
     Object.entries(paymentData).forEach(([domain, teams]) => {
-      allTeams = allTeams.concat(teams.map(t => ({ ...t, domain })));
+      allTeams = allTeams.concat(teams.map((t) => ({ ...t, domain })));
     });
 
-    return allTeams.filter(team => {
+    return allTeams.filter((team) => {
       if (!team.teamId) return false;
-      
-      const matchesSearch = 
+
+      const matchesSearch =
         team.teamId.toLowerCase().includes(searchTerm.toLowerCase()) ||
         team.teamName.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      const matchesDomain = filterDomain === "all" || team.domain === filterDomain;
-      
-      const matchesStatus = 
+
+      const matchesDomain =
+        filterDomain === "all" || team.domain === filterDomain;
+
+      const matchesStatus =
         filterStatus === "all" ||
         (filterStatus === "verified" && team.paymentVerified) ||
         (filterStatus === "pending" && !team.paymentVerified);
@@ -80,7 +104,7 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
     const now = new Date().toISOString();
     const updatedData = {
       ...paymentData,
-      [team.domain]: paymentData[team.domain].map(t =>
+      [team.domain]: paymentData[team.domain].map((t) =>
         t.id === team.id
           ? {
               ...t,
@@ -89,33 +113,36 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
               verificationDate: now,
               notes: verifyNotes,
               paymentDate: team.paymentDate || now,
-              paymentTime: team.paymentTime || now
+              paymentTime: team.paymentTime || now,
             }
-          : t
-      )
+          : t,
+      ),
     };
     setPaymentData(updatedData);
-    
+
     // Callback to parent to update Firebase
-    if (onUpdate && team.docId) onUpdate(team.docId, {
-      paymentVerified: true,
-      verifiedBy: "Admin",
-      verificationDate: now,
-      notes: verifyNotes,
-      paymentDate: team.paymentDate || now,
-      paymentTime: team.paymentTime || now
-    });
-    
+    if (onUpdate && team.docId)
+      onUpdate(team.docId, {
+        paymentVerified: true,
+        verifiedBy: "Admin",
+        verificationDate: now,
+        notes: verifyNotes,
+        paymentDate: team.paymentDate || now,
+        paymentTime: team.paymentTime || now,
+      });
+
     setSelectedTeam(null);
     setVerifyNotes("");
   };
 
   const getDomainStats = () => {
     const stats = {};
-    DOMAINS.forEach(domain => {
+    DOMAINS.forEach((domain) => {
       const teams = paymentData[domain.id] || [];
-      const verified = teams.filter(t => t.paymentVerified && t.teamId).length;
-      const total = teams.filter(t => t.teamId).length;
+      const verified = teams.filter(
+        (t) => t.paymentVerified && t.teamId,
+      ).length;
+      const total = teams.filter((t) => t.teamId).length;
       stats[domain.title] = { total, verified };
     });
     return stats;
@@ -125,9 +152,9 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
   const totalStats = Object.values(stats).reduce(
     (acc, curr) => ({
       total: acc.total + curr.total,
-      verified: acc.verified + curr.verified
+      verified: acc.verified + curr.verified,
     }),
-    { total: 0, verified: 0 }
+    { total: 0, verified: 0 },
   );
 
   return (
@@ -135,13 +162,21 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
       {/* STICKY HEADER */}
       <div className="sticky top-0 z-[70] bg-white/90 backdrop-blur-2xl border-b border-slate-200/50 px-3 py-3 md:py-4">
         <div className="w-full flex items-center gap-3 mb-4">
-          <motion.button whileTap={{ scale: 0.9 }} onClick={onBack} className="w-10 h-10 md:w-12 md:h-12 bg-slate-900 text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shrink-0">
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={onBack}
+            className="w-10 h-10 md:w-12 md:h-12 bg-slate-900 text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shrink-0"
+          >
             <ChevronLeft size={20} />
           </motion.button>
-          
+
           <div className="flex-1">
-            <h1 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tight">Payment Verification</h1>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Manual Verification Portal</p>
+            <h1 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tight">
+              Payment Verification
+            </h1>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
+              Manual Verification Portal
+            </p>
           </div>
 
           <motion.button
@@ -157,7 +192,10 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
         {/* SEARCH AND FILTERS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="md:col-span-1 relative">
-            <SearchIcon size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+            <SearchIcon
+              size={16}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+            />
             <input
               type="text"
               placeholder="Search Team ID / Name..."
@@ -173,8 +211,10 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
             className="bg-slate-100/50 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all"
           >
             <option value="all">All Domains</option>
-            {DOMAINS.map(d => (
-              <option key={d.id} value={d.id}>{d.title}</option>
+            {DOMAINS.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.title}
+              </option>
             ))}
           </select>
 
@@ -194,44 +234,76 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
         {/* STATS SECTION */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 mb-12">
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-[32px] shadow-xl shadow-blue-500/20">
-            <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-blue-100 mb-2">Total Teams</span>
-            <span className="text-4xl font-black tracking-tighter">{totalStats.total}</span>
+            <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-blue-100 mb-2">
+              Total Teams
+            </span>
+            <span className="text-4xl font-black tracking-tighter">
+              {totalStats.total}
+            </span>
           </div>
           <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white p-6 rounded-[32px] shadow-xl shadow-emerald-500/20">
-            <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-emerald-100 mb-2">Verified</span>
-            <span className="text-4xl font-black tracking-tighter">{totalStats.verified}</span>
+            <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-emerald-100 mb-2">
+              Verified
+            </span>
+            <span className="text-4xl font-black tracking-tighter">
+              {totalStats.verified}
+            </span>
           </div>
           <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-6 rounded-[32px] shadow-xl shadow-orange-500/20">
-            <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-orange-100 mb-2">Pending</span>
-            <span className="text-4xl font-black tracking-tighter">{totalStats.total - totalStats.verified}</span>
+            <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-orange-100 mb-2">
+              Pending
+            </span>
+            <span className="text-4xl font-black tracking-tighter">
+              {totalStats.total - totalStats.verified}
+            </span>
           </div>
           <div className="bg-gradient-to-br from-slate-700 to-slate-800 text-white p-6 rounded-[32px] shadow-xl">
-            <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-slate-300 mb-2">Completion</span>
-            <span className="text-4xl font-black tracking-tighter">{totalStats.total > 0 ? Math.round((totalStats.verified / totalStats.total) * 100) : 0}%</span>
+            <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-slate-300 mb-2">
+              Completion
+            </span>
+            <span className="text-4xl font-black tracking-tighter">
+              {totalStats.total > 0
+                ? Math.round((totalStats.verified / totalStats.total) * 100)
+                : 0}
+              %
+            </span>
           </div>
         </div>
 
         {/* DOMAIN GRID VIEW */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
           {DOMAINS.map((domain) => {
-            const domainTeams = filteredTeams.filter(t => t.domain === domain.id);
+            const domainTeams = filteredTeams.filter(
+              (t) => t.domain === domain.id,
+            );
             return (
               <div key={domain.id} className="flex flex-col">
                 {/* Domain Header */}
                 <div className="flex items-center justify-between px-4 mb-6">
                   <div>
-                    <h3 className="text-lg font-black tracking-tight uppercase leading-none text-slate-900">{domain.title}</h3>
-                    <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest mt-1 block">{domainTeams.length} Teams</span>
+                    <h3 className="text-lg font-black tracking-tight uppercase leading-none text-slate-900">
+                      {domain.title}
+                    </h3>
+                    <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest mt-1 block">
+                      {domainTeams.length} Teams
+                    </span>
                   </div>
-                  <div className={`w-3 h-3 rounded-full ${domain.accent} animate-pulse shadow-sm`} />
+                  <div
+                    className={`w-3 h-3 rounded-full ${domain.accent} animate-pulse shadow-sm`}
+                  />
                 </div>
 
                 {/* Teams Grid for this Domain */}
                 <div className="space-y-3">
                   {domainTeams.length === 0 ? (
                     <div className="text-center py-8 bg-slate-50 rounded-[24px] border-2 border-dashed border-slate-200">
-                      <AlertCircle size={24} className="mx-auto text-slate-300 mb-2" />
-                      <p className="text-[10px] font-bold text-slate-400">No teams</p>
+                      <AlertCircle
+                        size={24}
+                        className="mx-auto text-slate-300 mb-2"
+                      />
+                      <p className="text-[10px] font-bold text-slate-400">
+                        No teams
+                      </p>
                     </div>
                   ) : (
                     domainTeams.map((team) => (
@@ -250,14 +322,24 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
                         <div className="flex items-start justify-between gap-2 mb-3">
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
-                              <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${team.paymentVerified ? "bg-emerald-500" : "bg-orange-500"} text-white`}>
-                                {team.paymentVerified ? <CheckCircle2 size={16} /> : <Clock size={16} />}
+                              <div
+                                className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${team.paymentVerified ? "bg-emerald-500" : "bg-orange-500"} text-white`}
+                              >
+                                {team.paymentVerified ? (
+                                  <CheckCircle2 size={16} />
+                                ) : (
+                                  <Clock size={16} />
+                                )}
                               </div>
-                              <h4 className="text-[11px] font-black text-slate-900 uppercase truncate">{team.teamId}</h4>
+                              <h4 className="text-[11px] font-black text-slate-900 uppercase truncate">
+                                {team.teamId}
+                              </h4>
                             </div>
-                            <p className="text-[9px] font-bold text-slate-600 line-clamp-1">{team.teamName}</p>
+                            <p className="text-[9px] font-bold text-slate-600 line-clamp-1">
+                              {team.teamName}
+                            </p>
                           </div>
-                          
+
                           {/* Quick Action Buttons */}
                           <div className="flex gap-1 shrink-0">
                             {team.imageUrl && (
@@ -283,7 +365,10 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
                             <motion.button
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.9 }}
-                              onClick={() => onDelete && onDelete(team.domain, team.id, team.docId)}
+                              onClick={() =>
+                                onDelete &&
+                                onDelete(team.domain, team.id, team.docId)
+                              }
                               className="w-7 h-7 rounded-lg bg-red-500 text-white flex items-center justify-center shadow-md hover:shadow-lg transition-all"
                             >
                               <Trash2 size={14} />
@@ -295,39 +380,67 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
                         <div className="space-y-1.5 bg-white/60 p-2.5 rounded-[14px]">
                           {/* Transaction ID */}
                           <div className="flex items-start justify-between gap-1">
-                            <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">TXN ID</span>
-                            <span className="text-[9px] font-mono font-bold text-slate-700 text-right truncate">{team.transactionId || "-"}</span>
+                            <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
+                              TXN ID
+                            </span>
+                            <span className="text-[9px] font-mono font-bold text-slate-700 text-right truncate">
+                              {team.transactionId || "-"}
+                            </span>
                           </div>
 
                           {/* Status */}
                           <div className="flex items-start justify-between gap-1">
-                            <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Status</span>
-                            <span className={`text-[9px] font-black uppercase ${team.paymentVerified ? "text-emerald-600" : "text-orange-600"}`}>
-                              {team.paymentVerified ? "✓ Verified" : "○ Pending"}
+                            <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
+                              Status
+                            </span>
+                            <span
+                              className={`text-[9px] font-black uppercase ${team.paymentVerified ? "text-emerald-600" : "text-orange-600"}`}
+                            >
+                              {team.paymentVerified
+                                ? "✓ Verified"
+                                : "○ Pending"}
                             </span>
                           </div>
 
                           {/* Payment Date */}
                           {team.paymentDate && (
                             <div className="flex items-start justify-between gap-1">
-                              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Paid On</span>
-                              <span className="text-[9px] font-bold text-slate-700">{new Date(team.paymentDate).toLocaleDateString()}</span>
+                              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
+                                Paid On
+                              </span>
+                              <span className="text-[9px] font-bold text-slate-700">
+                                {new Date(
+                                  team.paymentDate,
+                                ).toLocaleDateString()}
+                              </span>
                             </div>
                           )}
 
                           {/* Payment Time */}
                           {team.paymentTime && (
                             <div className="flex items-start justify-between gap-1">
-                              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Time</span>
-                              <span className="text-[9px] font-mono text-slate-700">{new Date(team.paymentTime).toLocaleTimeString()}</span>
+                              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
+                                Time
+                              </span>
+                              <span className="text-[9px] font-mono text-slate-700">
+                                {new Date(
+                                  team.paymentTime,
+                                ).toLocaleTimeString()}
+                              </span>
                             </div>
                           )}
 
                           {/* Verified Date */}
                           {team.verificationDate && (
                             <div className="flex items-start justify-between gap-1 pt-1 border-t border-slate-200">
-                              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Verified</span>
-                              <span className="text-[9px] font-bold text-emerald-600">{new Date(team.verificationDate).toLocaleDateString()}</span>
+                              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
+                                Verified
+                              </span>
+                              <span className="text-[9px] font-bold text-emerald-600">
+                                {new Date(
+                                  team.verificationDate,
+                                ).toLocaleDateString()}
+                              </span>
                             </div>
                           )}
                         </div>
@@ -335,7 +448,9 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
                         {/* Notes */}
                         {team.notes && (
                           <div className="mt-2 p-2 bg-slate-100 rounded-[10px] border border-slate-200">
-                            <p className="text-[8px] font-bold text-slate-600 line-clamp-2">{team.notes}</p>
+                            <p className="text-[8px] font-bold text-slate-600 line-clamp-2">
+                              {team.notes}
+                            </p>
                           </div>
                         )}
                       </motion.div>
@@ -352,29 +467,59 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
       <AnimatePresence>
         {selectedTeam && (
           <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedTeam(null)} className="absolute inset-0 bg-slate-900/80 backdrop-blur-md" />
-            <motion.div initial={{ scale: 0.9, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.9, opacity: 0, y: 20 }} className="relative w-full max-w-sm bg-white rounded-[40px] p-8 shadow-2xl border border-emerald-100">
-              <button onClick={() => setSelectedTeam(null)} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-red-500 hover:text-white transition-all">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedTeam(null)}
+              className="absolute inset-0 bg-slate-900/80 backdrop-blur-md"
+            />
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="relative w-full max-w-sm bg-white rounded-[40px] p-8 shadow-2xl border border-emerald-100"
+            >
+              <button
+                onClick={() => setSelectedTeam(null)}
+                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-red-500 hover:text-white transition-all"
+              >
                 <X size={18} />
               </button>
 
-              <h3 className="text-2xl font-black text-slate-900 uppercase mb-2">Verify Payment</h3>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] mb-6">Confirm this payment verification</p>
+              <h3 className="text-2xl font-black text-slate-900 uppercase mb-2">
+                Verify Payment
+              </h3>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] mb-6">
+                Confirm this payment verification
+              </p>
 
               <div className="bg-slate-50 p-6 rounded-[28px] mb-6 border border-slate-100">
                 <div className="mb-4">
-                  <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Team Details</span>
-                  <p className="text-lg font-black text-slate-900">{selectedTeam.teamId}</p>
-                  <p className="text-[10px] font-bold text-slate-600">{selectedTeam.teamName}</p>
+                  <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                    Team Details
+                  </span>
+                  <p className="text-lg font-black text-slate-900">
+                    {selectedTeam.teamId}
+                  </p>
+                  <p className="text-[10px] font-bold text-slate-600">
+                    {selectedTeam.teamName}
+                  </p>
                 </div>
                 <div>
-                  <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Transaction</span>
-                  <p className="text-sm font-mono text-slate-800">{selectedTeam.transactionId || "N/A"}</p>
+                  <span className="block text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                    Transaction
+                  </span>
+                  <p className="text-sm font-mono text-slate-800">
+                    {selectedTeam.transactionId || "N/A"}
+                  </p>
                 </div>
               </div>
 
               <div className="mb-6">
-                <label className="block text-[10px] font-black text-slate-700 uppercase tracking-widest mb-2">Verification Notes</label>
+                <label className="block text-[10px] font-black text-slate-700 uppercase tracking-widest mb-2">
+                  Verification Notes
+                </label>
                 <textarea
                   value={verifyNotes}
                   onChange={(e) => setVerifyNotes(e.target.value)}
@@ -409,10 +554,28 @@ export default function PaymentVerificationPage({ slots, onBack, onUpdate, onDel
       <AnimatePresence>
         {viewingImage && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setViewingImage(null)} className="absolute inset-0 bg-slate-900/90 backdrop-blur-2xl" />
-            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="relative max-w-2xl w-full bg-white rounded-[48px] p-2 shadow-2xl">
-              <img src={viewingImage} alt="Payment Proof" className="w-full h-auto rounded-[40px]" />
-              <button onClick={() => setViewingImage(null)} className="absolute top-8 right-8 w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-white hover:text-black transition-all">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setViewingImage(null)}
+              className="absolute inset-0 bg-slate-900/90 backdrop-blur-2xl"
+            />
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative max-w-2xl w-full bg-white rounded-[48px] p-2 shadow-2xl"
+            >
+              <img
+                src={viewingImage}
+                alt="Payment Proof"
+                className="w-full h-auto rounded-[40px]"
+              />
+              <button
+                onClick={() => setViewingImage(null)}
+                className="absolute top-8 right-8 w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-white hover:text-black transition-all"
+              >
                 <X size={24} />
               </button>
             </motion.div>

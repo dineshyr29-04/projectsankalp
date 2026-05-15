@@ -7,6 +7,7 @@ A modern, responsive website for **Project Sankalp**, a premier 24-hour hackatho
 Project Sankalp is an initiative to bring together creative minds to collaborate on impactful projects focused on social good. Whether you are a beginner or a pro, join us to innovate, collaborate, and create a lasting impact.
 
 **Event Details:**
+
 - 📅 **Date**: May 24-25, 2026
 - ⏱️ **Duration**: 24 Hours
 - 📍 **Location**: Yendurance zone, Yenepoya University, Deralakatte, Mangalore
@@ -19,17 +20,23 @@ Project Sankalp is an initiative to bring together creative minds to collaborate
 Project Sankalp features three impactful tracks focused on solving real-world challenges:
 
 ### 1. Women's Entrepreneurship
+
 **Economic Empowerment**
+
 - Championing gender equality by building tools for financial independence
 - Focus: Financial Independence, Leadership Tools, Micro-Business Scaling
 
 ### 2. Health & Sanitation
+
 **Community Wellbeing**
+
 - Developing innovative systems for preventive healthcare and clean water
 - Focus: Preventive Care, Clean Water Tech, Wellness Monitoring
 
 ### 3. Climate Action
+
 **Environmental Sustainability**
+
 - Harnessing technology to combat climate change and promote green energy
 - Focus: Renewable Energy, Circular Economy, Waste Optimization
 
@@ -99,18 +106,21 @@ projectsankalp/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - npm or yarn
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd projectsankalp
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
@@ -154,13 +164,16 @@ projectsankalp/
 ## 🔧 Configuration
 
 ### Site Configuration
+
 Edit `src/config/site.js` to update:
+
 - Event name, subtitle, and description
 - Event date, duration, and location
 - Tracks and their details
 - Stats and other event information
 
 ### Navigation
+
 Edit `src/config/navigation.js` to modify the navbar navigation links
 
 ## 📦 Deployment

@@ -21,11 +21,22 @@ import SlotBookingPage from "./components/pages/SlotBookingPage";
 import BookingStatusPage from "./components/pages/BookingStatusPage";
 import PaymentVerificationPage from "./components/pages/PaymentVerificationPage";
 import RegistrationCheckInPage from "./components/pages/RegistrationCheckInPage";
-import TeamPage from "./components/pages/TeamPage"
+import TeamPage from "./components/pages/TeamPage";
 import WinnersPage from "./components/pages/WinnersPage";
 import { db } from "./lib/firebase";
 import { startExportSync } from "./lib/exportSync";
-import { collection, onSnapshot, addDoc, query, where, getDocs, deleteDoc, doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  addDoc,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  doc,
+  updateDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 
 // AUDIT FIX: Simple, premium Back to Top button
 const BackToTop = () => {
@@ -80,9 +91,21 @@ function App() {
   useEffect(() => {
     // Handle initial load slug
     const path = window.location.pathname.slice(1);
-    const validViews = ["landing", "winners", "team", "stages", "booking", "terminal", "timer", "payment", "registration"];
+    const validViews = [
+      "landing",
+      "winners",
+      "team",
+      "stages",
+      "booking",
+      "terminal",
+      "timer",
+      "payment",
+      "registration",
+    ];
     const normalizedPath = path.toLowerCase();
-    const matchedView = validViews.find(v => v.toLowerCase() === normalizedPath);
+    const matchedView = validViews.find(
+      (v) => v.toLowerCase() === normalizedPath,
+    );
 
     if (matchedView) {
       setCurrentView(matchedView);
@@ -107,7 +130,10 @@ function App() {
   const [globalSlots, setGlobalSlots] = useState({
     women: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
     health: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
-    climate: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
+    climate: Array.from({ length: 15 }, (_, i) => ({
+      id: i + 1,
+      teamId: null,
+    })),
   });
 
   // ── FIREBASE SYNC LOGIC ──
@@ -117,19 +143,28 @@ function App() {
     if (!db || !projectId || projectId === "your_project_id") return;
     const q = query(collection(db, "registrations"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const regs = snapshot.docs.map(doc => ({ ...doc.data(), _id: doc.id }));
-      
+      const regs = snapshot.docs.map((doc) => ({ ...doc.data(), _id: doc.id }));
+
       const freshSlots = {
-        women: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
-        health: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
-        climate: Array.from({ length: 15 }, (_, i) => ({ id: i + 1, teamId: null })),
+        women: Array.from({ length: 15 }, (_, i) => ({
+          id: i + 1,
+          teamId: null,
+        })),
+        health: Array.from({ length: 15 }, (_, i) => ({
+          id: i + 1,
+          teamId: null,
+        })),
+        climate: Array.from({ length: 15 }, (_, i) => ({
+          id: i + 1,
+          teamId: null,
+        })),
       };
 
       regs.forEach((reg) => {
         const sector = freshSlots[reg.selectedDomain];
         if (sector) {
           // Find the first empty slot for this domain in the local manifest
-          const slot = sector.find(s => !s.teamId);
+          const slot = sector.find((s) => !s.teamId);
           if (slot) {
             slot.teamId = reg.teamId;
             slot.teamName = reg.teamName;
@@ -149,7 +184,7 @@ function App() {
 
     return () => {
       unsubscribe();
-      if (typeof stopExport === 'function') stopExport();
+      if (typeof stopExport === "function") stopExport();
     };
   }, []);
 
@@ -157,7 +192,7 @@ function App() {
     try {
       await updateDoc(doc(db, "registrations", docId), {
         checkedIn: status,
-        checkInTime: status ? serverTimestamp() : null
+        checkInTime: status ? serverTimestamp() : null,
       });
     } catch (err) {
       console.error("Check-in failed:", err);
@@ -170,7 +205,7 @@ function App() {
       if (db && projectId && projectId !== "your_project_id" && docId) {
         await updateDoc(doc(db, "registrations", docId), {
           ...updates,
-          lastUpdated: serverTimestamp()
+          lastUpdated: serverTimestamp(),
         });
       }
     } catch (err) {
@@ -187,15 +222,15 @@ function App() {
           domainId,
           slotId,
           teamId,
-          timestamp: new Date()
+          timestamp: new Date(),
         });
       } else {
         // Fallback for local testing
-        setGlobalSlots(prev => ({
+        setGlobalSlots((prev) => ({
           ...prev,
-          [domainId]: prev[domainId].map(slot => 
-            slot.id === slotId ? { ...slot, teamId } : slot
-          )
+          [domainId]: prev[domainId].map((slot) =>
+            slot.id === slotId ? { ...slot, teamId } : slot,
+          ),
         }));
       }
     } catch (error) {
@@ -204,7 +239,11 @@ function App() {
   };
 
   const handleDeleteBooking = async (domainId, slotId, docId) => {
-    if (!window.confirm("Are you sure you want to delete this registration? This will free up a slot.")) {
+    if (
+      !window.confirm(
+        "Are you sure you want to delete this registration? This will free up a slot.",
+      )
+    ) {
       return;
     }
 
@@ -291,10 +330,7 @@ function App() {
             className="flex flex-col min-h-screen"
           >
             {currentView !== "booking" && (
-              <Navbar
-                currentView={currentView}
-                onNavigate={navigate}
-              />
+              <Navbar currentView={currentView} onNavigate={navigate} />
             )}
             <BackToTop />
 
@@ -319,7 +355,7 @@ function App() {
 
                     <Footer />
                   </motion.div>
-                )}  
+                )}
 
                 {currentView === "timer" && (
                   <motion.div
@@ -376,9 +412,7 @@ function App() {
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                   >
-                    <SlotBookingPage 
-                      onBack={goBack} 
-                    />
+                    <SlotBookingPage onBack={goBack} />
                   </motion.div>
                 )}
 
@@ -390,9 +424,9 @@ function App() {
                     exit={{ opacity: 0, y: -50 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                   >
-                    <BookingStatusPage 
+                    <BookingStatusPage
                       slots={globalSlots}
-                      onBack={goBack} 
+                      onBack={goBack}
                       onDelete={handleDeleteBooking}
                       onCheckIn={handleCheckIn}
                       onNavigate={navigate}
@@ -408,9 +442,9 @@ function App() {
                     exit={{ opacity: 0, y: -50 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                   >
-                    <PaymentVerificationPage 
+                    <PaymentVerificationPage
                       slots={globalSlots}
-                      onBack={() => navigate("terminal")} 
+                      onBack={() => navigate("terminal")}
                       onDelete={handleDeleteBooking}
                       onCheckIn={handleCheckIn}
                       onUpdate={handleUpdatePayment}
@@ -426,9 +460,9 @@ function App() {
                     exit={{ opacity: 0, y: -50 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                   >
-                    <RegistrationCheckInPage 
+                    <RegistrationCheckInPage
                       slots={globalSlots}
-                      onBack={() => navigate("terminal")} 
+                      onBack={() => navigate("terminal")}
                       onDelete={handleDeleteBooking}
                       onCheckIn={handleCheckIn}
                     />
