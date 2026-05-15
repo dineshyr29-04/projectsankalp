@@ -247,85 +247,19 @@ export default function BookingStatusPage({
             <Scan size={22} />
           </motion.button>
         </div>
-
-        {/* ADVANCED FILTER BAR */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div>
-            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1">
-              Filter by Status
-            </label>
-            <select className="w-full bg-slate-100/50 border-none rounded-lg py-2 px-3 text-[10px] font-bold focus:ring-2 focus:ring-emerald-500/20">
-              <option value="">All Status</option>
-              <option value="checked">Checked In</option>
-              <option value="pending">Pending</option>
-            </select>
-          </div>
-          <div>
-            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1">
-              Filter by Domain
-            </label>
-            <select className="w-full bg-slate-100/50 border-none rounded-lg py-2 px-3 text-[10px] font-bold focus:ring-2 focus:ring-emerald-500/20">
-              <option value="">All Domains</option>
-              <option value="women">Women's Entrepreneurship</option>
-              <option value="health">Health & Wellness</option>
-              <option value="climate">Climate Action</option>
-            </select>
-          </div>
-          <div>
-            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1">
-              Sort by
-            </label>
-            <select className="w-full bg-slate-100/50 border-none rounded-lg py-2 px-3 text-[10px] font-bold focus:ring-2 focus:ring-emerald-500/20">
-              <option value="name">Team Name</option>
-              <option value="id">Team ID</option>
-              <option value="time">Check-in Time</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <Container full className="pt-8">
-        {/* STATS SECTION */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-12">
-          <div className="col-span-2 bg-slate-900 text-white p-6 md:p-8 rounded-[32px] md:rounded-[48px] shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
-            <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-1">
-              Live Occupancy
-            </span>
-            <span className="text-4xl md:text-6xl font-black tracking-tighter">
-              {occupancy}%
-            </span>
-          </div>
-          <div className="bg-white p-6 md:p-8 rounded-[32px] md:rounded-[48px] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col justify-between">
-            <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-1">
-              Sync Time
-            </span>
-            <span className="text-xl md:text-2xl font-mono font-bold text-slate-900 leading-none">
-              {time.toLocaleTimeString([], {
-                hour12: false,
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </span>
-          </div>
-        </div>
-
-        {/* NAVIGATION SECTION */}
+        {/* Links Section*/}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           <motion.button
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onNavigate && onNavigate("payment")}
-            className="group relative overflow-hidden p-8 rounded-[40px] bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-2xl shadow-blue-500/20 border border-blue-400/50"
+            className="group relative overflow-hidden pl-6 rounded-[40px] bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-2xl shadow-blue-500/20 border border-blue-400/50"
           >
-            <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
-            <div className="relative z-10 text-left">
-              <h3 className="text-2xl font-black uppercase tracking-tight mb-2">
+            <div className="absolute top-0 right-0 bg-white/10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
+            <div className="relative z-10 text-left flex flex-row gap-4">
+              <h3 className="text-xl font-black uppercase tracking-tight">
                 Payment Verification
               </h3>
-              <p className="text-[12px] font-bold text-blue-100 mb-4">
-                Check & verify team payments with image proof
-              </p>
               <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-blue-200">
                 <span>→ Verify Payments</span>
               </div>
@@ -336,23 +270,56 @@ export default function BookingStatusPage({
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onNavigate && onNavigate("registration")}
-            className="group relative overflow-hidden p-8 rounded-[40px] bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-2xl shadow-emerald-500/20 border border-emerald-400/50"
+            className="group relative overflow-hidden p-6 rounded-[40px] bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-2xl shadow-emerald-500/20 border border-emerald-400/50"
           >
             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
-            <div className="relative z-10 text-left">
-              <h3 className="text-2xl font-black uppercase tracking-tight mb-2">
+            <div className="relative z-10 text-left flex flex-row gap-4">
+              <h3 className="text-xl font-black uppercase tracking-tight">
                 Registration Check-In
               </h3>
-              <p className="text-[12px] font-bold text-emerald-100 mb-4">
-                Scan QR codes for auto check-in (Max 10/domain)
-              </p>
               <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-emerald-200">
                 <span>→ Start Check-In</span>
               </div>
             </div>
           </motion.button>
         </div>
+        {/* ADVANCED FILTER BAR */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div>
+            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1">
+              Filter by Status
+            </label>
+            <select className="w-full bg-slate-100/50 border-none rounded-lg py-2 px-3 text-[10px] font-bold focus:ring-2 focus:ring-emerald-500/20 ring-1 ring-slate-400 ">
+              <option value="">All Status</option>
+              <option value="checked">Checked In</option>
+              <option value="pending">Pending</option>
+            </select>
+          </div>
+          <div>
+            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1">
+              Filter by Domain
+            </label>
+            <select className="w-full bg-slate-100/50 border-none rounded-lg py-2 px-3 text-[10px] font-bold ring-1 ring-slate-400 focus:ring-2 focus:ring-emerald-500/20">
+              <option value="">All Domains</option>
+              <option value="women">Women's Entrepreneurship</option>
+              <option value="health">Health & Wellness</option>
+              <option value="climate">Climate Action</option>
+            </select>
+          </div>
+          <div>
+            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-1 ">
+              Sort by
+            </label>
+            <select className="w-full bg-slate-100/50 border-none rounded-lg py-2 px-3 text-[10px] font-bold focus:ring-2 focus:ring-emerald-500/20 ring-1 ring-slate-400 ">
+              <option value="name">Team Name</option>
+              <option value="id">Team ID</option>
+              <option value="time">Check-in Time</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
+      <Container full className="pt-8">
         {/* MANIFEST LISTS */}
         <div className="grid lg:grid-cols-3 gap-8 md:gap-12">
           {DOMAINS.map((domain) => (

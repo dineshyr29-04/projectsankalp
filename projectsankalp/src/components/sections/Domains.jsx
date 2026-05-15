@@ -21,7 +21,7 @@ export default function Domains() {
       title: "Health & Sanitation",
       color: "text-emerald-600",
       accent: "bg-emerald-600",
-      src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop",
+      src: "doc.png",
       description:
         "Developing innovative systems for preventive healthcare, clean water access, and waste management.",
       tags: ["Telemedicine", "Waste Optimization"],
