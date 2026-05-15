@@ -184,11 +184,11 @@ function App() {
     });
 
     // also start export sync (overwrites a fixed file in Storage)
-    const stopExport = startExportSync();
+    // const stopExport = startExportSync();
 
     return () => {
       unsubscribe();
-      if (typeof stopExport === "function") stopExport();
+      // if (typeof stopExport === "function") stopExport();
     };
   }, []);
 

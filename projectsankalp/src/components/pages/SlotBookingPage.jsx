@@ -29,21 +29,18 @@ const DOMAINS = [
     title: "Women's Entrepreneurship",
     code: "01",
     description: "Empowering gender equality through financial tech systems.",
-    slotsTotal: 10,
   },
   {
     id: "health",
     title: "Health & Sanitation",
     code: "02",
     description: "Innovating for public health and clean water infrastructure.",
-    slotsTotal: 10,
   },
   {
     id: "climate",
     title: "Climate Action",
     code: "03",
     description: "Building a sustainable and green future for all humanity.",
-    slotsTotal: 10,
   },
 ];
 
@@ -69,20 +66,8 @@ export default function SlotBookingPage({ onBack }) {
   }, []);
 
   const fetchSlots = async () => {
-    try {
-      const slotsData = {};
-      const allRegs = await getDocs(collection(db, "registrations"));
-      const regsByDomain = {};
-      allRegs.docs.forEach((doc) => {
-        const d = doc.data().selectedDomain;
-        regsByDomain[d] = (regsByDomain[d] || 0) + 1;
-      });
-      for (const domain of DOMAINS) {
-        slotsData[domain.id] =
-          domain.slotsTotal - (regsByDomain[domain.id] || 0);
-      }
-      setDomainSlots(slotsData);
-    } catch (err) {}
+    // Slots are now unlimited by default
+    setDomainSlots({});
   };
 
   const handleVerify = async () => {
@@ -334,6 +319,7 @@ export default function SlotBookingPage({ onBack }) {
                     <h3 className="text-2xl font-serif font-black italic tracking-tight uppercase group-hover:scale-105 transition-transform duration-500">
                       {domain.title}
                     </h3>
+                    
                   </button>
                   );
                 })}
