@@ -144,9 +144,10 @@ export default function SlotBookingPage({ onBack }) {
 
     try {
       // Check if the team name has already registered
+      const normalized = teamInput.trim().toLowerCase();
       const q = query(
         collection(db, "registrations"), 
-        where("teamName", "==", teamInput.trim())
+        where("teamNameLower", "==", normalized)
       );
       const snap = await getDocs(q);
 
@@ -156,18 +157,8 @@ export default function SlotBookingPage({ onBack }) {
         return;
       }
 
-      // Generate the next C4C ID safely (Find highest existing and increment)
-      const allRegs = await getDocs(collection(db, "registrations"));
-      let maxNum = 0;
-      allRegs.docs.forEach(doc => {
-        const id = doc.data().teamId;
-        if (id && id.startsWith("C4C-")) {
-          const num = parseInt(id.split("-")[1]);
-          if (num > maxNum) maxNum = num;
-        }
-      });
-      const nextIdNumber = (maxNum + 1).toString().padStart(2, '0');
-      const generatedId = `C4C-${nextIdNumber}`;
+      // Generate a collision-resistant ID using timestamp
+      const generatedId = `C4C-${Date.now()}`;
 
       setVerifiedTeam({
         teamName: teamInput.trim(),
@@ -241,9 +232,21 @@ export default function SlotBookingPage({ onBack }) {
       const base64Image = await compressImage(screenshot);
       setUploadProgress(50);
 
+      const teamNameLower = (verifiedTeam.teamName || '').trim().toLowerCase();
+
+      // Final uniqueness check to prevent race conditions
+      const dupQ = query(collection(db, 'registrations'), where('teamNameLower', '==', teamNameLower));
+      const dupSnap = await getDocs(dupQ);
+      if (!dupSnap.empty) {
+        setError('This team name was registered moments ago. Please refresh and try a different name.');
+        setIsProcessing(false);
+        return;
+      }
+
       const payload = {
         teamId: verifiedTeam.teamId,
         teamName: verifiedTeam.teamName,
+        teamNameLower,
         selectedDomain: selectedDomain.id,
         transactionId: transactionId,
         paymentStatus: "PENDING",

@@ -24,6 +24,7 @@ import RegistrationCheckInPage from "./components/pages/RegistrationCheckInPage"
 import TeamPage from "./components/pages/TeamPage"
 import WinnersPage from "./components/pages/WinnersPage";
 import { db } from "./lib/firebase";
+import { startExportSync } from "./lib/exportSync";
 import { collection, onSnapshot, addDoc, query, where, getDocs, deleteDoc, doc, updateDoc, serverTimestamp } from "firebase/firestore";
 
 // AUDIT FIX: Simple, premium Back to Top button
@@ -106,7 +107,6 @@ function App() {
     // Only attempt sync if a valid Project ID is provided in .env
     const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
     if (!db || !projectId || projectId === "your_project_id") return;
-
     const q = query(collection(db, "registrations"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const regs = snapshot.docs.map(doc => ({ ...doc.data(), _id: doc.id }));
@@ -136,7 +136,13 @@ function App() {
       setGlobalSlots(freshSlots);
     });
 
-    return () => unsubscribe();
+    // also start export sync (overwrites a fixed file in Storage)
+    const stopExport = startExportSync();
+
+    return () => {
+      unsubscribe();
+      if (typeof stopExport === 'function') stopExport();
+    };
   }, []);
 
   const handleCheckIn = async (docId, status) => {
@@ -303,7 +309,7 @@ function App() {
 
                     <Footer />
                   </motion.div>
-                )}
+                )}  
 
                 {currentView === "timer" && (
                   <motion.div
