@@ -1,6 +1,6 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ChevronRight, X } from "lucide-react";
+import { ArrowUpRight, ChevronRight, X, ShieldCheck, Activity, Target, Info } from "lucide-react";
 import Container from "../core/Container";
 import Footer from "../layout/Footer";
 import { useOutsideClick } from "../../hooks/use-outside-click";
@@ -20,7 +20,7 @@ export const CloseIcon = () => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="h-4 w-4 text-black"
+      className="h-4 w-4 text-slate-950"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M18 6l-12 12" />
@@ -122,7 +122,7 @@ export default function StagesPage({ onBack }) {
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <div className="min-h-screen bg-white text-slate-950 font-sans overflow-hidden">
+    <div className="min-h-screen bg-white text-slate-950 font-sans overflow-x-hidden">
       {/* Background Atmosphere */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/5 blur-[120px] rounded-full" />
@@ -130,7 +130,7 @@ export default function StagesPage({ onBack }) {
       </div>
 
       <AnimatePresence>
-        {active ? (
+        {active && (
           <div
             data-lenis-prevent
             className="fixed inset-0 z-[100] overflow-y-auto flex flex-col items-center p-6 md:p-12 custom-scrollbar"
@@ -141,7 +141,7 @@ export default function StagesPage({ onBack }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActive(null)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-md z-0"
+              className="fixed inset-0 bg-slate-950/20 backdrop-blur-md z-0"
             />
 
             {/* Close button - Fixed to top right of screen */}
@@ -150,7 +150,7 @@ export default function StagesPage({ onBack }) {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="fixed top-8 right-8 flex items-center justify-center bg-white rounded-full h-14 w-14 shadow-2xl border border-white/10 z-[130] hover:scale-110 active:scale-95 transition-all text-slate-950"
+              className="fixed top-8 right-8 flex items-center justify-center bg-slate-950 rounded-full h-14 w-14 shadow-2xl z-[130] hover:scale-110 active:scale-95 transition-all text-white"
               onClick={() => setActive(null)}
             >
               <X size={24} />
@@ -170,7 +170,7 @@ export default function StagesPage({ onBack }) {
             >
               <motion.div
                 layoutId={`image-${active.title}-${id}`}
-                className="relative h-[350px] w-full flex-shrink-0 overflow-hidden"
+                className="relative h-[400px] w-full flex-shrink-0 overflow-hidden"
               >
                 <motion.img
                   layoutId={`img-${active.title}-${id}`}
@@ -178,7 +178,7 @@ export default function StagesPage({ onBack }) {
                   alt={active.title}
                   className="w-full h-full object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
                 <div className="absolute bottom-10 left-10 right-10">
                   <motion.span
                     initial={{ opacity: 0, y: 10 }}
@@ -196,17 +196,24 @@ export default function StagesPage({ onBack }) {
                 </div>
               </motion.div>
 
-              <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
-                <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-12">
-                  <div className="max-w-2xl">
+              <div className="flex-1 overflow-y-auto p-10 custom-scrollbar">
+                <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
+                  <div className="flex-1">
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.1 }}
-                      className="text-white/40 font-medium leading-relaxed text-lg"
+                      className="text-slate-600 font-medium leading-relaxed text-lg italic"
                     >
                       {active.description}
                     </motion.p>
+                    <div className="flex flex-wrap gap-2 mt-6">
+                      {active.tags.map(tag => (
+                        <span key={tag} className="px-4 py-1 bg-slate-50 border border-slate-100 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-400">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
                   <motion.button
@@ -219,41 +226,39 @@ export default function StagesPage({ onBack }) {
                         "_blank",
                       )
                     }
-                    className="whitespace-nowrap px-8 py-4 text-[10px] rounded-full font-black uppercase tracking-widest bg-white text-slate-950 hover:bg-emerald-600 hover:text-white transition-all shadow-lg"
+                    className="whitespace-nowrap px-10 py-5 text-[11px] rounded-2xl font-black uppercase tracking-[0.3em] bg-slate-950 text-white hover:bg-emerald-600 transition-all shadow-xl active:scale-95 flex items-center gap-3"
                   >
-                    Solve Now
+                    Engage Mission <ArrowUpRight size={18} />
                   </motion.button>
                 </div>
 
                 <div className="space-y-10 pb-10">
                   <div className="flex items-center gap-4">
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20 whitespace-nowrap">
-                      Problem Statements
+                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-300 whitespace-nowrap">
+                      Problem Manifest
                     </span>
-                    <div className="h-px w-full bg-white/10" />
+                    <div className="h-px w-full bg-slate-100" />
                   </div>
 
-                  <div className="grid md:grid-cols-3 gap-6">
-                    {active.problems.map((ps) => (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {active.problems.map((ps, idx) => (
                       <motion.div
                         key={ps.id}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="p-8 rounded-[32px] bg-white/5 border border-white/10 group transition-all hover:border-emerald-500/30 hover:bg-white/10 hover:shadow-xl hover:shadow-emerald-500/5 flex flex-col justify-between"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 + idx * 0.1 }}
+                        className="p-8 rounded-[32px] bg-slate-50 border border-slate-100 group transition-all hover:bg-white hover:shadow-2xl hover:shadow-emerald-500/10 flex flex-col justify-between"
                       >
                         <div>
-                          <span
-                            className={`inline-block text-[9px] font-black uppercase tracking-widest ${active.color} mb-6 opacity-40 group-hover:opacity-100`}
-                          >
-                            Objective {ps.id.split(" ").pop()}
+                          <span className={`inline-block text-[9px] font-black uppercase tracking-widest ${active.color} mb-6 opacity-60`}>
+                            Directive 0{idx + 1}
                           </span>
-                          <p className="text-sm font-bold text-white/70 group-hover:text-white leading-relaxed mb-8">
+                          <p className="text-sm font-bold text-slate-700 leading-relaxed mb-8">
                             {ps.text}
                           </p>
                         </div>
-                        <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-widest text-slate-300 group-hover:text-emerald-500 transition-colors">
-                          Challenge Active{" "}
-                          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-widest text-slate-400">
+                          Status: Active <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                         </div>
                       </motion.div>
                     ))}
@@ -262,89 +267,93 @@ export default function StagesPage({ onBack }) {
               </div>
             </motion.div>
           </div>
-        ) : null}
+        )}
       </AnimatePresence>
 
-      <Container className="relative z-10 pt-32 px-6 mx-auto">
+      <Container className="relative z-10 pt-32 px-6 mx-auto pb-40">
         <header className="mb-28 max-w-4xl">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="mb-8"
           >
-            <span className="text-emerald-600 font-black uppercase tracking-[0.5em] text-[10px]">
+            <span className="text-emerald-600 font-black uppercase tracking-[0.5em] text-[10px] bg-emerald-50 px-4 py-2 rounded-full">
               Mission Directives
             </span>
           </motion.div>
-          <h1 className="font-serif text-6xl md:text-8xl font-black tracking-tighter text-white leading-[0.9]">
-            The{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 italic">
-              Sankalp
-            </span>{" "}
-            <br /> Domains.
+          <h1 className="font-serif text-6xl md:text-8xl font-black tracking-tighter text-slate-950 leading-[0.9]">
+            Operational <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic">
+              Domains
+            </span>.
           </h1>
-          <p className="text-white/40 mt-10 text-xl font-medium max-w-xl italic leading-relaxed">
+          <p className="text-slate-500 mt-10 text-xl font-medium max-w-xl italic leading-relaxed">
             Three critical sectors. Nine profound challenges. One goal:
             Technology for global human impact.
           </p>
+          <div className="mt-12 flex items-center gap-4">
+            <button
+              onClick={onBack}
+              className="w-14 h-14 bg-white border border-slate-200 text-slate-950 rounded-2xl flex items-center justify-center shadow-sm hover:bg-slate-50 transition-all active:scale-95"
+            >
+              <ChevronRight size={24} className="rotate-180" />
+            </button>
+            <div className="h-px w-20 bg-slate-100" />
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-300">Phase 01 Active</span>
+          </div>
         </header>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-40">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {DOMAINS.map((domain) => (
             <motion.div
               layoutId={`card-${domain.title}-${id}`}
               key={`card-${domain.title}-${id}`}
               onClick={() => setActive(domain)}
-              className="relative group cursor-pointer bg-white rounded-[40px] border border-slate-200 overflow-hidden transition-all hover:border-emerald-400/40 hover:shadow-2xl hover:shadow-emerald-500/10"
+              className="relative group cursor-pointer bg-white rounded-[48px] border border-slate-100 overflow-hidden transition-all hover:shadow-[0_32px_128px_-32px_rgba(0,0,0,0.12)]"
             >
               <motion.div
                 layoutId={`image-${domain.title}-${id}`}
-                className="h-64 overflow-hidden relative"
+                className="h-72 overflow-hidden relative"
               >
                 <motion.img
                   layoutId={`img-${domain.title}-${id}`}
                   src={domain.src}
                   alt={domain.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 grayscale-[0.2] group-hover:grayscale-0"
                 />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-                <div
-                  className={`absolute top-6 left-6 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm text-[9px] font-black uppercase tracking-widest ${domain.color} border border-white`}
-                >
-                  Track {domain.id}
+                <div className="absolute inset-0 bg-slate-950/10 group-hover:bg-slate-950/5 transition-colors" />
+                <div className={`absolute top-8 left-8 px-5 py-2.5 rounded-full bg-white/95 backdrop-blur-sm text-[10px] font-black uppercase tracking-widest ${domain.color} border border-white shadow-xl`}>
+                  Sector {domain.id}
                 </div>
               </motion.div>
 
               <div className="p-10">
                 <motion.h3
                   layoutId={`title-${domain.title}-${id}`}
-                  className="text-2xl font-black text-white mb-4 tracking-tight"
+                  className="text-2xl font-black text-slate-950 mb-4 tracking-tight font-serif italic"
                 >
                   {domain.title}
                 </motion.h3>
                 <motion.p
                   layoutId={`description-${domain.description}-${id}`}
-                  className="text-white/40 text-sm font-medium mb-10 line-clamp-2 leading-relaxed"
+                  className="text-slate-500 text-sm font-medium mb-10 line-clamp-2 leading-relaxed"
                 >
                   {domain.description}
                 </motion.p>
 
-                <div className="flex items-center justify-between pt-6 border-t border-white/10">
-                  <div className="flex gap-1">
-                    {domain.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[8px] font-black uppercase tracking-widest text-white/30 bg-white/5 px-2 py-1 rounded-md"
-                      >
+                <div className="flex items-center justify-between pt-8 border-t border-slate-50">
+                  <div className="flex gap-2">
+                    {domain.tags.slice(0, 1).map((tag) => (
+                      <span key={tag} className="text-[8px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
                         {tag}
                       </span>
                     ))}
                   </div>
                   <motion.button
                     layoutId={`button-${domain.title}-${id}`}
-                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-400 group-hover:translate-x-2 transition-transform"
+                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-600 group-hover:translate-x-2 transition-transform"
                   >
-                    View Problems <ChevronRight size={14} />
+                    Review <ChevronRight size={14} />
                   </motion.button>
                 </div>
               </div>
@@ -352,69 +361,47 @@ export default function StagesPage({ onBack }) {
           ))}
         </div>
 
-        {/* Final CTA */}
+        {/* Final CTA - Light Theme */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/5 px-8 py-16 md:px-20 md:py-24 transition-colors duration-300 hover:border-white/20 xl:mb-32 pb-32"
+          className="relative overflow-hidden rounded-[48px] border border-slate-100 bg-slate-50 px-8 py-20 md:px-24 md:py-28 mt-40 shadow-sm"
         >
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-300 to-transparent" />
-          <div className="relative z-10 flex flex-col gap-20 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <div className="mb-10 flex items-center gap-4">
-                <span className="text-[11px] font-medium tracking-wide text-zinc-400">
-                  Final Step
-                </span>
-                <span className="h-[3px] w-[3px] rounded-full bg-zinc-300" />
-                <span className="text-[11px] text-zinc-400">
-                  Applications Open
-                </span>
+          <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-end justify-between gap-16">
+            <div className="max-w-2xl text-center lg:text-left">
+              <div className="mb-10 flex items-center justify-center lg:justify-start gap-4">
+                <span className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-400">Final Protocol</span>
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
               </div>
-              <h2 className="text-5xl lg:text-7xl font-semibold leading-[0.92] tracking-[-0.055em] text-white">
-                Build work that{" "}
-                <span className="block text-emerald-400">
-                  actually matters.
-                </span>
+              <h2 className="text-5xl lg:text-7xl font-black leading-[0.92] tracking-tighter text-slate-950 font-serif italic">
+                Build what <br />
+                <span className="text-emerald-600">matters.</span>
               </h2>
-              <p className="mt-10 max-w-[36ch] text-[18px] leading-8 text-white/40">
-                Collaborate with ambitious builders, solve meaningful
-                challenges, and transform ideas into products with measurable
-                impact.
+              <p className="mt-10 text-xl leading-relaxed text-slate-500 italic max-w-xl">
+                Collaborate with ambitious builders, solve meaningful challenges, and transform ideas into products with measurable impact.
               </p>
             </div>
-            <div className="flex flex-col items-start gap-8 lg:items-end">
-              <div className="flex items-center gap-10">
-                <div>
-                  <p className="text-3xl font-semibold tracking-tight text-white">
-                    500+
-                  </p>
-                  <p className="mt-1 text-[12px] text-white/30">Participants</p>
+            
+            <div className="flex flex-col items-center lg:items-end gap-10">
+              <div className="flex items-center gap-12">
+                <div className="text-center">
+                  <p className="text-4xl font-black tracking-tighter text-slate-950 font-serif">500+</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">Pioneers</p>
                 </div>
-                <div className="h-10 w-px bg-white/10" />
-                <div>
-                  <p className="text-3xl font-semibold tracking-tight text-white">
-                    48h
-                  </p>
-                  <p className="mt-1 text-[12px] text-white/30">
-                    Innovation Sprint
-                  </p>
+                <div className="h-12 w-px bg-slate-200" />
+                <div className="text-center">
+                  <p className="text-4xl font-black tracking-tighter text-slate-950 font-serif">48H</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">Sprint</p>
                 </div>
               </div>
+              
               <button
-                onClick={() =>
-                  window.open(
-                    "https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755",
-                    "_blank",
-                  )
-                }
-                className="group inline-flex items-center gap-4 rounded-full border border-white/20 bg-white px-8 py-4 text-[12px] font-medium tracking-wide text-slate-950 transition-all hover:bg-emerald-600 hover:text-white active:scale-[0.98]"
+                onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
+                className="group h-20 px-12 bg-slate-950 text-white rounded-[32px] text-[12px] font-black uppercase tracking-[0.4em] shadow-2xl hover:bg-emerald-600 transition-all active:scale-95 flex items-center gap-4"
               >
-                Start Your Mission
-                <ArrowUpRight
-                  size={16}
-                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
+                Initialize Mission
+                <ArrowUpRight size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
             </div>
           </div>
