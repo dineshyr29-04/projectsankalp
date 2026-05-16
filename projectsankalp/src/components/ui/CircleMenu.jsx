@@ -33,7 +33,7 @@ const getPoint = (i, n, spacing, isMobile) => {
     // Offset the angle slightly to make it look more dynamic
     const totalItems = n;
     // Increased radius even further to accommodate the massive 64px mobile icons
-    const radius = spacing * 3.5;
+    const radius = spacing * 4.1;
     // Standard 90-degree arc for a clean corner expansion
     const angle = (i / (totalItems - 1)) * (Math.PI / 2);
     return {

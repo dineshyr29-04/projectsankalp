@@ -287,20 +287,24 @@ function App() {
       smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
+      autoResize: true,
     });
+
+    let rafId;
 
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     // Force scroll to top on view change
     lenis.scrollTo(0, { immediate: true });
     window.scrollTo(0, 0);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, [currentView]);

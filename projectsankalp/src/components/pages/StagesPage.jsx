@@ -43,7 +43,7 @@ export default function StagesPage({ onBack }) {
       src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
       description:
         "Championing gender equality by building tools for financial independence and micro-business scaling.",
-      tags: ["Micro-Financing", "Skill Networks"],
+      tags: [],
       problems: [
         {
           id: "Problem Statement 01",
@@ -67,7 +67,7 @@ export default function StagesPage({ onBack }) {
       src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop",
       description:
         "Developing innovative systems for preventive healthcare, clean water access, and waste management.",
-      tags: ["Telemedicine", "Waste Optimization"],
+      tags: [],
       problems: [
         {
           id: "Problem Statement 01",
@@ -91,7 +91,7 @@ export default function StagesPage({ onBack }) {
       src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2074&auto=format&fit=crop",
       description:
         "Harnessing technology to combat climate change and promote green energy transitions.",
-      tags: ["Renewable Energy", "Circular Economy"],
+      tags: [],
       problems: [
         {
           id: "Problem Statement 01",
@@ -216,20 +216,7 @@ export default function StagesPage({ onBack }) {
                     </div>
                   </div>
 
-                  <motion.button
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.1 }}
-                    onClick={() =>
-                      window.open(
-                        "https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755",
-                        "_blank",
-                      )
-                    }
-                    className="whitespace-nowrap px-10 py-5 text-[11px] rounded-2xl font-black uppercase tracking-[0.3em] bg-slate-950 text-white hover:bg-emerald-600 transition-all shadow-xl active:scale-95 flex items-center gap-3"
-                  >
-                    Engage Mission <ArrowUpRight size={18} />
-                  </motion.button>
+                  
                 </div>
 
                 <div className="space-y-10 pb-10">
@@ -251,7 +238,7 @@ export default function StagesPage({ onBack }) {
                       >
                         <div>
                           <span className={`inline-block text-[9px] font-black uppercase tracking-widest ${active.color} mb-6 opacity-60`}>
-                            Directive 0{idx + 1}
+                            Problem Statement 0{idx + 1}
                           </span>
                           <p className="text-sm font-bold text-slate-700 leading-relaxed mb-8">
                             {ps.text}
@@ -283,9 +270,9 @@ export default function StagesPage({ onBack }) {
           </motion.div>
           <h1 className="font-serif text-6xl md:text-8xl font-black tracking-tighter text-slate-950 leading-[0.9]">
             Operational <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic pr-10">
               Domains
-            </span>.
+            </span>
           </h1>
           <p className="text-slate-500 mt-10 text-xl font-medium max-w-xl italic leading-relaxed">
             Three critical sectors. Nine profound challenges. One goal:
@@ -299,7 +286,7 @@ export default function StagesPage({ onBack }) {
               <ChevronRight size={24} className="rotate-180" />
             </button>
             <div className="h-px w-20 bg-slate-100" />
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-300">Phase 01 Active</span>
+            
           </div>
         </header>
 
@@ -353,7 +340,7 @@ export default function StagesPage({ onBack }) {
                     layoutId={`button-${domain.title}-${id}`}
                     className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-600 group-hover:translate-x-2 transition-transform"
                   >
-                    Review <ChevronRight size={14} />
+                    Problem Statement <ChevronRight size={14} />
                   </motion.button>
                 </div>
               </div>
@@ -391,18 +378,10 @@ export default function StagesPage({ onBack }) {
                 </div>
                 <div className="h-12 w-px bg-slate-200" />
                 <div className="text-center">
-                  <p className="text-4xl font-black tracking-tighter text-slate-950 font-serif">48H</p>
+                  <p className="text-4xl font-black tracking-tighter text-slate-950 font-serif">24H</p>
                   <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">Sprint</p>
                 </div>
               </div>
-              
-              <button
-                onClick={() => window.open("https://unstop.com/o/srUpcMo?lb=mjGUrFNY&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Projesan58755", "_blank")}
-                className="group h-20 px-12 bg-slate-950 text-white rounded-[32px] text-[12px] font-black uppercase tracking-[0.4em] shadow-2xl hover:bg-emerald-600 transition-all active:scale-95 flex items-center gap-4"
-              >
-                Initialize Mission
-                <ArrowUpRight size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </button>
             </div>
           </div>
         </motion.div>
