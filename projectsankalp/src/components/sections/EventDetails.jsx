@@ -103,7 +103,7 @@ export default function EventDetails() {
                       Yendurance Zone
                     </h4>
                     <p className="text-sm sm:text-base font-bold text-white/100 max-w-lg uppercase tracking-widest">
-                      Yenepoya University, Mangalore, India
+                      Yenepoya Deemed to be University, Mangalore, India
                     </p>
                   </div>
                 </div>

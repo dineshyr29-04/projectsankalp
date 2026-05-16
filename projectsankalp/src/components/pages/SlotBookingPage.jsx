@@ -346,7 +346,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
                     value={teamEmailInput}
                     onChange={(e) => setTeamEmailInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleVerifyTeamEmail()}
-                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-8 py-6 text-xl font-serif font-black italic tracking-widest focus:outline-none focus:border-emerald-500 focus:bg-white/10 placeholder:text-white/10 uppercase transition-all text-center"
+                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-8 py-6 text-lg font-serif font-black italic tracking-widest focus:outline-none focus:border-emerald-500 focus:bg-white/10 placeholder:text-white/10 uppercase transition-all text-center"
                     autoFocus
                   />
                   <p className="text-[8px] font-bold text-white/20 uppercase tracking-widest mt-2">
@@ -455,7 +455,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
                     <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.4em] mb-3 group-hover:text-emerald-500 transition-colors">
                       Track {domain.code}
                     </span>
-                    <h3 className="text-2xl font-serif font-black italic tracking-tight uppercase group-hover:scale-105 transition-transform duration-500">
+                    <h3 className="text-xl font-serif font-black italic tracking-tight uppercase group-hover:scale-105 transition-transform duration-500">
                       {domain.title}
                     </h3>
                     

@@ -66,7 +66,7 @@ export default function Hero({ onBookingClick }) {
             {/* Heading Group */}
             <div className="flex flex-col items-center w-full gap-4 sm:gap-6 md:gap-12">
               <div className="flex flex-col items-center">
-                <h1 className="text-5xl sm:text-7xl md:text-[100px] lg:text-[140px] font-serif font-black text-slate-900 leading-[0.8] md:leading-[0.75] tracking-[0.05em] md:tracking-[0.1em] uppercase italic">
+                <h1 className="text-5xl sm:text-7xl md:text-[90px] lg:text-[140px] font-serif font-black text-slate-900 leading-[0.8] md:leading-[0.75] tracking-[0.05em] md:tracking-[0.1em] uppercase italic">
                   PROJECT
                 </h1>
 
@@ -79,7 +79,7 @@ export default function Hero({ onBookingClick }) {
                   <span className="h-px w-6 sm:w-8 md:w-10 bg-gradient-to-r from-transparent via-slate-300 to-transparent"></span>
                 </div>
 
-                <h1 className="text-4xl sm:text-6xl md:text-[100px] lg:text-[140px] font-serif font-black text-slate-900 leading-[0.8] md:leading-[0.75] tracking-[0.1em] md:tracking-[0.15em] uppercase italic">
+                <h1 className="text-4xl sm:text-6xl md:text-[90px] lg:text-[140px] font-serif font-black text-slate-900 leading-[0.8] md:leading-[0.75] tracking-[0.1em] md:tracking-[0.15em] uppercase italic">
                   SANKALP
                 </h1>
               </div>
