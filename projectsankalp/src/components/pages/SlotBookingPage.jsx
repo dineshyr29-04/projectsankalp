@@ -49,9 +49,9 @@ const REGISTRATION_FEE = "₹800";
 const GOOGLE_SHEETS_WEBHOOK = import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK;
 
 export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
-  const [step, setStep] = useState("VERIFY_TEAM_LEADER"); // VERIFY_TEAM_LEADER, DOMAIN, PAYMENT, SUCCESS, ALREADY_COMPLETED
+  const [step, setStep] = useState("VERIFY_TEAM_EMAIL"); // VERIFY_TEAM_EMAIL, DOMAIN, PAYMENT, SUCCESS, ALREADY_COMPLETED
   const [teamInput, setTeamInput] = useState(preFilledTeam?.teamName || "");
-  const [teamLeaderInput, setTeamLeaderInput] = useState("");
+  const [teamEmailInput, setTeamEmailInput] = useState("");
   const [verifiedTeam, setVerifiedTeam] = useState(null);
   const [selectedDomain, setSelectedDomain] = useState(null);
   const [transactionId, setTransactionId] = useState("");
@@ -67,7 +67,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
     fetchSlots();
     // If team is pre-filled from winners, check if already booked
     if (preFilledTeam?.teamName) {
-      checkTeamBookingStatus(preFilledTeam.teamName, preFilledTeam.teamLeader);
+      checkTeamBookingStatus(preFilledTeam.teamName, preFilledTeam.teamEmail);
     }
   }, [preFilledTeam]);
 
@@ -76,7 +76,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
     setDomainSlots({});
   };
 
-  const checkTeamBookingStatus = async (teamName, teamLeader) => {
+  const checkTeamBookingStatus = async (teamName, teamEmail) => {
     try {
       const normalized = teamName.trim().toLowerCase();
       const q = query(
@@ -87,7 +87,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
       
       if (!snap.empty) {
         // Team already registered
-        console.log(`🔴 Team "${teamName}" with leader "${teamLeader}" has already completed booking!`);
+        console.log(`🔴 Team "${teamName}" with email "${teamEmail}" has already completed booking!`);
         setStep("ALREADY_COMPLETED");
       }
     } catch (err) {
@@ -95,9 +95,9 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
     }
   };
 
-  const handleVerifyTeamLeader = async () => {
-    if (!teamLeaderInput.trim()) {
-      setError("TEAM LEADER NAME REQUIRED");
+  const handleVerifyTeamEmail = async () => {
+    if (!teamEmailInput.trim()) {
+      setError("TEAM EMAIL REQUIRED");
       return;
     }
     
@@ -105,21 +105,21 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
     setError("");
     
     try {
-      const expectedLeaderName = preFilledTeam?.teamLeader?.trim().toLowerCase();
-      const enteredLeaderName = teamLeaderInput.trim().toLowerCase();
+      const expectedEmail = preFilledTeam?.teamEmail?.trim().toLowerCase();
+      const enteredEmail = teamEmailInput.trim().toLowerCase();
       
       // Log to console
-      console.log(`👤 Team Leader Name: ${teamLeaderInput.trim().toUpperCase()}`);
+      console.log(`📧 Team Email: ${teamEmailInput.trim()}`);
       console.log(`🔍 Verifying team: "${preFilledTeam?.teamName}"`);
       
-      if (enteredLeaderName !== expectedLeaderName) {
-        setError("TEAM LEADER NAME DOES NOT MATCH");
-        console.log(`❌ Verification failed: Expected "${expectedLeaderName}", got "${enteredLeaderName}"`);
+      if (enteredEmail !== expectedEmail) {
+        setError("TEAM EMAIL DOES NOT MATCH");
+        console.log(`❌ Verification failed: Expected "${expectedEmail}", got "${enteredEmail}"`);
         setIsProcessing(false);
         return;
       }
       
-      console.log(`✅ Team leader verification successful!`);
+      console.log(`✅ Team email verification successful!`);
       
       // Check if this exact team already has a booking
       const normalized = preFilledTeam?.teamName?.trim().toLowerCase();
@@ -138,7 +138,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
       
       setVerifiedTeam({ 
         teamName: preFilledTeam?.teamName, 
-        teamLeader: preFilledTeam?.teamLeader,
+        teamEmail: preFilledTeam?.teamEmail,
         teamId: null // Will be generated during booking
       });
       setStep("DOMAIN");
@@ -212,7 +212,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
         teamId: generatedId,
         teamName: verifiedTeam.teamName,
         teamNameLower,
-        teamLeader: verifiedTeam.teamLeader,
+        teamEmail: verifiedTeam.teamEmail,
         selectedDomain: selectedDomain.id,
         transactionId: transactionId,
         paymentStatus: "PENDING",
@@ -226,7 +226,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
         createdAt: serverTimestamp(),
       });
       
-      console.log(`✅ Booking completed for team "${verifiedTeam.teamName}" with leader "${verifiedTeam.teamLeader}"`);
+      console.log(`✅ Booking completed for team "${verifiedTeam.teamName}" with email "${verifiedTeam.teamEmail}"`);
       console.log(`📋 Team ID: ${generatedId}`);
 
       if (GOOGLE_SHEETS_WEBHOOK) {
@@ -253,7 +253,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
   };
 
   const handleBack = () => {
-    if (step === "DOMAIN") setStep("VERIFY_TEAM_LEADER");
+    if (step === "DOMAIN") setStep("VERIFY_TEAM_EMAIL");
     else if (step === "PAYMENT") setStep("DOMAIN");
     else if (step === "ALREADY_COMPLETED") onBack();
     else onBack();
@@ -284,10 +284,10 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
           </button>
           <div className="flex flex-col items-center">
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-2">
-              Mission Step {step === "VERIFY_TEAM_LEADER" ? "01" : step === "DOMAIN" ? "02" : step === "PAYMENT" ? "03" : "04"}
+              Mission Step {step === "VERIFY_TEAM_EMAIL" ? "01" : step === "DOMAIN" ? "02" : step === "PAYMENT" ? "03" : "04"}
             </span>
             <div className="flex gap-2">
-              {["VERIFY_TEAM_LEADER", "DOMAIN", "PAYMENT", "SUCCESS"].map((s) => (
+              {["VERIFY_TEAM_EMAIL", "DOMAIN", "PAYMENT", "SUCCESS"].map((s) => (
                 <div 
                   key={s}
                   className={`h-1.5 rounded-full transition-all duration-700 ${step === s ? "bg-emerald-500 w-12" : "bg-white/10 w-4"}`}
@@ -298,9 +298,9 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
         </div>
 
         <AnimatePresence mode="wait">
-          {step === "VERIFY_TEAM_LEADER" && (
+          {step === "VERIFY_TEAM_EMAIL" && (
             <motion.div
-              key="verify-leader"
+              key="verify-email"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -313,7 +313,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
                 Team Verification
               </h1>
               <p className="text-white/40 text-sm font-medium uppercase tracking-widest mb-12">
-                Confirm your team leader identity
+                Confirm your team email identity
               </p>
 
               <div className="w-full space-y-6">
@@ -331,19 +331,19 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
 
                 <div className="relative group">
                   <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 mb-3 block">
-                    Team Leader Name
+                    Team Email
                   </label>
                   <input
-                    type="text"
-                    placeholder="ENTER YOUR NAME"
-                    value={teamLeaderInput}
-                    onChange={(e) => setTeamLeaderInput(e.target.value.toUpperCase())}
-                    onKeyDown={(e) => e.key === "Enter" && handleVerifyTeamLeader()}
+                    type="email"
+                    placeholder="ENTER YOUR EMAIL"
+                    value={teamEmailInput}
+                    onChange={(e) => setTeamEmailInput(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleVerifyTeamEmail()}
                     className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-8 py-6 text-xl font-serif font-black italic tracking-widest focus:outline-none focus:border-emerald-500 focus:bg-white/10 placeholder:text-white/10 uppercase transition-all text-center"
                     autoFocus
                   />
                   <p className="text-[8px] font-bold text-white/20 uppercase tracking-widest mt-2">
-                    (Only registered team leader can proceed)
+                    (Only registered team email can proceed)
                   </p>
                 </div>
 
@@ -359,8 +359,8 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
                 )}
 
                 <button
-                  onClick={handleVerifyTeamLeader}
-                  disabled={!teamLeaderInput || isProcessing}
+                  onClick={handleVerifyTeamEmail}
+                  disabled={!teamEmailInput || isProcessing}
                   className="w-full bg-white text-slate-950 py-6 rounded-2xl font-black uppercase tracking-[0.4em] text-[12px] hover:bg-emerald-500 hover:text-white transition-all disabled:opacity-20 flex items-center justify-center gap-3 group"
                 >
                   {isProcessing ? "VERIFYING..." : "VERIFY & CONTINUE"}
@@ -386,7 +386,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
               </h1>
               
               <p className="text-white/40 text-sm font-medium uppercase tracking-widest mb-12 max-w-md leading-relaxed">
-                {`Team "${preFilledTeam?.teamName}" with leader "${preFilledTeam?.teamLeader}" has already completed the booking process.`}
+                {`Team "${preFilledTeam?.teamName}" with email "${preFilledTeam?.teamEmail}" has already completed the booking process.`}
               </p>
 
               <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-12 w-full max-w-md">

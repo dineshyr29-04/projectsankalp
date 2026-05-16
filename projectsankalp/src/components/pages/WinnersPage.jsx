@@ -6,7 +6,7 @@ import {
   Sparkles,
   Trophy,
   Users,
-  User,
+  Mail,
 } from "lucide-react";
 import Container from "../core/Container";
 import Footer from "../layout/Footer";
@@ -350,7 +350,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                   viewport={{ once: true, margin: "-50px" }}
                   variants={fadeUp}
                   custom={i % 6}
-                  onClick={() => onNavigate && onNavigate("booking", { teamName: team.teamName, teamLeader: team.teamLeader })}
+                  onClick={() => onNavigate && onNavigate("booking", { teamName: team.teamName, teamEmail: team.teamEmail })}
                   className="cursor-pointer"
                 >
                   <div 
@@ -373,9 +373,9 @@ export default function WinnersPage({ onNavigate, onBack }) {
 
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 text-white/40">
-                          <User size={14} className="shrink-0" />
+                          <Mail size={14} className="shrink-0" />
                           <span className="text-[10px] font-bold uppercase tracking-wider truncate">
-                            {team.teamLeader}
+                            {team.teamEmail}
                           </span>
                         </div>
                         <div className="flex items-center gap-2 text-white/40">
