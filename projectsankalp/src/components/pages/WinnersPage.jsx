@@ -331,7 +331,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                 animate="visible"
                 variants={fadeUp}
                 custom={2}
-                className="flex flex-col md:flex-row gap-8 lg:justify-end"
+                className="flex flex-row md:flex-row gap-8 lg:justify-end"
               >
                 <div className="flex flex-col">
                   <span className="text-3xl md:text-5xl font-black text-white italic font-serif">
@@ -408,7 +408,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative rounded-[48px] overflow-hidden bg-white/5 p-12 md:p-24 text-center border border-white/10"
+              className="relative rounded-[48px] overflow-hidden bg-white/5 p-12 md:p-20 text-center border border-white/10"
             >
               {/* Background Glow */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-emerald-500/10 to-transparent pointer-events-none" />
@@ -428,7 +428,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                   </div>
                 </div>
 
-                <h2 className="text-4xl md:text-6xl font-serif font-black text-white leading-tight">
+                <h2 className="text-4xl md:text-4xl font-serif font-black text-white leading-tight">
                   Heartiest <br />
                   <span className="italic text-emerald-400">
                     Congratulations!
@@ -436,7 +436,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                 </h2>
 
                 <p className="text-white/40 text-lg md:text-xl leading-relaxed">
-                  To all the winners and participants, your dedication and
+                  To all the Selected participants, your dedication and
                   innovation have set a new benchmark. Project Sankalp is proud
                   to be part of your journey. Keep building, keep inspiring, and
                   keep making an impact.
@@ -444,9 +444,10 @@ export default function WinnersPage({ onNavigate, onBack }) {
 
                 <div className="pt-8 flex flex-wrap justify-center gap-6">
                   <div className="flex flex-col items-center">
-                    <span className="text-3xl font-black text-white">30</span>
+                    <span className="text-3xl font-black text-white">{winnersData.length}</span>
                     <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">
-                      Finalists
+                      Selected
+
                     </span>
                   </div>
                   <div className="w-[1px] h-12 bg-white/10" />
