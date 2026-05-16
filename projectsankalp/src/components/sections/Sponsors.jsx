@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import Section from "../core/Section";
 import Container from "../core/Container";
 import { motion } from "framer-motion";
@@ -5,6 +6,15 @@ import { Mail, Sparkles } from "lucide-react";
 import LogoLoop from "../ui/LogoLoop";
 
 export default function Sponsors() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const sponsors = [
     { src: "/nsslogo.png", alt: "NSS Unit", title: "NSS Unit" },
     { src: "/IIC.png", alt: "IIC", title: "Institution's Innovation Council" },
@@ -72,10 +82,10 @@ export default function Sponsors() {
         <div className="relative py-12 md:py-20 mb-20 bg-slate-50/30 overflow-hidden">
           <LogoLoop
             logos={sponsors}
-            speed={80}
+            speed={isMobile ? 120 : 90}
             direction="left"
-            logoHeight={90}
-            gap={80}
+            logoHeight={isMobile ? 50 : 90}
+            gap={isMobile ? 40 : 80}
             hoverSpeed={10}
             scaleOnHover
             fadeOut

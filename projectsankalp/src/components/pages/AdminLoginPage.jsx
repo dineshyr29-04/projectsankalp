@@ -154,7 +154,7 @@ export default function AdminLoginPage({ onLogin, onBack }) {
           <span className="text-[8px] font-black uppercase tracking-[0.2em]">Encrypted Session (AES-256)</span>
         </div>
         <div className="text-[8px] font-black uppercase tracking-[0.2em]">
-          v2.4.0-STABLE
+          v1.1.0-STABLE
         </div>
       </div>
     </div>
