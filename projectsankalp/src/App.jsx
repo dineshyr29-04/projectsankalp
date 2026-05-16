@@ -76,12 +76,17 @@ function App() {
   const [currentView, setCurrentView] = useState("landing");
   const [isLoading, setIsLoading] = useState(true);
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  const [preFilledTeamData, setPreFilledTeamData] = useState(null);
 
   // ── ROUTING LOGIC ──
-  const navigate = (view) => {
+  const navigate = (view, teamData = null) => {
     // Payment and Registration are now sub-views of Terminal
     const isAdminSubView = ["payment", "registration"].includes(view);
     const slug = view === "landing" ? "/" : (isAdminSubView ? "/terminal" : `/${view}`);
+    
+    if (teamData) {
+      setPreFilledTeamData(teamData);
+    }
     
     window.history.pushState({ view }, "", slug);
     setCurrentView(view);
@@ -398,7 +403,7 @@ function App() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
                 >
-                  <SlotBookingPage onBack={goBack} />
+                  <SlotBookingPage onBack={goBack} preFilledTeam={preFilledTeamData} />
                 </motion.div>
               )}
 

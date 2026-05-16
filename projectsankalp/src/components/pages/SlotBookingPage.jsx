@@ -20,7 +20,8 @@ import {
   ArrowRight,
   User,
   ShieldCheck,
-  Target
+  Target,
+  CheckCircle2
 } from "lucide-react";
 
 const DOMAINS = [
@@ -47,10 +48,11 @@ const DOMAINS = [
 const REGISTRATION_FEE = "₹800";
 const GOOGLE_SHEETS_WEBHOOK = import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK;
 
-export default function SlotBookingPage({ onBack }) {
-  const [step, setStep] = useState("VERIFY"); // VERIFY, DOMAIN, PAYMENT, SUCCESS
-  const [teamInput, setTeamInput] = useState("");
-  const [ verifiedTeam, setVerifiedTeam] = useState(null);
+export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
+  const [step, setStep] = useState("VERIFY_TEAM_LEADER"); // VERIFY_TEAM_LEADER, DOMAIN, PAYMENT, SUCCESS, ALREADY_COMPLETED
+  const [teamInput, setTeamInput] = useState(preFilledTeam?.teamName || "");
+  const [teamLeaderInput, setTeamLeaderInput] = useState("");
+  const [verifiedTeam, setVerifiedTeam] = useState(null);
   const [selectedDomain, setSelectedDomain] = useState(null);
   const [transactionId, setTransactionId] = useState("");
   const [screenshot, setScreenshot] = useState(null);
@@ -63,48 +65,86 @@ export default function SlotBookingPage({ onBack }) {
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchSlots();
-  }, []);
+    // If team is pre-filled from winners, check if already booked
+    if (preFilledTeam?.teamName) {
+      checkTeamBookingStatus(preFilledTeam.teamName, preFilledTeam.teamLeader);
+    }
+  }, [preFilledTeam]);
 
   const fetchSlots = async () => {
     // Slots are now unlimited by default
     setDomainSlots({});
   };
 
-  const handleVerify = async () => {
-    if (!teamInput.trim()) return;
-    setIsProcessing(true);
-    setError("");
+  const checkTeamBookingStatus = async (teamName, teamLeader) => {
     try {
-      const normalized = teamInput.trim().toLowerCase();
+      const normalized = teamName.trim().toLowerCase();
       const q = query(
         collection(db, "registrations"),
-        where("teamNameLower", "==", normalized),
+        where("teamNameLower", "==", normalized)
       );
       const snap = await getDocs(q);
+      
       if (!snap.empty) {
-        setError("TEAM NAME ALREADY REGISTERED");
+        // Team already registered
+        console.log(`🔴 Team "${teamName}" with leader "${teamLeader}" has already completed booking!`);
+        setStep("ALREADY_COMPLETED");
+      }
+    } catch (err) {
+      console.error("Error checking booking status:", err);
+    }
+  };
+
+  const handleVerifyTeamLeader = async () => {
+    if (!teamLeaderInput.trim()) {
+      setError("TEAM LEADER NAME REQUIRED");
+      return;
+    }
+    
+    setIsProcessing(true);
+    setError("");
+    
+    try {
+      const expectedLeaderName = preFilledTeam?.teamLeader?.trim().toLowerCase();
+      const enteredLeaderName = teamLeaderInput.trim().toLowerCase();
+      
+      // Log to console
+      console.log(`👤 Team Leader Name: ${teamLeaderInput.trim().toUpperCase()}`);
+      console.log(`🔍 Verifying team: "${preFilledTeam?.teamName}"`);
+      
+      if (enteredLeaderName !== expectedLeaderName) {
+        setError("TEAM LEADER NAME DOES NOT MATCH");
+        console.log(`❌ Verification failed: Expected "${expectedLeaderName}", got "${enteredLeaderName}"`);
         setIsProcessing(false);
         return;
       }
-      const allRegs = await getDocs(collection(db, "registrations"));
       
-      let maxNumber = 0;
-      allRegs.forEach((doc) => {
-        const teamId = doc.data().teamId;
-        if (teamId && teamId.startsWith("TEAM-")) {
-          const num = parseInt(teamId.split("-")[1]);
-          if (!isNaN(num) && num > maxNumber) {
-            maxNumber = num;
-          }
-        }
+      console.log(`✅ Team leader verification successful!`);
+      
+      // Check if this exact team already has a booking
+      const normalized = preFilledTeam?.teamName?.trim().toLowerCase();
+      const q = query(
+        collection(db, "registrations"),
+        where("teamNameLower", "==", normalized)
+      );
+      const snap = await getDocs(q);
+      
+      if (!snap.empty) {
+        console.log(`🔴 Team "${preFilledTeam?.teamName}" has already completed booking!`);
+        setStep("ALREADY_COMPLETED");
+        setIsProcessing(false);
+        return;
+      }
+      
+      setVerifiedTeam({ 
+        teamName: preFilledTeam?.teamName, 
+        teamLeader: preFilledTeam?.teamLeader,
+        teamId: null // Will be generated during booking
       });
-
-      const nextNumber = maxNumber + 1;
-      const generatedId = `TEAM-${String(nextNumber).padStart(3, '0')}`;
-      setVerifiedTeam({ teamName: teamInput.trim(), teamId: generatedId });
       setStep("DOMAIN");
     } catch (err) {
-      setError("CONNECTION ERROR");
+      setError("VERIFICATION ERROR");
+      console.error("Verification failed:", err);
     } finally {
       setIsProcessing(false);
     }
@@ -151,11 +191,28 @@ export default function SlotBookingPage({ onBack }) {
     try {
       const base64Image = await compressImage(screenshot);
       setUploadProgress(50);
+      
+      // Generate Team ID
+      const allRegs = await getDocs(collection(db, "registrations"));
+      let maxNumber = 0;
+      allRegs.forEach((doc) => {
+        const teamId = doc.data().teamId;
+        if (teamId && teamId.startsWith("TEAM-")) {
+          const num = parseInt(teamId.split("-")[1]);
+          if (!isNaN(num) && num > maxNumber) {
+            maxNumber = num;
+          }
+        }
+      });
+      const nextNumber = maxNumber + 1;
+      const generatedId = `TEAM-${String(nextNumber).padStart(3, '0')}`;
+      
       const teamNameLower = verifiedTeam.teamName.trim().toLowerCase();
       const payload = {
-        teamId: verifiedTeam.teamId,
+        teamId: generatedId,
         teamName: verifiedTeam.teamName,
         teamNameLower,
+        teamLeader: verifiedTeam.teamLeader,
         selectedDomain: selectedDomain.id,
         transactionId: transactionId,
         paymentStatus: "PENDING",
@@ -163,10 +220,14 @@ export default function SlotBookingPage({ onBack }) {
         imageUrl: base64Image,
         timestamp: new Date().toLocaleString(),
       };
+      
       await addDoc(collection(db, "registrations"), {
         ...payload,
         createdAt: serverTimestamp(),
       });
+      
+      console.log(`✅ Booking completed for team "${verifiedTeam.teamName}" with leader "${verifiedTeam.teamLeader}"`);
+      console.log(`📋 Team ID: ${generatedId}`);
 
       if (GOOGLE_SHEETS_WEBHOOK) {
         fetch(GOOGLE_SHEETS_WEBHOOK, {
@@ -181,17 +242,20 @@ export default function SlotBookingPage({ onBack }) {
       }
 
       setUploadProgress(100);
+      setVerifiedTeam({ ...verifiedTeam, teamId: generatedId });
       setStep("SUCCESS");
     } catch (err) {
       setError("SUBMISSION ERROR");
+      console.error("Submission error:", err);
     } finally {
       setIsProcessing(false);
     }
   };
 
   const handleBack = () => {
-    if (step === "DOMAIN") setStep("VERIFY");
+    if (step === "DOMAIN") setStep("VERIFY_TEAM_LEADER");
     else if (step === "PAYMENT") setStep("DOMAIN");
+    else if (step === "ALREADY_COMPLETED") onBack();
     else onBack();
   };
 
@@ -220,10 +284,10 @@ export default function SlotBookingPage({ onBack }) {
           </button>
           <div className="flex flex-col items-center">
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-2">
-              Mission Step {step === "VERIFY" ? "01" : step === "DOMAIN" ? "02" : step === "PAYMENT" ? "03" : "04"}
+              Mission Step {step === "VERIFY_TEAM_LEADER" ? "01" : step === "DOMAIN" ? "02" : step === "PAYMENT" ? "03" : "04"}
             </span>
             <div className="flex gap-2">
-              {["VERIFY", "DOMAIN", "PAYMENT", "SUCCESS"].map((s) => (
+              {["VERIFY_TEAM_LEADER", "DOMAIN", "PAYMENT", "SUCCESS"].map((s) => (
                 <div 
                   key={s}
                   className={`h-1.5 rounded-full transition-all duration-700 ${step === s ? "bg-emerald-500 w-12" : "bg-white/10 w-4"}`}
@@ -234,35 +298,53 @@ export default function SlotBookingPage({ onBack }) {
         </div>
 
         <AnimatePresence mode="wait">
-          {step === "VERIFY" && (
+          {step === "VERIFY_TEAM_LEADER" && (
             <motion.div
-              key="verify"
+              key="verify-leader"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               className="flex-1 flex flex-col justify-center items-center text-center"
             >
               <div className="w-20 h-20 bg-emerald-500/10 rounded-3xl flex items-center justify-center mb-8 border border-emerald-500/20">
-                <User size={32} className="text-emerald-500" />
+                <ShieldCheck size={32} className="text-emerald-500" />
               </div>
               <h1 className="text-4xl font-serif font-black italic tracking-tight mb-4">
-                Team Registration
+                Team Verification
               </h1>
               <p className="text-white/40 text-sm font-medium uppercase tracking-widest mb-12">
-                Initialize your mission entry
+                Confirm your team leader identity
               </p>
 
               <div className="w-full space-y-6">
                 <div className="relative group">
+                  <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 mb-3 block">
+                    Team Name
+                  </label>
                   <input
                     type="text"
-                    placeholder="ENTER TEAM NAME"
-                    value={teamInput}
-                    onChange={(e) => setTeamInput(e.target.value.toUpperCase())}
-                    onKeyDown={(e) => e.key === "Enter" && handleVerify()}
+                    value={preFilledTeam?.teamName || ""}
+                    disabled
+                    className="w-full bg-white/5 border-2 border-white/20 rounded-2xl px-8 py-6 text-xl font-serif font-black italic tracking-widest focus:outline-none placeholder:text-white/10 uppercase text-center text-white/60 cursor-not-allowed"
+                  />
+                </div>
+
+                <div className="relative group">
+                  <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 mb-3 block">
+                    Team Leader Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="ENTER YOUR NAME"
+                    value={teamLeaderInput}
+                    onChange={(e) => setTeamLeaderInput(e.target.value.toUpperCase())}
+                    onKeyDown={(e) => e.key === "Enter" && handleVerifyTeamLeader()}
                     className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-8 py-6 text-xl font-serif font-black italic tracking-widest focus:outline-none focus:border-emerald-500 focus:bg-white/10 placeholder:text-white/10 uppercase transition-all text-center"
                     autoFocus
                   />
+                  <p className="text-[8px] font-bold text-white/20 uppercase tracking-widest mt-2">
+                    (Only registered team leader can proceed)
+                  </p>
                 </div>
 
                 {error && (
@@ -277,14 +359,50 @@ export default function SlotBookingPage({ onBack }) {
                 )}
 
                 <button
-                  onClick={handleVerify}
-                  disabled={!teamInput || isProcessing}
+                  onClick={handleVerifyTeamLeader}
+                  disabled={!teamLeaderInput || isProcessing}
                   className="w-full bg-white text-slate-950 py-6 rounded-2xl font-black uppercase tracking-[0.4em] text-[12px] hover:bg-emerald-500 hover:text-white transition-all disabled:opacity-20 flex items-center justify-center gap-3 group"
                 >
-                  {isProcessing ? "PROCESSING..." : "CONTINUE"}
+                  {isProcessing ? "VERIFYING..." : "VERIFY & CONTINUE"}
                   {!isProcessing && <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />}
                 </button>
               </div>
+            </motion.div>
+          )}
+
+          {step === "ALREADY_COMPLETED" && (
+            <motion.div
+              key="already-completed"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex-1 flex flex-col justify-center items-center text-center px-4"
+            >
+              <div className="w-20 h-20 bg-blue-500/10 rounded-3xl flex items-center justify-center mb-8 border border-blue-500/20">
+                <CheckCircle2 size={32} className="text-blue-500" />
+              </div>
+              
+              <h1 className="text-5xl font-serif font-black italic tracking-tighter leading-none mb-6 text-emerald-400">
+                Booking Already Completed
+              </h1>
+              
+              <p className="text-white/40 text-sm font-medium uppercase tracking-widest mb-12 max-w-md leading-relaxed">
+                {`Team "${preFilledTeam?.teamName}" with leader "${preFilledTeam?.teamLeader}" has already completed the booking process.`}
+              </p>
+
+              <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-12 w-full max-w-md">
+                <p className="text-[10px] font-black uppercase tracking-widest leading-relaxed text-white/60">
+                  Only one booking per team is allowed. <br />
+                  Please contact support if you need assistance.
+                </p>
+              </div>
+
+              <button
+                onClick={onBack}
+                className="group flex items-center gap-3 text-[10px] font-black tracking-[0.4em] uppercase border-b-2 border-white pb-1 hover:border-emerald-500 transition-colors"
+              >
+                <span>RETURN TO WINNERS</span>
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+              </button>
             </motion.div>
           )}
 
@@ -464,9 +582,7 @@ export default function SlotBookingPage({ onBack }) {
               animate={{ opacity: 1, scale: 1 }}
               className="flex-1 flex flex-col justify-center items-center text-center px-4"
             >
-              <div className="w-24 h-24 bg-emerald-500/20 rounded-[40px] flex items-center justify-center mb-12 border border-emerald-500/30 animate-bounce">
-                <ShieldCheck size={48} className="text-emerald-500" />
-              </div>
+              
               <h1 className="text-5xl font-serif font-black italic tracking-tighter leading-none mb-6">
                 Success.
               </h1>
@@ -478,7 +594,7 @@ export default function SlotBookingPage({ onBack }) {
               <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-12 w-full">
                 <p className="text-[10px] font-black uppercase tracking-widest leading-relaxed text-white/60">
                   Verification in progress. <br />
-                  We will inform you shortly via official channels once finished.
+                  We will inform you shortly via official Email id once finished.
                 </p>
               </div>
 

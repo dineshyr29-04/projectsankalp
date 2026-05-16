@@ -6,11 +6,11 @@ import {
   Sparkles,
   Trophy,
   Users,
+  User,
 } from "lucide-react";
 import Container from "../core/Container";
 import Footer from "../layout/Footer";
-import { useEffect } from "react";
-
+import { use, useEffect } from "react";
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i = 0) => ({
@@ -28,180 +28,210 @@ const winnersData = [
   {
     id: "cc-001",
     teamName: "Neural Nexus",
+    teamEmail: "rajesh.kumar@iitbombay.ac.in",
     college: "IIT Bombay",
     state: "Maharashtra",
   },
   {
     id: "cc-002",
     teamName: "Eco Warriors",
+    teamEmail: "priya.singh@bitmesra.ac.in",
     college: "BIT Mesra",
     state: "Jharkhand",
   },
   {
     id: "cc-003",
     teamName: "Code Crusaders",
+    teamEmail: "arjun.patel@nit.trichy.ac.in",
     college: "NIT Trichy",
     state: "Tamil Nadu",
   },
   {
     id: "cc-004",
     teamName: "Cyber Sentinels",
+    teamEmail: "isha.sharma@dtu.ac.in",
     college: "DTU Delhi",
     state: "Delhi",
   },
   {
     id: "cc-005",
     teamName: "Aqua Guard",
+    teamEmail: "vikram.verma@iitm.ac.in",
     college: "IIT Madras",
     state: "Tamil Nadu",
   },
   {
     id: "cc-006",
     teamName: "Green Tech",
+    teamEmail: "ananya.gupta@bitspilani.ac.in",
     college: "BITS Pilani",
     state: "Rajasthan",
   },
   {
     id: "cc-007",
     teamName: "Health Hero",
+    teamEmail: "aditya.reddy@aiims.edu.in",
     college: "AIIMS Delhi",
     state: "Delhi",
   },
   {
     id: "cc-008",
     teamName: "Sky High",
+    teamEmail: "meera.iyer@iisc.ac.in",
     college: "IISc Bangalore",
     state: "Karnataka",
   },
   {
     id: "cc-009",
     teamName: "Pixel Pioneers",
+    teamEmail: "harsh.desai@nid.ac.in",
     college: "NID Ahmedabad",
     state: "Gujarat",
   },
   {
     id: "cc-010",
     teamName: "Data Divas",
+    teamEmail: "divya.nair@iitk.ac.in",
     college: "IIT Kanpur",
     state: "Uttar Pradesh",
   },
   {
     id: "cc-011",
     teamName: "Solar Spark",
+    teamEmail: "rohan.singh@iitr.ac.in",
     college: "IIT Roorkee",
     state: "Uttarakhand",
   },
   {
     id: "cc-012",
     teamName: "Bio Bloom",
+    teamEmail: "tanya.banerjee@iitg.ac.in",
     college: "IIT Guwahati",
     state: "Assam",
   },
   {
     id: "cc-013",
     teamName: "Mind Meld",
+    teamEmail: "sanjay.dutta@jadavpur.ac.in",
     college: "Jadavpur University",
     state: "West Bengal",
   },
   {
     id: "cc-014",
     teamName: "Future Flow",
+    teamEmail: "sneha.dash@nit.rourkela.ac.in",
     college: "NIT Rourkela",
     state: "Odisha",
   },
   {
     id: "cc-015",
     teamName: "Life Line",
+    teamEmail: "nikhil.saxena@cmcvellore.ac.in",
     college: "CMC Vellore",
     state: "Tamil Nadu",
   },
   {
     id: "cc-016",
     teamName: "Ocean Optic",
+    teamEmail: "kavya.rao@andhrauniversity.ac.in",
     college: "Andhra University",
     state: "Andhra Pradesh",
   },
   {
     id: "cc-017",
     teamName: "Wind Walker",
+    teamEmail: "rishabh.malhotra@annauniversity.ac.in",
     college: "Anna University",
     state: "Tamil Nadu",
   },
   {
     id: "cc-018",
     teamName: "Sun Stream",
+    teamEmail: "pooja.joshi@mnit.ac.in",
     college: "MNIT Jaipur",
     state: "Rajasthan",
   },
   {
     id: "cc-019",
     teamName: "Earth Echo",
+    teamEmail: "kabir.shaikh@vnit.ac.in",
     college: "VNIT Nagpur",
     state: "Maharashtra",
   },
   {
     id: "cc-020",
     teamName: "Cloud Core",
+    teamEmail: "nisha.yadav@iiith.ac.in",
     college: "IIIT Hyderabad",
     state: "Telangana",
   },
   {
     id: "cc-021",
     teamName: "Astro Aim",
+    teamEmail: "akshay.kumar@iist.ac.in",
     college: "IIST Thiruvananthapuram",
     state: "Kerala",
   },
   {
     id: "cc-022",
     teamName: "Pulse Point",
+    teamEmail: "shreya.menon@manipal.edu",
     college: "KMC Manipal",
     state: "Karnataka",
   },
   {
     id: "cc-023",
     teamName: "Leaf Logic",
+    teamEmail: "varun.pillai@tnau.ac.in",
     college: "TNAU Coimbatore",
     state: "Tamil Nadu",
   },
   {
     id: "cc-024",
     teamName: "Glow Grid",
+    teamEmail: "anjali.patel@svnit.ac.in",
     college: "SVNIT Surat",
     state: "Gujarat",
   },
   {
     id: "cc-025",
     teamName: "Pure Path",
+    teamEmail: "sameer.khan@ismdhanbad.ac.in",
     college: "ISM Dhanbad",
     state: "Jharkhand",
   },
   {
     id: "cc-026",
     teamName: "Moon Mission",
+    teamEmail: "divyansh.singh@pec.edu.in",
     college: "PEC Chandigarh",
     state: "Chandigarh",
   },
   {
     id: "cc-027",
     teamName: "Fire Fly",
+    teamEmail: "ritika.sharma@vjti.org.in",
     college: "VJTI Mumbai",
     state: "Maharashtra",
   },
   {
     id: "cc-028",
     teamName: "Grit Group",
+    teamEmail: "abhishek.deshmukh@coep.ac.in",
     college: "COEP Pune",
     state: "Maharashtra",
   },
   {
     id: "cc-029",
     teamName: "Zenith Zone",
+    teamEmail: "neha.chopra@srmuniversity.ac.in",
     college: "SRM University",
     state: "Tamil Nadu",
   },
   {
     id: "cc-030",
     teamName: "Peak Perform",
+    teamEmail: "karan.verma@amity.edu",
     college: "Amity University",
     state: "Uttar Pradesh",
   },
@@ -212,7 +242,6 @@ export default function WinnersPage({ onNavigate, onBack }) {
     window.scrollTo(0, 0);
     document.title = "Winners | Project Sankalp";
   }, []);
-
   return (
     <div className="min-h-screen bg-slate-950 text-white selection:bg-emerald-500/30 selection:text-emerald-200">
       {/* Background Elements */}
@@ -255,7 +284,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                 <span className="text-lg transition-transform group-hover:-translate-x-1">
                   ←
                 </span>
-                <span>[ RETURN ]</span>
+                <span>[ Go Back ]</span>
               </button>
             </div>
 
@@ -271,7 +300,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                 </span>
                 <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase mb-6 text-white italic font-serif">
                   The <br />
-                  <span className="text-emerald-500">Winners.</span>
+                  <span className="text-emerald-500">Selected Teams</span>
                 </h1>
                 <p className="text-white/40 text-sm md:text-base font-medium max-w-md leading-relaxed uppercase tracking-wider">
                   Celebrating the architects of change. These teams represent
@@ -289,7 +318,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
               >
                 <div className="flex flex-col">
                   <span className="text-3xl md:text-5xl font-black text-white italic font-serif">
-                    30
+                    {winnersData.length}
                   </span>
                   <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest mt-1">
                     Elite Teams
@@ -298,7 +327,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                 <div className="w-[1px] h-12 bg-white/10 hidden md:block" />
                 <div className="flex flex-col">
                   <span className="text-3xl md:text-5xl font-black text-white italic font-serif">
-                    $10K+
+                    ₹1L+
                   </span>
                   <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest mt-1">
                     Prize Pool
@@ -321,20 +350,19 @@ export default function WinnersPage({ onNavigate, onBack }) {
                   viewport={{ once: true, margin: "-50px" }}
                   variants={fadeUp}
                   custom={i % 6}
+                  onClick={() => onNavigate && onNavigate("booking", { teamName: team.teamName, teamLeader: team.teamLeader })}
+                  className="cursor-pointer"
                 >
-                  <div className="relative bg-white/5 border border-white/10 rounded-[32px] p-6 md:p-8 hover:bg-white/10 transition-all duration-500 group overflow-hidden">
+                  <div 
+                   
+                    className="relative bg-white/5 border border-white/10 rounded-[32px] p-6 md:p-8 hover:bg-white/10 transition-all duration-500 group overflow-hidden cursor-pointer"
+                  >
                     {/* Card Decoration */}
                     <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-2xl rounded-full group-hover:bg-emerald-500/10 transition-colors" />
 
                     <div className="flex items-start justify-between mb-8">
-                      <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:border-emerald-500/50 transition-colors">
-                        <Trophy
-                          size={24}
-                          className="text-emerald-500 group-hover:scale-110 transition-transform"
-                        />
-                      </div>
                       <span className="text-[10px] font-black uppercase tracking-widest text-white/20 group-hover:text-emerald-500/50 transition-colors">
-                        ID: {team.id}
+                        Elite Finalist
                       </span>
                     </div>
 
@@ -344,6 +372,12 @@ export default function WinnersPage({ onNavigate, onBack }) {
                       </h3>
 
                       <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-white/40">
+                          <User size={14} className="shrink-0" />
+                          <span className="text-[10px] font-bold uppercase tracking-wider truncate">
+                            {team.teamLeader}
+                          </span>
+                        </div>
                         <div className="flex items-center gap-2 text-white/40">
                           <GraduationCap size={14} className="shrink-0" />
                           <span className="text-[10px] font-bold uppercase tracking-wider truncate">
