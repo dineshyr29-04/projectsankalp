@@ -110,12 +110,9 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
       const snap = await getDocs(q);
       
       if (!snap.empty) {
-        // Team already registered
-        console.log(`🔴 Team "${teamName}" with email "${teamEmail}" has already completed booking!`);
         setStep("ALREADY_COMPLETED");
       }
     } catch (err) {
-      console.error("Error checking booking status:", err);
     }
   };
 
@@ -132,18 +129,11 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
       const expectedEmail = preFilledTeam?.teamEmail?.trim().toLowerCase();
       const enteredEmail = teamEmailInput.trim().toLowerCase();
       
-      // Log to console
-      console.log(`📧 Team Email: ${teamEmailInput.trim()}`);
-      console.log(`🔍 Verifying team: "${preFilledTeam?.teamName}"`);
-      
       if (enteredEmail !== expectedEmail) {
         setError("TEAM EMAIL DOES NOT MATCH");
-        console.log(`❌ Verification failed: Expected "${expectedEmail}", got "${enteredEmail}"`);
         setIsProcessing(false);
         return;
       }
-      
-      console.log(`✅ Team email verification successful!`);
       
       // Check if this exact team already has a booking
       const normalized = preFilledTeam?.teamName?.trim().toLowerCase();
@@ -154,7 +144,6 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
       const snap = await getDocs(q);
       
       if (!snap.empty) {
-        console.log(`🔴 Team "${preFilledTeam?.teamName}" has already completed booking!`);
         setStep("ALREADY_COMPLETED");
         setIsProcessing(false);
         return;
@@ -168,7 +157,6 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
       setStep("DOMAIN");
     } catch (err) {
       setError("VERIFICATION ERROR");
-      console.error("Verification failed:", err);
     } finally {
       setIsProcessing(false);
     }
@@ -249,9 +237,6 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
         ...payload,
         createdAt: serverTimestamp(),
       });
-      
-      console.log(`✅ Booking completed for team "${verifiedTeam.teamName}" with email "${verifiedTeam.teamEmail}"`);
-      console.log(`📋 Team ID: ${generatedId}`);
 
       if (GOOGLE_SHEETS_WEBHOOK) {
         fetch(GOOGLE_SHEETS_WEBHOOK, {
@@ -262,7 +247,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
             ...payload,
             timestamp: new Date().toLocaleString(),
           }),
-        }).catch((err) => console.error("Sheets Sync Failed:", err));
+        }).catch(() => {});
       }
 
       setUploadProgress(100);
@@ -270,7 +255,6 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
       setStep("SUCCESS");
     } catch (err) {
       setError("SUBMISSION ERROR");
-      console.error("Submission error:", err);
     } finally {
       setIsProcessing(false);
     }
