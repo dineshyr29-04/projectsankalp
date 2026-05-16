@@ -305,7 +305,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
               </button>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-end">
               <motion.div
                 initial="hidden"
                 animate="visible"
@@ -315,9 +315,9 @@ export default function WinnersPage({ onNavigate, onBack }) {
                 <span className="text-emerald-500 text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">
                   Hall of Fame // 2024
                 </span>
-                <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase mb-6 text-white italic font-serif">
+                <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase mb-6 text-white italic font-serif font-thin">
                   The <br />
-                  <span className="text-emerald-500">Selected Teams</span>
+                  <span className="text-emerald-500 font-thin">Selected Teams</span>
                 </h1>
                 <p className="text-white/40 text-sm md:text-base font-medium max-w-md leading-relaxed uppercase tracking-wider">
                   Celebrating the architects of change. These teams represent
@@ -356,9 +356,9 @@ export default function WinnersPage({ onNavigate, onBack }) {
         </section>
 
         {/* Winners Grid */}
-        <section className="pb-32">
+        <section className="pb-24 md:pb-32">
           <Container>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6 xl:gap-7">
               {winnersData.map((team, i) => (
                 <motion.div
                   key={team.id}
@@ -368,26 +368,26 @@ export default function WinnersPage({ onNavigate, onBack }) {
                   variants={fadeUp}
                   custom={i % 6}
                   onClick={() => handleTeamClick(team)}
-                  className="cursor-pointer"
+                  className="cursor-pointer h-full"
                 >
                   <div 
                    
-                    className="relative bg-white/5 border border-white/10 rounded-[32px] p-6 md:p-8 hover:bg-white/10 transition-all duration-500 group overflow-hidden cursor-pointer"
+                    className="relative h-full min-h-[100px] bg-white/5 border border-white/10 rounded-[24px] p-4 sm:p-5 md:p-6 hover:bg-white/10 transition-all duration-500 group overflow-hidden cursor-pointer"
                   >
                     {/* Card Decoration */}
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-2xl rounded-full group-hover:bg-emerald-500/10 transition-colors" />
+                    <div className="absolute top-0 right-0 w-24 h-24 md:w-28 md:h-28 bg-emerald-500/5 blur-2xl rounded-full group-hover:bg-emerald-500/10 transition-colors" />
 
                     
 
-                    <div className="space-y-4">
-                      <h3 className="text-2xl md:text-3xl font-black tracking-tight text-white uppercase italic font-serif leading-none">
+                    <div className="space-y-3 md:space-y-4">
+                      <h3 className="text-xl sm:text-2xl md:text-[1.3rem] font-black tracking-tight text-white uppercase italic font-serif leading-none">
                         {team.teamName}
                       </h3>
 
-                      <div className="space-y-2">
+                      <div className="space-y-1.5">
                         <div className="flex items-center gap-2 text-white/40">
                           <MapPin size={14} className="shrink-0" />
-                          <span className="text-[10px] font-bold uppercase tracking-wider truncate">
+                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider truncate">
                             Tap to continue booking
                           </span>
                         </div>
