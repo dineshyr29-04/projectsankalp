@@ -123,8 +123,14 @@ function App() {
 
     if (matchedView) {
       setCurrentView(matchedView);
+      window.history.replaceState(
+        { view: matchedView },
+        "",
+        window.location.pathname + window.location.search + window.location.hash,
+      );
     } else if (path === "") {
       setCurrentView("landing");
+      window.history.replaceState({ view: "landing" }, "", "/");
     }
 
     // Handle browser back/forward buttons
@@ -132,7 +138,11 @@ function App() {
       if (e.state && e.state.view) {
         setCurrentView(e.state.view);
       } else {
-        setCurrentView("landing");
+        const currentPath = window.location.pathname.slice(1).toLowerCase();
+        const fallbackView =
+          validViews.find((view) => view.toLowerCase() === currentPath) ||
+          "landing";
+        setCurrentView(fallbackView);
       }
     };
 
@@ -405,7 +415,7 @@ function App() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
                 >
-                  <SlotBookingPage onBack={goBack} preFilledTeam={preFilledTeamData} />
+                  <SlotBookingPage onBack={() => navigate("winners")} preFilledTeam={preFilledTeamData} />
                 </motion.div>
               )}
 

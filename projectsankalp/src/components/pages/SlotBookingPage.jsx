@@ -62,9 +62,33 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
   const [domainSlots, setDomainSlots] = useState({});
   const ticketRef = useRef(null);
 
+  const readBookingPermit = () => {
+    if (typeof window === "undefined") return null;
+
+    try {
+      const raw = window.sessionStorage.getItem("sankalp-booking-permit");
+      return raw ? JSON.parse(raw) : null;
+    } catch (error) {
+      return null;
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchSlots();
+    const permit = readBookingPermit();
+    const permitMatches =
+      permit &&
+      preFilledTeam?.teamName &&
+      permit.teamName === preFilledTeam.teamName &&
+      permit.teamEmail === preFilledTeam.teamEmail;
+
+    if (!permitMatches) {
+      setError("SELECT A WINNING TEAM FROM THE WINNERS PAGE");
+      onBack();
+      return;
+    }
+
     // If team is pre-filled from winners, check if already booked
     if (preFilledTeam?.teamName) {
       checkTeamBookingStatus(preFilledTeam.teamName, preFilledTeam.teamEmail);
@@ -255,7 +279,6 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
   const handleBack = () => {
     if (step === "DOMAIN") setStep("VERIFY_TEAM_EMAIL");
     else if (step === "PAYMENT") setStep("DOMAIN");
-    else if (step === "ALREADY_COMPLETED") onBack();
     else onBack();
   };
 

@@ -237,6 +237,24 @@ const winnersData = [
 ];
 
 export default function WinnersPage({ onNavigate, onBack }) {
+  const handleTeamClick = (team) => {
+    if (typeof window !== "undefined") {
+      window.sessionStorage.setItem(
+        "sankalp-booking-permit",
+        JSON.stringify({
+          teamName: team.teamName,
+          teamEmail: team.teamEmail,
+          issuedAt: Date.now(),
+        }),
+      );
+    }
+
+    onNavigate && onNavigate("booking", {
+      teamName: team.teamName,
+      teamEmail: team.teamEmail,
+    });
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Winners | Project Sankalp";
@@ -349,7 +367,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                   viewport={{ once: true, margin: "-50px" }}
                   variants={fadeUp}
                   custom={i % 6}
-                  onClick={() => onNavigate && onNavigate("booking", { teamName: team.teamName, teamEmail: team.teamEmail })}
+                  onClick={() => handleTeamClick(team)}
                   className="cursor-pointer"
                 >
                   <div 
