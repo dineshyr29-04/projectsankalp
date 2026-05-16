@@ -6,11 +6,10 @@ import {
   Sparkles,
   Trophy,
   Users,
-  Mail,
 } from "lucide-react";
 import Container from "../core/Container";
 import Footer from "../layout/Footer";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i = 0) => ({
@@ -360,11 +359,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                     {/* Card Decoration */}
                     <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-2xl rounded-full group-hover:bg-emerald-500/10 transition-colors" />
 
-                    <div className="flex items-start justify-between mb-8">
-                      <span className="text-[10px] font-black uppercase tracking-widest text-white/20 group-hover:text-emerald-500/50 transition-colors">
-                        Elite Finalist
-                      </span>
-                    </div>
+                    
 
                     <div className="space-y-4">
                       <h3 className="text-2xl md:text-3xl font-black tracking-tight text-white uppercase italic font-serif leading-none">
@@ -373,21 +368,9 @@ export default function WinnersPage({ onNavigate, onBack }) {
 
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 text-white/40">
-                          <Mail size={14} className="shrink-0" />
-                          <span className="text-[10px] font-bold uppercase tracking-wider truncate">
-                            {team.teamEmail}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2 text-white/40">
-                          <GraduationCap size={14} className="shrink-0" />
-                          <span className="text-[10px] font-bold uppercase tracking-wider truncate">
-                            {team.college}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2 text-white/40">
                           <MapPin size={14} className="shrink-0" />
-                          <span className="text-[10px] font-bold uppercase tracking-wider">
-                            {team.state}
+                          <span className="text-[10px] font-bold uppercase tracking-wider truncate">
+                            Tap to continue booking
                           </span>
                         </div>
                       </div>

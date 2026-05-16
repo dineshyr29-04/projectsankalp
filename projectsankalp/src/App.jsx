@@ -86,6 +86,8 @@ function App() {
     
     if (teamData) {
       setPreFilledTeamData(teamData);
+    } else if (view !== "booking") {
+      setPreFilledTeamData(null);
     }
     
     window.history.pushState({ view }, "", slug);
