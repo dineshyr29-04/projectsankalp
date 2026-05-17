@@ -98,9 +98,15 @@ export default function Hero({ onBookingClick }) {
                 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    window.history.pushState({view: "winners"}, "", "/winners");
+                    window.dispatchEvent(new PopStateEvent("popstate"));
+                  }
+                }}
                 className="w-full md:w-auto bg-slate-900 text-white px-10 md:px-14 py-5 md:py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] shadow-lg shadow-slate-900/10 hover:-translate-y-[2px] hover:shadow-[0_12px_30px_rgba(16,185,129,0.25)] hover:bg-slate-800 transition-all duration-300"
               >
-                Register Closed
+                View Tthe Selected Teams
               </motion.button>
             </div>
           </motion.div>

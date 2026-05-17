@@ -355,7 +355,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                 custom={1}
               >
                 
-                <h1 className="text-6xl md:text-7xl font-black tracking-tighter uppercase mb-6 text-white italic font-serif font-thin">
+                <h1 className="text-6xl md:text-7xl font-black tracking-tighter uppercase mb-6 text-white italic" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}>
                   The <br />
                   <span className="text-emerald-500 font-thin">Selected Teams</span>
                 </h1>

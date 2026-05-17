@@ -268,12 +268,18 @@ export default function Prizes() {
           className="mt-16 md:mt-24"
         >
           <button
-            className="relative group overflow-hidden rounded-full p-[2px] cursor-default transition-all duration-300"
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                window.history.pushState({view: "winners"}, "", "/winners");
+                window.dispatchEvent(new PopStateEvent("popstate"));
+              }
+            }}
+            className="relative group overflow-hidden rounded-full p-[2px] cursor-pointer transition-all duration-300 hover:scale-105"
           >
             <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] aspect-square animate-[spin_3s_linear_infinite] bg-gradient-to-r from-slate-300 via-slate-600 to-slate-300 opacity-70 group-hover:opacity-100" />
             <div className="relative h-full w-full px-6 md:px-10 py-3 md:py-4 bg-white rounded-full transition-colors duration-300 group-hover:bg-slate-900 overflow-hidden shadow-lg flex items-center justify-center">
               <span className="text-[10px] md:text-sm font-bold uppercase tracking-[0.2em] text-slate-600 transition-colors duration-300 group-hover:text-white">
-                Registration Closed
+                View the Selected Teams
               </span>
             </div>
           </button>
