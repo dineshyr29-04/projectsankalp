@@ -67,7 +67,7 @@ export default function Hero({ onBookingClick }) {
             <div className="mb-6 sm:mb-8 md:mb-10 inline-flex items-center gap-2 sm:gap-3 px-5 py-2 sm:py-2.5 rounded-full bg-slate-900/5 border border-slate-900/10 backdrop-blur-md">
               <span className="flex h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
               <span className="text-[10px] sm:text-[12px] font-bold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-slate-900">
-                First Round Results Are Out
+                 Round One Results Are Out
               </span>
             </div>
 
@@ -114,7 +114,7 @@ export default function Hero({ onBookingClick }) {
                 }}
                 className="w-full md:w-auto bg-slate-900 text-white px-10 md:px-14 py-5 md:py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] shadow-lg shadow-slate-900/10 hover:-translate-y-[2px] hover:shadow-[0_12px_30px_rgba(16,185,129,0.25)] hover:bg-slate-800 transition-all duration-300"
               >
-                See First Round Results
+                See Round One Results
               </motion.button>
             </div>
           </motion.div>
