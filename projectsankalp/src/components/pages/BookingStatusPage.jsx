@@ -182,7 +182,7 @@ export default function BookingStatusPage({
                 placeholder="SEARCH MANIFEST (ID, NAME, UTR)..."
                 value={highlightId}
                 onChange={(e) => setHighlightId(e.target.value.toUpperCase())}
-                className="w-full bg-white/5 border border-white/5 rounded-2xl py-4 pl-14 pr-12 text-[11px] font-black tracking-[0.2em] uppercase focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/50 outline-none transition-all text-white placeholder:text-white/10"
+                className="w-full bg-white/5 border border-white/5 rounded-2xl py-4 pl-14 pr-12 text-[11px] font-bold tracking-wide uppercase focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/50 outline-none transition-all text-white placeholder:text-white/10" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}
               />
               {highlightId && (
                 <button onClick={() => setHighlightId("")} className="absolute right-5 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors">
@@ -227,21 +227,21 @@ export default function BookingStatusPage({
           <select 
             value={statusFilter} 
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-black uppercase tracking-widest outline-none focus:border-emerald-500/50 transition-all cursor-pointer hover:bg-white/10"
+            className="bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-bold uppercase tracking-wide outline-none focus:border-emerald-500/50 transition-all cursor-pointer hover:bg-white/10" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}
           >
-            <option value="" className="bg-slate-900">All Status</option>
-            <option value="verified" className="bg-slate-900">Verified Only</option>
-            <option value="pending" className="bg-slate-900">Pending Only</option>
-            <option value="checked" className="bg-slate-900">Checked-In</option>
+            <option value="" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}} className="bg-slate-900">All Status</option>
+            <option value="verified" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}} className="bg-slate-900">Verified Only</option>
+            <option value="pending" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}} className="bg-slate-900">Pending Only</option>
+            <option value="checked" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}} className="bg-slate-900">Checked-In</option>
           </select>
 
           <select 
             value={domainFilter} 
             onChange={(e) => setDomainFilter(e.target.value)}
-            className="bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-black uppercase tracking-widest outline-none focus:border-emerald-500/50 transition-all cursor-pointer hover:bg-white/10"
+            className="bg-white/5 border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-bold uppercase tracking-wide outline-none focus:border-emerald-500/50 transition-all cursor-pointer hover:bg-white/10" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}
           >
-            <option value="" className="bg-slate-900">All Sectors</option>
-            {DOMAINS.map(d => <option key={d.id} value={d.id} className="bg-slate-900">{d.title}</option>)}
+            <option value="" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}} className="bg-slate-900">All Sectors</option>
+            {DOMAINS.map(d => <option key={d.id} value={d.id} style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}} className="bg-slate-900">{d.title}</option>)}
           </select>
 
           <div className="h-4 w-px bg-white/5 mx-2 hidden sm:block" />

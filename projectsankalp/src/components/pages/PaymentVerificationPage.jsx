@@ -237,18 +237,18 @@ export default function PaymentVerificationPage({
               placeholder="Search Team ID / Name..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white/5 border-none rounded-xl py-3 pl-11 pr-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all ring-1 ring-white/10 text-white placeholder:text-white/20"
+              className="w-full bg-white/5 border-none rounded-xl py-3 pl-11 pr-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all ring-1 ring-white/10 text-white placeholder:text-white/20" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}
             />
           </div>
 
           <select
             value={filterDomain}
             onChange={(e) => setFilterDomain(e.target.value)}
-            className="bg-white/5 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all  ring-1 ring-white/10 text-white"
+            className="bg-white/5 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all  ring-1 ring-white/10 text-white" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}
           >
-            <option value="all">All Domains</option>
+            <option value="all" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}>All Domains</option>
             {DOMAINS.map((d) => (
-              <option key={d.id} value={d.id}>
+              <option key={d.id} value={d.id} style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}>
                 {d.title}
               </option>
             ))}
@@ -257,11 +257,11 @@ export default function PaymentVerificationPage({
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="bg-white/5 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all ring-1 ring-white/10 text-white"
+            className="bg-white/5 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-blue-500/20 transition-all ring-1 ring-white/10 text-white" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}
           >
-            <option value="all">All Status</option>
-            <option value="pending">Pending</option>
-            <option value="verified">Verified</option>
+            <option value="all" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}>All Status</option>
+            <option value="pending" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}>Pending</option>
+            <option value="verified" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}>Verified</option>
           </select>
         </div>
       </div>

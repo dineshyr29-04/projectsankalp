@@ -275,18 +275,18 @@ export default function RegistrationCheckInPage({
               placeholder="Search Team ID / Name..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white/5 border-none rounded-xl py-3 pl-11 pr-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-emerald-500/20 transition-all text-white placeholder:text-white/20"
+              className="w-full bg-white/5 border-none rounded-xl py-3 pl-11 pr-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-emerald-500/20 transition-all ring-1 ring-white/10 text-white placeholder:text-white/20" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}
             />
           </div>
 
           <select
             value={filterDomain}
             onChange={(e) => setFilterDomain(e.target.value)}
-            className="bg-white/5 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-emerald-500/20 transition-all text-white"
+            className="bg-white/5 border-none rounded-xl py-3 px-4 text-[10px] md:text-xs font-bold focus:ring-2 focus:ring-emerald-500/20 transition-all  ring-1 ring-white/10 text-white" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}
           >
-            <option value="all">All Domains</option>
+            <option value="all" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}>All Domains</option>
             {DOMAINS.map((d) => (
-              <option key={d.id} value={d.id}>
+              <option key={d.id} value={d.id} style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}>
                 {d.title}
               </option>
             ))}

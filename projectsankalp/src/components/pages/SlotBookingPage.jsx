@@ -337,7 +337,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
                     type="text"
                     value={preFilledTeam?.teamName || ""}
                     disabled
-                    className="w-full bg-white/5 border-2 border-white/20 rounded-2xl px-8 py-6 text-xl font-serif font-black italic tracking-widest focus:outline-none placeholder:text-white/10 uppercase text-center text-white/60 cursor-not-allowed"
+                    className="w-full bg-white/5 border-2 border-white/20 rounded-2xl px-8 py-6 text-xl font-sans font-bold tracking-wide focus:outline-none placeholder:text-white/10 uppercase text-center text-white/60 cursor-not-allowed" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}
                   />
                 </div>
 
@@ -351,7 +351,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
                     value={teamEmailInput}
                     onChange={(e) => setTeamEmailInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleVerifyTeamEmail()}
-                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-8 py-6 text-lg font-serif font-black italic tracking-widest focus:outline-none focus:border-emerald-500 focus:bg-white/10 placeholder:text-white/10 uppercase transition-all text-center"
+                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-8 py-6 text-lg font-sans font-bold tracking-wide focus:outline-none focus:border-emerald-500 focus:bg-white/10 placeholder:text-white/10 uppercase transition-all text-center" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}
                     autoFocus
                   />
                   <p className="text-[8px] font-bold text-white/20 uppercase tracking-widest mt-2">
@@ -533,7 +533,7 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
                       value={transactionId}
                       maxLength={12}
                       onChange={(e) => setTransactionId(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''))}
-                      className="w-full bg-transparent border-none p-0 text-2xl md:text-3xl font-serif font-black italic tracking-[0.2em] focus:ring-0 outline-none uppercase placeholder:text-white/5 text-center"
+                      className="w-full bg-transparent border-none p-0 text-2xl md:text-3xl font-sans font-bold tracking-widest focus:ring-0 outline-none uppercase placeholder:text-white/5 text-center" style={{fontFamily: "'Segoe UI', 'Roboto', 'Courier New', monospace"}}
                     />
                   </div>
 
