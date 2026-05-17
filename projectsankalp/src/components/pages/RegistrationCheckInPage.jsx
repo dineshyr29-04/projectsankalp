@@ -394,9 +394,14 @@ export default function RegistrationCheckInPage({
                 <h3 className="text-xl font-black text-white uppercase mb-1">
                   {team.teamId}
                 </h3>
-                <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-6 line-clamp-1">
+                <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-1 line-clamp-1">
                   {team.teamName}
                 </p>
+                {team.college && (
+                  <p className="text-[8px] font-semibold text-white/30 uppercase tracking-wider mb-6 line-clamp-1">
+                    {team.college}
+                  </p>
+                )}
 
                 <div className="space-y-3 mb-6 bg-white/5 p-4 rounded-[24px] border border-white/5">
                   <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest">

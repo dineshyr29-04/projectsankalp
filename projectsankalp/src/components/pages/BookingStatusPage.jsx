@@ -339,11 +339,18 @@ export default function BookingStatusPage({
                                 )}
                               </div>
                               
-                              <h3 className="text-xl font-black text-white uppercase tracking-tight truncate leading-tight mb-1">
-                                {slot.teamName}
-                              </h3>
+                              <div className="mb-2">
+                                <h3 className="text-lg font-black text-white uppercase tracking-tight leading-tight mb-1">
+                                  {slot.teamName}
+                                </h3>
+                                {slot.college && (
+                                  <p className="text-[8px] font-semibold text-white/40 uppercase tracking-wider truncate mb-1">
+                                    {slot.college}
+                                  </p>
+                                )}
+                              </div>
                               <div className="flex items-center gap-3">
-                                <p className="text-xs font-black text-white/60 uppercase tracking-[0.2em] italic font-serif">
+                                <p className="text-xs font-black text-white/60 uppercase tracking-[0.2em]">
                                   {slot.teamId}
                                 </p>
                                 {slot.transactionId && (

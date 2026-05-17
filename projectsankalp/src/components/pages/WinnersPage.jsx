@@ -28,205 +28,252 @@ const winnersData = [
     id: "cc-001",
     teamName: "Team Nexus",
     teamEmail: "pranilsakpal10@gmail.com",
+    college: "Pimpri Chinchwad College of Engineering, Pune",
   },
   {
     id: "cc-002",
     teamName: "ARJUNA",
     teamEmail: "shivajispatil8968@gmail.com",
+    college: "Annasaheb Dange College of Engineering and Technology, Ashta",
   },
   {
     id: "cc-003",
     teamName: "Ashwamedam",
     teamEmail: "mrahzin849@gmail.com",
+    college: "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
   },
   {
     id: "cc-004",
     teamName: "LogicLoop",
     teamEmail: "jyos6179@gmail.com",
+    college: "Srinivas Institute of Technology (SIT), Mangalore",
   },
   {
     id: "cc-005",
     teamName: "Trifecta",
     teamEmail: "ramyarajeshrao1411@gmail.com",
+    college: "KLE Technological University (KLE Tech), Hubli",
   },
   {
     id: "cc-006",
     teamName: "Evocare",
     teamEmail: "mohdshamaz21@gmail.com",
+    college: "St. Joseph Engineering College, Vamanjoor",
   },
   {
     id: "cc-007",
     teamName: "WHITE CELL RANGERS",
     teamEmail: "sushma.m20242006@gmail.com",
+    college: "Canara Engineering College, Bantwal",
   },
   {
     id: "cc-008",
     teamName: "The Faaah Coders",
     teamEmail: "silambazhagii@gmail.com",
+    college: "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
   },
   {
     id: "cc-009",
     teamName: "Brain.exe",
     teamEmail: "snehalrupnavar24@gmail.com",
+    college: "Dr. DY Patil Institute of Technology",
   },
   {
     id: "cc-010",
     teamName: "Pikachu",
     teamEmail: "sabinpoojariyanda@gmail.com",
+    college: "St Joseph Engineering College, Mangaluru",
   },
   {
     id: "cc-011",
     teamName: "Trojan",
     teamEmail: "29184@yenepoya.edu.in",
+    college: "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
   },
   {
     id: "cc-012",
     teamName: "Algniters",
     teamEmail: "nehanabdullah540@gmail.com",
+    college: "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
   },
   {
     id: "cc-013",
     teamName: "ByteForge",
     teamEmail: "prafultejasvi614@gmail.com",
+    college: "Maharaja Institute of Technology (MIT), Mysore",
   },
   {
     id: "cc-014",
     teamName: "Vision-X",
     teamEmail: "amoghrules20@gmail.com",
+    college: "PES University (PESU), Bengaluru",
   },
   {
     id: "cc-015",
     teamName: "Nothing",
     teamEmail: "jainkritharth2006@gmail.com",
+    college: "Canara Engineering College, Bantwal",
   },
   {
     id: "cc-016",
     teamName: "Merge Conflict",
     teamEmail: "aviraltripathi25@gmail.com",
+    college: "KLE Technological University (KLE Tech), Hubli",
   },
   {
     id: "cc-017",
     teamName: "Downhill Decoders",
     teamEmail: "24j49.siana@sjec.ac.in",
+    college: "St Joseph Engineering College, Vamanjoor",
   },
   {
     id: "cc-018",
     teamName: "CodeX",
     teamEmail: "dsouzachris2005@gmail.com",
+    college: "St. Joseph Engineering College, Vamanjoor",
   },
   {
     id: "cc-019",
     teamName: "Codex",
     teamEmail: "suraj0bhat@gmail.com",
+    college: "Mangalore Institute of Technology & Engineering (MITE), Mangaluru",
   },
   {
     id: "cc-020",
     teamName: "ctrl Freaks",
     teamEmail: "vsmayuri08@gmail.com",
+    college: "Chennai Institute of Technology",
   },
   {
     id: "cc-021",
     teamName: "FuelNow",
     teamEmail: "dishitha24206@gmail.com",
+    college: "St. Joseph Engineering College, Vamanjoor",
   },
   {
     id: "cc-022",
     teamName: "Carbon",
     teamEmail: "jihadhaneefak@gmail.com",
+    college: "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
   },
   {
     id: "cc-023",
     teamName: "Mosambi Juice",
     teamEmail: "abhiramsharmar@gmail.com",
+    college: "BMS Institute of Technology",
   },
   {
     id: "cc-024",
     teamName: "wildwest",
     teamEmail: "jiyahussain26@gmail.com",
+    college: "A. J. Institute of Engineering and Technology",
   },
   {
     id: "cc-025",
     teamName: "RehabTech",
     teamEmail: "ayshapallipuram@gmail.com",
+    college: "Yenepoya University (YU)",
   },
   {
     id: "cc-026",
     teamName: "Run Time Terror",
     teamEmail: "imadrazimoha@gmail.com",
+    college: "Yenepoya Institute Of Technology (YIT), Moodabidri",
   },
   {
     id: "cc-027",
     teamName: "Unify",
     teamEmail: "mohammadsahad52@gmail.com",
+    college: "Bearys Institute Of Technology",
   },
   {
     id: "cc-028",
     teamName: "ASDIQA",
     teamEmail: "24505@yenepoya.edu.in",
+    college: "Yenepoya University (YU)",
   },
   {
     id: "cc-029",
     teamName: "DID-HE WARRIORS",
     teamEmail: "manistalon04@gmail.com",
+    college: "St. Joseph Engineering College, Vamanjoor",
   },
   {
     id: "cc-030",
     teamName: "VOIDX",
     teamEmail: "kaushik0h0s@gmail.com",
+    college: "Canara Engineering College, Bantwal",
   },
   {
     id: "cc-031",
     teamName: "ConvrgCore",
     teamEmail: "samarthmn410@gmail.com",
+    college: "Maharaja Institute of Technology (MIT), Mysore",
   },
   {
     id: "cc-032",
     teamName: "Algarythm",
     teamEmail: "haashimmuhammad7@gmail.com",
+    college: "Bearys Institute Of Technology",
   },
   {
     id: "cc-033",
     teamName: "Victory Coders",
     teamEmail: "pranamnk90@gmail.com",
+    college: "Sahyadri College of Engineering & Management (SCEM), Mangaluru",
   },
   {
     id: "cc-034",
     teamName: "Diamond Blender",
     teamEmail: "ayushkumarojha484@gmail.com",
+    college: "Indian Institute of Technology (IIT), Bhilai",
   },
   {
     id: "cc-035",
     teamName: "Kaizen Koders",
     teamEmail: "pk7411956419@gmail.com",
+    college: "BMS Institute of Technology and Management (BMSITM), Bangalore",
   },
   {
     id: "cc-036",
     teamName: "Team Codex",
     teamEmail: "koushikmahadev3@gmail.com",
+    college: "University Visvesvaraya College Of Engineering (UVCE), Bangalore",
   },
   {
     id: "cc-037",
     teamName: "Rising Devs",
     teamEmail: "madheshb.ece2024@citchennai.net",
+    college: "Chennai Institute of Technology",
   },
   {
     id: "cc-038",
     teamName: "Clarix",
     teamEmail: "saiprasanth.1170@gmail.com",
+    college: "Marwadi University (MU), Gujarat",
   },
   {
     id: "cc-039",
     teamName: "stratosix",
     teamEmail: "knavaneeth786@gmail.com",
+    college: "Yenepoya University, Bangalore",
   },
   {
     id: "cc-040",
     teamName: "Argus",
     teamEmail: "mekalaabhiramsai33@gmail.com",
+    college: "REVA University (RU), Bangalore",
   },
 ];
 
 export default function WinnersPage({ onNavigate, onBack }) {
+  useEffect(() => {
+    document.documentElement.style.fontFamily = "'Georgia', 'Garamond', 'Baskerville', serif";
+    return () => {
+      document.documentElement.style.fontFamily = "";
+    };
+  }, []);
+
   const handleTeamClick = (team) => {
     if (typeof window !== "undefined") {
       window.sessionStorage.setItem(
@@ -367,16 +414,22 @@ export default function WinnersPage({ onNavigate, onBack }) {
 
                     
 
-                    <div className="space-y-3 md:space-y-4">
-                      <h3 className="text-xl sm:text-2xl md:text-[1.3rem] font-black tracking-tight text-white uppercase italic font-serif leading-none">
+                    <div className="space-y-2 md:space-y-3">
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight text-white uppercase leading-tight">
                         {team.teamName}
                       </h3>
 
-                      <div className="space-y-1.5">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 text-white/50">
+                          <GraduationCap size={12} className="shrink-0" />
+                          <span className="text-[8px] sm:text-[9px] font-semibold uppercase tracking-wider truncate leading-tight">
+                            {team.college}
+                          </span>
+                        </div>
                         <div className="flex items-center gap-2 text-white/40">
-                          <MapPin size={14} className="shrink-0" />
-                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider truncate">
-                            Tap to continue booking
+                          <MapPin size={12} className="shrink-0" />
+                          <span className="text-[8px] sm:text-[9px] font-semibold uppercase tracking-wider truncate">
+                            Tap to book
                           </span>
                         </div>
                       </div>

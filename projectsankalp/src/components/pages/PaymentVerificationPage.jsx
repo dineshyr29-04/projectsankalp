@@ -374,6 +374,11 @@ export default function PaymentVerificationPage({
                                 <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest line-clamp-1">
                                   {team.teamName}
                                 </p>
+                                {team.college && (
+                                  <p className="text-[8px] font-semibold text-white/30 uppercase tracking-wider line-clamp-1 mt-0.5">
+                                    {team.college}
+                                  </p>
+                                )}
                               </div>
                             </div>
                           </div>

@@ -61,7 +61,12 @@ export default function SlotBookingPage({ onBack, preFilledTeam = null }) {
   const [error, setError] = useState("");
   const [domainSlots, setDomainSlots] = useState({});
   const ticketRef = useRef(null);
-
+  useEffect(() => {
+    document.documentElement.style.fontFamily = "'Georgia', 'Garamond', 'Baskerville', serif";
+    return () => {
+      document.documentElement.style.fontFamily = "";
+    };
+  }, []);
   const readBookingPermit = () => {
     if (typeof window === "undefined") return null;
 

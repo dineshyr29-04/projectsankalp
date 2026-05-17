@@ -40,7 +40,7 @@ export default function Footer() {
                 className="text-emerald-500 mt-0.5 flex-shrink-0"
               />
               <p className="text-[11px] leading-relaxed font-medium">
-                Yenepoya University, Deralakatte, Mangalore 575018
+                Yendurance Zone, Yenepoya University, Deralakatte, Mangalore 575018
               </p>
             </div>
           </div>
@@ -53,12 +53,9 @@ export default function Footer() {
             <ul className="space-y-4">
               {["About", "Tracks", "Process", "Prizes"].map((item) => (
                 <li key={item}>
-                  <a
-                    href={`#${item.toLowerCase()}`}
-                    className="text-xs text-white/50 hover:text-emerald-500 transition-all flex items-center gap-2 font-black uppercase tracking-widest"
-                  >
+                  <span className="text-xs text-white/50 cursor-default flex items-center gap-2 font-black uppercase tracking-widest">
                     {item}
-                  </a>
+                  </span>
                 </li>
               ))}
             </ul>
