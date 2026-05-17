@@ -19,28 +19,8 @@ import Loader from "./components/ui/loader-11";
 // Lazy Load Pages for Least Network Load
 const TimerPage = lazy(() => import("./components/pages/TimerPage"));
 const StagesPage = lazy(() => import("./components/pages/StagesPage"));
-const SlotBookingPage = lazy(() => import("./components/pages/SlotBookingPage"));
-const BookingStatusPage = lazy(() => import("./components/pages/BookingStatusPage"));
-const PaymentVerificationPage = lazy(() => import("./components/pages/PaymentVerificationPage"));
-const RegistrationCheckInPage = lazy(() => import("./components/pages/RegistrationCheckInPage"));
 const TeamPage = lazy(() => import("./components/pages/TeamPage"));
 const WinnersPage = lazy(() => import("./components/pages/WinnersPage"));
-const AdminLoginPage = lazy(() => import("./components/pages/AdminLoginPage"));
-import { db } from "./lib/firebase";
-import { startExportSync } from "./lib/exportSync";
-import {
-  collection,
-  onSnapshot,
-  addDoc,
-  query,
-  where,
-  getDocs,
-  deleteDoc,
-  doc,
-  updateDoc,
-  serverTimestamp,
-  orderBy,
-} from "firebase/firestore";
 
 // AUDIT FIX: Simple, premium Back to Top button
 const BackToTop = () => {
@@ -75,21 +55,10 @@ const BackToTop = () => {
 function App() {
   const [currentView, setCurrentView] = useState("landing");
   const [isLoading, setIsLoading] = useState(true);
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
-  const [preFilledTeamData, setPreFilledTeamData] = useState(null);
 
   // ── ROUTING LOGIC ──
-  const navigate = (view, teamData = null) => {
-    // Payment and Registration are now sub-views of Terminal
-    const isAdminSubView = ["payment", "registration"].includes(view);
-    const slug = view === "landing" ? "/" : (isAdminSubView ? "/terminal" : `/${view}`);
-    
-    if (teamData) {
-      setPreFilledTeamData(teamData);
-    } else if (view !== "booking") {
-      setPreFilledTeamData(null);
-    }
-    
+  const navigate = (view) => {
+    const slug = view === "landing" ? "/" : `/${view}`;
     window.history.pushState({ view }, "", slug);
     setCurrentView(view);
     window.scrollTo(0, 0);
@@ -111,10 +80,7 @@ function App() {
       "winners",
       "team",
       "stages",
-      "booking",
-      "terminal",
       "timer",
-      "status",
     ];
     const normalizedPath = path.toLowerCase();
     const matchedView = validViews.find(
@@ -148,145 +114,7 @@ function App() {
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, [isAdminAuthenticated]);
-
-  const [globalSlots, setGlobalSlots] = useState({
-    women: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
-    health: Array.from({ length: 10 }, (_, i) => ({ id: i + 1, teamId: null })),
-    climate: Array.from({ length: 10 }, (_, i) => ({
-      id: i + 1,
-      teamId: null,
-    })),
-  });
-
-  // ── FIREBASE SYNC LOGIC ──
-  useEffect(() => {
-    // Only attempt sync if a valid Project ID is provided in .env
-    const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
-    if (!db || !projectId || projectId === "your_project_id") return;
-    const q = query(collection(db, "registrations"), orderBy("createdAt", "asc"));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const regs = snapshot.docs.map((doc) => ({ ...doc.data(), _id: doc.id }));
-
-      const freshSlots = {
-        women: Array.from({ length: 10 }, (_, i) => ({
-          id: i + 1,
-          teamId: null,
-        })),
-        health: Array.from({ length: 10 }, (_, i) => ({
-          id: i + 1,
-          teamId: null,
-        })),
-        climate: Array.from({ length: 10 }, (_, i) => ({
-          id: i + 1,
-          teamId: null,
-        })),
-      };
-
-      regs.forEach((reg) => {
-        const sector = freshSlots[reg.selectedDomain];
-        if (sector) {
-          // Find the first empty slot for this domain in the local manifest
-          const slot = sector.find((s) => !s.teamId);
-          if (slot) {
-            slot.teamId = reg.teamId;
-            slot.teamName = reg.teamName;
-            slot.docId = reg._id;
-            slot.transactionId = reg.transactionId;
-            slot.paymentStatus = reg.paymentStatus || "PENDING";
-            slot.imageUrl = reg.imageUrl;
-            slot.checkedIn = reg.checkedIn || false; // Track attendance
-            slot.checkInTime = reg.checkInTime; // Track arrival time
-            slot.paymentVerified = reg.paymentVerified || false; // Track verification
-            slot.timestamp = reg.timestamp; // Track when they registered/paid
-          }
-        }
-      });
-
-      setGlobalSlots(freshSlots);
-    });
-
-    // also start export sync (overwrites a fixed file in Storage)
-    // const stopExport = startExportSync();
-
-    return () => {
-      unsubscribe();
-      // if (typeof stopExport === "function") stopExport();
-    };
   }, []);
-
-  const handleCheckIn = async (docId, status) => {
-    try {
-      await updateDoc(doc(db, "registrations", docId), {
-        checkedIn: status,
-        checkInTime: status ? serverTimestamp() : null,
-      });
-    } catch (err) {
-      console.error("Check-in failed:", err);
-    }
-  };
-
-  const handleUpdatePayment = async (docId, updates) => {
-    try {
-      const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
-      if (db && projectId && projectId !== "your_project_id" && docId) {
-        await updateDoc(doc(db, "registrations", docId), {
-          ...updates,
-          lastUpdated: serverTimestamp(),
-        });
-      }
-    } catch (err) {
-      console.error("Payment update failed:", err);
-    }
-  };
-
-  const handleBookSlot = async (domainId, slotId, teamId) => {
-    // 1. Update Firestore (Truth)
-    try {
-      const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
-      if (db && projectId && projectId !== "your_project_id") {
-        await addDoc(collection(db, "bookings"), {
-          domainId,
-          slotId,
-          teamId,
-          timestamp: new Date(),
-        });
-      } else {
-        // Fallback for local testing
-        setGlobalSlots((prev) => ({
-          ...prev,
-          [domainId]: prev[domainId].map((slot) =>
-            slot.id === slotId ? { ...slot, teamId } : slot,
-          ),
-        }));
-      }
-    } catch (error) {
-      console.error("Booking failed:", error);
-    }
-  };
-
-  const handleDeleteBooking = async (domainId, slotId, docId) => {
-    if (
-      !window.confirm(
-        "Are you sure you want to delete this registration? This will free up a slot.",
-      )
-    ) {
-      return;
-    }
-
-    try {
-      const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
-      if (db && projectId && projectId !== "your_project_id") {
-        if (docId) {
-          const docRef = doc(db, "registrations", docId);
-          await deleteDoc(docRef);
-        }
-      }
-    } catch (error) {
-      console.error("Deletion failed:", error);
-      alert("System Error: Could not remove registration.");
-    }
-  };
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 900);
@@ -331,9 +159,7 @@ function App() {
       <Analytics />
       <SpeedInsights />
       <div className="flex flex-col min-h-screen">
-        {currentView !== "booking" && (
-          <Navbar currentView={currentView} onNavigate={navigate} />
-        )}
+        <Navbar currentView={currentView} onNavigate={navigate} />
         <BackToTop />
 
         <main className="flex-grow">
@@ -347,7 +173,7 @@ function App() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <Hero onBookingClick={() => navigate("booking")} />
+                  <Hero />
                   <About />
                   <Process />
                   <EventDetails />
@@ -405,68 +231,6 @@ function App() {
                   transition={{ duration: 0.5 }}
                 >
                   <StagesPage onBack={goBack} />
-                </motion.div>
-              )}
-              {currentView === "booking" && (
-                <motion.div
-                  key="booking"
-                  initial={{ opacity: 0, scale: 1.1 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
-                >
-                  <SlotBookingPage onBack={() => navigate("winners")} preFilledTeam={preFilledTeamData} />
-                </motion.div>
-              )}
-
-              {/* ── ADMINISTRATIVE TERMINALS (GATED) ── */}
-              {["terminal", "payment", "registration", "status"].includes(currentView) && (
-                <motion.div
-                  key="admin-gate"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
-                >
-                  {!isAdminAuthenticated ? (
-                    <AdminLoginPage 
-                      onLogin={() => setIsAdminAuthenticated(true)} 
-                      onBack={goBack} 
-                    />
-                  ) : (
-                    <>
-                      {(currentView === "terminal" || currentView === "admin-login") && (
-                        <BookingStatusPage
-                          slots={globalSlots}
-                          onBack={goBack}
-                          onDelete={handleDeleteBooking}
-                          onCheckIn={handleCheckIn}
-                          onUpdatePayment={handleUpdatePayment}
-                          onNavigate={navigate}
-                        />
-                      )}
-                      {currentView === "payment" && (
-                        <PaymentVerificationPage
-                          slots={globalSlots}
-                          onBack={() => navigate("terminal")}
-                          onDelete={handleDeleteBooking}
-                          onCheckIn={handleCheckIn}
-                          onUpdate={handleUpdatePayment}
-                        />
-                      )}
-                      {currentView === "registration" && (
-                        <RegistrationCheckInPage
-                          slots={globalSlots}
-                          onBack={() => navigate("terminal")}
-                          onDelete={handleDeleteBooking}
-                          onCheckIn={handleCheckIn}
-                        />
-                      )}
-                      {currentView === "status" && (
-                        <StatusCheckPage onBack={goBack} />
-                      )}
-                    </>
-                  )}
                 </motion.div>
               )}
             </AnimatePresence>
