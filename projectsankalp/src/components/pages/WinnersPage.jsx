@@ -1,11 +1,8 @@
 import { motion } from "framer-motion";
 import {
-  Award,
   GraduationCap,
-  MapPin,
   Sparkles,
   Trophy,
-  Users,
 } from "lucide-react";
 import Container from "../core/Container";
 import Footer from "../layout/Footer";
@@ -266,31 +263,13 @@ const winnersData = [
   },
 ];
 
-export default function WinnersPage({ onNavigate, onBack }) {
+export default function WinnersPage({ onBack }) {
   useEffect(() => {
     document.documentElement.style.fontFamily = "'Georgia', 'Garamond', 'Baskerville', serif";
     return () => {
       document.documentElement.style.fontFamily = "";
     };
   }, []);
-
-  const handleTeamClick = (team) => {
-    if (typeof window !== "undefined") {
-      window.sessionStorage.setItem(
-        "sankalp-booking-permit",
-        JSON.stringify({
-          teamName: team.teamName,
-          teamEmail: team.teamEmail,
-          issuedAt: Date.now(),
-        }),
-      );
-    }
-
-    onNavigate && onNavigate("booking", {
-      teamName: team.teamName,
-      teamEmail: team.teamEmail,
-    });
-  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -407,12 +386,11 @@ export default function WinnersPage({ onNavigate, onBack }) {
                   viewport={{ once: true, margin: "-50px" }}
                   variants={fadeUp}
                   custom={i % 6}
-                  onClick={() => handleTeamClick(team)}
-                  className="cursor-pointer h-full"
+                  className="h-full"
                 >
                   <div 
                    
-                    className="relative h-full min-h-[100px] bg-white/5 border border-white/10 rounded-[24px] p-4 sm:p-5 md:p-6 hover:bg-white/10 transition-all duration-500 group overflow-hidden cursor-pointer"
+                    className="relative h-full min-h-[100px] bg-white/5 border border-white/10 rounded-[24px] p-4 sm:p-5 md:p-6 hover:bg-white/10 transition-all duration-500 group overflow-hidden"
                   >
                     {/* Card Decoration */}
                     <div className="absolute top-0 right-0 w-24 h-24 md:w-28 md:h-28 bg-emerald-500/5 blur-2xl rounded-full group-hover:bg-emerald-500/10 transition-colors" />
@@ -429,12 +407,6 @@ export default function WinnersPage({ onNavigate, onBack }) {
                           <GraduationCap size={12} className="shrink-0 mt-0.5" />
                           <span className="text-[8px] sm:text-[11px] font-semibold uppercase tracking-wider leading-tight line-clamp-2">
                             {team.college}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2 text-white/40 mt-1.5">
-                          <MapPin size={12} className="shrink-0" />
-                          <span className="text-[8px] sm:text-[9px] font-semibold uppercase tracking-wider">
-                            Tap to book
                           </span>
                         </div>
                       </div>
