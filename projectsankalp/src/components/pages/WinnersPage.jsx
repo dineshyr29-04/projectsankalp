@@ -357,7 +357,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                 
                 <h1 className="text-6xl md:text-7xl font-black tracking-tighter uppercase mb-6 text-white italic" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}>
                   The <br />
-                  <span className="text-emerald-500 font-thin">Selected Teams</span>
+                  <span className="text-emerald-500">Selected Teams</span>
                 </h1>
                 <p className="text-white/40 text-sm md:text-base font-medium max-w-md leading-relaxed uppercase tracking-wider">
                   Celebrating the architects of change. These teams represent
