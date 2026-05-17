@@ -302,9 +302,7 @@ export default function WinnersPage({ onNavigate, onBack }) {
                 variants={fadeUp}
                 custom={1}
               >
-                <span className="text-emerald-500 text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">
-                  Hall of Fame // 2024
-                </span>
+                
                 <h1 className="text-6xl md:text-7xl font-black tracking-tighter uppercase mb-6 text-white italic font-serif font-thin">
                   The <br />
                   <span className="text-emerald-500 font-thin">Selected Teams</span>

@@ -7,7 +7,6 @@ export const siteConfig = {
   date: "May 24-25, 2026",
   location: "Yendurance zone, Yenepoya University, Deralakatte, Mangalore",
   links: {
-    register: "#register",
     learnMore: "#about",
   },
   stats: [

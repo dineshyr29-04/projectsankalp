@@ -68,7 +68,7 @@ export default function Process() {
 
           <p className="text-slate-600 text-lg font-medium border-l border-slate-100 pl-8 max-w-2xl">
             A structured three-phase journey from thousands of global ideas to
-            the final top 30 champions.
+            the final top 40 champions.
           </p>
         </div>
 
