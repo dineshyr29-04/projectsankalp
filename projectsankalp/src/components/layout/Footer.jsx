@@ -67,7 +67,7 @@ export default function Footer() {
               Partners
             </h4>
             <ul className="space-y-4">
-              {["NSS Unit", "YSET", "Yenepoya", "Research"].map((item) => (
+              {["NSS Unit", "YSET", "Yenepoya"].map((item) => (
                 <li key={item}>
                   <a
                     href="#"

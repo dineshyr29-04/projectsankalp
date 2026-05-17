@@ -379,6 +379,11 @@ export default function PaymentVerificationPage({
                                     {team.college}
                                   </p>
                                 )}
+                                {team.teamEmail && (
+                                  <p className="text-[8px] font-semibold text-white/25 lowercase tracking-wider line-clamp-1 mt-0.5">
+                                    {team.teamEmail}
+                                  </p>
+                                )}
                               </div>
                             </div>
                           </div>

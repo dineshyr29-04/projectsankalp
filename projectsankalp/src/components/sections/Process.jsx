@@ -16,7 +16,7 @@ export default function Process() {
     },
     {
       round: "EVALUATION",
-      title: "Top 30 teams",
+      title: "Top 40 teams",
       description:
         "Expert screening phase where feasibility and innovation are rigorously evaluated.",
       icon: ClipboardCheck,
@@ -27,7 +27,7 @@ export default function Process() {
       round: "ROUND 3",
       title: "The Grand Finale",
       description:
-        "Top 30 teams compete in a 24-hour offline sprint at the physical venue.",
+        "Top 40 teams compete in a 24-hour offline sprint at the physical venue.",
       icon: MapPin,
       status: "Offline",
       date: "25th May 2026",

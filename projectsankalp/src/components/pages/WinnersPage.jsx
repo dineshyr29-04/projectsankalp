@@ -332,7 +332,12 @@ export default function WinnersPage({ onNavigate, onBack }) {
           <Container>
             <div className="mb-12">
               <button
-                onClick={onBack}
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    window.history.pushState({view: "landing"}, "", "/");
+                    window.dispatchEvent(new PopStateEvent("popstate"));
+                  }
+                }}
                 className="group flex items-center gap-3 text-[10px] font-black tracking-[0.4em] uppercase border-b-2 border-white pb-1 hover:border-emerald-500 transition-colors"
               >
                 <span className="text-lg transition-transform group-hover:-translate-x-1">
@@ -415,20 +420,20 @@ export default function WinnersPage({ onNavigate, onBack }) {
                     
 
                     <div className="space-y-2 md:space-y-3">
-                      <h3 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight text-white uppercase leading-tight">
+                      <h3 className="text-lg sm:text-xl md:text-xl font-black tracking-tight text-white uppercase leading-tight" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}>
                         {team.teamName}
                       </h3>
 
                       <div className="space-y-1">
-                        <div className="flex items-center gap-2 text-white/50">
-                          <GraduationCap size={12} className="shrink-0" />
-                          <span className="text-[8px] sm:text-[9px] font-semibold uppercase tracking-wider truncate leading-tight">
+                        <div className="flex items-start gap-2 text-white/50">
+                          <GraduationCap size={12} className="shrink-0 mt-0.5" />
+                          <span className="text-[8px] sm:text-[11px] font-semibold uppercase tracking-wider leading-tight line-clamp-2">
                             {team.college}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 text-white/40">
+                        <div className="flex items-center gap-2 text-white/40 mt-1.5">
                           <MapPin size={12} className="shrink-0" />
-                          <span className="text-[8px] sm:text-[9px] font-semibold uppercase tracking-wider truncate">
+                          <span className="text-[8px] sm:text-[9px] font-semibold uppercase tracking-wider">
                             Tap to book
                           </span>
                         </div>

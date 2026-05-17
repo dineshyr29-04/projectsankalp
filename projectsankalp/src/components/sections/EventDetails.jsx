@@ -114,7 +114,7 @@ export default function EventDetails() {
                       Capacity
                     </span>
                     <span className="text-xl md:text-3xl font-serif font-bold">
-                      30 Teams
+                      40 Teams
                     </span>
                   </div>
                   <div className="w-px h-10 bg-white/10" />

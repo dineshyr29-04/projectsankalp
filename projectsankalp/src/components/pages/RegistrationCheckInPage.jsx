@@ -398,8 +398,13 @@ export default function RegistrationCheckInPage({
                   {team.teamName}
                 </p>
                 {team.college && (
-                  <p className="text-[8px] font-semibold text-white/30 uppercase tracking-wider mb-6 line-clamp-1">
+                  <p className="text-[8px] font-semibold text-white/30 uppercase tracking-wider mb-1 line-clamp-1">
                     {team.college}
+                  </p>
+                )}
+                {team.teamEmail && (
+                  <p className="text-[8px] font-semibold text-white/25 lowercase tracking-wider mb-6 line-clamp-1">
+                    {team.teamEmail}
                   </p>
                 )}
 

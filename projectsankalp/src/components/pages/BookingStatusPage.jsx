@@ -344,8 +344,13 @@ export default function BookingStatusPage({
                                   {slot.teamName}
                                 </h3>
                                 {slot.college && (
-                                  <p className="text-[8px] font-semibold text-white/40 uppercase tracking-wider truncate mb-1">
+                                  <p className="text-[8px] font-semibold text-white/40 uppercase tracking-wider line-clamp-1 mb-0.5">
                                     {slot.college}
+                                  </p>
+                                )}
+                                {slot.teamEmail && (
+                                  <p className="text-[8px] font-semibold text-white/30 lowercase tracking-wider line-clamp-1 mb-1">
+                                    {slot.teamEmail}
                                   </p>
                                 )}
                               </div>
