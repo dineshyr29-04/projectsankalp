@@ -239,9 +239,9 @@ const winnersData = [
   },
   {
     id: "cc-037",
-    teamName: "Rising Devs",
+    teamName: "The Floating Coders ",
     teamEmail: "madheshb.ece2024@citchennai.net",
-    college: "Chennai Institute of Technology",
+    college: "Vishwakarma Institute of Technology, Pune, Maharashtra",
   },
   {
     id: "cc-038",
