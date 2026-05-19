@@ -38,6 +38,11 @@ export default function Sponsors() {
       alt: "Yenepoya Institute of Technology",
       title: "Yenepoya Institute of Technology",
     },
+    {
+      src: "yentech.pg",
+      alt:"Yentech club",
+      title: "Yentech Club"
+    }
   ];
 
   return (
