@@ -233,9 +233,9 @@ const winnersData = [
   },
   {
     id: "cc-036",
-    teamName: "Team Codex",
+    teamName: "MED_CONNECT",
     teamEmail: "koushikmahadev3@gmail.com",
-    college: "University Visvesvaraya College Of Engineering (UVCE), Bangalore",
+    college: "Mangalore Institute of Techology & Engineering (MITE), Mangaluru, Karnataka",
   },
   {
     id: "cc-037",
