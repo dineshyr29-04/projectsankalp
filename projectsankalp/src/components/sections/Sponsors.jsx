@@ -39,7 +39,7 @@ export default function Sponsors() {
       title: "Yenepoya Institute of Technology",
     },
     {
-      src: "yentech.pg",
+      src: "yentech.png",
       alt:"Yentech club",
       title: "Yentech Club"
     }
