@@ -1,12 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  FaLinkedinIn,
-  FaTwitter,
-  FaBehance,
-  FaInstagram,
-  FaGithub,
-} from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import Container from "../core/Container";
 
 // --- TEAM DATA ---
@@ -46,7 +40,7 @@ const ADVISORY = [
     id: "a6",
     name: "Dr. Rekha P D",
     role: "Director, Research and Development cell",
-    image: "/team/advisory/director_r&d.png",
+    image: "/team/advisory/our_dean.png",
   },
   {
     id: "a8",
@@ -91,7 +85,7 @@ const STUDENT_CONVENERS = [
     id: "s1",
     name: "Radhesh Pai",
     image: "/team/core/radhesh.png",
-    social: { github: "#", linkedin: "#" },
+    social: { github: "#" },
   },
   {
     id: "s2",
@@ -103,19 +97,19 @@ const STUDENT_CONVENERS = [
     id: "s3",
     name: "Anand",
     image: "/team/core/anand.png",
-    social: { linkedin: "#" },
+    social: { github: "#" },
   },
   {
     id: "s4",
     name: "Dinesh A.",
     image: "/team/core/dinesh.png",
-    social: { linkedin: "#" },
+    social: { github: "#" },
   },
   {
     id: "s10",
     name: "Jagadish Naik",
     image: "/team/core/jaggu.png",
-    social: { linkedin: "#" },
+    social: { github: "#" },
   },
   {
     id: "s5",
@@ -127,7 +121,7 @@ const STUDENT_CONVENERS = [
     id: "s6",
     name: "Rinu Manoj",
     image: "/team/core/rinu.png",
-    social: { linkedin: "#" },
+    social: { github: "#" },
   },
   {
     id: "s7",
@@ -145,7 +139,7 @@ const STUDENT_CONVENERS = [
     id: "s9",
     name: "Archana",
     image: "/team/core/archana.png",
-    social: { instagram: "#" },
+    social: { github: "#" },
   },
   {
     id: "s11",
@@ -157,7 +151,7 @@ const STUDENT_CONVENERS = [
     id: "s12",
     name: "Skandana",
     image: "/team/core/skandu.png",
-    social: { instagram: "#" },
+    social: { github: "#" },
   },
 ];
 
@@ -167,12 +161,7 @@ const SECTIONS = [
 ];
 
 function SocialIcons({ member, light = false, size = 14 }) {
-  const hasSocial =
-    member.social?.twitter ||
-    member.social?.linkedin ||
-    member.social?.instagram ||
-    member.social?.behance ||
-    member.social?.github;
+  const hasSocial = member.social?.github;
   if (!hasSocial) return null;
 
   const iconClass = `p-2 rounded-full transition-all duration-300 hover:scale-110 ${
@@ -183,17 +172,6 @@ function SocialIcons({ member, light = false, size = 14 }) {
 
   return (
     <div className="flex items-center gap-1.5">
-      {member.social?.linkedin && (
-        <a
-          href={member.social.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={iconClass}
-          aria-label="LinkedIn"
-        >
-          <FaLinkedinIn size={size} />
-        </a>
-      )}
       {member.social?.github && (
         <a
           href={member.social.github}
@@ -203,39 +181,6 @@ function SocialIcons({ member, light = false, size = 14 }) {
           aria-label="GitHub"
         >
           <FaGithub size={size} />
-        </a>
-      )}
-      {member.social?.instagram && (
-        <a
-          href={member.social.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={iconClass}
-          aria-label="Instagram"
-        >
-          <FaInstagram size={size} />
-        </a>
-      )}
-      {member.social?.twitter && (
-        <a
-          href={member.social.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={iconClass}
-          aria-label="Twitter"
-        >
-          <FaTwitter size={size} />
-        </a>
-      )}
-      {member.social?.behance && (
-        <a
-          href={member.social.behance}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={iconClass}
-          aria-label="Behance"
-        >
-          <FaBehance size={size} />
         </a>
       )}
     </div>
