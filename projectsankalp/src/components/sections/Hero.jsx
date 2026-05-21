@@ -4,7 +4,7 @@ import Container from "../core/Container";
 import Grainient from "../Grainient";
 import HeroTimer from "../ui/HeroTimer";
 
-export default function Hero({ onBookingClick }) {
+export default function Hero({ onNavigate }) {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -106,15 +106,24 @@ export default function Hero({ onBookingClick }) {
                 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                  if (typeof window !== "undefined") {
-                    window.history.pushState({view: "winners"}, "", "/winners");
-                    window.dispatchEvent(new PopStateEvent("popstate"));
-                  }
-                }}
-                className="w-full md:w-auto bg-slate-900 text-white px-10 md:px-14 py-5 md:py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] shadow-lg shadow-slate-900/10 hover:-translate-y-[2px] hover:shadow-[0_12px_30px_rgba(16,185,129,0.25)] hover:bg-slate-800 transition-all duration-300"
+                onClick={() => onNavigate?.("winners")}
+                className="w-full md:w-auto bg-slate-900 text-white px-10 md:px-14 py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] shadow-lg shadow-slate-900/10 hover:-translate-y-[2px] hover:shadow-[0_12px_30px_rgba(16,185,129,0.25)] hover:bg-slate-800 transition-all duration-300"
               >
                 Round One Results
+              </motion.button>
+
+              <motion.button
+                whileHover={{
+                  borderColor: "#10b981",
+                  boxShadow: "0 25px 50px rgba(16, 185, 129, 0.15)",
+                  y: -2,
+                }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => onNavigate?.("team")}
+                className="w-full md:w-auto px-10 md:px-14 py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] bg-transparent text-slate-900 border-2 border-slate-900/10 hover:text-emerald-600 transition-all duration-300"
+              >
+                Meet the Team
               </motion.button>
             </div>
           </motion.div>

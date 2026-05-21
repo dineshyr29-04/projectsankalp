@@ -11,6 +11,7 @@ import {
   Brain,
   Menu,
   X,
+  Users,
 } from "lucide-react";
 
 export default function Navbar({ onNavigate, currentView }) {
@@ -25,6 +26,7 @@ export default function Navbar({ onNavigate, currentView }) {
     { name: "Prizes", href: "#prizes", icon: Trophy },
     { name: "Domains", href: "#domains", icon: Brain },
     { name: "FAQ", href: "#faq", icon: HelpCircle },
+    { name: "Team", href: "team", icon: Users },
   ];
 
   // CircleMenu expects icon as a rendered element
@@ -38,8 +40,22 @@ export default function Navbar({ onNavigate, currentView }) {
     e.preventDefault();
     setIsOpen(false);
 
+    if (href === "team") {
+      onNavigate?.("team");
+      return;
+    }
+
     if (!isLanding) {
       onNavigate?.("landing");
+      if (href.startsWith("#")) {
+        const sectionId = href.replace("#", "");
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
       return;
     }
 

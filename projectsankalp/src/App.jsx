@@ -173,7 +173,7 @@ function App() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <Hero />
+                  <Hero onNavigate={navigate} />
                   <About />
                   <Process />
                   <EventDetails />
