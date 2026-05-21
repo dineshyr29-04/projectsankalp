@@ -140,7 +140,10 @@ export default function StagesPage({ onBack }) {
               aria-label="Close"
               ref={closeBtnRef}
             >
-              <X size={18} className="group-hover:rotate-90 transition-transform duration-300" />
+              <X
+                size={18}
+                className="group-hover:rotate-90 transition-transform duration-300"
+              />
             </motion.button>
 
             {/* Seamless Expanding Modal Card Container */}
@@ -170,7 +173,7 @@ export default function StagesPage({ onBack }) {
                   className="w-full h-full object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent" />
-                
+
                 {/* Heading details nested inside image overlay, fading in dynamically without stretching */}
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -181,7 +184,10 @@ export default function StagesPage({ onBack }) {
                   <span className="text-[10px] font-black uppercase tracking-[0.5em] text-emerald-400 mb-2 block">
                     Mission Sector
                   </span>
-                  <h3 id={`title-${active.title}-${id}`} className="text-3xl md:text-5xl font-black text-white font-serif italic tracking-tight leading-none">
+                  <h3
+                    id={`title-${active.title}-${id}`}
+                    className="text-3xl md:text-5xl font-black text-white font-serif italic tracking-tight leading-none"
+                  >
                     {active.title}
                   </h3>
                 </motion.div>
@@ -215,26 +221,40 @@ export default function StagesPage({ onBack }) {
                         key={ps.id}
                         initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 + idx * 0.08, ease: "easeOut" }}
+                        transition={{
+                          delay: 0.2 + idx * 0.08,
+                          ease: "easeOut",
+                        }}
                         className={`p-8 rounded-[24px] bg-slate-50 border border-slate-100 group flex flex-col justify-between transition-all duration-300 hover:bg-white hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] ${
                           active.id === "01"
                             ? "hover:border-blue-500/30"
                             : active.id === "02"
-                            ? "hover:border-emerald-500/30"
-                            : "hover:border-teal-500/30"
+                              ? "hover:border-emerald-500/30"
+                              : "hover:border-teal-500/30"
                         }`}
                       >
                         <div>
                           <div className="flex justify-between items-start mb-6">
-                            <span className={`inline-block text-[9px] font-black uppercase tracking-widest ${active.color} opacity-60`}>
+                            <span
+                              className={`inline-block text-[9px] font-black uppercase tracking-widest ${active.color} opacity-60`}
+                            >
                               Problem Statement 0{idx + 1}
                             </span>
                             {active.id === "01" ? (
-                              <Target size={16} className="text-blue-500 opacity-60 group-hover:scale-110 transition-transform duration-300" />
+                              <Target
+                                size={16}
+                                className="text-blue-500 opacity-60 group-hover:scale-110 transition-transform duration-300"
+                              />
                             ) : active.id === "02" ? (
-                              <Activity size={16} className="text-emerald-500 opacity-60 group-hover:scale-110 transition-transform duration-300" />
+                              <Activity
+                                size={16}
+                                className="text-emerald-500 opacity-60 group-hover:scale-110 transition-transform duration-300"
+                              />
                             ) : (
-                              <ShieldCheck size={16} className="text-teal-500 opacity-60 group-hover:scale-110 transition-transform duration-300" />
+                              <ShieldCheck
+                                size={16}
+                                className="text-teal-500 opacity-60 group-hover:scale-110 transition-transform duration-300"
+                              />
                             )}
                           </div>
                           <p className="text-sm font-bold text-slate-700 leading-relaxed mb-8">
@@ -242,7 +262,8 @@ export default function StagesPage({ onBack }) {
                           </p>
                         </div>
                         <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-widest text-slate-400 pt-4 border-t border-slate-100/50 mt-auto">
-                          Status: Active <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          Status: Active{" "}
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                         </div>
                       </motion.div>
                     ))}
@@ -274,9 +295,7 @@ export default function StagesPage({ onBack }) {
             className="font-serif text-6xl md:text-8xl font-black tracking-tighter text-slate-950 leading-[0.9]"
           >
             Operational <br />
-            <span className="text-emerald-600 pr-10">
-              Domains
-            </span>
+            <span className="text-emerald-600 pr-10">Domains</span>
           </motion.h1>
 
           <motion.p
@@ -332,7 +351,9 @@ export default function StagesPage({ onBack }) {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-slate-950/10 group-hover:bg-slate-950/5 transition-colors" />
-                  <div className={`absolute top-8 left-8 px-5 py-2.5 rounded-full bg-white/95 backdrop-blur-sm text-[10px] font-black uppercase tracking-widest ${domain.color} border border-white shadow-xl`}>
+                  <div
+                    className={`absolute top-8 left-8 px-5 py-2.5 rounded-full bg-white/95 backdrop-blur-sm text-[10px] font-black uppercase tracking-widest ${domain.color} border border-white shadow-xl`}
+                  >
                     Sector {domain.id}
                   </div>
                 </motion.div>
@@ -373,7 +394,9 @@ export default function StagesPage({ onBack }) {
           <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-end justify-between gap-16">
             <div className="max-w-2xl text-center lg:text-left">
               <div className="mb-10 flex items-center justify-center lg:justify-start gap-4">
-                <span className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-400">Final Protocol</span>
+                <span className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-400">
+                  Final Protocol
+                </span>
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
               </div>
               <h2 className="text-5xl lg:text-7xl font-black leading-[0.92] tracking-tighter text-slate-950 font-serif italic">
@@ -381,20 +404,30 @@ export default function StagesPage({ onBack }) {
                 <span className="text-emerald-600">matters.</span>
               </h2>
               <p className="mt-10 text-xl leading-relaxed text-slate-500 italic max-w-xl">
-                Collaborate with ambitious builders, solve meaningful challenges, and transform ideas into products with measurable impact.
+                Collaborate with ambitious builders, solve meaningful
+                challenges, and transform ideas into products with measurable
+                impact.
               </p>
             </div>
-            
+
             <div className="flex flex-col items-center lg:items-end gap-10">
               <div className="flex items-center gap-12">
                 <div className="text-center">
-                  <p className="text-4xl font-black tracking-tighter text-slate-950 font-serif">500+</p>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">Pioneers</p>
+                  <p className="text-4xl font-black tracking-tighter text-slate-950 font-serif">
+                    500+
+                  </p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">
+                    Pioneers
+                  </p>
                 </div>
                 <div className="h-12 w-px bg-slate-200" />
                 <div className="text-center">
-                  <p className="text-4xl font-black tracking-tighter text-slate-950 font-serif">24H</p>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">Sprint</p>
+                  <p className="text-4xl font-black tracking-tighter text-slate-950 font-serif">
+                    24H
+                  </p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">
+                    Sprint
+                  </p>
                 </div>
               </div>
             </div>

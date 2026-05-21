@@ -7,10 +7,33 @@ import Container from "../core/Container";
 const GlassFilter = () => (
   <svg className="hidden">
     <defs>
-      <filter id="timer-glass-distortion" x="0%" y="0%" width="100%" height="100%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" seed="1" result="turbulence" />
-        <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise" />
-        <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="50" xChannelSelector="R" yChannelSelector="B" result="displaced" />
+      <filter
+        id="timer-glass-distortion"
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+      >
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.05 0.05"
+          numOctaves="1"
+          seed="1"
+          result="turbulence"
+        />
+        <feGaussianBlur
+          in="turbulence"
+          stdDeviation="2"
+          result="blurredNoise"
+        />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="blurredNoise"
+          scale="50"
+          xChannelSelector="R"
+          yChannelSelector="B"
+          result="displaced"
+        />
         <feGaussianBlur in="displaced" stdDeviation="2" result="finalBlur" />
         <feComposite in="finalBlur" in2="finalBlur" operator="over" />
       </filter>
@@ -115,7 +138,9 @@ export default function TimerPage({ onBack }) {
       } else {
         setTimeLeft({
           days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          hours: Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+          ),
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000),
         });
@@ -131,18 +156,22 @@ export default function TimerPage({ onBack }) {
 
       {/* Header Info */}
       <div className="relative z-20 p-8 flex justify-between items-start">
-        <button 
+        <button
           onClick={onBack}
           className="group flex items-center gap-4 text-white/40 hover:text-white transition-all"
         >
           <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
             <ChevronLeft size={20} />
           </div>
-          <span className="text-[10px] font-black uppercase tracking-[0.4em]">Abort Mission</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.4em]">
+            Abort Mission
+          </span>
         </button>
 
         <div className="text-right">
-          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 block mb-2">System Status</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 block mb-2">
+            System Status
+          </span>
           <span className="text-2xl font-sans font-black tracking-widest uppercase">
             {isActive ? "Mission Active" : "System Standby"}
           </span>
@@ -151,7 +180,7 @@ export default function TimerPage({ onBack }) {
 
       {/* Main Timer Display */}
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="relative flex items-center justify-center gap-4 md:gap-8 lg:gap-12"
@@ -180,7 +209,9 @@ export default function TimerPage({ onBack }) {
                 >
                   <div className="relative z-10 flex items-center gap-4">
                     <Play size={24} fill="black" />
-                    <span className="text-sm font-black uppercase tracking-[0.5em]">Start Mission</span>
+                    <span className="text-sm font-black uppercase tracking-[0.5em]">
+                      Start Mission
+                    </span>
                   </div>
                   <div className="absolute inset-0 bg-emerald-500 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                 </motion.button>
@@ -195,7 +226,9 @@ export default function TimerPage({ onBack }) {
                 >
                   <div className="relative z-10 flex items-center gap-4">
                     <Play size={24} fill="white" />
-                    <span className="text-sm font-black uppercase tracking-[0.5em]">Resume Mission</span>
+                    <span className="text-sm font-black uppercase tracking-[0.5em]">
+                      Resume Mission
+                    </span>
                   </div>
                 </motion.button>
               ) : (
@@ -209,7 +242,9 @@ export default function TimerPage({ onBack }) {
                 >
                   <div className="relative z-10 flex items-center gap-4">
                     <Pause size={24} fill="white" />
-                    <span className="text-sm font-black uppercase tracking-[0.5em]">Stop Mission</span>
+                    <span className="text-sm font-black uppercase tracking-[0.5em]">
+                      Stop Mission
+                    </span>
                   </div>
                 </motion.button>
               )}
@@ -223,8 +258,13 @@ export default function TimerPage({ onBack }) {
               onClick={handleReset}
               className="group flex items-center gap-4 text-white/20 hover:text-white transition-all"
             >
-              <RotateCcw size={16} className="group-hover:rotate-180 transition-all duration-700" />
-              <span className="text-[10px] font-black uppercase tracking-[0.4em]">Full Reset Console</span>
+              <RotateCcw
+                size={16}
+                className="group-hover:rotate-180 transition-all duration-700"
+              />
+              <span className="text-[10px] font-black uppercase tracking-[0.4em]">
+                Full Reset Console
+              </span>
             </motion.button>
           )}
         </div>

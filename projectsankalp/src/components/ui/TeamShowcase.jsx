@@ -12,16 +12,20 @@ export default function TeamShowcase({ members, showRole = true }) {
   if (!members || members.length === 0) return null;
 
   return (
-    <div className={cn(
-      "w-full mx-auto py-4 md:py-8 font-sans transition-all duration-500",
-      showRole ? "max-w-6xl" : "max-w-5xl"
-    )}>
-      <div className={cn(
-        "grid gap-6 md:gap-8 px-4 sm:px-0 transition-all duration-500",
-        showRole
-          ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-          : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-      )}>
+    <div
+      className={cn(
+        "w-full mx-auto py-4 md:py-8 font-sans transition-all duration-500",
+        showRole ? "max-w-6xl" : "max-w-5xl",
+      )}
+    >
+      <div
+        className={cn(
+          "grid gap-6 md:gap-8 px-4 sm:px-0 transition-all duration-500",
+          showRole
+            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+            : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
+        )}
+      >
         {members.map((member, index) => (
           <motion.div
             key={member.id}
@@ -35,16 +39,18 @@ export default function TeamShowcase({ members, showRole = true }) {
             }}
             className={cn(
               "group relative flex flex-col transition-all duration-500 hover:-translate-y-2",
-              showRole 
-                ? "bg-transparent border-none shadow-none p-0" 
-                : "rounded-3xl bg-slate-50/50 hover:bg-white border border-slate-100/80 hover:border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_-8px_rgba(0,0,0,0.08)] p-4"
+              showRole
+                ? "rounded-[2.25rem] bg-slate-50/50 hover:bg-white border border-slate-100 hover:border-blue-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_-8px_rgba(59,130,246,0.12)] p-5"
+                : "rounded-[2rem] bg-slate-50/50 hover:bg-white border border-slate-100 hover:border-emerald-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_-8px_rgba(16,185,129,0.12)] p-4",
             )}
           >
             {/* Image Wrapper */}
-            <div className={cn(
-              "relative aspect-[4/5] overflow-hidden bg-slate-100 shadow-inner mx-auto transition-all duration-300",
-              showRole ? "w-[85%] rounded-[1.75rem]" : "w-full rounded-2xl"
-            )}>
+            <div
+              className={cn(
+                "relative aspect-[4/5] overflow-hidden bg-slate-100 shadow-inner mx-auto transition-all duration-300 w-full",
+                showRole ? "rounded-2xl" : "rounded-xl",
+              )}
+            >
               <img
                 src={member.image}
                 alt={member.name}
@@ -56,30 +62,30 @@ export default function TeamShowcase({ members, showRole = true }) {
             </div>
 
             {/* Card Content */}
-            <div className={cn(
-              "mt-4 flex flex-col flex-grow transition-all duration-300",
-              showRole ? "w-[85%] mx-auto" : "w-full"
-            )}>
-              <h3 className={cn(
-                "text-slate-900 tracking-tight leading-tight transition-colors duration-300 group-hover:text-emerald-600",
-                showRole ? "text-lg md:text-xl font-bold" : "text-lg font-black"
-              )}>
+            <div className="mt-4 flex flex-col flex-grow transition-all duration-300 w-full px-1">
+              <h3
+                className={cn(
+                  "text-slate-900 tracking-tight leading-tight transition-colors duration-300 group-hover:text-emerald-600",
+                  showRole
+                    ? "text-lg md:text-xl font-bold"
+                    : "text-lg font-black",
+                )}
+              >
                 {member.name}
               </h3>
-              
+
               {showRole && (
                 <div className="w-full border-t border-slate-100/80 my-3" />
               )}
-              
+
               {showRole && member.role && (
                 <div className="flex items-start justify-between gap-4 w-full">
                   <p className="text-slate-500 text-xs md:text-[13px] font-medium leading-relaxed">
                     {member.role}
                   </p>
-                  
                 </div>
               )}
-              
+
               {/* Divider / Social Icons container */}
               {!showRole && (
                 <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full">

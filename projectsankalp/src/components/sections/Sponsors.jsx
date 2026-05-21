@@ -40,9 +40,9 @@ export default function Sponsors() {
     },
     {
       src: "yentech.png",
-      alt:"Yentech club",
-      title: "Yentech Club"
-    }
+      alt: "Yentech club",
+      title: "Yentech Club",
+    },
   ];
 
   return (

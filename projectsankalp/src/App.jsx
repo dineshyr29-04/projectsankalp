@@ -75,13 +75,7 @@ function App() {
   useEffect(() => {
     // Handle initial load slug
     const path = window.location.pathname.slice(1);
-    const validViews = [
-      "landing",
-      "winners",
-      "team",
-      "stages",
-      "timer",
-    ];
+    const validViews = ["landing", "winners", "team", "stages", "timer"];
     const normalizedPath = path.toLowerCase();
     const matchedView = validViews.find(
       (v) => v.toLowerCase() === normalizedPath,
@@ -92,7 +86,9 @@ function App() {
       window.history.replaceState(
         { view: matchedView },
         "",
-        window.location.pathname + window.location.search + window.location.hash,
+        window.location.pathname +
+          window.location.search +
+          window.location.hash,
       );
     } else if (path === "") {
       setCurrentView("landing");
@@ -163,7 +159,13 @@ function App() {
         <BackToTop />
 
         <main className="flex-grow">
-          <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader /></div>}>
+          <Suspense
+            fallback={
+              <div className="min-h-screen flex items-center justify-center">
+                <Loader />
+              </div>
+            }
+          >
             <AnimatePresence mode="wait">
               {currentView === "landing" && (
                 <motion.div

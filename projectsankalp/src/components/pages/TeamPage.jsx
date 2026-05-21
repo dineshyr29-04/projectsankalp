@@ -227,9 +227,7 @@ export default function TeamPage({ onBack }) {
               className="text-[40px] sm:text-6xl md:text-8xl lg:text-[100px] font-serif font-black text-slate-900 leading-[0.9] tracking-tighter mb-8"
             >
               Meet the <br />
-              <span className="italic text-emerald-500 pr-5">
-                Crew.
-              </span>
+              <span className="italic text-emerald-500 pr-5">Crew.</span>
             </motion.h1>
 
             <motion.p
@@ -258,10 +256,11 @@ export default function TeamPage({ onBack }) {
                 key={section.title}
                 data-active={isActive}
                 onClick={() => setActiveSection(section.title)}
-                className={`relative px-5 py-2.5 rounded-full text-[11px] md:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap snap-center ${isActive
-                  ? "text-white"
-                  : "text-slate-400 hover:text-slate-900"
-                  }`}
+                className={`relative px-5 py-2.5 rounded-full text-[11px] md:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap snap-center ${
+                  isActive
+                    ? "text-white"
+                    : "text-slate-400 hover:text-slate-900"
+                }`}
               >
                 {isActive && (
                   <motion.div

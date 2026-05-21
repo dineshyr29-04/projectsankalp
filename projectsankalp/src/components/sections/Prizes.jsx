@@ -270,7 +270,7 @@ export default function Prizes() {
           <button
             onClick={() => {
               if (typeof window !== "undefined") {
-                window.history.pushState({view: "winners"}, "", "/winners");
+                window.history.pushState({ view: "winners" }, "", "/winners");
                 window.dispatchEvent(new PopStateEvent("popstate"));
               }
             }}

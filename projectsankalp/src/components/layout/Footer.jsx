@@ -40,7 +40,8 @@ export default function Footer() {
                 className="text-emerald-500 mt-0.5 flex-shrink-0"
               />
               <p className="text-[11px] leading-relaxed font-medium">
-                Yendurance Zone, Yenepoya University, Deralakatte, Mangalore 575018
+                Yendurance Zone, Yenepoya University, Deralakatte, Mangalore
+                575018
               </p>
             </div>
           </div>

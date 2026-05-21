@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-import {
-  GraduationCap,
-  Sparkles,
-  Trophy,
-} from "lucide-react";
+import { GraduationCap, Sparkles, Trophy } from "lucide-react";
 import Container from "../core/Container";
 import Footer from "../layout/Footer";
 import { useEffect } from "react";
@@ -37,7 +33,8 @@ const winnersData = [
     id: "cc-003",
     teamName: "Ashwamedam",
     teamEmail: "mrahzin849@gmail.com",
-    college: "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
+    college:
+      "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
   },
   {
     id: "cc-004",
@@ -67,7 +64,8 @@ const winnersData = [
     id: "cc-008",
     teamName: "The Faaah Coders",
     teamEmail: "silambazhagii@gmail.com",
-    college: "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
+    college:
+      "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
   },
   {
     id: "cc-009",
@@ -85,13 +83,15 @@ const winnersData = [
     id: "cc-011",
     teamName: "Trojan",
     teamEmail: "29184@yenepoya.edu.in",
-    college: "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
+    college:
+      "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
   },
   {
     id: "cc-012",
     teamName: "Algniters",
     teamEmail: "nehanabdullah540@gmail.com",
-    college: "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
+    college:
+      "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
   },
   {
     id: "cc-013",
@@ -133,7 +133,8 @@ const winnersData = [
     id: "cc-019",
     teamName: "Codex",
     teamEmail: "suraj0bhat@gmail.com",
-    college: "Mangalore Institute of Technology & Engineering (MITE), Mangaluru",
+    college:
+      "Mangalore Institute of Technology & Engineering (MITE), Mangaluru",
   },
   {
     id: "cc-020",
@@ -151,7 +152,8 @@ const winnersData = [
     id: "cc-022",
     teamName: "Carbon",
     teamEmail: "jihadhaneefak@gmail.com",
-    college: "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
+    college:
+      "Yenepoya Institute of Arts, Science, Commerce and Management, Mangalore",
   },
   {
     id: "cc-023",
@@ -235,7 +237,8 @@ const winnersData = [
     id: "cc-036",
     teamName: "MED_CONNECT",
     teamEmail: "koushikmahadev3@gmail.com",
-    college: "Mangalore Institute of Techology & Engineering (MITE), Mangaluru, Karnataka",
+    college:
+      "Mangalore Institute of Techology & Engineering (MITE), Mangaluru, Karnataka",
   },
   {
     id: "cc-037",
@@ -265,7 +268,8 @@ const winnersData = [
 
 export default function WinnersPage({ onBack }) {
   useEffect(() => {
-    document.documentElement.style.fontFamily = "'Georgia', 'Garamond', 'Baskerville', serif";
+    document.documentElement.style.fontFamily =
+      "'Georgia', 'Garamond', 'Baskerville', serif";
     return () => {
       document.documentElement.style.fontFamily = "";
     };
@@ -313,7 +317,7 @@ export default function WinnersPage({ onBack }) {
               <button
                 onClick={() => {
                   if (typeof window !== "undefined") {
-                    window.history.pushState({view: "landing"}, "", "/");
+                    window.history.pushState({ view: "landing" }, "", "/");
                     window.dispatchEvent(new PopStateEvent("popstate"));
                   }
                 }}
@@ -333,8 +337,13 @@ export default function WinnersPage({ onBack }) {
                 variants={fadeUp}
                 custom={1}
               >
-                
-                <h1 className="text-6xl md:text-7xl font-black tracking-tighter uppercase mb-6 text-white italic" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}>
+                <h1
+                  className="text-6xl md:text-7xl font-black tracking-tighter uppercase mb-6 text-white italic"
+                  style={{
+                    fontFamily:
+                      "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif",
+                  }}
+                >
                   The <br />
                   <span className="text-emerald-500">Selected Teams</span>
                 </h1>
@@ -388,23 +397,27 @@ export default function WinnersPage({ onBack }) {
                   custom={i % 6}
                   className="h-full"
                 >
-                  <div 
-                   
-                    className="relative h-full min-h-[100px] bg-white/5 border border-white/10 rounded-[24px] p-4 sm:p-5 md:p-6 hover:bg-white/10 transition-all duration-500 group overflow-hidden"
-                  >
+                  <div className="relative h-full min-h-[100px] bg-white/5 border border-white/10 rounded-[24px] p-4 sm:p-5 md:p-6 hover:bg-white/10 transition-all duration-500 group overflow-hidden">
                     {/* Card Decoration */}
                     <div className="absolute top-0 right-0 w-24 h-24 md:w-28 md:h-28 bg-emerald-500/5 blur-2xl rounded-full group-hover:bg-emerald-500/10 transition-colors" />
 
-                    
-
                     <div className="space-y-2 md:space-y-3">
-                      <h3 className="text-lg sm:text-xl md:text-xl font-black tracking-tight text-white uppercase leading-tight" style={{fontFamily: "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif"}}>
+                      <h3
+                        className="text-lg sm:text-xl md:text-xl font-black tracking-tight text-white uppercase leading-tight"
+                        style={{
+                          fontFamily:
+                            "'Segoe UI', 'Roboto', 'Inter', system-ui, sans-serif",
+                        }}
+                      >
                         {team.teamName}
                       </h3>
 
                       <div className="space-y-1">
                         <div className="flex items-start gap-2 text-white/50">
-                          <GraduationCap size={12} className="shrink-0 mt-0.5" />
+                          <GraduationCap
+                            size={12}
+                            className="shrink-0 mt-0.5"
+                          />
                           <span className="text-[8px] sm:text-[11px] font-semibold uppercase tracking-wider leading-tight line-clamp-2">
                             {team.college}
                           </span>
@@ -462,10 +475,11 @@ export default function WinnersPage({ onBack }) {
 
                 <div className="pt-8 flex flex-wrap justify-center gap-6">
                   <div className="flex flex-col items-center">
-                    <span className="text-3xl font-black text-white">{winnersData.length}</span>
+                    <span className="text-3xl font-black text-white">
+                      {winnersData.length}
+                    </span>
                     <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">
                       Selected
-
                     </span>
                   </div>
                   <div className="w-[1px] h-12 bg-white/10" />

@@ -67,7 +67,7 @@ export default function Hero({ onNavigate }) {
             <div className="mb-6 sm:mb-8 md:mb-10 inline-flex items-center gap-2 sm:gap-3 px-5 py-2 sm:py-2.5 rounded-full bg-slate-900/5 border border-slate-900/10 backdrop-blur-md">
               <span className="flex h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
               <span className="text-[10px] sm:text-[12px] font-bold uppercase tracking-[0.25em] sm:tracking-[0.3em] text-slate-900">
-                 Round One Results Are Out
+                Round One Results Are Out
               </span>
             </div>
 
@@ -114,18 +114,164 @@ export default function Hero({ onNavigate }) {
 
               <motion.button
                 whileHover={{
-                  scale: 1.03,
-                  borderColor: "rgba(16, 185, 129, 0.35)",
-                  backgroundColor: "rgba(16, 185, 129, 0.03)",
-                  boxShadow: "0 20px 40px -10px rgba(16, 185, 129, 0.2)",
-                  y: -3,
+                  y: -4,
+                  scale: 1.015,
                 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.985 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 320,
+                  damping: 18,
+                }}
                 onClick={() => onNavigate?.("team")}
-                className="w-full md:w-auto px-10 md:px-14 py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] bg-white/40 backdrop-blur-xl text-slate-900 border border-slate-900/10 hover:text-emerald-600 hover:border-emerald-500/20 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500"
+                className="
+  group
+  relative
+  isolate
+  overflow-hidden
+
+  w-full
+  md:w-auto
+
+  rounded-full
+
+  px-10
+  md:px-14
+
+  py-5
+
+  backdrop-blur-2xl
+
+  border
+  border-white/50
+
+  shadow-[0_10px_40px_rgba(15,23,42,0.06)]
+
+  transition-all
+  duration-700
+  ease-out
+
+  hover:-translate-y-1
+  hover:scale-[1.015]
+
+  hover:border-emerald-200/60
+
+  hover:shadow-[0_20px_60px_rgba(16,185,129,0.12)]
+
+  active:scale-[0.985]
+
+  bg-[linear-gradient(135deg,rgba(255,255,255,0.78),rgba(190,242,255,0.62),rgba(220,255,233,0.58),rgba(255,255,255,0.72))]
+"
               >
-                Meet the Team
+                {/* AURORA ATMOSPHERE */}
+                <div
+                  className="
+    absolute
+    inset-0
+
+    opacity-80
+
+    bg-[radial-gradient(circle_at_top_left,rgba(125,211,252,0.26),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(134,239,172,0.22),transparent_40%),radial-gradient(circle_at_center,rgba(255,255,255,0.18),transparent_60%)]
+
+    transition-all
+    duration-700
+
+    group-hover:scale-110
+  "
+                />
+
+                {/* GLASS REFLECTION */}
+                <div
+                  className="
+    absolute
+    inset-x-0
+    top-0
+    h-1/2
+
+    bg-gradient-to-b
+    from-white/80
+    via-white/15
+    to-transparent
+
+    pointer-events-none
+  "
+                />
+
+                {/* LIQUID SHINE */}
+                <div
+                  className="
+    absolute
+    inset-y-0
+    -left-[45%]
+    w-[28%]
+
+    rotate-12
+
+    bg-white/50
+    blur-2xl
+
+    translate-x-[-180%]
+    group-hover:translate-x-[450%]
+
+    transition-transform
+    duration-[1800ms]
+    ease-out
+  "
+                />
+
+                {/* INNER GLOW */}
+                <div
+                  className="
+    absolute
+    inset-[1px]
+    rounded-full
+
+    border
+    border-white/40
+
+    pointer-events-none
+  "
+                />
+
+                {/* CONTENT */}
+                <span
+                  className="
+    relative
+    z-10
+
+    flex
+    items-center
+    justify-center
+    gap-3
+
+    text-[11px]
+    md:text-[12px]
+
+    font-black
+    uppercase
+
+    tracking-[0.32em]
+    md:tracking-[0.42em]
+
+    text-[#0f172a]
+
+    transition-all
+    duration-500
+
+    group-hover:text-emerald-700
+  "
+                >
+                  Meet the Team
+                  <span
+                    className="
+      transition-transform
+      duration-300
+      group-hover:translate-x-1
+    "
+                  >
+                    →
+                  </span>
+                </span>
               </motion.button>
             </div>
           </motion.div>
