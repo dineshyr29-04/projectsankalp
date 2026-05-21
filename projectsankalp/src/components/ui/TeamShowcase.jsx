@@ -34,12 +34,17 @@ export default function TeamShowcase({ members, showRole = true }) {
               ease: [0.16, 1, 0.3, 1],
             }}
             className={cn(
-              "group relative flex flex-col rounded-3xl bg-slate-50/50 hover:bg-white border border-slate-100/80 hover:border-slate-200/80 hover:-translate-y-2 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_-8px_rgba(0,0,0,0.08)] transition-all duration-500",
-              showRole ? "p-6 md:p-8" : "p-4"
+              "group relative flex flex-col transition-all duration-500 hover:-translate-y-2",
+              showRole 
+                ? "bg-transparent border-none shadow-none p-0" 
+                : "rounded-3xl bg-slate-50/50 hover:bg-white border border-slate-100/80 hover:border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_-8px_rgba(0,0,0,0.08)] p-4"
             )}
           >
             {/* Image Wrapper */}
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-100 shadow-inner">
+            <div className={cn(
+              "relative aspect-[4/5] w-full overflow-hidden bg-slate-100 shadow-inner",
+              showRole ? "rounded-[2rem]" : "rounded-2xl"
+            )}>
               <img
                 src={member.image}
                 alt={member.name}
@@ -53,15 +58,25 @@ export default function TeamShowcase({ members, showRole = true }) {
             {/* Card Content */}
             <div className="mt-4 flex flex-col flex-grow">
               <h3 className={cn(
-                "font-black text-slate-900 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors duration-300",
-                showRole ? "text-xl md:text-2xl" : "text-lg"
+                "text-slate-900 tracking-tight leading-tight transition-colors duration-300 group-hover:text-emerald-600",
+                showRole ? "text-lg md:text-xl font-bold" : "text-lg font-black"
               )}>
                 {member.name}
               </h3>
+              
+              {showRole && (
+                <div className="w-full border-t border-slate-100/80 my-3" />
+              )}
+              
               {showRole && member.role && (
-                <p className="text-slate-500 text-xs md:text-sm font-medium mt-2 leading-relaxed">
-                  {member.role}
-                </p>
+                <div className="flex items-start justify-between gap-4 w-full">
+                  <p className="text-slate-500 text-xs md:text-[13px] font-medium leading-relaxed">
+                    {member.role}
+                  </p>
+                  <span className="text-emerald-500 hover:text-emerald-600 text-xs md:text-[13px] font-bold whitespace-nowrap transition-colors select-none mt-0.5">
+                    Read more+
+                  </span>
+                </div>
               )}
               
               {/* Divider / Social Icons container */}

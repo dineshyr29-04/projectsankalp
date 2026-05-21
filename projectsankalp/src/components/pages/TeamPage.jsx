@@ -101,6 +101,12 @@ const STUDENT_CONVENERS = [
   },
   {
     id: "s4",
+    name: "Dinesh A.",
+    image: "/team/dinesh.png",
+    social: { linkedin: "#" },
+  },
+  {
+    id: "s10",
     name: "Jagadish Naik",
     image: "/team/jaggu.png",
     social: { linkedin: "#" },
@@ -135,12 +141,7 @@ const STUDENT_CONVENERS = [
     image: "/team/archana.png",
     social: { instagram: "#" },
   },
-  {
-    id: "s10",
-    name: "Dinesh A.",
-    image: "/team/dinesh.png",
-    social: { linkedin: "#" },
-  },
+
   {
     id: "s11",
     name: "Ashwin R",
@@ -157,7 +158,7 @@ const STUDENT_CONVENERS = [
 
 const SECTIONS = [
   { title: "Advisory Board", data: ADVISORY },
-  { title: "Main Students (Core Team)", data: STUDENT_CONVENERS },
+  { title: "Core Team Members", data: STUDENT_CONVENERS },
 ];
 
 export default function TeamPage({ onBack }) {
@@ -185,7 +186,7 @@ export default function TeamPage({ onBack }) {
 
   const sectionColors = {
     "Advisory Board": "from-slate-50 to-white",
-    "Main Students (Core Team)": "from-emerald-50/50 to-white",
+    "Core Team Members": "from-emerald-50/50 to-white",
   };
   const currentBg = sectionColors[activeSection] || "from-slate-50 to-white";
 
@@ -259,8 +260,8 @@ export default function TeamPage({ onBack }) {
                 data-active={isActive}
                 onClick={() => setActiveSection(section.title)}
                 className={`relative px-5 py-2.5 rounded-full text-[11px] md:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap snap-center ${isActive
-                    ? "text-white"
-                    : "text-slate-400 hover:text-slate-900"
+                  ? "text-white"
+                  : "text-slate-400 hover:text-slate-900"
                   }`}
               >
                 {isActive && (
