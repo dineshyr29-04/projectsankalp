@@ -114,8 +114,8 @@ export default function Hero({ onNavigate }) {
 
               <motion.button
                 whileHover={{
-                  y: -4,
-                  scale: 1.015,
+                  y: -5,
+                  scale: 1.025,
                 }}
                 whileTap={{ scale: 0.985 }}
                 transition={{
@@ -124,34 +124,28 @@ export default function Hero({ onNavigate }) {
                   damping: 18,
                 }}
                 onClick={() => onNavigate?.("team")}
-                className="group relative isolate overflow-hidden w-full md:w-auto rounded-full px-10 md:px-14 py-5 backdrop-blur-2xl border border-white/50 shadow-[0_10px_40px_rgba(15,23,42,0.06)] transition-all duration-700 ease-out hover:-translate-y-1
-                 hover:scale-[1.015] hover:border-emerald-200/60 hover:shadow-[0_20px_60px_rgba(16,185,129,0.12)] active:scale-[0.985]bg-[linear-gradient(135deg,rgba(255,255,255,0.78),rgba(190,242,255,0.62),rgba(220,255,233,0.58),rgba(255,255,255,0.72))]">
-                {/* AURORA ATMOSPHERE */}
-                <div
-                  className="absolute inset-0 opacity-80 bg-[radial-gradient(circle_at_top_left,rgba(125,211,252,0.26),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(134,239,172,0.22),transparent_40%),radial-gradient(circle_at_center,rgba(255,255,255,0.18),transparent_60%)] transition-all duration-700 group-hover:scale-110"
-                />
-                {/* GLASS REFLECTION */}
-                <div
-                  className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/80 via-white/15 to-transparent pointer-events-none "
-                />
+                className="group relative isolate overflow-hidden w-full md:w-auto rounded-full px-10 md:px-14 py-5 backdrop-blur-3xl border border-white/[0.06] bg-[linear-gradient(135deg,rgba(3,3,3,0.92),rgba(8,8,8,0.88),rgba(15,15,15,0.84))] shadow-[0_12px_50px_rgba(0,0,0,0.45)] transition-all duration-700 ease-out hover:border-emerald-400/25 hover:bg-[linear-gradient(135deg,rgba(0,0,0,0.96),rgba(6,6,6,0.92),rgba(12,12,12,0.9))] hover:shadow-[0_30px_90px_rgba(16,185,129,0.18)] active:scale-[0.985]"
+              >
+                {/* AMBIENT AURORA */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.14),transparent_34%)] scale-90 group-hover:scale-110" />
+
+                {/* TOP GLASS REFLECTION */}
+                <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/[0.08] via-white/[0.02] to-transparent pointer-events-none" />
 
                 {/* LIQUID SHINE */}
-                <div
-                  className="absolute inset-y-0 -left-[45%] w-[28%] rotate-12 bg-white/50 blur-2xl translate-x-[-180%] group-hover:translate-x-[450%] transition-transform duration-[1800ms] ease-out"
-                />
+                <div className="absolute inset-y-0 -left-[45%] w-[30%] rotate-12 bg-white/[0.12] blur-2xl translate-x-[-180%] group-hover:translate-x-[450%] transition-transform duration-[1600ms] ease-out" />
 
-                {/* INNER GLOW */}
-                <div
-                  className="absolute inset-[1px] rounded-full border border-white/40 pointer-events-none"
-                />
+                {/* INNER STROKE */}
+                <div className="absolute inset-[1px] rounded-full border border-white/[0.04] pointer-events-none" />
+
+                {/* BOTTOM EMERALD LIGHT */}
+                <div className="absolute inset-x-8 bottom-0 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                 {/* CONTENT */}
-                <span
-                  className="relative z-10 flex items-center justify-center gap-3 text-[11px] md:text-[12px] font-black uppercase tracking-[0.32em] md:tracking-[0.42em] text-[#0f172a] transition-all duration-500 group-hover:text-emerald-700"
-                >
+                <span className="relative z-10 flex items-center justify-center gap-3 text-[11px] md:text-[12px] font-black uppercase tracking-[0.32em] md:tracking-[0.42em] text-white/85 transition-all duration-500 group-hover:text-emerald-300">
                   Meet the Team
-                  <span
-                    className="transition-transform duration-300 group-hover:translate-x-1">
+
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
                     →
                   </span>
                 </span>
