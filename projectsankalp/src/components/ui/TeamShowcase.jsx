@@ -90,9 +90,6 @@ export default function TeamShowcase({ members, showRole = true }) {
               {!showRole && (
                 <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full">
                   <SocialIcons member={member} />
-                  <span className="text-[9px] font-black text-slate-200 uppercase tracking-[0.2em] select-none group-hover:text-emerald-500/20 transition-colors">
-                    CONVENER
-                  </span>
                 </div>
               )}
             </div>

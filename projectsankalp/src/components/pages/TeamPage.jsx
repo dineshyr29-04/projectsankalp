@@ -1,7 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  FaLinkedinIn,
+  FaTwitter,
+  FaBehance,
+  FaInstagram,
+  FaGithub,
+} from "react-icons/fa";
 import Container from "../core/Container";
-import TeamShowcase from "../ui/TeamShowcase";
 
 // --- TEAM DATA ---
 
@@ -160,6 +166,172 @@ const SECTIONS = [
   { title: "Core Team Members", data: STUDENT_CONVENERS },
 ];
 
+function SocialIcons({ member, light = false, size = 14 }) {
+  const hasSocial =
+    member.social?.twitter ||
+    member.social?.linkedin ||
+    member.social?.instagram ||
+    member.social?.behance ||
+    member.social?.github;
+  if (!hasSocial) return null;
+
+  const iconClass = `p-2 rounded-full transition-all duration-300 hover:scale-110 ${
+    light
+      ? "bg-white/10 text-white hover:bg-white/20"
+      : "bg-slate-100 text-slate-500 hover:text-slate-900 hover:bg-slate-200 border border-slate-300"
+  }`;
+
+  return (
+    <div className="flex items-center gap-1.5">
+      {member.social?.linkedin && (
+        <a
+          href={member.social.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={iconClass}
+          aria-label="LinkedIn"
+        >
+          <FaLinkedinIn size={size} />
+        </a>
+      )}
+      {member.social?.github && (
+        <a
+          href={member.social.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={iconClass}
+          aria-label="GitHub"
+        >
+          <FaGithub size={size} />
+        </a>
+      )}
+      {member.social?.instagram && (
+        <a
+          href={member.social.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={iconClass}
+          aria-label="Instagram"
+        >
+          <FaInstagram size={size} />
+        </a>
+      )}
+      {member.social?.twitter && (
+        <a
+          href={member.social.twitter}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={iconClass}
+          aria-label="Twitter"
+        >
+          <FaTwitter size={size} />
+        </a>
+      )}
+      {member.social?.behance && (
+        <a
+          href={member.social.behance}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={iconClass}
+          aria-label="Behance"
+        >
+          <FaBehance size={size} />
+        </a>
+      )}
+    </div>
+  );
+}
+
+function LocalTeamShowcase({ members, showRole = true }) {
+  if (!members || members.length === 0) return null;
+
+  return (
+    <div
+      className={`w-full mx-auto py-4 md:py-8 font-sans transition-all duration-500 ${
+        showRole ? "max-w-6xl" : "max-w-5xl"
+      }`}
+    >
+      <div
+        className={`grid gap-6 md:gap-8 px-4 sm:px-0 transition-all duration-500 ${
+          showRole
+            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+            : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+        }`}
+      >
+        {members.map((member, index) => (
+          <motion.div
+            key={member.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{
+              duration: 0.6,
+              delay: index * 0.05,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className={`group relative flex flex-col transition-all duration-500 hover:-translate-y-2 ${
+              showRole
+                ? "rounded-[2.25rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-blue-50/50 border-2 border-slate-300 hover:border-blue-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(37,99,235,0.25)] p-5"
+                : "rounded-[2rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-emerald-50/50 border-2 border-slate-300 hover:border-emerald-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(5,150,105,0.25)] p-4"
+            }`}
+          >
+            {/* Image Wrapper */}
+            <div
+              className={`relative aspect-[4/5] overflow-hidden bg-slate-200 shadow-inner mx-auto transition-all duration-300 w-full border border-slate-300/80 group-hover:border-slate-400 ${
+                showRole ? "rounded-2xl" : "rounded-xl"
+              }`}
+            >
+              <img
+                src={member.image}
+                alt={member.name}
+                loading="lazy"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              {/* Elegant hover overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+            </div>
+
+            {/* Card Content */}
+            <div className="mt-4 flex flex-col flex-grow transition-all duration-300 w-full px-1">
+              <h3
+                className={`text-slate-900 tracking-tight leading-tight transition-colors duration-300 ${
+                  showRole
+                    ? "text-lg md:text-xl font-bold group-hover:text-blue-600"
+                    : "text-lg font-black group-hover:text-emerald-600"
+                }`}
+              >
+                {member.name}
+              </h3>
+
+              {showRole && (
+                <div className="w-full border-t border-slate-300/80 my-3" />
+              )}
+
+              {showRole && member.role && (
+                <div className="flex items-start justify-between gap-4 w-full">
+                  <p className="text-slate-700 text-xs md:text-[13px] font-semibold leading-relaxed">
+                    {member.role}
+                  </p>
+                </div>
+              )}
+
+              {/* Divider / Social Icons container */}
+              {!showRole && (
+                <div className="mt-auto pt-4 border-t border-slate-300/80 flex items-center justify-between w-full">
+                  <SocialIcons member={member} />
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] select-none group-hover:text-emerald-600/30 transition-colors">
+                    CONVENER
+                  </span>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function TeamPage({ onBack }) {
   const [activeSection, setActiveSection] = useState(SECTIONS[0].title);
   const scrollContainerRef = useRef(null);
@@ -184,19 +356,19 @@ export default function TeamPage({ onBack }) {
   }, [activeSection]);
 
   const sectionColors = {
-    "Advisory Board": "from-slate-50 to-white",
-    "Core Team Members": "from-emerald-50/50 to-white",
+    "Advisory Board": "from-blue-50/90 via-slate-50/60 to-white",
+    "Core Team Members": "from-emerald-50/80 via-emerald-50/30 to-white",
   };
   const currentBg = sectionColors[activeSection] || "from-slate-50 to-white";
 
   return (
-    <div className="bg-white min-h-screen relative font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-32 transition-colors duration-1000 overflow-x-hidden">
+    <div className="bg-slate-50 min-h-screen relative font-sans selection:bg-emerald-100 selection:text-emerald-900 pb-32 transition-colors duration-1000 overflow-x-hidden">
       <div
-        className={`absolute inset-0 bg-gradient-to-b ${currentBg} opacity-60 pointer-events-none transition-all duration-1000`}
+        className={`absolute inset-0 bg-gradient-to-b ${currentBg} opacity-100 pointer-events-none transition-all duration-1000`}
       />
 
       {/* Hero Section */}
-      <section className="relative pt-8 md:pt-12 pb-12 z-10 border-b border-slate-100">
+      <section className="relative pt-8 md:pt-12 pb-12 z-10 border-b border-slate-300/80">
         <Container>
           <div className="mb-6">
             <motion.button
@@ -234,7 +406,7 @@ export default function TeamPage({ onBack }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-slate-500 text-base md:text-xl max-w-2xl font-medium border-l-4 border-slate-100 pl-6"
+              className="text-slate-700 text-base md:text-xl max-w-2xl font-medium border-l-4 border-slate-300 pl-6"
             >
               The brilliant minds tracing our path. Explore the specialized
               nodes that form our collective intelligence.
@@ -259,7 +431,7 @@ export default function TeamPage({ onBack }) {
                 className={`relative px-5 py-2.5 rounded-full text-[11px] md:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap snap-center ${
                   isActive
                     ? "text-white"
-                    : "text-slate-400 hover:text-slate-900"
+                    : "text-slate-500 hover:text-slate-900"
                 }`}
               >
                 {isActive && (
@@ -288,21 +460,23 @@ export default function TeamPage({ onBack }) {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col gap-10 md:gap-16 w-full mx-auto"
             >
-              <div className="flex items-end justify-between border-b border-slate-200/60 pb-8 px-4 sm:px-0">
+              <div className="flex items-end justify-between border-b border-slate-300 pb-8 px-4 sm:px-0">
                 <div className="flex flex-col gap-1">
-                  <span className="text-blue-600 font-black text-[9px] uppercase tracking-[0.4em]">
+                  <span className={`font-black text-[9px] uppercase tracking-[0.4em] ${
+                    activeSection === "Advisory Board" ? "text-blue-600" : "text-emerald-600"
+                  }`}>
                     Section
                   </span>
                   <h2 className="text-2xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter">
                     {activeSection}
                   </h2>
                 </div>
-                <span className="text-slate-100 font-serif text-5xl md:text-8xl italic font-black leading-none translate-y-3">
+                <span className="text-slate-200 font-serif text-5xl md:text-8xl italic font-black leading-none translate-y-3">
                   0{SECTIONS.findIndex((s) => s.title === activeSection) + 1}
                 </span>
               </div>
 
-              <TeamShowcase
+              <LocalTeamShowcase
                 members={activeData}
                 showRole={activeSection === "Advisory Board"}
               />
