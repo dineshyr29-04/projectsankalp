@@ -302,9 +302,9 @@ export default function TeamPage({ onBack }) {
       />
 
       {/* Hero Section */}
-      <section className="relative pt-24 md:pt-40 pb-16 z-10 border-b border-slate-100">
+      <section className="relative pt-8 md:pt-12 pb-12 z-10 border-b border-slate-100">
         <Container>
-          <div className="mb-10">
+          <div className="mb-6">
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={onBack}
