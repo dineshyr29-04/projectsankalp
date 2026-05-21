@@ -8,6 +8,7 @@ import { useOutsideClick } from "../../hooks/use-outside-click";
 export default function StagesPage({ onBack }) {
   const [active, setActive] = useState(null);
   const ref = useRef(null);
+  const closeBtnRef = useRef(null);
   const id = useId();
 
   const DOMAINS = [
@@ -95,6 +96,12 @@ export default function StagesPage({ onBack }) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
 
+  useEffect(() => {
+    if (active) {
+      setTimeout(() => closeBtnRef.current?.focus(), 60);
+    }
+  }, [active]);
+
   useOutsideClick(ref, () => setActive(null));
 
   return (
@@ -119,7 +126,7 @@ export default function StagesPage({ onBack }) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={() => setActive(null)}
-              className="absolute inset-0 z-0 bg-slate-900/40 backdrop-blur-md"
+              className="absolute inset-0 z-10 bg-slate-900/50 backdrop-blur-lg"
             />
 
             {/* Premium Floating Close Button */}
@@ -129,8 +136,9 @@ export default function StagesPage({ onBack }) {
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.2 }}
               onClick={() => setActive(null)}
-              className="absolute top-6 right-6 z-20 bg-white/90 backdrop-blur-md text-slate-900 rounded-full p-3 shadow-lg border border-slate-100 cursor-pointer hover:bg-white hover:scale-110 active:scale-95 transition-all duration-300 group focus-ring"
+              className="absolute top-6 right-6 z-30 bg-white/95 backdrop-blur-md text-slate-900 rounded-full p-3 shadow-lg border border-slate-100 cursor-pointer hover:bg-white hover:scale-110 active:scale-95 transition-all duration-300 group focus-ring"
               aria-label="Close"
+              ref={closeBtnRef}
             >
               <X size={18} className="group-hover:rotate-90 transition-transform duration-300" />
             </motion.button>
@@ -145,7 +153,10 @@ export default function StagesPage({ onBack }) {
                 damping: 32,
               }}
               style={{ willChange: "transform, opacity" }}
-              className="w-full max-w-4xl h-fit min-h-fit flex flex-col bg-white rounded-[28px] shadow-[0_32px_128px_-32px_rgba(0,0,0,0.12)] border border-slate-100 z-10 relative mb-20 overflow-hidden"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={`title-${active.title}-${id}`}
+              className="w-full max-w-4xl h-fit min-h-fit flex flex-col bg-white rounded-[32px] shadow-[0_40px_140px_-36px_rgba(0,0,0,0.14)] border border-slate-100 z-20 relative mb-20 overflow-hidden"
             >
               {/* Header Image */}
               <motion.div
@@ -170,7 +181,7 @@ export default function StagesPage({ onBack }) {
                   <span className="text-[10px] font-black uppercase tracking-[0.5em] text-emerald-400 mb-2 block">
                     Mission Sector
                   </span>
-                  <h3 className="text-3xl md:text-5xl font-black text-white font-serif italic tracking-tight leading-none">
+                  <h3 id={`title-${active.title}-${id}`} className="text-3xl md:text-5xl font-black text-white font-serif italic tracking-tight leading-none">
                     {active.title}
                   </h3>
                 </motion.div>
