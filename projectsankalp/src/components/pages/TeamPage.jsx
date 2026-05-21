@@ -247,15 +247,13 @@ function LocalTeamShowcase({ members, showRole = true }) {
 
   return (
     <div
-      className={`w-full mx-auto py-4 md:py-8 font-sans transition-all duration-500 ${
-        showRole ? "max-w-6xl" : "max-w-5xl"
-      }`}
+      className="w-full mx-auto py-4 md:py-8 font-sans transition-all duration-500"
     >
       <div
         className={`grid gap-6 md:gap-8 px-4 sm:px-0 transition-all duration-500 ${
           showRole
-            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-            : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
         }`}
       >
         {members.map((member, index) => (
@@ -271,14 +269,14 @@ function LocalTeamShowcase({ members, showRole = true }) {
             }}
             className={`group relative flex flex-col transition-all duration-500 hover:-translate-y-2 ${
               showRole
-                ? "rounded-[2.25rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-blue-50/50 border border-slate-300 hover:border-blue-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(37,99,235,0.25)] p-5"
-                : "rounded-[2rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-emerald-50/50 border border-slate-300 hover:border-emerald-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(5,150,105,0.25)] p-4"
+                ? "rounded-[2rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-blue-50/50 border border-slate-300 hover:border-blue-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(37,99,235,0.25)] p-4"
+                : "rounded-[2.25rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-emerald-50/50 border border-slate-300 hover:border-emerald-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(5,150,105,0.25)] p-5"
             }`}
           >
             {/* Image Wrapper */}
             <div
               className={`relative aspect-[4/5] overflow-hidden bg-slate-200 shadow-inner mx-auto transition-all duration-300 w-full border border-slate-300/80 group-hover:border-slate-400 ${
-                showRole ? "rounded-2xl" : "rounded-xl"
+                showRole ? "rounded-xl" : "rounded-2xl"
               }`}
             >
               <img
@@ -296,8 +294,8 @@ function LocalTeamShowcase({ members, showRole = true }) {
               <h3
                 className={`text-slate-900 tracking-tight leading-tight transition-colors duration-300 ${
                   showRole
-                    ? "text-lg md:text-xl font-bold group-hover:text-blue-600"
-                    : "text-lg font-black group-hover:text-emerald-600"
+                    ? "text-lg font-bold group-hover:text-blue-600"
+                    : "text-lg md:text-xl font-black group-hover:text-emerald-600"
                 }`}
               >
                 {member.name}
