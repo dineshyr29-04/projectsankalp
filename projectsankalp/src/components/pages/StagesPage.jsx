@@ -327,12 +327,19 @@ export default function StagesPage({ onBack }) {
               layoutId={`card-${domain.title}-${id}`}
               key={`card-${domain.title}-${id}`}
               onClick={() => setActive(domain)}
+              whileHover="hover"
+              variants={{
+                hover: {
+                  y: -6,
+                  boxShadow: "0 20px 50px rgba(0, 0, 0, 0.06)",
+                },
+              }}
               transition={{
                 type: "spring",
                 stiffness: 350,
-                damping: 30,
+                damping: 32,
               }}
-              className="relative group cursor-pointer bg-white rounded-[28px] border border-slate-100 overflow-hidden flex flex-col justify-between h-full transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] hover:-translate-y-1.5"
+              className="relative group cursor-pointer bg-white rounded-[28px] border border-slate-100 overflow-hidden flex flex-col justify-between h-full"
             >
               <div>
                 <motion.div
@@ -343,9 +350,19 @@ export default function StagesPage({ onBack }) {
                     layoutId={`img-${domain.title}-${id}`}
                     src={domain.src}
                     alt={domain.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    variants={{
+                      hover: {
+                        scale: 1.05,
+                      },
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25,
+                    }}
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-slate-950/10 group-hover:bg-slate-950/5 transition-colors" />
+                  <div className="absolute inset-0 bg-slate-950/10 group-hover:bg-slate-950/5 transition-colors duration-300" />
                   <div
                     className={`absolute top-8 left-8 px-5 py-2.5 rounded-full bg-white/95 backdrop-blur-sm text-[10px] font-black uppercase tracking-widest ${domain.color} border border-white shadow-xl`}
                   >
