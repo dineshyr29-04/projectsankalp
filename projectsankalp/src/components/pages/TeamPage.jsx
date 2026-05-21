@@ -144,7 +144,7 @@ const STUDENT_CONVENERS = [
   {
     id: "s9",
     name: "Archana",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+    image: "/archana.png",
     social: { instagram: "#" },
   },
   {

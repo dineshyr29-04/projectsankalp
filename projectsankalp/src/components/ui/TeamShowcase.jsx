@@ -12,8 +12,16 @@ export default function TeamShowcase({ members, showRole = true }) {
   if (!members || members.length === 0) return null;
 
   return (
-    <div className="w-full max-w-5xl mx-auto py-4 md:py-8 font-sans">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 px-4 sm:px-0">
+    <div className={cn(
+      "w-full mx-auto py-4 md:py-8 font-sans transition-all duration-500",
+      showRole ? "max-w-6xl" : "max-w-5xl"
+    )}>
+      <div className={cn(
+        "grid gap-6 md:gap-8 px-4 sm:px-0 transition-all duration-500",
+        showRole
+          ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+          : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      )}>
         {members.map((member, index) => (
           <motion.div
             key={member.id}
@@ -25,7 +33,10 @@ export default function TeamShowcase({ members, showRole = true }) {
               delay: index * 0.05,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="group relative flex flex-col p-4 rounded-3xl bg-slate-50/50 hover:bg-white border border-slate-100/80 hover:border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_-8px_rgba(0,0,0,0.08)] transition-all duration-500"
+            className={cn(
+              "group relative flex flex-col rounded-3xl bg-slate-50/50 hover:bg-white border border-slate-100/80 hover:border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_-8px_rgba(0,0,0,0.08)] transition-all duration-500",
+              showRole ? "p-6 md:p-8" : "p-4"
+            )}
           >
             {/* Image Wrapper */}
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-100 shadow-inner">
@@ -41,11 +52,14 @@ export default function TeamShowcase({ members, showRole = true }) {
 
             {/* Card Content */}
             <div className="mt-4 flex flex-col flex-grow">
-              <h3 className="text-lg font-black text-slate-900 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors duration-300">
+              <h3 className={cn(
+                "font-black text-slate-900 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors duration-300",
+                showRole ? "text-xl md:text-2xl" : "text-lg"
+              )}>
                 {member.name}
               </h3>
               {showRole && member.role && (
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1.5">
+                <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mt-2.5 leading-relaxed">
                   {member.role}
                 </p>
               )}
