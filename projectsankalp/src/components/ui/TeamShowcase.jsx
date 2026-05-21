@@ -34,8 +34,10 @@ export default function TeamShowcase({ members, showRole = true }) {
               ease: [0.16, 1, 0.3, 1],
             }}
             className={cn(
-              "group relative flex flex-col rounded-3xl bg-slate-50/50 hover:bg-white border border-slate-100/80 hover:border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_-8px_rgba(0,0,0,0.08)] transition-all duration-500",
-              showRole ? "p-6 md:p-8" : "p-4"
+              "group relative flex flex-col rounded-3xl bg-slate-50/50 hover:bg-white border border-slate-100/80 transition-all duration-500",
+              showRole 
+                ? "p-6 md:p-8 hover:border-blue-500/20 hover:shadow-[0_24px_50px_-12px_rgba(37,99,235,0.12)]" 
+                : "p-4 hover:border-emerald-500/20 hover:shadow-[0_24px_50px_-12px_rgba(16,185,129,0.12)]"
             )}
           >
             {/* Image Wrapper */}
@@ -53,13 +55,13 @@ export default function TeamShowcase({ members, showRole = true }) {
             {/* Card Content */}
             <div className="mt-4 flex flex-col flex-grow">
               <h3 className={cn(
-                "font-black text-slate-900 tracking-tight leading-tight group-hover:text-emerald-600 transition-colors duration-300",
-                showRole ? "text-xl md:text-2xl" : "text-lg"
+                "font-black text-slate-900 tracking-tight leading-tight transition-colors duration-300",
+                showRole ? "text-xl md:text-2xl group-hover:text-blue-600" : "text-lg group-hover:text-emerald-600"
               )}>
                 {member.name}
               </h3>
               {showRole && member.role && (
-                <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mt-2.5 leading-relaxed">
+                <p className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.22em] text-slate-400/90 mt-3 leading-[1.75] font-sans">
                   {member.role}
                 </p>
               )}
@@ -67,7 +69,12 @@ export default function TeamShowcase({ members, showRole = true }) {
               {/* Divider / Social Icons container */}
               <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full">
                 <SocialIcons member={member} />
-                <span className="text-[9px] font-black text-slate-200 uppercase tracking-[0.2em] select-none group-hover:text-emerald-500/20 transition-colors">
+                <span className={cn(
+                  "px-3 py-1 rounded-md text-[9px] font-black uppercase tracking-[0.2em] select-none transition-all duration-300",
+                  showRole 
+                    ? "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white" 
+                    : "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white"
+                )}>
                   {showRole ? "ADVISOR" : "CONVENER"}
                 </span>
               </div>
