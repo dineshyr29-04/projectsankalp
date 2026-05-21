@@ -130,11 +130,24 @@ export default function StagesPage({ onBack }) {
             data-lenis-prevent
             className="fixed inset-0 z-[100] overflow-y-auto flex flex-col items-center p-6 md:p-12 custom-scrollbar"
           >
-            {/* Real Backdrop - clickable to close */}
-            
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActive(null)}
+              className="absolute inset-0 z-0 bg-slate-900/40 backdrop-blur-sm transition-colors"
+            />
 
-            {/* Close button - Fixed to top right of screen */}
-            
+            <motion.button
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              onClick={() => setActive(null)}
+              className="absolute top-6 right-6 z-20 bg-white rounded-lg p-2 shadow border border-slate-100"
+              aria-label="Close"
+            >
+              <CloseIcon />
+            </motion.button>
 
             <motion.div
               ref={ref}
