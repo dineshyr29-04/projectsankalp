@@ -11,30 +11,35 @@ const ADVISORY = [
     name: "Dr. Ashwini S. Shetty",
     role: "Director, Directorate of Extension and Outreach Activities",
     image: "/team/ashwini.png",
+    social: { linkedin: "#" },
   },
   {
     id: "a2",
     name: "Dr. K. S. Gangadhara Somayaji",
     role: "Vice Chancellor",
     image: "/team/vice_chancellor.png",
+    social: { linkedin: "#" },
   },
   {
     id: "a3",
     name: "Dr. M. Vijayakumar",
     role: "Pro Chancellor, Director & CEO, Zulekha Yenepoya Institute of Oncology",
     image: "/team/pro_chancellor_zulekha.png",
+    social: { linkedin: "#" },
   },
   {
     id: "a4",
     name: "Dr. R. G. D'Souza",
     role: "Dean, Faculty of Engineering & Technology",
     image: "/team/our_dean.png",
+    social: { linkedin: "#" },
   },
   {
     id: "a5",
     name: "Dr. Aswini Dutt R",
     role: "Registrar",
     image: "/team/registrar.png",
+    social: { linkedin: "#" },
   },
   {
     id: "a6",
@@ -163,8 +168,8 @@ const STUDENT_CONVENERS = [
 ];
 
 const SECTIONS = [
-  { title: "Advisory Board", data: ADVISORY },
-  { title: "Core Team Members", data: STUDENT_CONVENERS },
+  { title: "Advisory", data: ADVISORY },
+  { title: "Main Students (Core Team)", data: STUDENT_CONVENERS },
 ];
 
 export default function TeamPage({ onBack }) {
@@ -266,8 +271,8 @@ export default function TeamPage({ onBack }) {
                 data-active={isActive}
                 onClick={() => setActiveSection(section.title)}
                 className={`relative px-5 py-2.5 rounded-full text-[11px] md:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap snap-center ${isActive
-                  ? "text-white"
-                  : "text-slate-400 hover:text-slate-900"
+                    ? "text-white"
+                    : "text-slate-400 hover:text-slate-900"
                   }`}
               >
                 {isActive && (
