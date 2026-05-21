@@ -114,8 +114,6 @@ export default function StagesPage({ onBack }) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
             data-lenis-prevent
             className="fixed inset-0 z-[100] overflow-y-auto flex flex-col items-center p-6 md:p-12 custom-scrollbar"
           >
@@ -124,19 +122,19 @@ export default function StagesPage({ onBack }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
               onClick={() => setActive(null)}
-              className="absolute inset-0 z-10 bg-slate-900/50 backdrop-blur-lg"
+              className="fixed inset-0 z-10 bg-slate-900/50 backdrop-blur-lg"
             />
 
             {/* Premium Floating Close Button */}
             <motion.button
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
+              exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.15 } }}
               transition={{ duration: 0.2 }}
               onClick={() => setActive(null)}
-              className="absolute top-6 right-6 z-30 bg-white/95 backdrop-blur-md text-slate-900 rounded-full p-3 shadow-lg border border-slate-100 cursor-pointer hover:bg-white hover:scale-110 active:scale-95 transition-all duration-300 group focus-ring"
+              className="fixed top-6 right-6 md:top-8 md:right-8 z-30 bg-white/95 backdrop-blur-md text-slate-900 rounded-full p-3 shadow-lg border border-slate-100 cursor-pointer hover:bg-white hover:scale-110 active:scale-95 transition-all duration-300 group focus-ring"
               aria-label="Close"
               ref={closeBtnRef}
             >
@@ -178,6 +176,7 @@ export default function StagesPage({ onBack }) {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10, transition: { duration: 0.15 } }}
                   transition={{ delay: 0.15, duration: 0.3 }}
                   className="absolute bottom-8 left-8 right-8"
                 >
@@ -197,7 +196,7 @@ export default function StagesPage({ onBack }) {
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
+                exit={{ opacity: 0, y: 15, transition: { duration: 0.15 } }}
                 transition={{ duration: 0.2, delay: 0.15 }}
                 className="flex-1 overflow-y-auto p-8 md:p-10 custom-scrollbar"
               >
@@ -260,10 +259,6 @@ export default function StagesPage({ onBack }) {
                           <p className="text-sm font-bold text-slate-700 leading-relaxed mb-8">
                             {ps.text}
                           </p>
-                        </div>
-                        <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-widest text-slate-400 pt-4 border-t border-slate-100/50 mt-auto">
-                          Status: Active{" "}
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                         </div>
                       </motion.div>
                     ))}
