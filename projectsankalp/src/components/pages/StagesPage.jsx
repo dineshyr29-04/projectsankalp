@@ -122,7 +122,7 @@ export default function StagesPage({ onBack }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              transition={{ duration: 0.45, ease: "easeInOut" }}
               onClick={() => setActive(null)}
               className="fixed inset-0 z-10 bg-slate-900/50 backdrop-blur-lg"
             />
@@ -131,8 +131,8 @@ export default function StagesPage({ onBack }) {
             <motion.button
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.15 } }}
-              transition={{ duration: 0.2 }}
+              exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.25 } }}
+              transition={{ duration: 0.3 }}
               onClick={() => setActive(null)}
               className="fixed top-6 right-6 md:top-8 md:right-8 z-30 bg-white/95 backdrop-blur-md text-slate-900 rounded-full p-3 shadow-lg border border-slate-100 cursor-pointer hover:bg-white hover:scale-110 active:scale-95 transition-all duration-300 group focus-ring"
               aria-label="Close"
@@ -150,8 +150,8 @@ export default function StagesPage({ onBack }) {
               layoutId={`card-${active.title}-${id}`}
               transition={{
                 type: "spring",
-                stiffness: 350,
-                damping: 32,
+                stiffness: 150,
+                damping: 24,
               }}
               style={{ willChange: "transform, opacity" }}
               role="dialog"
@@ -176,8 +176,8 @@ export default function StagesPage({ onBack }) {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10, transition: { duration: 0.15 } }}
-                  transition={{ delay: 0.15, duration: 0.3 }}
+                  exit={{ opacity: 0, y: -10, transition: { duration: 0.25 } }}
+                  transition={{ delay: 0.25, duration: 0.4 }}
                   className="absolute bottom-8 left-8 right-8"
                 >
                   <span className="text-[10px] font-black uppercase tracking-[0.5em] text-emerald-400 mb-2 block">
@@ -196,8 +196,8 @@ export default function StagesPage({ onBack }) {
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 15, transition: { duration: 0.15 } }}
-                transition={{ duration: 0.2, delay: 0.15 }}
+                exit={{ opacity: 0, y: 15, transition: { duration: 0.25 } }}
+                transition={{ duration: 0.3, delay: 0.25 }}
                 className="flex-1 overflow-y-auto p-8 md:p-10 custom-scrollbar"
               >
                 <div className="mb-10">
@@ -302,22 +302,6 @@ export default function StagesPage({ onBack }) {
             Three critical sectors. Nine profound challenges. One goal:
             Technology for global human impact.
           </motion.p>
-
-          <div className="mt-12 flex items-center gap-4">
-            <motion.button
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onBack}
-              className="w-14 h-14 bg-white border border-slate-200 text-slate-950 rounded-2xl flex items-center justify-center shadow-sm hover:bg-slate-50 hover:border-slate-300 transition-colors cursor-pointer focus-ring"
-              aria-label="Go back"
-            >
-              <ChevronRight size={24} className="rotate-180" />
-            </motion.button>
-            <div className="h-px w-20 bg-slate-100" />
-          </div>
         </header>
 
         {/* Domain Cards Grid */}
@@ -336,8 +320,8 @@ export default function StagesPage({ onBack }) {
               }}
               transition={{
                 type: "spring",
-                stiffness: 350,
-                damping: 32,
+                stiffness: 150,
+                damping: 24,
               }}
               className="relative group cursor-pointer bg-white rounded-[28px] border border-slate-100 overflow-hidden flex flex-col justify-between h-full"
             >
