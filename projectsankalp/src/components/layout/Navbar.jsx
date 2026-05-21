@@ -31,6 +31,7 @@ export default function Navbar({ onNavigate, currentView }) {
   const isLanding = currentView === "landing";
 
   const menuItems = [
+    { name: "Home", href: "#hero", icon: Home },
     { name: "About", href: "#about", icon: User },
     { name: "Venue", href: "#venue", icon: MapPin },
     { name: "Tracks", href: "#tracks", icon: Zap },
@@ -40,12 +41,20 @@ export default function Navbar({ onNavigate, currentView }) {
     { name: "Team", href: "team", icon: Users },
   ];
 
-  // CircleMenu expects icon as a rendered element
   const circleMenuItems = menuItems.map((item) => ({
     ...item,
     label: item.name,
     icon: <NavIcon icon={item.icon} className="h-10 w-10" />,
   }));
+
+  const scrollToSection = (sectionId) => {
+    window.setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 180);
+  };
 
   const handleItemClick = (e, href) => {
     e.preventDefault();
@@ -59,46 +68,46 @@ export default function Navbar({ onNavigate, currentView }) {
     if (!isLanding) {
       onNavigate?.("landing");
       if (href.startsWith("#")) {
-        const sectionId = href.replace("#", "");
-        setTimeout(() => {
-          const element = document.getElementById(sectionId);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-          }
-        }, 100);
+        scrollToSection(href.replace("#", ""));
       }
       return;
     }
 
     if (href.startsWith("#")) {
-      const sectionId = href.replace("#", "");
-      const element = document.getElementById(sectionId);
+      const element = document.getElementById(href.replace("#", ""));
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
   };
 
   return (
     <div className="fixed top-6 left-6 md:top-8 md:left-8 z-[100] pointer-events-none">
-      {/* ── DESKTOP: VERTICAL DRAWER RAIL ── */}
       <div className="hidden md:flex flex-col items-center pointer-events-auto gap-4">
         {!isLanding ? (
           <motion.button
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.08, y: -2 }}
+            whileTap={{ scale: 0.94 }}
+            transition={{ duration: 0.08, ease: "easeOut" }}
             onClick={() => onNavigate?.("landing")}
-            className="flex"
-          ></motion.button>
+            className="group relative flex items-center justify-center w-14 h-14 rounded-xl bg-white/90 backdrop-blur-xl border border-slate-100 text-slate-900 shadow-xl transition-all duration-150 overflow-hidden"
+            aria-label="Go to home"
+          >
+            <span className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 via-slate-50/70 to-sky-50/0 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
+            <NavIcon icon={Home} className="relative z-10 h-9 w-9" />
+            <div className="absolute left-16 px-4 py-2 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 -translate-x-2 group-hover:translate-x-0 whitespace-nowrap shadow-xl">
+              Home
+            </div>
+          </motion.button>
         ) : (
           <div className="flex flex-col items-center gap-4">
-            {/* Drawer Trigger */}
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.08, y: -2 }}
+              whileTap={{ scale: 0.94 }}
+              transition={{ duration: 0.08, ease: "easeOut" }}
               className={`flex items-center justify-center w-14 h-14 rounded-xl shadow-xl transition-all duration-500 border ${
                 isOpen
                   ? "bg-emerald-500 border-emerald-400 text-white"
@@ -107,13 +116,16 @@ export default function Navbar({ onNavigate, currentView }) {
             >
               <motion.div
                 animate={{ rotate: isOpen ? 90 : 0 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
               >
-                {isOpen ? <X size={22} strokeWidth={2.5} /> : <Menu size={22} strokeWidth={2.5} />}
+                {isOpen ? (
+                  <X size={22} strokeWidth={2.5} />
+                ) : (
+                  <Menu size={22} strokeWidth={2.5} />
+                )}
               </motion.div>
             </motion.button>
 
-            {/* The Individual Drawer Items */}
             <AnimatePresence>
               {isOpen && (
                 <div className="flex flex-col items-center gap-3">
@@ -124,24 +136,20 @@ export default function Navbar({ onNavigate, currentView }) {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -20, scale: 0.8 }}
                       transition={{
-                        duration: 0.4,
-                        delay: index * 0.05,
+                        duration: 0.24,
+                        delay: index * 0.035,
                         ease: [0.16, 1, 0.3, 1],
                       }}
-                      whileHover={{
-                        scale: 1.1,
-                        backgroundColor: "#0f172a",
-                        color: "#fff",
-                      }}
-                      whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.14, y: -2 }}
+                      whileTap={{ scale: 0.94 }}
+                      transition={{ duration: 0.08, ease: "easeOut" }}
                       onClick={(e) => handleItemClick(e, item.href)}
-                      className="group relative flex items-center justify-center w-12 h-12 rounded-xl bg-white/90 backdrop-blur-xl border border-slate-100 text-slate-400 shadow-xl transition-all duration-300 overflow-hidden"
+                      className="group relative flex items-center justify-center w-12 h-12 rounded-lg bg-white/90 backdrop-blur-xl border border-slate-100 text-slate-400 shadow-xl transition-all duration-150 overflow-hidden"
+                      aria-label={item.name}
                     >
-                      <span className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 via-slate-50/70 to-sky-50/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                      <span className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 via-slate-50/70 to-sky-50/0 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
                       <NavIcon icon={item.icon} className="relative z-10 h-9 w-9" />
-
-                      {/* Tooltip Label */}
-                      <div className="absolute left-16 px-4 py-2 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all -translate-x-2 group-hover:translate-x-0 whitespace-nowrap shadow-xl">
+                      <div className="absolute left-16 px-4 py-2 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 -translate-x-2 group-hover:translate-x-0 whitespace-nowrap shadow-xl">
                         {item.name}
                       </div>
                     </motion.button>
@@ -153,15 +161,24 @@ export default function Navbar({ onNavigate, currentView }) {
         )}
       </div>
 
-      {/* ── MOBILE: CIRCULAR MENU ── */}
       <div className="md:hidden pointer-events-auto">
         {!isLanding ? (
           <motion.button
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
+            whileHover={{ scale: 1.08, y: -2 }}
+            whileTap={{ scale: 0.94 }}
+            transition={{ duration: 0.08, ease: "easeOut" }}
             onClick={() => onNavigate?.("landing")}
-            className="flex items-center justify-center bg-transparent text-white w-12 h-12 rounded-xl shadow-xl"
-          ></motion.button>
+            className="group relative flex items-center justify-center bg-white/90 backdrop-blur-xl border border-slate-100 text-slate-900 w-12 h-12 rounded-xl shadow-xl overflow-hidden"
+            aria-label="Go to home"
+          >
+            <span className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 via-slate-50/70 to-sky-50/0 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
+            <NavIcon icon={Home} className="relative z-10 h-8 w-8" />
+            <div className="absolute left-14 px-4 py-2 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-150 -translate-x-2 group-hover:translate-x-0 whitespace-nowrap shadow-xl">
+              Home
+            </div>
+          </motion.button>
         ) : (
           <CircleMenu items={circleMenuItems} onItemClick={handleItemClick} />
         )}

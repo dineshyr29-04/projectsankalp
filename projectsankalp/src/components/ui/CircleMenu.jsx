@@ -56,6 +56,7 @@ const MenuItem = ({
   isMobile,
 }) => {
   const { x, y } = getPoint(index, totalItems, CONSTANTS.spacing, isMobile);
+  const [hovering, setHovering] = useState(false);
 
   return (
     <motion.div
@@ -67,16 +68,16 @@ const MenuItem = ({
         scale: isOpen ? 1 : 0.5,
       }}
       whileHover={{
-        scale: 1.1,
-        transition: { duration: 0.1 },
+        scale: 1.18,
+        transition: { duration: 0.06, ease: "easeOut" },
       }}
       transition={{
         delay: isOpen
           ? index * CONSTANTS.openStagger
           : (totalItems - index) * CONSTANTS.closeStagger,
         type: "spring",
-        stiffness: 300,
-        damping: 30,
+        stiffness: 500,
+        damping: 28,
       }}
       className="absolute group"
       onMouseEnter={() => setHovering(true)}
@@ -97,6 +98,17 @@ const MenuItem = ({
       >
         <span className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 via-slate-50/60 to-sky-50/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         <div className={isMobile ? "scale-150" : "scale-100"}>{icon}</div>
+        <motion.div
+          initial={false}
+          animate={{ opacity: hovering ? 1 : 0, y: hovering ? 0 : 6 }}
+          transition={{ duration: 0.12, ease: "easeOut" }}
+          className={cn(
+            "absolute left-full ml-3 px-3 py-1.5 rounded-xl bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] whitespace-nowrap shadow-xl pointer-events-none",
+            isMobile && "left-1/2 top-full ml-0 mt-3 -translate-x-1/2",
+          )}
+        >
+          {label}
+        </motion.div>
       </button>
     </motion.div>
   );
