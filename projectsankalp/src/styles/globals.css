@@ -2,6 +2,11 @@
 @config "../../tailwind.config.js";
 
 @layer base {
+  html {
+    scrollbar-gutter: stable;
+    scroll-behavior: auto;
+  }
+
   body {
     @apply text-primary font-sans antialiased selection:bg-accent/20 selection:text-primary;
     background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 50%, #f5f3ff 100%);
