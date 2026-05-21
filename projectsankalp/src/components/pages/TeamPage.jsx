@@ -271,8 +271,8 @@ function LocalTeamShowcase({ members, showRole = true }) {
             }}
             className={`group relative flex flex-col transition-all duration-500 hover:-translate-y-2 ${
               showRole
-                ? "rounded-[2.25rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-blue-50/50 border-2 border-slate-300 hover:border-blue-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(37,99,235,0.25)] p-5"
-                : "rounded-[2rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-emerald-50/50 border-2 border-slate-300 hover:border-emerald-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(5,150,105,0.25)] p-4"
+                ? "rounded-[2.25rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-blue-50/50 border border-slate-300 hover:border-blue-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(37,99,235,0.25)] p-5"
+                : "rounded-[2rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-emerald-50/50 border border-slate-300 hover:border-emerald-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(5,150,105,0.25)] p-4"
             }`}
           >
             {/* Image Wrapper */}
@@ -304,7 +304,7 @@ function LocalTeamShowcase({ members, showRole = true }) {
               </h3>
 
               {showRole && (
-                <div className="w-full border-t border-slate-300/80 my-3" />
+                <div className="w-full border-t border-slate-200 my-3" />
               )}
 
               {showRole && member.role && (
@@ -317,7 +317,7 @@ function LocalTeamShowcase({ members, showRole = true }) {
 
               {/* Divider / Social Icons container */}
               {!showRole && (
-                <div className="mt-auto pt-4 border-t border-slate-300/80 flex items-center justify-between w-full">
+                <div className="mt-auto pt-4 border-t border-slate-200 flex items-center justify-between w-full">
                   <SocialIcons member={member} />
                   <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] select-none group-hover:text-emerald-600/30 transition-colors">
                     CONVENER

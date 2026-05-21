@@ -28,7 +28,7 @@ export default function FAQ() {
           </div>
           <h2 className="text-5xl md:text-8xl font-serif font-black mb-4 text-slate-900 tracking-tight leading-[0.9]">
             Common{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic pr-5">
+            <span className="text-emerald-600 italic pr-5">
               Questions
             </span>
           </h2>

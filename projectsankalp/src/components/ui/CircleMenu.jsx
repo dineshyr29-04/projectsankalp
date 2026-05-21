@@ -15,12 +15,12 @@ const CONSTANTS = {
 const STYLES = {
   trigger: {
     container:
-      "rounded-2xl flex items-center bg-slate-900 text-white justify-center cursor-pointer outline-none ring-0 hover:brightness-125 transition-all duration-100 z-50 shadow-lg shadow-slate-900/20 active:scale-95",
+      "rounded-2xl flex items-center justify-center cursor-pointer outline-none ring-0 transition-all duration-200 z-50 shadow-lg shadow-slate-900/20 active:scale-95 overflow-hidden",
     active: "bg-emerald-600",
   },
   item: {
     container:
-      "rounded-2xl flex items-center justify-center absolute bg-white border border-slate-200 hover:bg-slate-50 cursor-pointer shadow-sm active:scale-90 transition-transform outline-none",
+      "rounded-2xl flex items-center justify-center absolute bg-white/90 backdrop-blur-xl border border-slate-200/80 hover:bg-white cursor-pointer shadow-[0_10px_24px_rgba(15,23,42,0.08)] active:scale-90 transition-transform outline-none overflow-hidden group",
     label:
       "text-[10px] font-black uppercase tracking-widest text-slate-900 absolute left-full ml-4 whitespace-nowrap bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-2xl border border-slate-100 transition-all shadow-sm pointer-events-none",
   },
@@ -56,7 +56,6 @@ const MenuItem = ({
   isMobile,
 }) => {
   const { x, y } = getPoint(index, totalItems, CONSTANTS.spacing, isMobile);
-  const [hovering, setHovering] = useState(false);
 
   return (
     <motion.div
@@ -85,6 +84,7 @@ const MenuItem = ({
     >
       <button
         type="button"
+        aria-label={label}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -95,6 +95,7 @@ const MenuItem = ({
           isMobile ? "w-16 h-16" : "w-12 h-12",
         )}
       >
+        <span className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 via-slate-50/60 to-sky-50/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         <div className={isMobile ? "scale-150" : "scale-100"}>{icon}</div>
       </button>
     </motion.div>
@@ -172,7 +173,7 @@ const MenuTrigger = ({
         animate={animate}
         className={cn(
           STYLES.trigger.container,
-          "w-12 h-12 md:w-14 md:h-14",
+          "w-12 h-12 md:w-14 md:h-14 bg-slate-900 text-white",
           isOpen && STYLES.trigger.active,
           isAnimating && "cursor-wait opacity-80",
         )}
