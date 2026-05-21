@@ -269,16 +269,16 @@ function LocalTeamShowcase({ members, showRole = true }) {
               delay: index * 0.05,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className={`group relative flex flex-col transition-all duration-500 hover:-translate-y-2 overflow-hidden ${
+            className={`group relative flex flex-col transition-all duration-500 hover:-translate-y-2 ${
               showRole
-                ? "rounded-[2.25rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-blue-50/50 border border-slate-300 hover:border-blue-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(37,99,235,0.25)]"
-                : "rounded-[2rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-emerald-50/50 border border-slate-300 hover:border-emerald-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(5,150,105,0.25)]"
+                ? "rounded-[2.25rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-blue-50/50 border border-slate-300 hover:border-blue-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(37,99,235,0.25)] p-5"
+                : "rounded-[2rem] bg-gradient-to-br from-slate-100/90 to-white/95 hover:from-white hover:to-emerald-50/50 border border-slate-300 hover:border-emerald-600 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-8px_rgba(5,150,105,0.25)] p-4"
             }`}
           >
             {/* Image Wrapper */}
             <div
-              className={`relative aspect-[4/5] overflow-hidden bg-slate-200 transition-all duration-300 w-full border-b border-slate-300 ${
-                showRole ? "group-hover:border-blue-600" : "group-hover:border-emerald-600"
+              className={`relative aspect-[4/5] overflow-hidden bg-slate-200 shadow-inner mx-auto transition-all duration-300 w-full border border-slate-300/80 group-hover:border-slate-400 ${
+                showRole ? "rounded-2xl" : "rounded-xl"
               }`}
             >
               <img
@@ -292,7 +292,7 @@ function LocalTeamShowcase({ members, showRole = true }) {
             </div>
 
             {/* Card Content */}
-            <div className={`flex flex-col flex-grow transition-all duration-300 w-full ${showRole ? "p-6" : "p-5"}`}>
+            <div className="mt-4 flex flex-col flex-grow transition-all duration-300 w-full px-1">
               <h3
                 className={`text-slate-900 tracking-tight leading-tight transition-colors duration-300 ${
                   showRole
