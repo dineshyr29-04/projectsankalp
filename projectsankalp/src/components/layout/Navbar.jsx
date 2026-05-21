@@ -31,7 +31,6 @@ export default function Navbar({ onNavigate, currentView }) {
   const isLanding = currentView === "landing";
 
   const menuItems = [
-    { name: "Home", href: "#hero", icon: Home },
     { name: "About", href: "#about", icon: User },
     { name: "Venue", href: "#venue", icon: MapPin },
     { name: "Tracks", href: "#tracks", icon: Zap },
@@ -140,9 +139,8 @@ export default function Navbar({ onNavigate, currentView }) {
                         delay: index * 0.035,
                         ease: [0.16, 1, 0.3, 1],
                       }}
-                      whileHover={{ scale: 1.14, y: -2 }}
-                      whileTap={{ scale: 0.94 }}
-                      transition={{ duration: 0.08, ease: "easeOut" }}
+                      whileHover={{ scale: 1.14, y: -2, transition: { duration: 0.08, ease: "easeOut" } }}
+                      whileTap={{ scale: 0.94, transition: { duration: 0.08, ease: "easeOut" } }}
                       onClick={(e) => handleItemClick(e, item.href)}
                       className="group relative flex items-center justify-center w-12 h-12 rounded-lg bg-white/90 backdrop-blur-xl border border-slate-100 text-slate-400 shadow-xl transition-all duration-150 overflow-hidden"
                       aria-label={item.name}
