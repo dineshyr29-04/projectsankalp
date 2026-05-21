@@ -122,12 +122,7 @@ export default function StagesPage({ onBack }) {
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <div className="min-h-screen bg-white text-slate-950 font-sans overflow-x-hidden">
-      {/* Background Atmosphere */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/5 blur-[120px] rounded-full" />
-        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-emerald-500/5 blur-[120px] rounded-full" />
-      </div>
+    <div className="min-h-screen bg-white text-slate-950 font-sans overflow-x-hidden">    
 
       <AnimatePresence>
         {active && (
@@ -136,25 +131,10 @@ export default function StagesPage({ onBack }) {
             className="fixed inset-0 z-[100] overflow-y-auto flex flex-col items-center p-6 md:p-12 custom-scrollbar"
           >
             {/* Real Backdrop - clickable to close */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActive(null)}
-              className="fixed inset-0 bg-slate-950/20 backdrop-blur-md z-0"
-            />
+            
 
             {/* Close button - Fixed to top right of screen */}
-            <motion.button
-              key={`button-${active.title}-${id}`}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              className="fixed top-8 right-8 flex items-center justify-center bg-slate-950 rounded-full h-14 w-14 shadow-2xl z-[130] hover:scale-110 active:scale-95 transition-all text-white"
-              onClick={() => setActive(null)}
-            >
-              <X size={24} />
-            </motion.button>
+            
 
             <motion.div
               ref={ref}
@@ -166,11 +146,11 @@ export default function StagesPage({ onBack }) {
                 ease: [0.22, 1, 0.36, 1],
               }}
               style={{ willChange: "transform, opacity" }}
-              className="w-full max-w-4xl h-fit min-h-fit flex flex-col bg-white rounded-[40px] shadow-[0_32px_128px_-32px_rgba(0,0,0,0.1)] border border-slate-100 z-10 relative mb-20 overflow-hidden"
+              className="w-full max-w-4xl h-fit min-h-fit flex flex-col bg-white rounded-[28px] shadow-[0_32px_128px_-32px_rgba(0,0,0,0.1)] border border-slate-100 z-10 relative mb-20 overflow-hidden"
             >
               <motion.div
                 layoutId={`image-${active.title}-${id}`}
-                className="relative h-[400px] w-full flex-shrink-0 overflow-hidden"
+                className="relative h-44 md:h-56 w-full flex-shrink-0 overflow-hidden"
               >
                 <motion.img
                   layoutId={`img-${active.title}-${id}`}
@@ -258,7 +238,7 @@ export default function StagesPage({ onBack }) {
       </AnimatePresence>
 
       <Container className="relative z-10 pt-32 px-6 mx-auto pb-40">
-        <header className="mb-28 max-w-4xl">
+        <header className="mb-28 ">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -270,7 +250,7 @@ export default function StagesPage({ onBack }) {
           </motion.div>
           <h1 className="font-serif text-6xl md:text-8xl font-black tracking-tighter text-slate-950 leading-[0.9]">
             Operational <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600 italic pr-10">
+            <span className="text-emerald-600 pr-10">
               Domains
             </span>
           </h1>
@@ -296,11 +276,11 @@ export default function StagesPage({ onBack }) {
               layoutId={`card-${domain.title}-${id}`}
               key={`card-${domain.title}-${id}`}
               onClick={() => setActive(domain)}
-              className="relative group cursor-pointer bg-white rounded-[48px] border border-slate-100 overflow-hidden transition-all hover:shadow-[0_32px_128px_-32px_rgba(0,0,0,0.12)]"
+              className="relative group cursor-pointer bg-white rounded-[28px] border border-slate-100 overflow-hidden transition-all hover:shadow-[0_32px_128px_-32px_rgba(0,0,0,0.12)]"
             >
               <motion.div
                 layoutId={`image-${domain.title}-${id}`}
-                className="h-72 overflow-hidden relative"
+                className="h-48 md:h-56 overflow-hidden relative"
               >
                 <motion.img
                   layoutId={`img-${domain.title}-${id}`}
@@ -314,7 +294,7 @@ export default function StagesPage({ onBack }) {
                 </div>
               </motion.div>
 
-              <div className="p-10">
+              <div className="p-6">
                 <motion.h3
                   layoutId={`title-${domain.title}-${id}`}
                   className="text-2xl font-black text-slate-950 mb-4 tracking-tight font-serif italic"
