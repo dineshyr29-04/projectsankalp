@@ -42,8 +42,8 @@ export default function TeamShowcase({ members, showRole = true }) {
           >
             {/* Image Wrapper */}
             <div className={cn(
-              "relative aspect-[4/5] w-full overflow-hidden bg-slate-100 shadow-inner",
-              showRole ? "rounded-[2rem]" : "rounded-2xl"
+              "relative aspect-[4/5] overflow-hidden bg-slate-100 shadow-inner mx-auto transition-all duration-300",
+              showRole ? "w-[85%] rounded-[1.75rem]" : "w-full rounded-2xl"
             )}>
               <img
                 src={member.image}
@@ -56,7 +56,10 @@ export default function TeamShowcase({ members, showRole = true }) {
             </div>
 
             {/* Card Content */}
-            <div className="mt-4 flex flex-col flex-grow">
+            <div className={cn(
+              "mt-4 flex flex-col flex-grow transition-all duration-300",
+              showRole ? "w-[85%] mx-auto" : "w-full"
+            )}>
               <h3 className={cn(
                 "text-slate-900 tracking-tight leading-tight transition-colors duration-300 group-hover:text-emerald-600",
                 showRole ? "text-lg md:text-xl font-bold" : "text-lg font-black"
@@ -73,9 +76,7 @@ export default function TeamShowcase({ members, showRole = true }) {
                   <p className="text-slate-500 text-xs md:text-[13px] font-medium leading-relaxed">
                     {member.role}
                   </p>
-                  <span className="text-emerald-500 hover:text-emerald-600 text-xs md:text-[13px] font-bold whitespace-nowrap transition-colors select-none mt-0.5">
-                    Read more+
-                  </span>
+                  
                 </div>
               )}
               

@@ -81,17 +81,18 @@ const ADVISORY = [
 ];
 
 const STUDENT_CONVENERS = [
+
   {
     id: "s1",
-    name: "Waseem",
-    image: "/team/waseem.png",
-    social: { github: "#" },
-  },
-  {
-    id: "s2",
     name: "Radhesh Pai",
     image: "/team/radhesh.png",
     social: { github: "#", linkedin: "#" },
+  },
+  {
+    id: "s2",
+    name: "Waseem",
+    image: "/team/waseem.png",
+    social: { github: "#" },
   },
   {
     id: "s3",
@@ -225,10 +226,10 @@ export default function TeamPage({ onBack }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-[40px] sm:text-6xl md:text-8xl lg:text-[110px] font-serif font-black text-slate-900 leading-[0.9] tracking-tighter mb-8"
+              className="text-[40px] sm:text-6xl md:text-8xl lg:text-[100px] font-serif font-black text-slate-900 leading-[0.9] tracking-tighter mb-8"
             >
               Meet the <br />
-              <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-500">
+              <span className="italic text-emerald-500 pr-5">
                 Crew.
               </span>
             </motion.h1>
@@ -237,7 +238,7 @@ export default function TeamPage({ onBack }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-slate-500 text-base md:text-2xl max-w-2xl font-medium border-l-4 border-slate-100 pl-6"
+              className="text-slate-500 text-base md:text-xl max-w-2xl font-medium border-l-4 border-slate-100 pl-6"
             >
               The brilliant minds tracing our path. Explore the specialized
               nodes that form our collective intelligence.
