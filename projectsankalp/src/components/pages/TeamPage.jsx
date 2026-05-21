@@ -8,262 +8,168 @@ import TeamShowcase from "../ui/TeamShowcase";
 const ADVISORY = [
   {
     id: "a1",
-    name: "Dr. Radesh Pai",
-    role: "Lead Advisor",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#", github: "#" },
+    name: "Dr. Ashwini S. Shetty",
+    role: "Director, Directorate of Extension and Outreach Activities",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+    social: { linkedin: "#" },
   },
   {
     id: "a2",
-    name: "Prof. Dinesh K.",
-    role: "Academic Mentor",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
-    social: { twitter: "#", linkedin: "#" },
+    name: "Dr. K. S. Gangadhara Somayaji",
+    role: "Vice Chancellor",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
+    social: { linkedin: "#" },
   },
   {
     id: "a3",
-    name: "Dr. Arjun Mehta",
-    role: "Industry Expert",
-    image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80",
+    name: "Dr. M. Vijayakumar",
+    role: "Pro Chancellor, Director & CEO, Zulekha Yenepoya Institute of Oncology",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
     social: { linkedin: "#" },
   },
   {
     id: "a4",
-    name: "Ms. Nina Patel",
-    role: "Innovation Consultant",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-    social: { twitter: "#", linkedin: "#" },
+    name: "Dr. R. G. D'Souza",
+    role: "Dean, Faculty of Engineering & Technology",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+    social: { linkedin: "#" },
   },
   {
     id: "a5",
-    name: "Dr. Suresh G.",
-    role: "Research Head",
-    image: "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&w=400&q=80",
+    name: "Dr. Aswini Dutt R",
+    role: "Registrar",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
     social: { linkedin: "#" },
   },
   {
     id: "a6",
-    name: "Mrs. Kavita Singh",
-    role: "Strategy Advisor",
-    image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80",
+    name: "Dr. Rekha P D",
+    role: "Director, Research and Development Cell",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
     social: { linkedin: "#" },
   },
   {
     id: "a7",
-    name: "Dr. Anita Desai",
-    role: "Community Outreach",
-    image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#", instagram: "#" },
+    name: "Dr. Prabhakara B. K.",
+    role: "Professor and Head, Department of Computer Science and Engineering",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
+    social: { linkedin: "#" },
   },
   {
     id: "a8",
-    name: "Mr. Dhanush Shenoy",
-    role: "Tech Advisor",
+    name: "Rajesh Karkera",
+    role: "Director IT",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
-    social: { github: "#", linkedin: "#" },
+    social: { linkedin: "#" },
   },
   {
     id: "a9",
-    name: "Prof. Meera K.",
-    role: "Student Relations",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80",
-    social: { instagram: "#" },
+    name: "Soumya Kar",
+    role: "Incubation Manager, Yenepoya Technology Incubator",
+    image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=400&q=80",
+    social: { linkedin: "#" },
   },
   {
     id: "a10",
-    name: "Dr. Akash Yadav",
-    role: "Program Director",
+    name: "Asim Syed Sheeraz",
+    role: "CEO, Yenepoya Technology Incubator",
     image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#", twitter: "#" },
+    social: { linkedin: "#" },
+  },
+  {
+    id: "a11",
+    name: "Dr. Parameshwar R Hegde",
+    role: "Assistant Professor, Computer Science, YIASCM",
+    image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=400&q=80",
+    social: { linkedin: "#" },
+  },
+  {
+    id: "a12",
+    name: "Dr. Sripathi Rao",
+    role: "Pro Vice Chancellor",
+    image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80",
+    social: { linkedin: "#" },
   },
 ];
 
 const STUDENT_CONVENERS = [
   {
     id: "s1",
-    name: "Vicky",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
-    social: { github: "#", linkedin: "#" },
-  },
-  {
-    id: "s2",
-    name: "Aditya Sharma",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
-    social: { github: "#", linkedin: "#" },
-  },
-  {
-    id: "s3",
-    name: "Rohan Verma",
-    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#" },
-  },
-  {
-    id: "s4",
-    name: "Priya Iyer",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-    social: { github: "#", linkedin: "#" },
-  },
-  {
-    id: "s5",
-    name: "Sneha Reddy",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
-    social: { instagram: "#" },
-  },
-  {
-    id: "s6",
-    name: "Amit Patel",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#" },
-  },
-  {
-    id: "s7",
-    name: "Neha Gupta",
-    image: "https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#", github: "#" },
-  },
-  {
-    id: "s8",
-    name: "Aniket Deshmukh",
-    image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80",
-    social: { github: "#" },
-  },
-  {
-    id: "s9",
-    name: "Tanvi Joshi",
-    image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80",
-    social: { instagram: "#" },
-  },
-  {
-    id: "s10",
-    name: "Kunal Shah",
-    image: "https://images.unsplash.com/photo-1489980508314-941910ded1f4?auto=format&fit=crop&w=400&q=80",
-    social: { github: "#", linkedin: "#" },
-  },
-  {
-    id: "s11",
-    name: "Pooja Nair",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#" },
-  },
-  {
-    id: "s12",
-    name: "Varun Rao",
+    name: "Waseem",
     image: "https://images.unsplash.com/photo-1506803682981-6e718a9dd3ee?auto=format&fit=crop&w=400&q=80",
     social: { github: "#" },
   },
   {
-    id: "s13",
-    name: "Divya Choudhary",
-    image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#", instagram: "#" },
+    id: "s2",
+    name: "Radhesh Pai",
+    image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80",
+    social: { github: "#", linkedin: "#" },
   },
   {
-    id: "s14",
-    name: "Manish Mishra",
+    id: "s3",
+    name: "Anand",
+    image: "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&w=400&q=80",
+    social: { linkedin: "#" },
+  },
+  {
+    id: "s4",
+    name: "Jagadish Naik",
     image: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=400&q=80",
     social: { linkedin: "#" },
   },
   {
-    id: "s15",
-    name: "Shruti Sen",
-    image: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=400&q=80",
+    id: "s5",
+    name: "Dhanush",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
     social: { github: "#" },
   },
   {
-    id: "s16",
-    name: "Rahul Kapoor",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
+    id: "s6",
+    name: "Rinu Manoj",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
     social: { linkedin: "#" },
   },
   {
-    id: "s17",
-    name: "Kavya Hegde",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
-    social: { instagram: "#", linkedin: "#" },
-  },
-  {
-    id: "s18",
-    name: "Sandeep Yadav",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#" },
-  },
-  {
-    id: "s19",
-    name: "Riya Bansal",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#", github: "#" },
-  },
-  {
-    id: "s20",
-    name: "Vivek Menon",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
+    id: "s7",
+    name: "Srithan",
+    image: "https://images.unsplash.com/photo-1545167622-3a6ac756afa4?auto=format&fit=crop&w=400&q=80",
     social: { github: "#" },
   },
   {
-    id: "s21",
-    name: "Swati Kulkarni",
-    image: "https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#" },
-  },
-  {
-    id: "s22",
-    name: "Akshay Saxena",
-    image: "https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=400&q=80",
+    id: "s8",
+    name: "Akash N. S. Bhat",
+    image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=400&q=80",
     social: { github: "#" },
   },
   {
-    id: "s23",
-    name: "Kiran Bhat",
-    image: "https://images.unsplash.com/photo-1504257404165-0d530fb1941a?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#" },
-  },
-  {
-    id: "s24",
-    name: "Harshita Sharma",
-    image: "https://images.unsplash.com/photo-1509305717901-847f9e336215?auto=format&fit=crop&w=400&q=80",
+    id: "s9",
+    name: "Archana",
+    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
     social: { instagram: "#" },
   },
   {
-    id: "s25",
-    name: "Saurabh Joshi",
-    image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=400&q=80",
-    social: { github: "#", linkedin: "#" },
-  },
-  {
-    id: "s26",
-    name: "Prerna Roy",
-    image: "https://images.unsplash.com/photo-1522307837370-cc113a36b784?auto=format&fit=crop&w=400&q=80",
+    id: "s10",
+    name: "Dinesh A.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
     social: { linkedin: "#" },
   },
   {
-    id: "s27",
-    name: "Nikhil Gowda",
-    image: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&w=400&q=80",
+    id: "s11",
+    name: "Ashwin R",
+    image: "https://images.unsplash.com/photo-1489980508314-941910ded1f4?auto=format&fit=crop&w=400&q=80",
     social: { github: "#" },
   },
   {
-    id: "s28",
-    name: "Aishwarya R.",
-    image: "https://images.unsplash.com/photo-1534751516642-a131ffd10b7f?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#" },
-  },
-  {
-    id: "s29",
-    name: "Tarun Singhal",
-    image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=400&q=80",
-    social: { github: "#", linkedin: "#" },
-  },
-  {
-    id: "s30",
-    name: "Amrita Pai",
-    image: "https://images.unsplash.com/photo-1545167622-3a6ac756afa4?auto=format&fit=crop&w=400&q=80",
-    social: { linkedin: "#", instagram: "#" },
+    id: "s12",
+    name: "Skandana",
+    image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80",
+    social: { instagram: "#" },
   },
 ];
 
 const SECTIONS = [
   { title: "Advisory", data: ADVISORY },
-  { title: "Student Conveners", data: STUDENT_CONVENERS },
+  { title: "Main Students (Core Team)", data: STUDENT_CONVENERS },
 ];
 
 export default function TeamPage({ onBack }) {
@@ -291,7 +197,7 @@ export default function TeamPage({ onBack }) {
 
   const sectionColors = {
     Advisory: "from-slate-50 to-white",
-    "Student Conveners": "from-emerald-50/50 to-white",
+    "Main Students (Core Team)": "from-emerald-50/50 to-white",
   };
   const currentBg = sectionColors[activeSection] || "from-slate-50 to-white";
 
@@ -355,7 +261,7 @@ export default function TeamPage({ onBack }) {
       <section className="sticky top-0 z-50 bg-white/80 backdrop-blur-2xl border-b border-slate-100 py-3 transition-all duration-500">
         <div
           ref={scrollContainerRef}
-          className="flex items-center gap-3 overflow-x-auto px-6 hide-scrollbar w-full max-w-5xl mx-auto scroll-smooth snap-x justify-center"
+          className="flex items-center gap-3 overflow-x-auto px-6 hide-scrollbar w-full  mx-auto scroll-smooth snap-x justify-center"
         >
           {SECTIONS.map((section) => {
             const isActive = activeSection === section.title;
@@ -364,11 +270,10 @@ export default function TeamPage({ onBack }) {
                 key={section.title}
                 data-active={isActive}
                 onClick={() => setActiveSection(section.title)}
-                className={`relative px-5 py-2.5 rounded-full text-[11px] md:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap snap-center ${
-                  isActive
+                className={`relative px-5 py-2.5 rounded-full text-[11px] md:text-xs font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap snap-center ${isActive
                     ? "text-white"
                     : "text-slate-400 hover:text-slate-900"
-                }`}
+                  }`}
               >
                 {isActive && (
                   <motion.div
@@ -385,7 +290,7 @@ export default function TeamPage({ onBack }) {
       </section>
 
       {/* Team Content */}
-      <section className="relative z-10 py-12 md:py-24 min-h-[600px]">
+      <section className="relative z-10 py-12 md:py-16 min-h-[600px]">
         <Container>
           <AnimatePresence mode="wait">
             <motion.div
@@ -394,7 +299,7 @@ export default function TeamPage({ onBack }) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col gap-10 md:gap-16 w-full max-w-5xl mx-auto"
+              className="flex flex-col gap-10 md:gap-16 w-full mx-auto"
             >
               <div className="flex items-end justify-between border-b border-slate-200/60 pb-8 px-4 sm:px-0">
                 <div className="flex flex-col gap-1">
@@ -410,9 +315,9 @@ export default function TeamPage({ onBack }) {
                 </span>
               </div>
 
-              <TeamShowcase 
-                members={activeData} 
-                showRole={activeSection === "Advisory"} 
+              <TeamShowcase
+                members={activeData}
+                showRole={activeSection === "Advisory"}
               />
             </motion.div>
           </AnimatePresence>
