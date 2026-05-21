@@ -11,84 +11,72 @@ const ADVISORY = [
     name: "Dr. Ashwini S. Shetty",
     role: "Director, Directorate of Extension and Outreach Activities",
     image: "/team/ashwini.png",
-    social: { linkedin: "#" },
   },
   {
     id: "a2",
     name: "Dr. K. S. Gangadhara Somayaji",
     role: "Vice Chancellor",
     image: "/team/vice_chancellor.png",
-    social: { linkedin: "#" },
   },
   {
     id: "a3",
     name: "Dr. M. Vijayakumar",
     role: "Pro Chancellor, Director & CEO, Zulekha Yenepoya Institute of Oncology",
     image: "/team/pro_chancellor_zulekha.png",
-    social: { linkedin: "#" },
   },
   {
     id: "a4",
     name: "Dr. R. G. D'Souza",
     role: "Dean, Faculty of Engineering & Technology",
     image: "/team/our_dean.png",
-    social: { linkedin: "#" },
   },
   {
     id: "a5",
     name: "Dr. Aswini Dutt R",
     role: "Registrar",
     image: "/team/registrar.png",
-    social: { linkedin: "#" },
   },
   {
     id: "a6",
     name: "Dr. Rekha P D",
     role: "Director, Research and Development Cell",
     image: "/team/director_r&d.png",
-    social: { linkedin: "#" },
   },
   {
     id: "a7",
     name: "Dr. Prabhakara B. K.",
     role: "Professor and Head, Department of Computer Science and Engineering",
     image: "/team/our_hod.png",
-    social: { linkedin: "#" },
   },
   {
     id: "a8",
     name: "Rajesh Karkera",
     role: "Director IT",
     image: "/team/director_it.png",
-    social: { linkedin: "#" },
   },
   {
     id: "a9",
     name: "Soumya Kar",
     role: "Incubation Manager, Yenepoya Technology Incubator",
     image: "/team/manager_yti.png",
-    social: { linkedin: "#" },
   },
   {
     id: "a10",
     name: "Asim Syed Sheeraz",
     role: "CEO, Yenepoya Technology Incubator",
     image: "/team/ceo_yti.png",
-    social: { linkedin: "#" },
   },
   {
     id: "a11",
     name: "Dr. Parameshwar R Hegde",
     role: "Assistant Professor, Computer Science, YIASCM",
     image: "/team/param_sir_yiascm.png",
-    social: { linkedin: "#" },
   },
   {
     id: "a12",
     name: "Dr. Sripathi Rao",
     role: "Pro Vice Chancellor",
     image: "/team/pro_vc.png",
-    social: { linkedin: "#" },
   },
 ];
 
@@ -168,7 +156,7 @@ const STUDENT_CONVENERS = [
 ];
 
 const SECTIONS = [
-  { title: "Advisory", data: ADVISORY },
+  { title: "Advisory Board", data: ADVISORY },
   { title: "Main Students (Core Team)", data: STUDENT_CONVENERS },
 ];
 
@@ -196,7 +184,7 @@ export default function TeamPage({ onBack }) {
   }, [activeSection]);
 
   const sectionColors = {
-    Advisory: "from-slate-50 to-white",
+    "Advisory Board": "from-slate-50 to-white",
     "Main Students (Core Team)": "from-emerald-50/50 to-white",
   };
   const currentBg = sectionColors[activeSection] || "from-slate-50 to-white";
@@ -317,7 +305,7 @@ export default function TeamPage({ onBack }) {
 
               <TeamShowcase
                 members={activeData}
-                showRole={activeSection === "Advisory"}
+                showRole={activeSection === "Advisory Board"}
               />
             </motion.div>
           </AnimatePresence>

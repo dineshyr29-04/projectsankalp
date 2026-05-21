@@ -114,14 +114,16 @@ export default function Hero({ onNavigate }) {
 
               <motion.button
                 whileHover={{
-                  borderColor: "#10b981",
-                  boxShadow: "0 25px 50px rgba(16, 185, 129, 0.15)",
-                  y: -2,
+                  scale: 1.03,
+                  borderColor: "rgba(16, 185, 129, 0.35)",
+                  backgroundColor: "rgba(16, 185, 129, 0.03)",
+                  boxShadow: "0 20px 40px -10px rgba(16, 185, 129, 0.2)",
+                  y: -3,
                 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => onNavigate?.("team")}
-                className="w-full md:w-auto px-10 md:px-14 py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] bg-transparent text-slate-900 border-2 border-slate-900/10 hover:text-emerald-600 transition-all duration-300"
+                className="w-full md:w-auto px-10 md:px-14 py-5 rounded-full text-[11px] md:text-[12px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] bg-white/40 backdrop-blur-xl text-slate-900 border border-slate-900/10 hover:text-emerald-600 hover:border-emerald-500/20 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500"
               >
                 Meet the Team
               </motion.button>

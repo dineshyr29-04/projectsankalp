@@ -34,7 +34,7 @@ export default function TeamShowcase({ members, showRole = true }) {
               ease: [0.16, 1, 0.3, 1],
             }}
             className={cn(
-              "group relative flex flex-col rounded-3xl bg-slate-50/50 hover:bg-white border border-slate-100/80 hover:border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_-8px_rgba(0,0,0,0.08)] transition-all duration-500",
+              "group relative flex flex-col rounded-3xl bg-slate-50/50 hover:bg-white border border-slate-100/80 hover:border-slate-200/80 hover:-translate-y-2 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_-8px_rgba(0,0,0,0.08)] transition-all duration-500",
               showRole ? "p-6 md:p-8" : "p-4"
             )}
           >
@@ -59,18 +59,20 @@ export default function TeamShowcase({ members, showRole = true }) {
                 {member.name}
               </h3>
               {showRole && member.role && (
-                <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mt-2.5 leading-relaxed">
+                <p className="text-slate-500 text-xs md:text-sm font-medium mt-2 leading-relaxed">
                   {member.role}
                 </p>
               )}
               
               {/* Divider / Social Icons container */}
-              <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full">
-                <SocialIcons member={member} />
-                <span className="text-[9px] font-black text-slate-200 uppercase tracking-[0.2em] select-none group-hover:text-emerald-500/20 transition-colors">
-                  {showRole ? "ADVISOR" : "CONVENER"}
-                </span>
-              </div>
+              {!showRole && (
+                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full">
+                  <SocialIcons member={member} />
+                  <span className="text-[9px] font-black text-slate-200 uppercase tracking-[0.2em] select-none group-hover:text-emerald-500/20 transition-colors">
+                    CONVENER
+                  </span>
+                </div>
+              )}
             </div>
           </motion.div>
         ))}
