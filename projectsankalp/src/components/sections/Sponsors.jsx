@@ -66,7 +66,7 @@ export default function Sponsors() {
             className="text-6xl md:text-8xl font-serif font-black text-slate-900 tracking-tighter leading-[1.1] mb-24"
           >
             Supported <br />
-            <span className="text-emerald-600 italic mt-10 inline-block">
+            <span className="text-emerald-600 italic mt-0 inline-block">
               By Pioneers.
             </span>
           </motion.h2>
@@ -84,7 +84,7 @@ export default function Sponsors() {
         </div>
 
         {/* Infinite Logo Loop Integration */}
-        <div className="relative py-12 md:py-20 mb-20 bg-slate-50/30 overflow-hidden">
+        <div className="relative py-12 md:py-0 mb-20 bg-slate-50/30 overflow-hidden">
           <LogoLoop
             logos={sponsors}
             speed={isMobile ? 120 : 90}

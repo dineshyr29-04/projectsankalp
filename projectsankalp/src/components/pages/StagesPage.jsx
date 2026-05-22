@@ -350,7 +350,7 @@ export default function StagesPage({ onBack }) {
                   <div
                     className={`absolute top-8 left-8 px-5 py-2.5 rounded-full bg-white/95 backdrop-blur-sm text-[10px] font-black uppercase tracking-widest ${domain.color} border border-white shadow-xl`}
                   >
-                    Sector {domain.id}
+                    Track {domain.id}
                   </div>
                 </motion.div>
 
@@ -367,9 +367,6 @@ export default function StagesPage({ onBack }) {
               {/* Card Footer */}
               <div className="p-8 pt-0 mt-auto">
                 <div className="flex items-center justify-between pt-6 border-t border-slate-100">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                    Sector {domain.id}
-                  </span>
                   <span className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-600 group-hover:translate-x-1.5 transition-transform duration-300">
                     Problem Statements <ChevronRight size={14} />
                   </span>
@@ -389,12 +386,6 @@ export default function StagesPage({ onBack }) {
         >
           <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-end justify-between gap-16">
             <div className="max-w-2xl text-center lg:text-left">
-              <div className="mb-10 flex items-center justify-center lg:justify-start gap-4">
-                <span className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-400">
-                  Final Protocol
-                </span>
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              </div>
               <h2 className="text-5xl lg:text-7xl font-black leading-[0.92] tracking-tighter text-slate-950 font-serif italic">
                 Build what <br />
                 <span className="text-emerald-600">matters.</span>
