@@ -21,6 +21,9 @@ const TimerPage = lazy(() => import("./components/pages/TimerPage"));
 const StagesPage = lazy(() => import("./components/pages/StagesPage"));
 const TeamPage = lazy(() => import("./components/pages/TeamPage"));
 const WinnersPage = lazy(() => import("./components/pages/WinnersPage"));
+const PosterGeneratorPage = lazy(() =>
+  import("./components/pages/PosterGeneratorPage")
+);
 
 // AUDIT FIX: Simple, premium Back to Top button
 const BackToTop = () => {
@@ -75,7 +78,14 @@ function App() {
   useEffect(() => {
     // Handle initial load slug
     const path = window.location.pathname.slice(1);
-    const validViews = ["landing", "winners", "team", "stages", "timer"];
+    const validViews = [
+      "landing",
+      "winners",
+      "team",
+      "stages",
+      "timer",
+      "generator",
+    ];
     const normalizedPath = path.toLowerCase();
     const matchedView = validViews.find(
       (v) => v.toLowerCase() === normalizedPath,
@@ -233,6 +243,18 @@ function App() {
                   transition={{ duration: 0.5 }}
                 >
                   <StagesPage onBack={goBack} />
+                </motion.div>
+              )}
+
+              {currentView === "generator" && (
+                <motion.div
+                  key="generator"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <PosterGeneratorPage onBack={goBack} />
                 </motion.div>
               )}
             </AnimatePresence>

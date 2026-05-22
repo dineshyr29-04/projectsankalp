@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Sparkles, AlertCircle } from "lucide-react";
-import html2canvas from "html2canvas";
+import { toPng } from "html-to-image";
 
 // Sub-components
 import PosterPreview from "./poster-generator/PosterPreview";
@@ -86,21 +86,18 @@ export default function PosterGeneratorPage({ onBack }) {
         throw new Error("Poster target element not found.");
       }
 
-      // 2. Capture using html2canvas with scale: 3 for high-density sharp output
-      const canvas = await html2canvas(element, {
-        scale: 3, // Multiplies the output resolution for razor-sharp result
-        useCORS: true, // Needed for local / external media sources
-        allowTaint: false,
+      // 2. Capture using html-to-image toPng with pixelRatio: 3 for high-density sharp output
+      const imageURL = await toPng(element, {
+        pixelRatio: 3, // Multiplies the output resolution for razor-sharp result
+        quality: 0.95,
         backgroundColor: "#020712", // matches slate-950 theme background
-        logging: false,
-        scrollX: 0,
-        scrollY: 0,
-        windowWidth: element.offsetWidth,
-        windowHeight: element.offsetHeight,
+        cacheBust: true,
+        style: {
+          transform: "scale(1)",
+        },
       });
 
       // 3. Convert and trigger file download
-      const imageURL = canvas.toDataURL("image/png", 1.0);
       const link = document.createElement("a");
       const safeName = name.trim().toLowerCase().replace(/[^a-z0-9]/g, "-") || "participant";
       link.download = `sankalp-poster-${safeName}.png`;
