@@ -86,16 +86,32 @@ export default function PosterGeneratorPage({ onBack }) {
         throw new Error("Poster target element not found.");
       }
 
-      // 2. Capture using html-to-image toPng with pixelRatio: 3 for high-density sharp output
-      const imageURL = await toPng(element, {
-        pixelRatio: 3, // Multiplies the output resolution for razor-sharp result
-        quality: 0.95,
-        backgroundColor: "#020712", // matches slate-950 theme background
-        cacheBust: true,
-        style: {
-          transform: "scale(1)",
-        },
-      });
+      let imageURL;
+      try {
+        // Try with default font embedding (best quality)
+        imageURL = await toPng(element, {
+          pixelRatio: 3,
+          quality: 0.95,
+          backgroundColor: "#020712",
+          cacheBust: true,
+          style: {
+            transform: "scale(1)",
+          },
+        });
+      } catch (fontError) {
+        console.warn("Failed to export with font embedding, attempting fallback without fonts...", fontError);
+        // Fallback: Skip font fetching to bypass any network/CORS font issues
+        imageURL = await toPng(element, {
+          pixelRatio: 3,
+          quality: 0.95,
+          backgroundColor: "#020712",
+          cacheBust: true,
+          fontEmbedCSS: "", // Bypass font network/CORS check
+          style: {
+            transform: "scale(1)",
+          },
+        });
+      }
 
       // 3. Convert and trigger file download
       const link = document.createElement("a");
@@ -110,7 +126,7 @@ export default function PosterGeneratorPage({ onBack }) {
       setTimeout(() => setExportSuccess(false), 3000);
     } catch (err) {
       console.error("Failed to render and download poster:", err);
-      alert("Something went wrong during poster rendering. Please try again.");
+      alert(`Something went wrong during poster rendering: ${err.message || err}. Please try again.`);
     } finally {
       setIsExporting(false);
     }
