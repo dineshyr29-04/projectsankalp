@@ -12,6 +12,59 @@ import ImageCropperModal from "./poster-generator/ImageCropperModal";
 import { getCroppedImg } from "../../utils/cropImage";
 import Container from "../core/Container";
 
+const FONT_CSS = `
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/fraunces/v38/6NUh8FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0K7iN7hzFUPJH58nib1603gg7S2nfgRYIcUByjDg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/fraunces/v38/6NUh8FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0K7iN7hzFUPJH58nib1603gg7S2nfgRYIcHhyjDg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fMZg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuDyYMZg.ttf) format('truetype');
+}
+`;
+
+
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -88,24 +141,25 @@ export default function PosterGeneratorPage({ onBack }) {
 
       let imageURL;
       try {
-        // Try with default font embedding (best quality)
+        // Try with explicit FONT_CSS embedding and disabled cacheBust (avoids oklch parser crash and Base64 corruption)
         imageURL = await toPng(element, {
           pixelRatio: 3,
           quality: 0.95,
           backgroundColor: "#020712",
-          cacheBust: true,
+          cacheBust: false,
+          fontEmbedCSS: FONT_CSS,
           style: {
             transform: "scale(1)",
           },
         });
       } catch (fontError) {
         console.warn("Failed to export with font embedding, attempting fallback without fonts...", fontError);
-        // Fallback: Skip font fetching to bypass any network/CORS font issues
+        // Fallback: Skip font fetching entirely
         imageURL = await toPng(element, {
           pixelRatio: 3,
           quality: 0.95,
           backgroundColor: "#020712",
-          cacheBust: true,
+          cacheBust: false,
           fontEmbedCSS: "", // Bypass font network/CORS check
           style: {
             transform: "scale(1)",
@@ -174,13 +228,7 @@ export default function PosterGeneratorPage({ onBack }) {
         <Container>
           {/* ── BACK NAVIGATION HEADER ── */}
           <div className="mb-10 sm:mb-14">
-            <button
-              onClick={handleGoBack}
-              className="group flex items-center gap-3 text-[10px] font-black tracking-[0.4em] uppercase border-b-2 border-white pb-1 hover:border-emerald-500 transition-colors"
-            >
-              <ArrowLeft size={12} className="transition-transform group-hover:-translate-x-1" />
-              <span>Go Back</span>
-            </button>
+            
           </div>
 
           {/* ── PAGE TITLE SECTION ── */}
