@@ -421,7 +421,7 @@ export default function StagesPage({ onBack }) {
                 stiffness: 150,
                 damping: 24,
               }}
-              className="relative group cursor-pointer bg-white rounded-[28px] border border-slate-100 overflow-hidden flex flex-col justify-between h-full"
+              className="relative group cursor-pointer bg-white rounded-[28px] border border-slate-200 overflow-hidden flex flex-col justify-between h-full"
             >
               <div>
                 <motion.div
@@ -466,7 +466,7 @@ export default function StagesPage({ onBack }) {
               <div className="p-8 pt-0 mt-auto">
                 <div className="flex items-center justify-between pt-6 border-t border-slate-100">
                   <span className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-600 group-hover:translate-x-1.5 transition-transform duration-300">
-                    Problem Statements <ChevronRight size={14} />
+                    Open for Problem Statements <ChevronRight size={14} />
                   </span>
                 </div>
               </div>
