@@ -24,7 +24,8 @@ export default function StagesPage({ onBack }) {
         {
           id: "W1",
           title: "Artisan Women’s Market Exclusion Across 15+ Craft Districts",
-          intro: "Participants are expected to develop technology-driven solutions that can:",
+          paragraph:
+            "Thousands of women artisans across rural craft districts in India continue to face severe barriers in accessing larger markets. Despite possessing valuable traditional skills, many lack digital storefronts, direct customer access, logistics support, branding assistance, and fair pricing mechanisms. Middlemen often dominate the supply chain, resulting in reduced income and limited growth opportunities for women-led artisan businesses.",
           bullets: [
             "Enable women artisans to directly access regional, national, or global markets.",
             "Provide digital cataloguing and product showcasing platforms.",
@@ -36,7 +37,8 @@ export default function StagesPage({ onBack }) {
         {
           id: "W2",
           title: "Digital Payment Dropout Among Rural Women SHGs",
-          intro: "Participants are expected to build solutions that:",
+          paragraph:
+            "Many rural women self-help groups (SHGs) begin adopting digital payment systems but discontinue usage due to lack of trust, poor digital literacy, inconsistent internet connectivity, language barriers, and concerns regarding fraud or transaction failures. This leads to continued dependence on cash-based systems and limited financial inclusion.",
           bullets: [
             "Simplify digital payment adoption for rural women.",
             "Improve trust and transparency in transactions.",
@@ -49,7 +51,8 @@ export default function StagesPage({ onBack }) {
         {
           id: "W3",
           title: "Missing Vocational Certification Pathways for Women in Unorganised Trades",
-          intro: "Participants are expected to create platforms or systems that:",
+          paragraph:
+            "Millions of women working in unorganised sectors such as tailoring, handicrafts, food preparation, beauty services, domestic work, and small-scale manufacturing possess practical skills but lack recognised certifications. Without formal validation of their expertise, they face limited employment opportunities, low income potential, and restricted access to financial assistance or entrepreneurship schemes.",
           bullets: [
             "Digitally assess and validate vocational skills.",
             "Provide accessible certification pathways.",
@@ -72,7 +75,8 @@ export default function StagesPage({ onBack }) {
         {
           id: "H1",
           title: "3.5 Crore Undiagnosed Diabetic and Hypertensive Adults in Rural India",
-          intro: "Participants are expected to develop solutions that:",
+          paragraph:
+            "A significant portion of India’s rural population suffers from undiagnosed diabetes and hypertension due to inadequate health screening infrastructure, low awareness, delayed medical intervention, and limited access to healthcare professionals. Early detection remains a major challenge in remote communities.",
           bullets: [
             "Enable early screening and risk identification.",
             "Assist community health workers in rural outreach programs.",
@@ -84,7 +88,8 @@ export default function StagesPage({ onBack }) {
         {
           id: "H2",
           title: "Menstrual Health Infrastructure Failure in Tribal Schools",
-          intro: "Participants are expected to create solutions that:",
+          paragraph:
+            "Lack of menstrual hygiene awareness, inadequate sanitation facilities, social stigma, and poor access to menstrual products continue to contribute to school dropout rates among adolescent girls in tribal and rural regions. Many schools lack proper infrastructure and support systems for menstrual health management.",
           bullets: [
             "Improve menstrual health awareness and education.",
             "Support access to menstrual hygiene resources.",
@@ -96,7 +101,8 @@ export default function StagesPage({ onBack }) {
         {
           id: "H3",
           title: "Mental Health Access Deficit",
-          intro: "Participants are expected to build solutions that:",
+          paragraph:
+            "Mental health support remains inaccessible for a large section of the Indian population due to shortage of professionals, social stigma, lack of awareness, language barriers, and inadequate rural healthcare infrastructure. Early emotional support and intervention mechanisms are critically lacking.",
           bullets: [
             "Improve accessibility to mental health support services.",
             "Provide multilingual emotional wellness assistance.",
@@ -119,7 +125,8 @@ export default function StagesPage({ onBack }) {
         {
           id: "E1",
           title: "Groundwater Depletion Emergency",
-          intro: "Participants are expected to design solutions that:",
+          paragraph:
+            "India is facing a severe groundwater crisis due to excessive extraction, poor water management practices, climate variability, and lack of community-level monitoring systems. Several cities and districts are projected to experience critical water shortages in the coming years.",
           bullets: [
             "Monitor groundwater usage and availability.",
             "Encourage water conservation practices.",
@@ -131,7 +138,8 @@ export default function StagesPage({ onBack }) {
         {
           id: "E2",
           title: "Unmanaged Rural Plastic Waste",
-          intro: "Participants are expected to develop systems that:",
+          paragraph:
+            "Rural regions in India generate significant amounts of plastic waste, but waste collection and recycling infrastructure remain highly inadequate. Poor waste segregation practices and lack of awareness contribute to environmental pollution and health risks.",
           bullets: [
             "Improve waste segregation and collection efficiency.",
             "Encourage community participation in recycling initiatives.",
@@ -143,7 +151,8 @@ export default function StagesPage({ onBack }) {
         {
           id: "E3",
           title: "Rural Air Quality Blindspot",
-          intro: "Participants are expected to build solutions that:",
+          paragraph:
+            "Large rural populations in India are exposed to poor air quality caused by biomass burning, industrial pollution, crop residue burning, and household smoke. However, most rural areas lack affordable air-quality monitoring infrastructure and public awareness systems.",
           bullets: [
             "Enable low-cost air quality monitoring.",
             "Provide real-time environmental insights to communities.",
@@ -230,7 +239,7 @@ export default function StagesPage({ onBack }) {
               role="dialog"
               aria-modal="true"
               aria-labelledby={`title-${active.title}-${id}`}
-              className="w-full max-w-6xl h-fit min-h-fit flex flex-col bg-white rounded-[32px] shadow-[0_40px_140px_-36px_rgba(0,0,0,0.14)] border border-slate-100 z-20 relative mb-20 overflow-hidden"
+              className="w-full max-w-7xl xl:max-w-[88rem] h-fit min-h-fit flex flex-col bg-white rounded-[32px] shadow-[0_40px_140px_-36px_rgba(0,0,0,0.14)] border border-slate-100 z-20 relative mb-20 overflow-hidden"
             >
               {/* Header Image */}
               <motion.div
@@ -271,7 +280,7 @@ export default function StagesPage({ onBack }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 15, transition: { duration: 0.25 } }}
                 transition={{ duration: 0.3, delay: 0.25 }}
-                className="flex-1 overflow-y-auto p-8 md:p-10 custom-scrollbar"
+                className="flex-1 overflow-y-auto p-8 md:p-12 custom-scrollbar"
               >
                 <div className="mb-10">
                   <p className="text-slate-600 font-medium leading-relaxed text-lg italic max-w-2xl">
@@ -280,11 +289,16 @@ export default function StagesPage({ onBack }) {
                 </div>
 
                 <div className="space-y-8 pb-4">
-                  <div className="flex items-center gap-4">
-                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-300 whitespace-nowrap">
-                      Problem Manifest
-                    </span>
-                    <div className="h-px w-full bg-slate-100" />
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center gap-4">
+                      <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-300 whitespace-nowrap">
+                        Problem Manifest
+                      </span>
+                      <div className="h-px w-full bg-slate-100" />
+                    </div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.35em] text-slate-500">
+                      We are expecting
+                    </p>
                   </div>
 
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -310,7 +324,7 @@ export default function StagesPage({ onBack }) {
                             <span
                               className={`inline-block text-[9px] font-black uppercase tracking-widest ${active.color} opacity-60`}
                             >
-                              Problem Statement 0{idx + 1}
+                              {ps.id.toLowerCase().replace(/(\D)(\d+)/, "$1-$2")}
                             </span>
                             {active.id === "01" ? (
                               <Target
@@ -329,21 +343,19 @@ export default function StagesPage({ onBack }) {
                               />
                             )}
                           </div>
-                                  <h4 className="text-sm font-bold text-slate-800 leading-snug mb-3">
-                                    {ps.title}
-                                  </h4>
-                                  {ps.intro && (
-                                    <p className="text-xs italic text-slate-500 mb-2">
-                                      {ps.intro}
-                                    </p>
-                                  )}
-                                  <ul className="list-disc ml-5 mt-2 space-y-2 text-sm text-slate-700">
-                                    {ps.bullets.map((b, bi) => (
-                                      <li key={bi} className="leading-relaxed">
-                                        {b}
-                                      </li>
-                                    ))}
-                                  </ul>
+                          <h4 className="text-sm font-bold text-slate-800 leading-snug mb-3">
+                            {ps.title}
+                          </h4>
+                          <p className="text-sm text-slate-700 leading-relaxed mb-4">
+                            {ps.paragraph}
+                          </p>
+                          <ul className="list-disc ml-5 mt-2 space-y-2 text-sm text-slate-700">
+                            {ps.bullets.map((b, bi) => (
+                              <li key={bi} className="leading-relaxed">
+                                {b}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
                       </motion.div>
                     ))}
