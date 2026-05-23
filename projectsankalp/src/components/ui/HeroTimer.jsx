@@ -93,59 +93,87 @@ const TimeUnit = ({ value, label }) => {
 const TARGET_DATE = new Date("2026-05-25T00:00:00+05:30");
 
 export default function HeroTimer() {
-  const [targetDate, setTargetDate] = useState(TARGET_DATE);
+  const [dbState, setDbState] = useState({
+    isActive: false,
+    isPaused: false,
+    targetDate: null,
+    remainingTime: 0,
+  });
   const [timeLeft, setTimeLeft] = useState({
     days: "00",
     hours: "00",
     minutes: "00",
     seconds: "00",
   });
-  const [isFirebaseOverriding, setIsFirebaseOverriding] = useState(false);
 
-  /*
+  // Listen to Firestore settings/timer document
   useEffect(() => {
     if (!db) return;
     const unsub = onSnapshot(doc(db, "settings", "timer"), (snap) => {
       if (snap.exists()) {
         const data = snap.data();
-        if (data.targetTimestamp) {
-          setTargetDate(data.targetTimestamp.toDate());
-          setIsFirebaseOverriding(true);
-        }
+        setDbState({
+          isActive: data.isActive ?? false,
+          isPaused: data.isPaused ?? false,
+          targetDate: data.targetDate ?? null,
+          remainingTime: data.remainingTime ?? 0,
+        });
+      } else {
+        setDbState({
+          isActive: false,
+          isPaused: false,
+          targetDate: null,
+          remainingTime: 0,
+        });
       }
     });
     return () => unsub();
   }, []);
-  */
 
+  // Update timer display reactively based on dbState
   useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetDate.getTime() - now;
+    const formatTime = (ms) => {
+      if (ms <= 0) return { days: "00", hours: "00", minutes: "00", seconds: "00" };
+      return {
+        days: String(Math.floor(ms / (1000 * 60 * 60 * 24))).padStart(2, "0"),
+        hours: String(Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, "0"),
+        minutes: String(Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, "0"),
+        seconds: String(Math.floor((ms % (1000 * 60)) / 1000)).padStart(2, "0"),
+      };
+    };
 
+    // If not active in Firebase, fall back to TARGET_DATE (default event countdown)
+    if (!dbState.isActive) {
+      const updateDefaultTimer = () => {
+        const now = Date.now();
+        const distance = TARGET_DATE.getTime() - now;
+        setTimeLeft(formatTime(distance));
+      };
+      updateDefaultTimer();
+      const interval = setInterval(updateDefaultTimer, 1000);
+      return () => clearInterval(interval);
+    }
+
+    // If active but paused, show frozen remaining time
+    if (dbState.isPaused) {
+      setTimeLeft(formatTime(dbState.remainingTime));
+      return;
+    }
+
+    // If active and running, count down to dbState.targetDate
+    const updateActiveTimer = () => {
+      const now = Date.now();
+      const distance = dbState.targetDate - now;
       if (distance <= 0) {
         setTimeLeft({ days: "00", hours: "00", minutes: "00", seconds: "00" });
       } else {
-        setTimeLeft({
-          days: String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(
-            2,
-            "0",
-          ),
-          hours: String(
-            Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          ).padStart(2, "0"),
-          minutes: String(
-            Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-          ).padStart(2, "0"),
-          seconds: String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(
-            2,
-            "0",
-          ),
-        });
+        setTimeLeft(formatTime(distance));
       }
-    }, 1000);
+    };
+    updateActiveTimer();
+    const interval = setInterval(updateActiveTimer, 1000);
     return () => clearInterval(interval);
-  }, [targetDate]);
+  }, [dbState]);
 
   return (
     <motion.div

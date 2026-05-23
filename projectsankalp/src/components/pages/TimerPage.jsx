@@ -2,6 +2,8 @@ import { useState, useEffect, memo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, RotateCcw, ChevronLeft } from "lucide-react";
 import Container from "../core/Container";
+import { db } from "../../lib/firebase";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
 
 // ── LIQUID GLASS FILTER ──
 const GlassFilter = () => (
@@ -96,59 +98,128 @@ export default function TimerPage({ onBack }) {
     seconds: 0,
   });
 
-  const handleStart = () => {
+  // Listen to Firestore settings/timer document
+  useEffect(() => {
+    if (!db) return;
+    const unsub = onSnapshot(doc(db, "settings", "timer"), (snap) => {
+      if (snap.exists()) {
+        const data = snap.data();
+        setIsActive(data.isActive ?? false);
+        setIsPaused(data.isPaused ?? false);
+        setTargetDate(data.targetDate ?? null);
+        setRemainingTime(data.remainingTime ?? 0);
+      } else {
+        setIsActive(false);
+        setIsPaused(false);
+        setTargetDate(null);
+        setRemainingTime(0);
+      }
+    });
+    return () => unsub();
+  }, []);
+
+  const handleStart = async () => {
     const twentyFourHours = 24 * 60 * 60 * 1000;
-    setTargetDate(Date.now() + twentyFourHours);
-    setIsActive(true);
-    setIsPaused(false);
+    const target = Date.now() + twentyFourHours;
+    try {
+      await setDoc(doc(db, "settings", "timer"), {
+        isActive: true,
+        isPaused: false,
+        targetDate: target,
+        remainingTime: twentyFourHours,
+      });
+    } catch (error) {
+      console.error("Failed to start timer in Firebase:", error);
+    }
   };
 
-  const handlePause = () => {
+  const handlePause = async () => {
     if (!targetDate) return;
     const distance = targetDate - Date.now();
-    setRemainingTime(distance);
-    setIsPaused(true);
+    try {
+      await setDoc(doc(db, "settings", "timer"), {
+        isActive: true,
+        isPaused: true,
+        targetDate: targetDate,
+        remainingTime: distance > 0 ? distance : 0,
+      });
+    } catch (error) {
+      console.error("Failed to pause timer in Firebase:", error);
+    }
   };
 
-  const handleResume = () => {
-    setTargetDate(Date.now() + remainingTime);
-    setIsPaused(false);
+  const handleResume = async () => {
+    const target = Date.now() + remainingTime;
+    try {
+      await setDoc(doc(db, "settings", "timer"), {
+        isActive: true,
+        isPaused: false,
+        targetDate: target,
+        remainingTime: remainingTime,
+      });
+    } catch (error) {
+      console.error("Failed to resume timer in Firebase:", error);
+    }
   };
 
-  const handleReset = () => {
-    setIsActive(false);
-    setIsPaused(false);
-    setTargetDate(null);
-    setRemainingTime(0);
-    setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const handleReset = async () => {
+    try {
+      await setDoc(doc(db, "settings", "timer"), {
+        isActive: false,
+        isPaused: false,
+        targetDate: null,
+        remainingTime: 0,
+      });
+    } catch (error) {
+      console.error("Failed to reset timer in Firebase:", error);
+    }
   };
 
+  // Manage countdown ticking and display formatting reactively
   useEffect(() => {
-    if (!isActive || !targetDate || isPaused) return;
+    const formatTime = (ms) => {
+      if (ms <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+      return {
+        days: Math.floor(ms / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((ms % (1000 * 60)) / 1000),
+      };
+    };
 
-    const interval = setInterval(() => {
+    if (!isActive || !targetDate) {
+      setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      return;
+    }
+
+    if (isPaused) {
+      setTimeLeft(formatTime(remainingTime));
+      return;
+    }
+
+    const updateTimer = () => {
       const now = Date.now();
       const distance = targetDate - now;
 
       if (distance <= 0) {
-        clearInterval(interval);
-        setIsActive(false);
-        setTargetDate(null);
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        // Auto reset to standby in database when expired
+        setDoc(doc(db, "settings", "timer"), {
+          isActive: false,
+          isPaused: false,
+          targetDate: null,
+          remainingTime: 0,
+        }).catch((err) => console.error("Error auto-resetting expired timer:", err));
       } else {
-        setTimeLeft({
-          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-          hours: Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-          ),
-          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((distance % (1000 * 60)) / 1000),
-        });
+        setTimeLeft(formatTime(distance));
       }
-    }, 1000);
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
 
     return () => clearInterval(interval);
-  }, [isActive, targetDate, isPaused]);
+  }, [isActive, targetDate, isPaused, remainingTime]);
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative flex flex-col">
