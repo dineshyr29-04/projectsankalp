@@ -72,6 +72,7 @@ export default function StagesPage({ onBack }) {
         {
           id: "H1",
           title: "3.5 Crore Undiagnosed Diabetic and Hypertensive Adults in Rural India",
+          intro: "Participants are expected to develop solutions that:",
           bullets: [
             "Enable early screening and risk identification.",
             "Assist community health workers in rural outreach programs.",
@@ -83,6 +84,7 @@ export default function StagesPage({ onBack }) {
         {
           id: "H2",
           title: "Menstrual Health Infrastructure Failure in Tribal Schools",
+          intro: "Participants are expected to create solutions that:",
           bullets: [
             "Improve menstrual health awareness and education.",
             "Support access to menstrual hygiene resources.",
@@ -94,6 +96,7 @@ export default function StagesPage({ onBack }) {
         {
           id: "H3",
           title: "Mental Health Access Deficit",
+          intro: "Participants are expected to build solutions that:",
           bullets: [
             "Improve accessibility to mental health support services.",
             "Provide multilingual emotional wellness assistance.",
@@ -116,6 +119,7 @@ export default function StagesPage({ onBack }) {
         {
           id: "E1",
           title: "Groundwater Depletion Emergency",
+          intro: "Participants are expected to design solutions that:",
           bullets: [
             "Monitor groundwater usage and availability.",
             "Encourage water conservation practices.",
@@ -127,6 +131,7 @@ export default function StagesPage({ onBack }) {
         {
           id: "E2",
           title: "Unmanaged Rural Plastic Waste",
+          intro: "Participants are expected to develop systems that:",
           bullets: [
             "Improve waste segregation and collection efficiency.",
             "Encourage community participation in recycling initiatives.",
@@ -138,6 +143,7 @@ export default function StagesPage({ onBack }) {
         {
           id: "E3",
           title: "Rural Air Quality Blindspot",
+          intro: "Participants are expected to build solutions that:",
           bullets: [
             "Enable low-cost air quality monitoring.",
             "Provide real-time environmental insights to communities.",
@@ -326,6 +332,11 @@ export default function StagesPage({ onBack }) {
                                   <h4 className="text-sm font-bold text-slate-800 leading-snug mb-3">
                                     {ps.title}
                                   </h4>
+                                  {ps.intro && (
+                                    <p className="text-xs italic text-slate-500 mb-2">
+                                      {ps.intro}
+                                    </p>
+                                  )}
                                   <ul className="list-disc ml-5 mt-2 space-y-2 text-sm text-slate-700">
                                     {ps.bullets.map((b, bi) => (
                                       <li key={bi} className="leading-relaxed">
