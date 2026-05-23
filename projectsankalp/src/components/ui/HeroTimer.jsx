@@ -54,16 +54,16 @@ const RollingDigit = memo(({ digit }) => {
   const isZero = String(digit) === "0";
 
   return (
-    <div className="relative h-13 w-7 sm:h-14 sm:w-8 md:h-16 md:w-10 overflow-hidden flex justify-center items-center mx-[2px] md:mx-[2px]">
+    <div className="relative h-10 w-6 sm:h-12 sm:w-7 md:h-16 md:w-10 overflow-hidden flex justify-center items-center mx-1 md:mx-[2px]">
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={digit}
           initial={hasChanged ? { y: "100%", opacity: 0 } : false}
           animate={{ y: "0%", opacity: 1 }}
           exit={hasChanged ? { y: "-100%", opacity: 0 } : false}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className={`absolute text-2xl sm:text-3xl md:text-5xl font-serif font-black transition-all duration-300 ${
-            isZero ? "text-slate-500 opacity-70 scale-95" : "text-slate-900"
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className={`absolute text-xl sm:text-2xl md:text-5xl font-serif font-black transition-all duration-300 ${
+            isZero ? "text-slate-500/40 opacity-40 scale-90" : "text-slate-900"
           }`}
           style={isZero ? { transformOrigin: "center" } : undefined}
         >

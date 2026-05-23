@@ -298,7 +298,7 @@ export default function StagesPage({ onBack }) {
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
                     {active.problems.map((ps, idx) => (
                       <motion.div
                         key={ps.id}
@@ -308,7 +308,7 @@ export default function StagesPage({ onBack }) {
                           delay: 0.2 + idx * 0.08,
                           ease: "easeOut",
                         }}
-                        className={`p-8 rounded-[24px] bg-slate-50 border border-slate-100 group flex flex-col justify-between transition-all duration-300 hover:bg-white hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] ${
+                        className={`p-6 sm:p-8 rounded-[24px] bg-slate-50 border border-slate-100 group flex flex-col justify-between transition-all duration-300 hover:bg-white hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] ${
                           active.id === "01"
                             ? "hover:border-blue-500/30"
                             : active.id === "02"
@@ -319,7 +319,7 @@ export default function StagesPage({ onBack }) {
                         <div>
                           <div className="flex justify-between items-start mb-6">
                             <span
-                              className={`inline-block text-[15px] font-black uppercase tracking-widest ${active.color} opacity-60`}
+                              className={`inline-block text-xs md:text-sm font-black uppercase tracking-widest ${active.color} opacity-60`}
                             >
                               {ps.id.toLowerCase().replace(/(\D)(\d+)/, "$1-$2")}
                             </span>
@@ -340,15 +340,17 @@ export default function StagesPage({ onBack }) {
                               />
                             )}
                           </div>
-                          <h4 className="text-md font-bold text-slate-800 leading-snug mb-3">
+                          <h4 className="text-base md:text-lg font-bold text-slate-800 leading-snug mb-3">
                             {ps.title}
                           </h4>
-                          <p className="text-[10px] mt-[10px] font-semibold uppercase tracking-[0.35em] text-slate-900 pb-3">Exact Problem</p>
-                          <p className="text-sm text-slate-700 leading-relaxed mb-4">
+                          <p className="text-[10px] mt-2 font-semibold uppercase tracking-[0.25em] text-slate-900 pb-2">
+                            Exact Problem
+                          </p>
+                          <p className="text-sm md:text-base text-slate-700 leading-relaxed mb-4">
                             {ps.paragraph}
                           </p>
-                          <p className="text-[10px] mt-[50px] font-semibold uppercase tracking-[0.35em]    text-slate-900">
-                          We are expecting
+                          <p className="text-[10px] mt-4 font-semibold uppercase tracking-[0.25em] text-slate-900">
+                            We are expecting
                           </p>
                           <ul className="list-disc ml-5 mt-2 space-y-2 text-sm text-slate-700">
                             {ps.bullets.map((b, bi) => (
