@@ -124,14 +124,9 @@ export default function Hero({ onNavigate }) {
                   damping: 18,
                 }}
                 onClick={() => onNavigate?.("stages")}
-                className="group relative isolate overflow-hidden w-full md:w-auto rounded-full px-10 md:px-14 py-5 backdrop-blur-3xl border border-emerald-500/15 bg-[linear-gradient(135deg,rgba(255,255,255,0.92),rgba(248,250,252,0.88),rgba(236,253,245,0.82))] shadow-[0_12px_50px_rgba(0,0,0,0.12)] transition-all duration-700 ease-out hover:border-emerald-500/30 hover:bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(248,250,252,0.95),rgba(236,253,245,0.92))] hover:shadow-[0_30px_90px_rgba(16,185,129,0.16)] active:scale-[0.985]"
+                className="group relative isolate overflow-hidden w-full md:w-auto rounded-full px-10 md:px-14 py-5 backdrop-blur-3xl border border-emerald-900 bg-[linear-gradient(135deg,rgba(103, 250, 59, 0.92),rgba(35, 143, 250, 0.88),rgba(34, 227, 137, 0.82))] shadow-[0_12px_50px_rgba(0,0,0,0.12)] transition-all duration-700 ease-out hover:border-emerald-500/30 hover:bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(248,250,252,0.95),rgba(236,253,245,0.92))] hover:shadow-[0_30px_90px_rgba(16,185,129,0.16)] active:scale-[0.985]"
               >
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.15),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.1),transparent_36%)] scale-90 group-hover:scale-110" />
-                <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/70 via-white/25 to-transparent pointer-events-none" />
-                <div className="absolute inset-y-0 -left-[45%] w-[30%] rotate-12 bg-white/20 blur-2xl translate-x-[-180%] group-hover:translate-x-[450%] transition-transform duration-[1600ms] ease-out" />
-                <div className="absolute inset-[1px] rounded-full border border-emerald-500/10 pointer-events-none" />
-                <div className="absolute inset-x-8 bottom-0 h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
+                
                 <span className="relative z-10 flex items-center justify-center gap-3 text-[11px] md:text-[12px] font-black uppercase tracking-[0.32em] md:tracking-[0.42em] text-slate-900 transition-all duration-500 group-hover:text-emerald-700">
                   Problem Statements
 
