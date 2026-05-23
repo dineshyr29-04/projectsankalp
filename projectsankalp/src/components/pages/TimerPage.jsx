@@ -51,7 +51,7 @@ const RollingDigit = memo(({ digit }) => {
   }, [digit]);
 
   return (
-    <div className="relative h-[20vh] w-[10vw] min-w-[80px] overflow-hidden flex justify-center items-center mx-1">
+    <div className="relative h-[20vh] w-[10vw] min-w-[80px] overflow-hidden flex justify-center items-center mx-1 py-10">
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={digit}
@@ -59,7 +59,7 @@ const RollingDigit = memo(({ digit }) => {
           animate={{ y: "0%", opacity: 1 }}
           exit={hasChanged ? { y: "-100%", opacity: 0 } : false}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute text-[15vw] font-mono font-black leading-none text-white tabular-nums tracking-[-0.05em]"
+          className="absolute text-[13vw] font-mono font-black leading-none text-white tabular-nums tracking-[-0.05em]"
         >
           {digit}
         </motion.span>
@@ -177,14 +177,14 @@ export default function TimerPage({ onBack }) {
       </div>
 
       {/* Main Timer Display */}
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4">
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="relative flex items-center justify-center gap-4 md:gap-8 lg:gap-12"
+          className="relative flex items-center justify-center gap-4 md:gap-8 lg:gap-10"
         >
           <TimeUnit value={timeLeft.days} label="Days" />
-          <div className="h-[9vh] w-px bg-white/10" />
+          <div className="h-[9vh] w-px bg-white/10 " />
           <TimeUnit value={timeLeft.hours} label="Hours" />
           <div className="h-[9vh] w-px bg-white/10" />
           <TimeUnit value={timeLeft.minutes} label="Min" />
