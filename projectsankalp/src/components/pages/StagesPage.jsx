@@ -23,15 +23,40 @@ export default function StagesPage({ onBack }) {
       problems: [
         {
           id: "W1",
-          text: "Artisan Women’s Market Exclusion Across 15+ Craft Districts — Build technology that enables women artisans to directly access regional, national, or global markets; provide digital cataloguing and product showcasing; improve supply-chain visibility and order management; support local languages and low-digital-literacy users; and create sustainable economic opportunities for underserved artisan communities.",
+          title: "Artisan Women’s Market Exclusion Across 15+ Craft Districts",
+          intro: "Participants are expected to develop technology-driven solutions that can:",
+          bullets: [
+            "Enable women artisans to directly access regional, national, or global markets.",
+            "Provide digital cataloguing and product showcasing platforms.",
+            "Improve supply-chain visibility and order management.",
+            "Support local language accessibility and low-digital-literacy users.",
+            "Create sustainable economic opportunities for underserved artisan communities.",
+          ],
         },
         {
           id: "W2",
-          text: "Digital Payment Dropout Among Rural Women SHGs — Simplify digital payment adoption for rural women; improve trust and transparency; support offline or low-connectivity environments; offer multilingual, highly intuitive UIs; educate on digital financial safety; and encourage long-term digital participation.",
+          title: "Digital Payment Dropout Among Rural Women SHGs",
+          intro: "Participants are expected to build solutions that:",
+          bullets: [
+            "Simplify digital payment adoption for rural women.",
+            "Improve trust and transparency in transactions.",
+            "Support offline or low-connectivity environments.",
+            "Offer multilingual and highly intuitive user interfaces.",
+            "Educate users about digital financial safety and fraud prevention.",
+            "Encourage long-term digital financial participation among SHGs.",
+          ],
         },
         {
           id: "W3",
-          text: "Missing Vocational Certification Pathways for Women in Unorganised Trades — Create accessible systems to digitally assess and validate vocational skills, provide certification pathways, connect women with training, employment or government schemes, and support multilingual, low-literacy access to skill documentation.",
+          title: "Missing Vocational Certification Pathways for Women in Unorganised Trades",
+          intro: "Participants are expected to create platforms or systems that:",
+          bullets: [
+            "Digitally assess and validate vocational skills.",
+            "Provide accessible certification pathways.",
+            "Connect women with training, employment, or government schemes.",
+            "Maintain easy accessibility for rural and low-literacy users.",
+            "Support multilingual learning and skill documentation.",
+          ],
         },
       ],
     },
@@ -46,15 +71,36 @@ export default function StagesPage({ onBack }) {
       problems: [
         {
           id: "H1",
-          text: "3.5 Crore Undiagnosed Diabetic and Hypertensive Adults in Rural India — Build solutions for early screening and risk identification, assist community health workers in outreach, support multilingual awareness, function in low-resource environments, and improve tracking and follow-up for preventive care.",
+          title: "3.5 Crore Undiagnosed Diabetic and Hypertensive Adults in Rural India",
+          bullets: [
+            "Enable early screening and risk identification.",
+            "Assist community health workers in rural outreach programs.",
+            "Support multilingual communication and awareness.",
+            "Function effectively in low-resource environments.",
+            "Improve tracking, follow-up, and preventive healthcare management.",
+          ],
         },
         {
           id: "H2",
-          text: "Menstrual Health Infrastructure Failure in Tribal Schools — Design interventions to improve menstrual health education, support access to hygiene resources, enable anonymous/stigma-free assistance, help schools monitor sanitation gaps, and promote continued education for adolescent girls.",
+          title: "Menstrual Health Infrastructure Failure in Tribal Schools",
+          bullets: [
+            "Improve menstrual health awareness and education.",
+            "Support access to menstrual hygiene resources.",
+            "Enable anonymous or stigma-free assistance systems.",
+            "Assist schools in monitoring sanitation and infrastructure gaps.",
+            "Promote continued education and wellbeing for adolescent girls.",
+          ],
         },
         {
           id: "H3",
-          text: "Mental Health Access Deficit — Create accessible, multilingual, anonymous mental health support tools; enable community outreach and awareness; assist early identification; and mitigate stigma while bridging professional availability gaps.",
+          title: "Mental Health Access Deficit",
+          bullets: [
+            "Improve accessibility to mental health support services.",
+            "Provide multilingual emotional wellness assistance.",
+            "Enable anonymous and stigma-free interactions.",
+            "Support community outreach and awareness programs.",
+            "Assist in early identification of mental health concerns.",
+          ],
         },
       ],
     },
@@ -69,15 +115,36 @@ export default function StagesPage({ onBack }) {
       problems: [
         {
           id: "E1",
-          text: "Groundwater Depletion Emergency — Design monitoring and predictive systems for groundwater usage and availability, encourage conservation practices, provide alerts and predictive analytics, and enable community participation in water management.",
+          title: "Groundwater Depletion Emergency",
+          bullets: [
+            "Monitor groundwater usage and availability.",
+            "Encourage water conservation practices.",
+            "Provide predictive analytics or alert systems.",
+            "Support community participation in water management.",
+            "Offer accessible insights for rural and urban stakeholders.",
+          ],
         },
         {
           id: "E2",
-          text: "Unmanaged Rural Plastic Waste — Build systems to improve waste segregation and collection efficiency, encourage community recycling initiatives, track generation and disposal patterns, and support local governance for scalable rural waste management.",
+          title: "Unmanaged Rural Plastic Waste",
+          bullets: [
+            "Improve waste segregation and collection efficiency.",
+            "Encourage community participation in recycling initiatives.",
+            "Track waste generation and disposal patterns.",
+            "Support local governance and waste management agencies.",
+            "Promote sustainable and scalable rural waste management practices.",
+          ],
         },
         {
           id: "E3",
-          text: "Rural Air Quality Blindspot — Enable low-cost air-quality monitoring, provide real-time community insights and alerts, support data-driven decision-making, and operate effectively in low-connectivity rural regions.",
+          title: "Rural Air Quality Blindspot",
+          bullets: [
+            "Enable low-cost air quality monitoring.",
+            "Provide real-time environmental insights to communities.",
+            "Generate alerts and awareness regarding harmful pollution levels.",
+            "Support data-driven environmental decision-making.",
+            "Work effectively in rural and low-connectivity regions.",
+          ],
         },
       ],
     },
@@ -157,12 +224,12 @@ export default function StagesPage({ onBack }) {
               role="dialog"
               aria-modal="true"
               aria-labelledby={`title-${active.title}-${id}`}
-              className="w-full max-w-4xl h-fit min-h-fit flex flex-col bg-white rounded-[32px] shadow-[0_40px_140px_-36px_rgba(0,0,0,0.14)] border border-slate-100 z-20 relative mb-20 overflow-hidden"
+              className="w-full max-w-6xl h-fit min-h-fit flex flex-col bg-white rounded-[32px] shadow-[0_40px_140px_-36px_rgba(0,0,0,0.14)] border border-slate-100 z-20 relative mb-20 overflow-hidden"
             >
               {/* Header Image */}
               <motion.div
                 layoutId={`image-${active.title}-${id}`}
-                className="relative h-48 md:h-64 w-full flex-shrink-0 overflow-hidden"
+                className="relative h-56 md:h-72 w-full flex-shrink-0 overflow-hidden"
               >
                 <motion.img
                   layoutId={`img-${active.title}-${id}`}
@@ -256,9 +323,16 @@ export default function StagesPage({ onBack }) {
                               />
                             )}
                           </div>
-                          <p className="text-sm font-bold text-slate-700 leading-relaxed mb-8">
-                            {ps.text}
-                          </p>
+                                  <h4 className="text-sm font-bold text-slate-800 leading-snug mb-3">
+                                    {ps.title}
+                                  </h4>
+                                  <ul className="list-disc ml-5 mt-2 space-y-2 text-sm text-slate-700">
+                                    {ps.bullets.map((b, bi) => (
+                                      <li key={bi} className="leading-relaxed">
+                                        {b}
+                                      </li>
+                                    ))}
+                                  </ul>
                         </div>
                       </motion.div>
                     ))}
@@ -328,7 +402,7 @@ export default function StagesPage({ onBack }) {
               <div>
                 <motion.div
                   layoutId={`image-${domain.title}-${id}`}
-                  className="h-48 md:h-56 overflow-hidden relative"
+                  className="h-56 md:h-64 overflow-hidden relative"
                 >
                   <motion.img
                     layoutId={`img-${domain.title}-${id}`}
