@@ -273,20 +273,11 @@ export default function WinnersPage({ onBack }) {
         {/* Hero Section */}
         <section className="pb-20 md:pb-32 md:pt-10">
           <Container>
-            <div className="mb-12">
+            <div className="mb-12 pb-5">
               <button
-                onClick={() => {
-                  if (typeof window !== "undefined") {
-                    window.history.pushState({ view: "landing" }, "", "/");
-                    window.dispatchEvent(new PopStateEvent("popstate"));
-                  }
-                }}
                 className="group flex items-center gap-3 text-[10px] font-black tracking-[0.4em] uppercase border-b-2 border-white pb-1 hover:border-emerald-500 transition-colors"
               >
-                <span className="text-lg transition-transform group-hover:-translate-x-1">
-                  ←
-                </span>
-                <span>[ Go Back ]</span>
+
               </button>
             </div>
 
