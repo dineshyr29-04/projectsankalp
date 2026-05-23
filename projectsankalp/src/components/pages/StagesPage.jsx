@@ -14,7 +14,7 @@ export default function StagesPage({ onBack }) {
   const DOMAINS = [
     {
       id: "01",
-      title: "Women's Entrepreneurship",
+      title: "Women’s Entrepreneurship & Economic Empowerment",
       color: "text-blue-600",
       accent: "bg-blue-600",
       src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
@@ -65,7 +65,7 @@ export default function StagesPage({ onBack }) {
     },
     {
       id: "02",
-      title: "Health & Sanitation",
+      title: "Health, Sanitation & Community Wellbeing",
       color: "text-emerald-600",
       accent: "bg-emerald-600",
       src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop",
@@ -115,7 +115,7 @@ export default function StagesPage({ onBack }) {
     },
     {
       id: "03",
-      title: "Climate Action",
+      title: " Environmental Sustainability & Climate Action ",
       color: "text-teal-600",
       accent: "bg-teal-600",
       src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2074&auto=format&fit=crop",

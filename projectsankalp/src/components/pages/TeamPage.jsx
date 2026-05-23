@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaGithub } from "react-icons/fa";
 import Container from "../core/Container";
 
 // --- TEAM DATA ---
@@ -85,73 +84,61 @@ const STUDENT_CONVENERS = [
     id: "s1",
     name: "Radhesh Pai",
     image: "/team/core/radhesh.png",
-    social: { github: "#" },
   },
   {
     id: "s2",
     name: "Waseem",
     image: "/team/core/waseem.png",
-    social: { github: "#" },
   },
   {
     id: "s3",
     name: "Anand",
     image: "/team/core/anand.png",
-    social: { github: "#" },
   },
   {
     id: "s4",
     name: "Dinesh A.",
     image: "/team/core/dinesh.png",
-    social: { github: "#" },
   },
   {
     id: "s10",
     name: "Jagadish Naik",
     image: "/team/core/jaggu.png",
-    social: { github: "#" },
   },
   {
     id: "s5",
     name: "Dhanush",
     image: "/team/core/dhanush.png",
-    social: { github: "#" },
   },
   {
     id: "s6",
     name: "Rinu Manoj",
     image: "/team/core/rinu.png",
-    social: { github: "#" },
   },
   {
     id: "s7",
     name: "Srithan",
     image: "/team/core/srithan.png",
-    social: { github: "#" },
   },
   {
     id: "s8",
     name: "Akash N. S. Bhat",
     image: "/team/core/akash.png",
-    social: { github: "#" },
   },
   {
     id: "s9",
     name: "Archana",
     image: "/team/core/archana.png",
-    social: { github: "#" },
   },
   {
     id: "s11",
     name: "Ashwin R",
     image: "/team/core/ashwin.png",
-    social: { github: "#" },
   },
   {
     id: "s12",
     name: "Skandana",
     image: "/team/core/skandu.png",
-    social: { github: "#" },
   },
 ];
 
@@ -159,33 +146,6 @@ const SECTIONS = [
   { title: "Advisory Board", data: ADVISORY },
   { title: "Core Team Members", data: STUDENT_CONVENERS },
 ];
-
-function SocialIcons({ member, light = false, size = 14 }) {
-  const hasSocial = member.social?.github;
-  if (!hasSocial) return null;
-
-  const iconClass = `p-2 rounded-full transition-all duration-300 hover:scale-110 ${
-    light
-      ? "bg-white/10 text-white hover:bg-white/20"
-      : "bg-slate-100 text-slate-500 hover:text-slate-900 hover:bg-slate-200 border border-slate-300"
-  }`;
-
-  return (
-    <div className="flex items-center gap-1.5">
-      {member.social?.github && (
-        <a
-          href={member.social.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={iconClass}
-          aria-label="GitHub"
-        >
-          <FaGithub size={size} />
-        </a>
-      )}
-    </div>
-  );
-}
 
 function LocalTeamShowcase({ members, showRole = true }) {
   if (!members || members.length === 0) return null;
@@ -258,12 +218,11 @@ function LocalTeamShowcase({ members, showRole = true }) {
                 </div>
               )}
 
-              {/* Divider / Social Icons container */}
+              {/* Core Team label */}
               {!showRole && (
-                <div className="mt-auto pt-4 border-t border-slate-200 flex items-center justify-between w-full">
-                  <SocialIcons member={member} />
-                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] select-none group-hover:text-emerald-600/30 transition-colors">
-                    CONVENER
+                <div className="mt-auto pt-4 border-t border-slate-200 flex items-center justify-start w-full">
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] select-none group-hover:text-emerald-600/60 transition-colors">
+                    Core Team
                   </span>
                 </div>
               )}
