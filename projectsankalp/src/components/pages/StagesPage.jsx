@@ -22,16 +22,16 @@ export default function StagesPage({ onBack }) {
         "Championing gender equality by building tools for financial independence and micro-business scaling.",
       problems: [
         {
-          id: "Problem Statement 01",
-          text: "Decentralized marketplaces for rural artisans to scale global reach.",
+          id: "W1",
+          text: "Artisan Women’s Market Exclusion Across 15+ Craft Districts — Build technology that enables women artisans to directly access regional, national, or global markets; provide digital cataloguing and product showcasing; improve supply-chain visibility and order management; support local languages and low-digital-literacy users; and create sustainable economic opportunities for underserved artisan communities.",
         },
         {
-          id: "Problem Statement 02",
-          text: "AI-driven financial literacy platforms for women-led startups.",
+          id: "W2",
+          text: "Digital Payment Dropout Among Rural Women SHGs — Simplify digital payment adoption for rural women; improve trust and transparency; support offline or low-connectivity environments; offer multilingual, highly intuitive UIs; educate on digital financial safety; and encourage long-term digital participation.",
         },
         {
-          id: "Problem Statement 03",
-          text: "P2P micro-lending systems with community-based trust scoring.",
+          id: "W3",
+          text: "Missing Vocational Certification Pathways for Women in Unorganised Trades — Create accessible systems to digitally assess and validate vocational skills, provide certification pathways, connect women with training, employment or government schemes, and support multilingual, low-literacy access to skill documentation.",
         },
       ],
     },
@@ -45,16 +45,16 @@ export default function StagesPage({ onBack }) {
         "Developing innovative systems for preventive healthcare, clean water access, and waste management.",
       problems: [
         {
-          id: "Problem Statement 01",
-          text: "Predictive analysis of water-borne diseases in urban settlements.",
+          id: "H1",
+          text: "3.5 Crore Undiagnosed Diabetic and Hypertensive Adults in Rural India — Build solutions for early screening and risk identification, assist community health workers in outreach, support multilingual awareness, function in low-resource environments, and improve tracking and follow-up for preventive care.",
         },
         {
-          id: "Problem Statement 02",
-          text: "Smart waste management systems for decentralized municipalities.",
+          id: "H2",
+          text: "Menstrual Health Infrastructure Failure in Tribal Schools — Design interventions to improve menstrual health education, support access to hygiene resources, enable anonymous/stigma-free assistance, help schools monitor sanitation gaps, and promote continued education for adolescent girls.",
         },
         {
-          id: "Problem Statement 03",
-          text: "Mobile-first diagnostic tools for rural maternal healthcare.",
+          id: "H3",
+          text: "Mental Health Access Deficit — Create accessible, multilingual, anonymous mental health support tools; enable community outreach and awareness; assist early identification; and mitigate stigma while bridging professional availability gaps.",
         },
       ],
     },
@@ -68,16 +68,16 @@ export default function StagesPage({ onBack }) {
         "Harnessing technology to combat climate change and promote green energy transitions.",
       problems: [
         {
-          id: "Problem Statement 01",
-          text: "Real-time carbon footprint trackers for household consumption.",
+          id: "E1",
+          text: "Groundwater Depletion Emergency — Design monitoring and predictive systems for groundwater usage and availability, encourage conservation practices, provide alerts and predictive analytics, and enable community participation in water management.",
         },
         {
-          id: "Problem Statement 02",
-          text: "Marketplaces for upcycled industrial waste and circular resources.",
+          id: "E2",
+          text: "Unmanaged Rural Plastic Waste — Build systems to improve waste segregation and collection efficiency, encourage community recycling initiatives, track generation and disposal patterns, and support local governance for scalable rural waste management.",
         },
         {
-          id: "Problem Statement 03",
-          text: "Community-driven reforestation monitoring using satellite imagery.",
+          id: "E3",
+          text: "Rural Air Quality Blindspot — Enable low-cost air-quality monitoring, provide real-time community insights and alerts, support data-driven decision-making, and operate effectively in low-connectivity rural regions.",
         },
       ],
     },
