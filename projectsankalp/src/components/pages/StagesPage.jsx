@@ -296,9 +296,6 @@ export default function StagesPage({ onBack }) {
                       </span>
                       <div className="h-px w-full bg-slate-100" />
                     </div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.35em] text-slate-500">
-                      We are expecting
-                    </p>
                   </div>
 
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -322,7 +319,7 @@ export default function StagesPage({ onBack }) {
                         <div>
                           <div className="flex justify-between items-start mb-6">
                             <span
-                              className={`inline-block text-[9px] font-black uppercase tracking-widest ${active.color} opacity-60`}
+                              className={`inline-block text-[15px] font-black uppercase tracking-widest ${active.color} opacity-60`}
                             >
                               {ps.id.toLowerCase().replace(/(\D)(\d+)/, "$1-$2")}
                             </span>
@@ -343,11 +340,15 @@ export default function StagesPage({ onBack }) {
                               />
                             )}
                           </div>
-                          <h4 className="text-sm font-bold text-slate-800 leading-snug mb-3">
+                          <h4 className="text-md font-bold text-slate-800 leading-snug mb-3">
                             {ps.title}
                           </h4>
+                          <p className="text-[10px] mt-[10px] font-semibold uppercase tracking-[0.35em] text-slate-900 pb-3">Exact Problem</p>
                           <p className="text-sm text-slate-700 leading-relaxed mb-4">
                             {ps.paragraph}
+                          </p>
+                          <p className="text-[10px] mt-[50px] font-semibold uppercase tracking-[0.35em]    text-slate-900">
+                          We are expecting
                           </p>
                           <ul className="list-disc ml-5 mt-2 space-y-2 text-sm text-slate-700">
                             {ps.bullets.map((b, bi) => (
