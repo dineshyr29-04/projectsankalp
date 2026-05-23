@@ -115,7 +115,7 @@ export default function StagesPage({ onBack }) {
     },
     {
       id: "03",
-      title: " Environmental Sustainability & Climate Action ",
+      title: "Environmental Sustainability & Climate Action ",
       color: "text-teal-600",
       accent: "bg-teal-600",
       src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2074&auto=format&fit=crop",

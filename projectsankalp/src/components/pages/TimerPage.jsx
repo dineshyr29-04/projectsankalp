@@ -169,9 +169,7 @@ export default function TimerPage({ onBack }) {
         </button>
 
         <div className="text-right">
-          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 block mb-2">
-            System Status
-          </span>
+          
           <span className="text-2xl font-sans font-black tracking-widest uppercase">
             {isActive ? "Mission Active" : "System Standby"}
           </span>
