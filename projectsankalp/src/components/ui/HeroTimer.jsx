@@ -105,6 +105,7 @@ export default function HeroTimer() {
     minutes: "00",
     seconds: "00",
   });
+  const [isExpired, setIsExpired] = useState(false);
 
   // Listen to Firestore settings/timer document
   useEffect(() => {
@@ -147,7 +148,13 @@ export default function HeroTimer() {
       const updateDefaultTimer = () => {
         const now = Date.now();
         const distance = TARGET_DATE.getTime() - now;
-        setTimeLeft(formatTime(distance));
+        if (distance <= 0) {
+          setIsExpired(true);
+          setTimeLeft({ days: "00", hours: "00", minutes: "00", seconds: "00" });
+        } else {
+          setIsExpired(false);
+          setTimeLeft(formatTime(distance));
+        }
       };
       updateDefaultTimer();
       const interval = setInterval(updateDefaultTimer, 1000);
@@ -156,6 +163,7 @@ export default function HeroTimer() {
 
     // If active but paused, show frozen remaining time
     if (dbState.isPaused) {
+      setIsExpired(dbState.remainingTime <= 0);
       setTimeLeft(formatTime(dbState.remainingTime));
       return;
     }
@@ -165,8 +173,10 @@ export default function HeroTimer() {
       const now = Date.now();
       const distance = dbState.targetDate - now;
       if (distance <= 0) {
+        setIsExpired(true);
         setTimeLeft({ days: "00", hours: "00", minutes: "00", seconds: "00" });
       } else {
+        setIsExpired(false);
         setTimeLeft(formatTime(distance));
       }
     };
@@ -193,15 +203,33 @@ export default function HeroTimer() {
         }}
       />
 
-      <div className="relative z-10 px-4 sm:px-8 md:px-16 py-4 sm:py-6 md:py-8 flex items-center justify-center gap-2 sm:gap-3 md:gap-14">
-        <TimeUnit value={timeLeft.days} label="Days" />
-        <div className="h-6 sm:h-7 md:h-10 w-px bg-slate-900/10" />
-        <TimeUnit value={timeLeft.hours} label="Hours" />
-        <div className="h-6 sm:h-7 md:h-10 w-px bg-slate-900/10" />
-        <TimeUnit value={timeLeft.minutes} label="Minutes" />
-        <div className="h-6 sm:h-7 md:h-10 w-px bg-slate-900/10" />
-        <TimeUnit value={timeLeft.seconds} label="Seconds" />
-      </div>
+      {isExpired ? (
+        <div className="relative z-10 px-8 sm:px-12 md:px-20 py-6 sm:py-8 md:py-10 flex flex-col items-center justify-center text-center">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex flex-col items-center gap-2"
+          >
+            <span className="text-xl sm:text-2xl md:text-3xl font-serif font-black tracking-wider text-slate-800 bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-700 bg-clip-text text-transparent animate-pulse uppercase italic">
+              Precious Time Finished
+            </span>
+            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] text-emerald-600/90">
+              Ready for Presentation
+            </span>
+          </motion.div>
+        </div>
+      ) : (
+        <div className="relative z-10 px-4 sm:px-8 md:px-16 py-4 sm:py-6 md:py-8 flex items-center justify-center gap-2 sm:gap-3 md:gap-14">
+          <TimeUnit value={timeLeft.days} label="Days" />
+          <div className="h-6 sm:h-7 md:h-10 w-px bg-slate-900/10" />
+          <TimeUnit value={timeLeft.hours} label="Hours" />
+          <div className="h-6 sm:h-7 md:h-10 w-px bg-slate-900/10" />
+          <TimeUnit value={timeLeft.minutes} label="Minutes" />
+          <div className="h-6 sm:h-7 md:h-10 w-px bg-slate-900/10" />
+          <TimeUnit value={timeLeft.seconds} label="Seconds" />
+        </div>
+      )}
     </motion.div>
   );
 }

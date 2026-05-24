@@ -91,6 +91,7 @@ export default function TimerPage({ onBack }) {
   const [isPaused, setIsPaused] = useState(false);
   const [targetDate, setTargetDate] = useState(null);
   const [remainingTime, setRemainingTime] = useState(0);
+  const [isExpired, setIsExpired] = useState(false);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -119,14 +120,14 @@ export default function TimerPage({ onBack }) {
   }, []);
 
   const handleStart = async () => {
-    const target = new Date("2026-05-25T11:00:00+05:30").getTime();
-    const remainingTime = Math.max(0, target - Date.now());
+    const twentyFourHours = 24 * 60 * 60 * 1000;
+    const target = Date.now() + twentyFourHours;
     try {
       await setDoc(doc(db, "settings", "timer"), {
         isActive: true,
         isPaused: false,
         targetDate: target,
-        remainingTime: remainingTime,
+        remainingTime: twentyFourHours,
       });
     } catch (error) {
       console.error("Failed to start timer in Firebase:", error);
@@ -188,11 +189,13 @@ export default function TimerPage({ onBack }) {
     };
 
     if (!isActive || !targetDate) {
+      setIsExpired(false);
       setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       return;
     }
 
     if (isPaused) {
+      setIsExpired(remainingTime <= 0);
       setTimeLeft(formatTime(remainingTime));
       return;
     }
@@ -202,15 +205,10 @@ export default function TimerPage({ onBack }) {
       const distance = targetDate - now;
 
       if (distance <= 0) {
+        setIsExpired(true);
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        // Auto reset to standby in database when expired
-        setDoc(doc(db, "settings", "timer"), {
-          isActive: false,
-          isPaused: false,
-          targetDate: null,
-          remainingTime: 0,
-        }).catch((err) => console.error("Error auto-resetting expired timer:", err));
       } else {
+        setIsExpired(false);
         setTimeLeft(formatTime(distance));
       }
     };
@@ -244,19 +242,34 @@ export default function TimerPage({ onBack }) {
 
       {/* Main Timer Display */}
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-10">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="relative flex items-center justify-center gap-4 md:gap-8 lg:gap-10"
-        >
-          <TimeUnit value={timeLeft.days} label="Days" />
-          <div className="h-[9vh] w-px bg-white/10 " />
-          <TimeUnit value={timeLeft.hours} label="Hours" />
-          <div className="h-[9vh] w-px bg-white/10" />
-          <TimeUnit value={timeLeft.minutes} label="Min" />
-          <div className="h-[9vh] w-px bg-white/10" />
-          <TimeUnit value={timeLeft.seconds} label="Sec" />
-        </motion.div>
+        {isExpired ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex flex-col items-center justify-center text-center gap-6"
+          >
+            <span className="text-[6vw] font-mono font-black uppercase tracking-widest text-emerald-500 animate-pulse">
+              Precious Time Finished
+            </span>
+            <span className="text-[2vw] font-sans font-black uppercase tracking-[0.4em] text-white/55">
+              Ready for Presentation
+            </span>
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="relative flex items-center justify-center gap-4 md:gap-8 lg:gap-10"
+          >
+            <TimeUnit value={timeLeft.days} label="Days" />
+            <div className="h-[9vh] w-px bg-white/10 " />
+            <TimeUnit value={timeLeft.hours} label="Hours" />
+            <div className="h-[9vh] w-px bg-white/10" />
+            <TimeUnit value={timeLeft.minutes} label="Min" />
+            <div className="h-[9vh] w-px bg-white/10" />
+            <TimeUnit value={timeLeft.seconds} label="Sec" />
+          </motion.div>
+        )}
 
         {/* Controls */}
         <div className="mt-20 flex flex-col items-center gap-10">
@@ -279,6 +292,8 @@ export default function TimerPage({ onBack }) {
                   </div>
                   <div className="absolute inset-0 bg-emerald-500 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                 </motion.button>
+              ) : isExpired ? (
+                null
               ) : isPaused ? (
                 <motion.button
                   key="resume"
