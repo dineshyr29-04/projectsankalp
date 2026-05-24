@@ -119,14 +119,14 @@ export default function TimerPage({ onBack }) {
   }, []);
 
   const handleStart = async () => {
-    const twentyFourHours = 24 * 60 * 60 * 1000;
-    const target = Date.now() + twentyFourHours;
+    const target = new Date("2026-05-25T11:00:00+05:30").getTime();
+    const remainingTime = Math.max(0, target - Date.now());
     try {
       await setDoc(doc(db, "settings", "timer"), {
         isActive: true,
         isPaused: false,
         targetDate: target,
-        remainingTime: twentyFourHours,
+        remainingTime: remainingTime,
       });
     } catch (error) {
       console.error("Failed to start timer in Firebase:", error);
@@ -231,12 +231,7 @@ export default function TimerPage({ onBack }) {
           onClick={onBack}
           className="group flex items-center gap-4 text-white/40 hover:text-white transition-all"
         >
-          <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
-            <ChevronLeft size={20} />
-          </div>
-          <span className="text-[10px] font-black uppercase tracking-[0.4em]">
-            Abort Mission
-          </span>
+          
         </button>
 
         <div className="text-right">

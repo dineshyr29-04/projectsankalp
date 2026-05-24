@@ -90,7 +90,7 @@ const TimeUnit = ({ value, label }) => {
   );
 };
 
-const TARGET_DATE = new Date("2026-05-25T00:00:00+05:30");
+const TARGET_DATE = new Date("2026-05-25T11:00:00+05:30");
 
 export default function HeroTimer() {
   const [dbState, setDbState] = useState({
