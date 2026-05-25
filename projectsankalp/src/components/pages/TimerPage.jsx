@@ -223,13 +223,7 @@ export default function TimerPage({ onBack }) {
     <div className="min-h-screen bg-black text-white overflow-hidden relative flex flex-col">
       {/* Header Info */}
       <div className="relative z-20 p-8 flex justify-between items-start">
-        <button
-          onClick={onBack}
-          className="group flex items-center gap-4 text-white/40 hover:text-white transition-all cursor-pointer"
-        >
-          <ChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="text-xs font-black uppercase tracking-[0.3em]">Back</span>
-        </button>
+        
       </div>
 
       {/* Secret Reset Button in Top Right Corner */}
@@ -309,5 +303,5 @@ export default function TimerPage({ onBack }) {
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black,transparent)]" />
       </div>
     </div>
-  );
+    );
 }
