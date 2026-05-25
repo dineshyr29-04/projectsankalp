@@ -91,12 +91,14 @@ export default function TimerPage() {
   const [targetDate, setTargetDate] = useState(null);
   const [remainingTime, setRemainingTime] = useState(0);
   const [isExpired, setIsExpired] = useState(false);
+  const [launchCountdown, setLaunchCountdown] = useState(null);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
+  const launchIntervalRef = useRef(null);
 
   // Listen to Firestore settings/timer document
   useEffect(() => {
@@ -118,6 +120,14 @@ export default function TimerPage() {
     return () => unsub();
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (launchIntervalRef.current) {
+        clearInterval(launchIntervalRef.current);
+      }
+    };
+  }, []);
+
   const handleStart = async () => {
     const twentyFourHours = 24 * 60 * 60 * 1000;
     const target = Date.now() + twentyFourHours;
@@ -131,6 +141,29 @@ export default function TimerPage() {
     } catch (error) {
       console.error("Failed to start timer in Firebase:", error);
     }
+  };
+
+  const handleLaunchStart = () => {
+    if (isActive || launchCountdown !== null) return;
+
+    const sequence = [3, 2, 1];
+    let index = 0;
+
+    setLaunchCountdown(sequence[index]);
+
+    launchIntervalRef.current = setInterval(() => {
+      index += 1;
+
+      if (index < sequence.length) {
+        setLaunchCountdown(sequence[index]);
+        return;
+      }
+
+      clearInterval(launchIntervalRef.current);
+      launchIntervalRef.current = null;
+      setLaunchCountdown(null);
+      handleStart();
+    }, 1000);
   };
 
   const handlePause = async () => {
@@ -224,108 +257,89 @@ export default function TimerPage() {
 
       {/* Header Controls */}
       <div className="relative z-20 p-8 flex justify-end items-start">
-        <div className="text-right">
-          <div className="flex items-center gap-6">
-            <AnimatePresence mode="wait">
-              {!isActive ? (
-                <motion.button
-                  key="start"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  onClick={handleStart}
-                  className="group relative px-20 py-8 bg-white text-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95"
-                >
-                  <div className="relative z-10 flex items-center gap-4">
-                    <Play size={24} fill="black" />
-                    <span className="text-sm font-black uppercase tracking-[0.5em]">
-                      Start Mission
-                    </span>
-                  </div>
-                  <div className="absolute inset-0 bg-emerald-500 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                </motion.button>
-              ) : isPaused ? (
-                <motion.button
-                  key="resume"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  onClick={handleResume}
-                  className="group relative px-20 py-8 bg-emerald-500 text-white rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(16,185,129,0.3)]"
-                >
-                  <div className="relative z-10 flex items-center gap-4">
-                    <Play size={24} fill="white" />
-                    <span className="text-sm font-black uppercase tracking-[0.5em]">
-                      Resume Mission
-                    </span>
-                  </div>
-                </motion.button>
-              ) : (
-                <motion.button
-                  key="pause"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  onClick={handlePause}
-                  className="group relative px-20 py-8 bg-white/10 text-white rounded-full border border-white/20 overflow-hidden transition-all hover:bg-white/20 active:scale-95"
-                >
-                  <div className="relative z-10 flex items-center gap-4">
-                    <Pause size={24} fill="white" />
-                    <span className="text-sm font-black uppercase tracking-[0.5em]">
-                      Stop Mission
-                    </span>
-                  </div>
-                </motion.button>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {isActive && (
+        {isActive && (
+          <div className="ml-auto text-right">
             <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               onClick={handleReset}
-              className="group mt-6 flex items-center justify-end gap-4 text-white/20 hover:text-white transition-all"
+              className="group flex items-center justify-end gap-4 text-white/20 hover:text-white transition-all"
             >
               <RotateCcw className="group-hover:rotate-180 transition-all duration-700" />
               <span className="text-[10px] font-black uppercase tracking-[0.4em]">
                 Full Reset Console
               </span>
             </motion.button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Main Timer Display */}
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-10">
-        {isExpired ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center justify-center text-center gap-6"
-          >
-            <span className="text-[6vw] font-mono font-black uppercase tracking-widest text-emerald-500 animate-pulse">
-              Precious Time Finished
-            </span>
-            <span className="text-[2vw] font-sans font-black uppercase tracking-[0.4em] text-white/55">
-              Ready for Presentation
-            </span>
-          </motion.div>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="relative flex items-center justify-center gap-4 md:gap-8 lg:gap-10"
-          >
-            <TimeUnit value={timeLeft.days} label="Days" />
-            <div className="h-[9vh] w-px bg-white/10 " />
-            <TimeUnit value={timeLeft.hours} label="Hours" />
-            <div className="h-[9vh] w-px bg-white/10" />
-            <TimeUnit value={timeLeft.minutes} label="Min" />
-            <div className="h-[9vh] w-px bg-white/10" />
-            <TimeUnit value={timeLeft.seconds} label="Sec" />
-          </motion.div>
-        )}
+        <div className="flex flex-col items-center justify-center gap-10">
+          {launchCountdown !== null ? (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={launchCountdown}
+                initial={{ opacity: 0, scale: 0.6, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.2, y: -20 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="flex h-[40vh] items-center justify-center"
+              >
+                <span className="text-[24vw] leading-none font-black font-mono text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.12)]">
+                  {launchCountdown}
+                </span>
+              </motion.div>
+            </AnimatePresence>
+          ) : isExpired ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex flex-col items-center justify-center text-center gap-6"
+            >
+              <span className="text-[6vw] font-mono font-black uppercase tracking-widest text-emerald-500 animate-pulse">
+                Precious Time Finished
+              </span>
+              <span className="text-[2vw] font-sans font-black uppercase tracking-[0.4em] text-white/55">
+                Ready for Presentation
+              </span>
+            </motion.div>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="relative flex items-center justify-center gap-4 md:gap-8 lg:gap-10"
+            >
+              <TimeUnit value={timeLeft.days} label="Days" />
+              <div className="h-[9vh] w-px bg-white/10 " />
+              <TimeUnit value={timeLeft.hours} label="Hours" />
+              <div className="h-[9vh] w-px bg-white/10" />
+              <TimeUnit value={timeLeft.minutes} label="Min" />
+              <div className="h-[9vh] w-px bg-white/10" />
+              <TimeUnit value={timeLeft.seconds} label="Sec" />
+            </motion.div>
+          )}
+
+          {!isActive && launchCountdown === null && (
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleLaunchStart}
+              className="group relative px-20 py-8 bg-white text-black rounded-full overflow-hidden transition-all shadow-[0_20px_60px_rgba(255,255,255,0.08)]"
+            >
+              <div className="relative z-10 flex items-center gap-4">
+                <Play size={24} fill="black" />
+                <span className="text-sm font-black uppercase tracking-[0.5em]">
+                  Start Mission
+                </span>
+              </div>
+              <div className="absolute inset-0 bg-emerald-500 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+            </motion.button>
+          )}
+        </div>
       </div>
 
       {/* Decorative Background Elements */}
