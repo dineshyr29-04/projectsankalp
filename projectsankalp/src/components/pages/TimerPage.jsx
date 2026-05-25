@@ -320,8 +320,6 @@ export default function TimerPage() {
               animate={{ opacity: 1, scale: 1 }}
               className="relative flex items-center justify-center gap-4 md:gap-8 lg:gap-10"
             >
-              <TimeUnit value={timeLeft.days} label="Days" />
-              <div className="h-[9vh] w-px bg-white/10 " />
               <TimeUnit value={timeLeft.hours} label="Hours" />
               <div className="h-[9vh] w-px bg-white/10" />
               <TimeUnit value={timeLeft.minutes} label="Min" />
