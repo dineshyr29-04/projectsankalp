@@ -1,7 +1,6 @@
 import { useState, useEffect, memo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Pause, RotateCcw, ChevronLeft } from "lucide-react";
-import Container from "../core/Container";
+import { Play, Pause, RotateCcw } from "lucide-react";
 import { db } from "../../lib/firebase";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 
@@ -86,7 +85,7 @@ const TimeUnit = ({ value, label }) => {
   );
 };
 
-export default function TimerPage({ onBack }) {
+export default function TimerPage() {
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [targetDate, setTargetDate] = useState(null);
@@ -221,19 +220,81 @@ export default function TimerPage({ onBack }) {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative flex flex-col">
-      {/* Header Info */}
-      <div className="relative z-20 p-8 flex justify-between items-start">
-        
-      </div>
+      <GlassFilter />
 
-      {/* Secret Reset Button in Top Right Corner */}
-      {isActive && (
-        <button
-          onClick={handleReset}
-          className="fixed top-0 right-0 w-24 h-24 opacity-0 cursor-pointer focus:outline-none z-50"
-          title="Secret Reset"
-        />
-      )}
+      {/* Header Controls */}
+      <div className="relative z-20 p-8 flex justify-end items-start">
+        <div className="text-right">
+          <div className="flex items-center gap-6">
+            <AnimatePresence mode="wait">
+              {!isActive ? (
+                <motion.button
+                  key="start"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  onClick={handleStart}
+                  className="group relative px-20 py-8 bg-white text-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95"
+                >
+                  <div className="relative z-10 flex items-center gap-4">
+                    <Play size={24} fill="black" />
+                    <span className="text-sm font-black uppercase tracking-[0.5em]">
+                      Start Mission
+                    </span>
+                  </div>
+                  <div className="absolute inset-0 bg-emerald-500 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                </motion.button>
+              ) : isPaused ? (
+                <motion.button
+                  key="resume"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  onClick={handleResume}
+                  className="group relative px-20 py-8 bg-emerald-500 text-white rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(16,185,129,0.3)]"
+                >
+                  <div className="relative z-10 flex items-center gap-4">
+                    <Play size={24} fill="white" />
+                    <span className="text-sm font-black uppercase tracking-[0.5em]">
+                      Resume Mission
+                    </span>
+                  </div>
+                </motion.button>
+              ) : (
+                <motion.button
+                  key="pause"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  onClick={handlePause}
+                  className="group relative px-20 py-8 bg-white/10 text-white rounded-full border border-white/20 overflow-hidden transition-all hover:bg-white/20 active:scale-95"
+                >
+                  <div className="relative z-10 flex items-center gap-4">
+                    <Pause size={24} fill="white" />
+                    <span className="text-sm font-black uppercase tracking-[0.5em]">
+                      Stop Mission
+                    </span>
+                  </div>
+                </motion.button>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {isActive && (
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              onClick={handleReset}
+              className="group mt-6 flex items-center justify-end gap-4 text-white/20 hover:text-white transition-all"
+            >
+              <RotateCcw className="group-hover:rotate-180 transition-all duration-700" />
+              <span className="text-[10px] font-black uppercase tracking-[0.4em]">
+                Full Reset Console
+              </span>
+            </motion.button>
+          )}
+        </div>
+      </div>
 
       {/* Main Timer Display */}
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-10">
@@ -265,36 +326,6 @@ export default function TimerPage({ onBack }) {
             <TimeUnit value={timeLeft.seconds} label="Sec" />
           </motion.div>
         )}
-      </div>
-
-      {/* Secret Controls in Bottom Right Corner */}
-      <div className="fixed bottom-0 right-0 w-24 h-24 z-50">
-        <AnimatePresence mode="wait">
-          {!isActive ? (
-            <motion.button
-              key="start-secret"
-              onClick={handleStart}
-              className="w-full h-full opacity-0 cursor-pointer focus:outline-none"
-              title="Secret Start"
-            />
-          ) : isExpired ? (
-            null
-          ) : isPaused ? (
-            <motion.button
-              key="resume-secret"
-              onClick={handleResume}
-              className="w-full h-full opacity-0 cursor-pointer focus:outline-none"
-              title="Secret Resume"
-            />
-          ) : (
-            <motion.button
-              key="pause-secret"
-              onClick={handlePause}
-              className="w-full h-full opacity-0 cursor-pointer focus:outline-none"
-              title="Secret Stop"
-            />
-          )}
-        </AnimatePresence>
       </div>
 
       {/* Decorative Background Elements */}
