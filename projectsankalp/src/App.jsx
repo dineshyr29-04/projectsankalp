@@ -165,8 +165,12 @@ function App() {
       <Analytics />
       <SpeedInsights />
       <div className="flex flex-col min-h-screen">
-        <Navbar currentView={currentView} onNavigate={navigate} />
-        <BackToTop />
+        {currentView !== "timer" && (
+          <>
+            <Navbar currentView={currentView} onNavigate={navigate} />
+            <BackToTop />
+          </>
+        )}
 
         <main className="flex-grow">
           <Suspense

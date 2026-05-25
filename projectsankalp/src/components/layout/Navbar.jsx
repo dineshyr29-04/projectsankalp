@@ -29,6 +29,7 @@ const NavIcon = ({ icon: Icon, active = false, className = "" }) => (
 export default function Navbar({ onNavigate, currentView }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const isLanding = currentView === "landing";
+  const isTimerView = currentView === "timer";
 
   const menuItems = [
     { name: "About", href: "#about", icon: User },
@@ -83,7 +84,7 @@ export default function Navbar({ onNavigate, currentView }) {
   return (
     <div className="fixed top-6 left-6 md:top-8 md:left-8 z-[100] pointer-events-none">
       <div className="hidden md:flex flex-col items-center pointer-events-auto gap-4">
-        {!isLanding ? (
+        {!isLanding && !isTimerView ? (
           <motion.button
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -160,7 +161,7 @@ export default function Navbar({ onNavigate, currentView }) {
       </div>
 
       <div className="md:hidden pointer-events-auto">
-        {!isLanding ? (
+        {!isLanding && !isTimerView ? (
           <motion.button
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
