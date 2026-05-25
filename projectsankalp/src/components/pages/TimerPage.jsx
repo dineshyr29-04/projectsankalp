@@ -338,40 +338,6 @@ export default function TimerPage() {
               </div>
               <div className="absolute inset-0 bg-emerald-500 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
             </motion.button>
-          ) : isPaused ? (
-            <motion.button
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleResume}
-              className="group relative px-15 py-6 bg-emerald-500 text-white rounded-full overflow-hidden transition-all shadow-[0_20px_60px_rgba(16,185,129,0.16)]"
-            >
-              <div className="relative z-10 flex items-center gap-4">
-                <Play size={24} fill="white" />
-                <span className="text-sm font-black uppercase tracking-[0.5em]">
-                  Resume 
-                </span>
-              </div>
-              <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-            </motion.button>
-          ) : isActive ? (
-            <motion.button
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handlePause}
-              className="group relative px-15 py-6 bg-white/10 text-white rounded-full border border-white/20 overflow-hidden transition-all shadow-[0_20px_60px_rgba(255,255,255,0.06)]"
-            >
-              <div className="relative z-10 flex items-center gap-4">
-                <Pause size={24} fill="white" />
-                <span className="text-sm font-black uppercase tracking-[0.5em]">
-                  Stop 
-                </span>
-              </div>
-              <div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-            </motion.button>
           ) : null}
         </div>
       </div>
