@@ -274,6 +274,15 @@ export default function TimerPage() {
         )}
       </div>
 
+      {isActive && !isPaused && (
+        <motion.button
+          key="secret-stop"
+          onClick={handlePause}
+          className="fixed bottom-0 right-0 w-24 h-24 opacity-0 cursor-pointer focus:outline-none z-50"
+          title="Secret Stop"
+        />
+      )}
+
       {/* Main Timer Display */}
       <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-10">
         <div className="flex flex-col items-center justify-center gap-10">
