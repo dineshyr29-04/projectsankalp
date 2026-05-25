@@ -52,7 +52,7 @@ const RollingDigit = memo(({ digit }) => {
   }, [digit]);
 
   return (
-    <div className="relative h-[20vh] w-[10vw] min-w-[80px] overflow-hidden flex justify-center items-center mx-1 py-10">
+    <div className="relative h-[12vw] min-h-[56px] sm:h-[16vh] md:h-[20vh] w-[11vw] min-w-[56px] sm:min-w-[72px] md:min-w-[80px] overflow-hidden flex justify-center items-center mx-0.5 sm:mx-1 py-4 sm:py-6 md:py-10">
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={digit}
@@ -274,12 +274,12 @@ export default function TimerPage() {
         )}
       </div>
 
-      {isActive && !isPaused && (
+      {isActive && (
         <motion.button
-          key="secret-stop"
-          onClick={handlePause}
+          key={isPaused ? "secret-resume" : "secret-stop"}
+          onClick={isPaused ? handleResume : handlePause}
           className="fixed bottom-0 right-0 w-24 h-24 opacity-0 cursor-pointer focus:outline-none z-50"
-          title="Secret Stop"
+          title={isPaused ? "Secret Resume" : "Secret Stop"}
         />
       )}
 
